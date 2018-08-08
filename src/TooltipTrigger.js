@@ -13,7 +13,8 @@ import Tooltip from './Tooltip';
 const AVG_REACTION_TIME = 250;
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
-    boundariesElement: 'viewport'
+    boundariesElement: 'viewport',
+    padding: 0
   }
 };
 
