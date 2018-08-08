@@ -12,7 +12,10 @@
     "prepare": "babel src -d dist"
   },
   "keywords": [
+    "react",
     "tooltip",
+    "popover",
+    "overlay",
     "react-tooltip",
     "react-popper"
   ],
