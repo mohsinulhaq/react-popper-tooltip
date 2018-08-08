@@ -3,6 +3,10 @@
   "version": "1.0.2",
   "description": "React tooltip library built around react-popper",
   "homepage": "https://codesandbox.io/s/pykkz77z5j",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/mohsinulhaq/react-popper-tooltip"
+  },
   "main": "dist/index.js",
   "scripts": {
     "prepare": "babel src -d dist"
