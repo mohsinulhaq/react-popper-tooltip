@@ -1,0 +1,36 @@
+{
+  "name": "react-popper-tooltip",
+  "version": "1.0.0",
+  "description": "React tooltip library built around react-popper",
+  "homepage": "https://codesandbox.io/s/pykkz77z5j",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepare": "babel src -d dist"
+  },
+  "keywords": [
+    "tooltip",
+    "react-tooltip",
+    "react-popper"
+  ],
+  "author": "Mohsin Ul Haq <mohsinulhaq01@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "emotion": "^9.2.6",
+    "lodash": "^4.17.10",
+    "prop-types": "^15.6.2",
+    "react-emotion": "^9.2.6",
+    "react-popper": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.3",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
