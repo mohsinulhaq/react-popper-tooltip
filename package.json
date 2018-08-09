@@ -9,7 +9,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "prepare": "babel src -d dist"
+    "prepare": "babel src -d dist -s"
   },
   "keywords": [
     "react",

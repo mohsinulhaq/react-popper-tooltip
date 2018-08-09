@@ -101,7 +101,7 @@ export default class TooltipTrigger extends PureComponent {
   };
 
   state = {
-    tooltipShown: this.props.isOpen
+    tooltipShown: this.props.isTooltipShown
   };
 
   showTooltip = () => this.setState({ tooltipShown: true });
