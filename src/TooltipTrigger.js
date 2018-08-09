@@ -93,7 +93,7 @@ export default class TooltipTrigger extends PureComponent {
   static defaultProps = {
     delayShow: 0,
     delayHide: 0,
-    isOpen: false,
+    isTooltipShown: false,
     showArrow: true,
     placement: 'right',
     trigger: 'hover',
