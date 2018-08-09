@@ -47,7 +47,11 @@ React tooltip component based on react-popper
     /**
      * whether tooltip is shown by default
      */
-    isTooltipShown: T.bool,
+    defaultTooltipShown: T.bool,
+    /**
+     * use to create controlled tooltip
+     */
+    tooltipShown: T.bool,
     /**
      * delay in showing the tooltip
      */

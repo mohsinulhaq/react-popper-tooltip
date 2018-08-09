@@ -49,7 +49,11 @@ export default class TooltipTrigger extends PureComponent {
     /**
      * whether tooltip is shown by default
      */
-    isTooltipShown: T.bool,
+    defaultTooltipShown: T.bool,
+    /**
+     * use to create controlled tooltip
+     */
+    tooltipShown: T.bool,
     /**
      * delay in showing the tooltip
      */
@@ -93,7 +97,7 @@ export default class TooltipTrigger extends PureComponent {
   static defaultProps = {
     delayShow: 0,
     delayHide: 0,
-    isTooltipShown: false,
+    defaultTooltipShown: false,
     showArrow: true,
     placement: 'right',
     trigger: 'hover',
@@ -101,7 +105,7 @@ export default class TooltipTrigger extends PureComponent {
   };
 
   state = {
-    tooltipShown: this.props.isTooltipShown
+    tooltipShown: this.props.defaultTooltipShown
   };
 
   showTooltip = () => this.setState({ tooltipShown: true });
@@ -142,6 +146,11 @@ export default class TooltipTrigger extends PureComponent {
       this._scheduleShow(event);
     }
   };
+
+  static getDerivedStateFromProps(props) {
+    const { tooltipShown } = props;
+    return tooltipShown != null ? { tooltipShown } : null;
+  }
 
   componentWillUnmount() {
     this._clearScheduled();
