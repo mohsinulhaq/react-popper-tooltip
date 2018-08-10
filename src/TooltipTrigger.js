@@ -131,6 +131,13 @@ export default class TooltipTrigger extends PureComponent {
     this.setState({ tooltipShown: false });
   };
 
+  toggleTooltip = () => {
+    this._clearScheduled();
+    this.setState(prevState => ({
+      tooltipShown: !prevState.tooltipShown
+    }));
+  };
+
   scheduleShow = event => {
     event.preventDefault();
     this._clearScheduled();
@@ -146,11 +153,8 @@ export default class TooltipTrigger extends PureComponent {
   };
 
   scheduleToggle = event => {
-    if (this.state.tooltipShown) {
-      this.scheduleHide(event);
-    } else {
-      this.scheduleShow(event);
-    }
+    const action = this.state.tooltipShown ? 'scheduleHide' : 'scheduleShow';
+    this[action](event);
   };
 
   static getDerivedStateFromProps(props) {

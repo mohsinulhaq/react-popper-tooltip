@@ -92,6 +92,13 @@ React tooltip component based on react-popper
     modifiers: T.object
 }
 ```
+You also have the ability to attach ref to the `TooltipTrigger` component which exposes following methods for programmatic control of the tooltip:
+- `showTooltip` (show immediately)
+- `hideTooltip` (hide immediately)
+- `toggleTooltip` (toggle immediately)
+- `scheduleShow` (show respecting delayShow prop)
+- `scheduleHide` (hide respecting delayHide prop)
+- `scheduleToggle` (toggle respecting delayShow and delayHide props)
 
 ## Example
 https://codesandbox.io/s/pykkz77z5j
