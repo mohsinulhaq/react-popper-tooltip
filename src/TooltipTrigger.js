@@ -28,7 +28,7 @@ export default class TooltipTrigger extends PureComponent {
     /**
      * tooltip
      */
-    tooltip: T.node.isRequired,
+    tooltip: T.func.isRequired,
     /**
      * whether tooltip is shown by default
      */
