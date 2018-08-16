@@ -4,9 +4,8 @@
 import React, { PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import T from 'prop-types';
-import cn from 'classnames';
 import { Manager, Reference, Popper } from 'react-popper';
-import { renderSlot } from './utils';
+import { callAll } from './utils';
 
 import Tooltip from './Tooltip';
 
@@ -25,27 +24,11 @@ export default class TooltipTrigger extends PureComponent {
     /**
      * trigger
      */
-    children: T.node.isRequired,
+    children: T.func.isRequired,
     /**
      * tooltip
      */
-    tooltip: T.node.isRequired,
-    /**
-     * class to be applied to trigger container span
-     */
-    triggerClassName: T.string,
-    /**
-     * style to be applied on trigger container span
-     */
-    triggerStyle: T.object,
-    /**
-     * class to be applied to tooltip container span
-     */
-    tooltipClassName: T.string,
-    /**
-     * style to be applied on tooltip container span
-     */
-    tooltipStyle: T.object,
+    tooltip: T.func.isRequired,
     /**
      * whether tooltip is shown by default
      */
@@ -166,6 +149,30 @@ export default class TooltipTrigger extends PureComponent {
     this._clearScheduled();
   }
 
+  getTriggerProps = ref => (props = {}) => {
+    const isClickTriggered = this.props.trigger === 'click';
+    const isHoverTriggered = this.props.trigger === 'hover';
+    const isRightClickTriggered = this.props.trigger === 'right-click';
+
+    return {
+      ...props,
+      ref,
+      onClick: callAll(isClickTriggered && this.scheduleToggle, props.onClick),
+      onContextMenu: callAll(
+        isRightClickTriggered && this.scheduleToggle,
+        props.onContextMenu
+      ),
+      onMouseEnter: callAll(
+        isHoverTriggered && this.scheduleShow,
+        props.onMouseEnter
+      ),
+      onMouseLeave: callAll(
+        isHoverTriggered && this.scheduleHide,
+        props.onMouseLeave
+      )
+    };
+  };
+
   render() {
     const {
       children,
@@ -174,36 +181,15 @@ export default class TooltipTrigger extends PureComponent {
       showArrow,
       trigger,
       modifiers,
-      triggerClassName,
-      triggerStyle,
-      tooltipClassName,
-      tooltipStyle,
       closeOnOutOfBoundaries
     } = this.props;
-    const isClickTriggered = trigger === 'click';
-    const isHoverTriggered = trigger === 'hover';
-    const isRightClickTriggered = trigger === 'right-click';
-
-    const eventHandlers = {
-      onClick: isClickTriggered ? this.scheduleToggle : undefined,
-      onContextMenu: isRightClickTriggered ? this.scheduleToggle : undefined,
-      onMouseEnter: isHoverTriggered ? this.scheduleShow : undefined,
-      onMouseLeave: isHoverTriggered ? this.scheduleHide : undefined
-    };
 
     return (
       <Manager>
         <Reference>
-          {({ ref }) => (
-            <span
-              ref={ref}
-              className={cn('trigger', triggerClassName)}
-              style={triggerStyle}
-              {...eventHandlers}
-            >
-              {renderSlot(children)}
-            </span>
-          )}
+          {({ ref }) =>
+            children({ getTriggerProps: this.getTriggerProps(ref) })
+          }
         </Reference>
         {this.state.tooltipShown &&
           createPortal(
@@ -233,8 +219,6 @@ export default class TooltipTrigger extends PureComponent {
                         placement,
                         trigger,
                         closeOnOutOfBoundaries,
-                        tooltipClassName,
-                        tooltipStyle,
                         tooltip,
                         addParentOutsideClickHandler,
                         removeParentOutsideClickHandler,

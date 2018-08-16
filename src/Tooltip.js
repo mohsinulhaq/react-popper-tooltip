@@ -4,7 +4,7 @@ import T from 'prop-types';
 import cn from 'classnames';
 
 import { TooltipContext } from './TooltipTrigger';
-import { renderSlot } from './utils';
+import { callAll } from './utils';
 import { TransitionedPopperBox, Arrow } from './TooltipTriggerComponents';
 
 const MUTATION_OBSERVER_CONFIG = {
@@ -25,9 +25,7 @@ export default class Tooltip extends PureComponent {
     trigger: T.string,
     clearScheduled: T.func,
     scheduleHide: T.func,
-    tooltipClassName: T.string,
-    tooltipStyle: T.object,
-    tooltip: T.node,
+    tooltip: T.func,
     hideTooltip: T.func,
     parentOutsideClickHandler: T.func,
     scheduleUpdate: T.func,
@@ -88,57 +86,41 @@ export default class Tooltip extends PureComponent {
     }
   }
 
-  render() {
-    const {
-      innerRef,
-      style,
-      showArrow,
-      arrowProps,
-      placement,
-      trigger,
-      clearScheduled,
-      scheduleHide,
-      tooltipClassName,
-      tooltipStyle,
-      tooltip
-    } = this.props;
+  getTooltipProps = (props = {}) => {
+    const isHoverTriggered = this.props.trigger === 'hover';
 
-    const isHoverTriggered = trigger === 'hover';
-
-    const eventHandlers = {
-      onMouseEnter: isHoverTriggered ? clearScheduled : undefined,
-      onMouseLeave: isHoverTriggered ? scheduleHide : undefined
+    return {
+      ...props,
+      ref: this.props.innerRef,
+      style: { ...props.style, ...this.props.style },
+      onMouseEnter: callAll(
+        isHoverTriggered && clearScheduled,
+        props.onMouseEnter
+      ),
+      onMouseLeave: callAll(
+        isHoverTriggered && scheduleHide,
+        props.onMouseLeave
+      )
     };
+  };
+
+  render() {
+    const { arrowProps, placement, tooltip } = this.props;
 
     return (
-      <TransitionedPopperBox
-        className="tooltip"
-        innerRef={innerRef}
-        style={style}
+      <TooltipContext.Provider
+        value={{
+          addParentOutsideClickHandler: this._addOutsideClickHandler,
+          removeParentOutsideClickHandler: this._removeOutsideClickHandler,
+          parentOutsideClickHandler: this._handleOutsideClick
+        }}
       >
-        {showArrow && (
-          <Arrow
-            innerRef={arrowProps.ref}
-            data-placement={placement}
-            style={arrowProps.style}
-          />
-        )}
-        <span
-          className={cn('tooltip-body', tooltipClassName)}
-          style={tooltipStyle}
-          {...eventHandlers}
-        >
-          <TooltipContext.Provider
-            value={{
-              addParentOutsideClickHandler: this._addOutsideClickHandler,
-              removeParentOutsideClickHandler: this._removeOutsideClickHandler,
-              parentOutsideClickHandler: this._handleOutsideClick
-            }}
-          >
-            {renderSlot(tooltip)}
-          </TooltipContext.Provider>
-        </span>
-      </TransitionedPopperBox>
+        {tooltip({
+          getTooltipProps: this.getTooltipProps,
+          arrowProps,
+          arrowPlacement: placement
+        })}
+      </TooltipContext.Provider>
     );
   }
 }
