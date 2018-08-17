@@ -86,7 +86,6 @@ export default class Tooltip extends PureComponent {
 
     return {
       ...props,
-      ref: this.props.innerRef,
       style: { ...props.style, ...this.props.style },
       onMouseEnter: callAll(
         isHoverTriggered && this.props.clearScheduled,
@@ -100,7 +99,7 @@ export default class Tooltip extends PureComponent {
   };
 
   render() {
-    const { arrowProps, placement, tooltip } = this.props;
+    const { arrowProps, placement, tooltip, innerRef } = this.props;
 
     return (
       <TooltipContext.Provider
@@ -112,7 +111,9 @@ export default class Tooltip extends PureComponent {
       >
         {tooltip({
           getTooltipProps: this.getTooltipProps,
-          arrowProps,
+          tooltipRef: innerRef,
+          arrowStyle: arrowProps.style,
+          arrowRef: arrowProps.ref,
           arrowPlacement: placement
         })}
       </TooltipContext.Provider>

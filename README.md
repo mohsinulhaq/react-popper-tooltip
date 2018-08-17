@@ -175,6 +175,7 @@ yourself to avoid your props being overridden (or overriding the props returned)
 |     property    |      type      |                              description                              |
 |:---------------:|:--------------:|:---------------------------------------------------------------------:|
 | getTriggerProps | `function({})` | returns the props you should apply to the trigger element you render. |
+| ref             | `node`         | returns the react ref you should apply to the trigger element.        |
 
 
 ### tooltip function
@@ -182,7 +183,9 @@ yourself to avoid your props being overridden (or overriding the props returned)
 |     property    |      type      |                              description                              |
 |:---------------:|:--------------:|:---------------------------------------------------------------------:|
 | getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render. |
-| arrowProps      | `object`       | return the props you should apply to the tooltip arrow you render.    |
+| tooltipRef      | `node`         | return the react ref you should apply to the tooltip element.         |
+| arrowStyle      | `object`       | return the styles you should apply to the tooltip arrow style attr.   |
+| arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow you render.|
 | placement       | `string`       | return the placement of the tooltip arrow element.                    |
 
 
@@ -324,18 +327,19 @@ import './styles.scss';
 const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
     {...props}   
-    tooltip={({ getTooltipProps, arrowProps, arrowPlacement }) => (
-      <div className="popperBox" {...getTooltipProps()}>
+    tooltip={({ getTooltipProps, tooltipRef, arrowStyle, arrowRef, arrowPlacement }) => (
+      <div className="popperBox" ref={tooltipRef} {...getTooltipProps()}>
         <div
+          ref={arrowRef}
           className="popperArrow"
-          {...arrowProps}
+          style={arrowStyle}
           data-placement={arrowPlacement}
         />
         {tooltip}
       </div>
     )}
   >
-    {({ getTriggerProps }) => <span {...getTriggerProps()}>{children}</span>}
+    {({ getTriggerProps, ref }) => <span ref={ref} {...getTriggerProps()}>{children}</span>}
   </TooltipTrigger>
 );
 

@@ -143,14 +143,13 @@ export default class TooltipTrigger extends PureComponent {
     this._clearScheduled();
   }
 
-  getTriggerProps = ref => (props = {}) => {
+  getTriggerProps = (props = {}) => {
     const isClickTriggered = this.props.trigger === 'click';
     const isHoverTriggered = this.props.trigger === 'hover';
     const isRightClickTriggered = this.props.trigger === 'right-click';
 
     return {
       ...props,
-      ref,
       onClick: callAll(isClickTriggered && this.scheduleToggle, props.onClick),
       onContextMenu: callAll(
         isRightClickTriggered && this.scheduleToggle,
@@ -181,7 +180,7 @@ export default class TooltipTrigger extends PureComponent {
       <Manager>
         <Reference>
           {({ ref }) =>
-            children({ getTriggerProps: this.getTriggerProps(ref) })
+            children({ getTriggerProps: this.getTriggerProps, ref })
           }
         </Reference>
         {this.state.tooltipShown &&
