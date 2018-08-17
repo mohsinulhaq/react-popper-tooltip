@@ -66,13 +66,13 @@ the section "[Children and tooltip functions](#children-and-tooltip-functions)".
 
 > `boolean` | defaults to `false`
 
-This is the initial visibility 
+This is the initial visibility state of the tooltip.
 
 ### tooltipShown
 
 > `boolean` | **control prop**
 
-Use this prop if you want control visibility of the tooltip.
+Use this prop if you want to control the visibility state of the tooltip.
 
 Package manages its own state internally. You can use this prop to pass the visibility state of the
 tooltip from the outside.
@@ -108,7 +108,7 @@ Each placement can have a variation from this list:
 
 > `string` | defaults to `hover` 
 
-The even that triggers the tooltip. One of `click`, `hover`, `right-click`, `none`.
+The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `none`.
 
 ### closeOnOutOfBoundaries
 
