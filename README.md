@@ -85,7 +85,7 @@ Delay in showing the tooltip (ms).
 
 ### delayHide
 
-> `number` | defaults to `250`
+> `number` | defaults to `0`
 
 Delay in hiding the tooltip (ms).
 

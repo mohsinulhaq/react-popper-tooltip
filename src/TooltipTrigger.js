@@ -74,7 +74,7 @@ export default class TooltipTrigger extends PureComponent {
 
   static defaultProps = {
     delayShow: 0,
-    delayHide: AVG_REACTION_TIME,
+    delayHide: 0,
     defaultTooltipShown: false,
     placement: 'right',
     trigger: 'hover',
