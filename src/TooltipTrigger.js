@@ -6,7 +6,6 @@ import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
 import { callAll } from './utils';
-
 import Tooltip from './Tooltip';
 
 const AVG_REACTION_TIME = 250;
@@ -46,10 +45,6 @@ export default class TooltipTrigger extends PureComponent {
      */
     delayHide: T.number,
     /**
-     * whether to show arrow or not
-     */
-    showArrow: T.bool,
-    /**
      * Popper’s placement. Valid placements are:
      *  - auto
      *  - top
@@ -79,9 +74,8 @@ export default class TooltipTrigger extends PureComponent {
 
   static defaultProps = {
     delayShow: 0,
-    delayHide: 0,
+    delayHide: AVG_REACTION_TIME,
     defaultTooltipShown: false,
-    showArrow: true,
     placement: 'right',
     trigger: 'hover',
     closeOnOutOfBoundaries: true
@@ -178,7 +172,6 @@ export default class TooltipTrigger extends PureComponent {
       children,
       tooltip,
       placement,
-      showArrow,
       trigger,
       modifiers,
       closeOnOutOfBoundaries
@@ -214,7 +207,6 @@ export default class TooltipTrigger extends PureComponent {
                     <Tooltip
                       {...{
                         style,
-                        showArrow,
                         arrowProps,
                         placement,
                         trigger,

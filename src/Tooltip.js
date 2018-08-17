@@ -1,17 +1,13 @@
 import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import T from 'prop-types';
-import cn from 'classnames';
-
 import { TooltipContext } from './TooltipTrigger';
 import { callAll } from './utils';
-import { TransitionedPopperBox, Arrow } from './TooltipTriggerComponents';
 
 const MUTATION_OBSERVER_CONFIG = {
   childList: true,
   subtree: true
 };
-
 /**
  * @private
  */
@@ -19,7 +15,6 @@ export default class Tooltip extends PureComponent {
   static propTypes = {
     innerRef: T.func,
     style: T.object,
-    showArrow: T.bool,
     arrowProps: T.object,
     placement: T.string,
     trigger: T.string,
