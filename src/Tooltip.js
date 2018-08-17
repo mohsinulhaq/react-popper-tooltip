@@ -89,11 +89,11 @@ export default class Tooltip extends PureComponent {
       ref: this.props.innerRef,
       style: { ...props.style, ...this.props.style },
       onMouseEnter: callAll(
-        isHoverTriggered && clearScheduled,
+        isHoverTriggered && this.props.clearScheduled,
         props.onMouseEnter
       ),
       onMouseLeave: callAll(
-        isHoverTriggered && scheduleHide,
+        isHoverTriggered && this.props.scheduleHide,
         props.onMouseLeave
       )
     };
