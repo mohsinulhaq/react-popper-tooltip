@@ -201,7 +201,7 @@ If you don't want to do that, you may use styles, included in the package,
 ```js
 import React from 'react';
 import TooltipTrigger from "react-popper-tooltip";
-import 'react-popper-tooltip/styles.scss';
+import 'react-popper-tooltip/styles.css';
 
 const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
