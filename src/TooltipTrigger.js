@@ -180,7 +180,7 @@ export default class TooltipTrigger extends PureComponent {
       <Manager>
         <Reference>
           {({ ref }) =>
-            children({ getTriggerProps: this.getTriggerProps, ref })
+            children({ getTriggerProps: this.getTriggerProps, triggerRef: ref })
           }
         </Reference>
         {this.state.tooltipShown &&

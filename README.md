@@ -175,7 +175,7 @@ yourself to avoid your props being overridden (or overriding the props returned)
 |     property    |      type      |                              description                              |
 |:---------------:|:--------------:|:---------------------------------------------------------------------:|
 | getTriggerProps | `function({})` | returns the props you should apply to the trigger element you render. |
-| ref             | `node`         | returns the react ref you should apply to the trigger element.        |
+| triggerRef      | `node`         | returns the react ref you should apply to the trigger element.        |
 
 
 ### tooltip function
@@ -191,138 +191,17 @@ yourself to avoid your props being overridden (or overriding the props returned)
 
 ## Quick start
 
-The package itself doesn't provide any styles and doesn't render anything. To start using it you have to provide some default styles and markup for the tooltip to be displayed. If you don't want to do that, you may use styles and layout from the code below.
-
-### styles.scss
-
-<details>
-  <summary>Click to expand</summary>
-
-```scss
-.popperBox {
-  background-color: white;
-  border-radius: 3px;
-  border: 1px solid silver;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0.4rem;
-  transition: opacity 0.3s;
-  z-index: 999;
-}
-
-.popperArrow {
-  height: 1rem;
-  position: absolute;
-  width: 1rem;
-
-  &::before {
-    border-style: solid;
-    content: '';
-    display: block;
-    height: 0;
-    margin: auto;
-    width: 0;
-  }
-  &::after {
-    border-style: solid;
-    content: '';
-    display: block;
-    height: 0;
-    margin: auto;
-    position: absolute;
-    width: 0;
-  }
-
-  &[data-placement*='bottom'] {
-    height: 1rem;
-    left: 0;
-    margin-top: -0.4rem;
-    top: 0;
-    width: 1rem;
-
-    &::before {
-      border-color: transparent transparent silver transparent;
-      border-width: 0 0.5rem 0.4rem 0.5rem;
-      position: absolute;
-      top: -1px;
-    }
-
-    &::after {
-      border-color: transparent transparent white transparent;
-      border-width: 0 0.5rem 0.4rem 0.5rem;
-    }
-  }
-
-  &[data-placement*='top'] {
-    bottom: 0;
-    height: 1rem;
-    left: 0;
-    margin-bottom: -1rem;
-    width: 1rem;
-
-    &::before {
-      border-color: silver transparent transparent transparent;
-      border-width: 0.4rem 0.5rem 0 0.5rem;
-      position: absolute;
-      top: 1px;
-    }
-
-    &::after {
-      border-color: white transparent transparent transparent;
-      border-width: 0.4rem 0.5rem 0 0.5rem;
-    }
-  }
-
-  &[data-placement*='right'] {
-    height: 1rem;
-    left: 0;
-    margin-left: -0.7rem;
-    width: 1rem;
-
-    &::before {
-      border-color: transparent silver transparent transparent;
-      border-width: 0.5rem 0.4rem 0.5rem 0;
-    }
-
-    &::after {
-      border-color: transparent white transparent transparent;
-      border-width: 0.5rem 0.4rem 0.5rem 0;
-      left: 6px;
-      top: 0;
-    }
-  }
-
-  &[data-placement*='left'] {
-    height: 1rem;
-    margin-right: -0.7rem;
-    right: 0;
-    width: 1rem;
-
-    &::before {
-      border-color: transparent transparent transparent silver;
-      border-width: 0.5rem 0 0.5rem 0.4em;
-    }
-
-    &::after {
-      border-color: transparent transparent transparent white;
-      border-width: 0.5rem 0 0.5rem 0.4em;
-      left: 4px;
-      top: 0;
-    }
-  }
-}
-```
-</details>
-
+The package itself doesn't provide any styles and doesn't render anything. To start using it you
+have to provide some default styles and markup for the tooltip to be displayed. 
+If you don't want to do that, you may use styles, included in the package,
+ and layout from the code below.
 
 ### Tooltip.js
 
 ```js
 import React from 'react';
 import TooltipTrigger from "react-popper-tooltip";
-import './styles.scss';
+import 'react-popper-tooltip/styles.scss';
 
 const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
@@ -330,8 +209,8 @@ const Tooltip = ({ tooltip, children, ...props }) => (
     tooltip={({ getTooltipProps, tooltipRef, arrowStyle, arrowRef, arrowPlacement }) => (
       <div className="popperBox" ref={tooltipRef} {...getTooltipProps()}>
         <div
-          ref={arrowRef}
           className="popperArrow"
+          ref={arrowRef}
           style={arrowStyle}
           data-placement={arrowPlacement}
         />
@@ -339,7 +218,7 @@ const Tooltip = ({ tooltip, children, ...props }) => (
       </div>
     )}
   >
-    {({ getTriggerProps, ref }) => <span ref={ref} {...getTriggerProps()}>{children}</span>}
+    {({ getTriggerProps, triggerRef }) => <span ref={triggerRef} {...getTriggerProps()}>{children}</span>}
   </TooltipTrigger>
 );
 
