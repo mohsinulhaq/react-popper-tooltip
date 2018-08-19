@@ -1,17 +1,13 @@
 import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import T from 'prop-types';
-import cn from 'classnames';
-
 import { TooltipContext } from './TooltipTrigger';
 import { callAll } from './utils';
-import { TransitionedPopperBox, Arrow } from './TooltipTriggerComponents';
 
 const MUTATION_OBSERVER_CONFIG = {
   childList: true,
   subtree: true
 };
-
 /**
  * @private
  */
@@ -19,7 +15,6 @@ export default class Tooltip extends PureComponent {
   static propTypes = {
     innerRef: T.func,
     style: T.object,
-    showArrow: T.bool,
     arrowProps: T.object,
     placement: T.string,
     trigger: T.string,
@@ -91,21 +86,20 @@ export default class Tooltip extends PureComponent {
 
     return {
       ...props,
-      ref: this.props.innerRef,
       style: { ...props.style, ...this.props.style },
       onMouseEnter: callAll(
-        isHoverTriggered && clearScheduled,
+        isHoverTriggered && this.props.clearScheduled,
         props.onMouseEnter
       ),
       onMouseLeave: callAll(
-        isHoverTriggered && scheduleHide,
+        isHoverTriggered && this.props.scheduleHide,
         props.onMouseLeave
       )
     };
   };
 
   render() {
-    const { arrowProps, placement, tooltip } = this.props;
+    const { arrowProps, placement, tooltip, innerRef } = this.props;
 
     return (
       <TooltipContext.Provider
@@ -117,7 +111,9 @@ export default class Tooltip extends PureComponent {
       >
         {tooltip({
           getTooltipProps: this.getTooltipProps,
-          arrowProps,
+          tooltipRef: innerRef,
+          arrowStyle: arrowProps.style,
+          arrowRef: arrowProps.ref,
           arrowPlacement: placement
         })}
       </TooltipContext.Provider>

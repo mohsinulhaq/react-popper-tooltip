@@ -10,7 +10,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist/",
-    "prepare": "npm run clean && babel src -d dist -s"
+    "prepare": "npm run clean && babel src -d dist -s && cp src/styles.css dist"
   },
   "keywords": [
     "react",

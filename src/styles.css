@@ -1,0 +1,126 @@
+.popperBox {
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid silver;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0.4rem;
+  -webkit-transition: opacity 0.3s;
+          transition: opacity 0.3s;
+  z-index: 999;
+}
+
+.popperArrow {
+  height: 1rem;
+  position: absolute;
+  width: 1rem;
+}
+
+.popperArrow::before {
+  border-style: solid;
+  content: '';
+  display: block;
+  height: 0;
+  margin: auto;
+  width: 0;
+}
+
+.popperArrow::after {
+  border-style: solid;
+  content: '';
+  display: block;
+  height: 0;
+  margin: auto;
+  position: absolute;
+  width: 0;
+}
+
+.popperArrow[data-placement*='bottom'] {
+  height: 1rem;
+  left: 0;
+  margin-top: -0.4rem;
+  top: 0;
+  width: 1rem;
+}
+
+.popperArrow[data-placement*='bottom']::before {
+  border-color: transparent transparent silver transparent;
+  border-width: 0 0.5rem 0.4rem 0.5rem;
+  position: absolute;
+  top: -1px;
+}
+
+.popperArrow[data-placement*='bottom']::after {
+  border-color: transparent transparent white transparent;
+  border-width: 0 0.5rem 0.4rem 0.5rem;
+}
+
+.popperArrow[data-placement*='top'] {
+  bottom: 0;
+  height: 1rem;
+  left: 0;
+  margin-bottom: -1rem;
+  width: 1rem;
+}
+
+.popperArrow[data-placement*='top']::before {
+  border-color: silver transparent transparent transparent;
+  border-width: 0.4rem 0.5rem 0 0.5rem;
+  position: absolute;
+  top: 1px;
+}
+
+.popperArrow[data-placement*='top']::after {
+  border-color: white transparent transparent transparent;
+  border-width: 0.4rem 0.5rem 0 0.5rem;
+}
+
+.popperArrow[data-placement*='right'] {
+  height: 1rem;
+  left: 0;
+  margin-left: -0.7rem;
+  width: 1rem;
+}
+
+.popperArrow[data-placement*='right']::before {
+  border-color: transparent silver transparent transparent;
+  border-width: 0.5rem 0.4rem 0.5rem 0;
+}
+
+.popperArrow[data-placement*='right']::after {
+  border-color: transparent white transparent transparent;
+  border-width: 0.5rem 0.4rem 0.5rem 0;
+  left: 6px;
+  top: 0;
+}
+
+.popperArrow[data-placement*='left'] {
+  height: 1rem;
+  margin-right: -0.7rem;
+  right: 0;
+  width: 1rem;
+}
+
+.popperArrow[data-placement*='left']::before {
+  border-color: transparent transparent transparent silver;
+  border-width: 0.5rem 0 0.5rem 0.4em;
+}
+
+.popperArrow[data-placement*='left']::after {
+  border-color: transparent transparent transparent white;
+  border-width: 0.5rem 0 0.5rem 0.4em;
+  left: 4px;
+  top: 0;
+}

@@ -6,7 +6,6 @@ import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
 import { callAll } from './utils';
-
 import Tooltip from './Tooltip';
 
 const AVG_REACTION_TIME = 250;
@@ -46,10 +45,6 @@ export default class TooltipTrigger extends PureComponent {
      */
     delayHide: T.number,
     /**
-     * whether to show arrow or not
-     */
-    showArrow: T.bool,
-    /**
      * Popper’s placement. Valid placements are:
      *  - auto
      *  - top
@@ -81,7 +76,6 @@ export default class TooltipTrigger extends PureComponent {
     delayShow: 0,
     delayHide: 0,
     defaultTooltipShown: false,
-    showArrow: true,
     placement: 'right',
     trigger: 'hover',
     closeOnOutOfBoundaries: true
@@ -149,14 +143,13 @@ export default class TooltipTrigger extends PureComponent {
     this._clearScheduled();
   }
 
-  getTriggerProps = ref => (props = {}) => {
+  getTriggerProps = (props = {}) => {
     const isClickTriggered = this.props.trigger === 'click';
     const isHoverTriggered = this.props.trigger === 'hover';
     const isRightClickTriggered = this.props.trigger === 'right-click';
 
     return {
       ...props,
-      ref,
       onClick: callAll(isClickTriggered && this.scheduleToggle, props.onClick),
       onContextMenu: callAll(
         isRightClickTriggered && this.scheduleToggle,
@@ -178,7 +171,6 @@ export default class TooltipTrigger extends PureComponent {
       children,
       tooltip,
       placement,
-      showArrow,
       trigger,
       modifiers,
       closeOnOutOfBoundaries
@@ -188,7 +180,7 @@ export default class TooltipTrigger extends PureComponent {
       <Manager>
         <Reference>
           {({ ref }) =>
-            children({ getTriggerProps: this.getTriggerProps(ref) })
+            children({ getTriggerProps: this.getTriggerProps, triggerRef: ref })
           }
         </Reference>
         {this.state.tooltipShown &&
@@ -214,7 +206,6 @@ export default class TooltipTrigger extends PureComponent {
                     <Tooltip
                       {...{
                         style,
-                        showArrow,
                         arrowProps,
                         placement,
                         trigger,
