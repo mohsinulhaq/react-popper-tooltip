@@ -27,11 +27,7 @@
     "react-dom": "^16.4.2"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "emotion": "^9.2.6",
-    "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
-    "react-emotion": "^9.2.6",
     "react-popper": "^1.0.0"
   },
   "devDependencies": {
