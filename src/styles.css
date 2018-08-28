@@ -17,6 +17,7 @@
       -ms-flex-pack: center;
           justify-content: center;
   margin: 0.4rem;
+  padding: 0.4rem;
   -webkit-transition: opacity 0.3s;
           transition: opacity 0.3s;
   z-index: 999;
