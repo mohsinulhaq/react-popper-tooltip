@@ -7,7 +7,7 @@
 React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper).
 
 ## Example
-https://codesandbox.io/s/pykkz77z5j
+https://codesandbox.io/s/v04l1ky2rl
 
 ### Usage
 
