@@ -91,7 +91,7 @@ Delay in hiding the tooltip (ms).
 
 ### placement
 
-> `string` 
+> `string` | defaults to `right`
 
 The tooltip placement. Valid placements are:
 - `auto`
