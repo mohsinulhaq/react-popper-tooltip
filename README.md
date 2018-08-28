@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/mohsinulhaq/react-popper-tooltip.svg)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-React tooltip component based on react-popper
+React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper).
 
 ## Example
 https://codesandbox.io/s/pykkz77z5j
@@ -198,7 +198,7 @@ If you don't want to do that, you may use styles, included in the package,
 
 ### Tooltip.js
 
-```js
+```jsx
 import React from 'react';
 import TooltipTrigger from "react-popper-tooltip";
 import 'react-popper-tooltip/styles.css';
@@ -231,8 +231,12 @@ export default Tooltip;
 <Tooltip tooltip="Hi there!" placement="top" trigger="click">Click me</Tooltip>
 ```
 
-## Check out
-https://popper.js.org
+## Inspiration and Thanks!
 
-https://github.com/FezVrasta/react-popper
+This library is based on [react-popper](https://github.com/FezVrasta/react-popper), the official 
+react wrapper around [Popper.js](https://popper.js.org).
+
+Using of render props, prop getters and doc style of this library are heavily inspired by 
+[downshift](https://github.com/paypal/downshift).
+
 
