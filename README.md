@@ -56,7 +56,7 @@ have to provide styles and markup for the tooltip to be displayed. You may use d
 ```jsx
 import React from 'react';
 import TooltipTrigger from "react-popper-tooltip";
-import 'react-popper-tooltip/styles.css';
+import 'react-popper-tooltip/dist/styles.css';
 
 const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
