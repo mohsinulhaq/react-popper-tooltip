@@ -8,7 +8,6 @@ import { Manager, Reference, Popper } from 'react-popper';
 import { callAll } from './utils';
 import Tooltip from './Tooltip';
 
-const AVG_REACTION_TIME = 250;
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
     boundariesElement: 'viewport',
@@ -85,14 +84,6 @@ export default class TooltipTrigger extends PureComponent {
     tooltipShown: this.props.defaultTooltipShown
   };
 
-  _getDelayHide = () => {
-    const { trigger, delayHide } = this.props;
-    if (trigger === 'hover' && delayHide < AVG_REACTION_TIME) {
-      return AVG_REACTION_TIME;
-    }
-    return delayHide;
-  };
-
   _clearScheduled = () => {
     clearTimeout(this._hideTimeout);
     clearTimeout(this._showTimeout);
@@ -122,7 +113,7 @@ export default class TooltipTrigger extends PureComponent {
 
   scheduleHide = () => {
     this._clearScheduled();
-    this._hideTimeout = setTimeout(this.hideTooltip, this._getDelayHide());
+    this._hideTimeout = setTimeout(this.hideTooltip, this.props.delayHide);
   };
 
   scheduleToggle = () => {
