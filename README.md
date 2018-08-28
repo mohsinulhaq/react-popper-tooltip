@@ -86,7 +86,7 @@ Then you can use as shown in the example below.
 <Tooltip tooltip="Hi there!" placement="top" trigger="click">Click me</Tooltip>
 ```
 
-### Props
+## Props
 
 ### children
 

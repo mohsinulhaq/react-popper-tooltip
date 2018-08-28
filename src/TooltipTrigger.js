@@ -115,23 +115,24 @@ export default class TooltipTrigger extends PureComponent {
     }));
   };
 
-  scheduleShow = event => {
-    event.preventDefault();
+  scheduleShow = () => {
     this._clearScheduled();
-
     this._showTimeout = setTimeout(this.showTooltip, this.props.delayShow);
   };
 
-  scheduleHide = event => {
-    event.preventDefault();
+  scheduleHide = () => {
     this._clearScheduled();
-
     this._hideTimeout = setTimeout(this.hideTooltip, this._getDelayHide());
   };
 
-  scheduleToggle = event => {
+  scheduleToggle = () => {
     const action = this.state.tooltipShown ? 'scheduleHide' : 'scheduleShow';
-    this[action](event);
+    this[action]();
+  };
+
+  _contextMenuToggle = event => {
+    event.preventDefault();
+    this.scheduleToggle();
   };
 
   static getDerivedStateFromProps(props) {
@@ -152,7 +153,7 @@ export default class TooltipTrigger extends PureComponent {
       ...props,
       onClick: callAll(isClickTriggered && this.scheduleToggle, props.onClick),
       onContextMenu: callAll(
-        isRightClickTriggered && this.scheduleToggle,
+        isRightClickTriggered && this._contextMenuToggle,
         props.onContextMenu
       ),
       onMouseEnter: callAll(
