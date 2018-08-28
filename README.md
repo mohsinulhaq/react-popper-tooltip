@@ -45,6 +45,47 @@ It doesn't render anything itself. It calls the render functions and renders tha
 Read more about [render prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) pattern 
 if you're not familiar with this approach. 
 
+## Quick start
+
+The package itself doesn't expose any styles and doesn't render anything. To start using it you
+have to provide styles and markup for the tooltip to be displayed. You may use default styles from
+`react-popper-tooltip/styles.css` or add your own.
+
+### Tooltip.js
+
+```jsx
+import React from 'react';
+import TooltipTrigger from "react-popper-tooltip";
+import 'react-popper-tooltip/styles.css';
+
+const Tooltip = ({ tooltip, children, ...props }) => (
+  <TooltipTrigger
+    {...props}   
+    tooltip={({ getTooltipProps, tooltipRef, arrowStyle, arrowRef, arrowPlacement }) => (
+      <div className="popperBox" ref={tooltipRef} {...getTooltipProps()}>
+        <div
+          className="popperArrow"
+          ref={arrowRef}
+          style={arrowStyle}
+          data-placement={arrowPlacement}
+        />
+        {tooltip}
+      </div>
+    )}
+  >
+    {({ getTriggerProps, triggerRef }) => <span ref={triggerRef} {...getTriggerProps()}>{children}</span>}
+  </TooltipTrigger>
+);
+
+export default Tooltip;
+```
+
+Then you can use as shown in the example below. 
+
+```jsx
+<Tooltip tooltip="Hi there!" placement="top" trigger="click">Click me</Tooltip>
+```
+
 ### Props
 
 ### children
@@ -187,49 +228,6 @@ yourself to avoid your props being overridden (or overriding the props returned)
 | arrowStyle      | `object`       | return the styles you should apply to the tooltip arrow style attr.   |
 | arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow you render.|
 | placement       | `string`       | return the placement of the tooltip arrow element.                    |
-
-
-## Quick start
-
-The package itself doesn't provide any styles and doesn't render anything. To start using it you
-have to provide some default styles and markup for the tooltip to be displayed. 
-If you don't want to do that, you may use styles, included in the package,
- and layout from the code below.
-
-### Tooltip.js
-
-```jsx
-import React from 'react';
-import TooltipTrigger from "react-popper-tooltip";
-import 'react-popper-tooltip/styles.css';
-
-const Tooltip = ({ tooltip, children, ...props }) => (
-  <TooltipTrigger
-    {...props}   
-    tooltip={({ getTooltipProps, tooltipRef, arrowStyle, arrowRef, arrowPlacement }) => (
-      <div className="popperBox" ref={tooltipRef} {...getTooltipProps()}>
-        <div
-          className="popperArrow"
-          ref={arrowRef}
-          style={arrowStyle}
-          data-placement={arrowPlacement}
-        />
-        {tooltip}
-      </div>
-    )}
-  >
-    {({ getTriggerProps, triggerRef }) => <span ref={triggerRef} {...getTriggerProps()}>{children}</span>}
-  </TooltipTrigger>
-);
-
-export default Tooltip;
-```
-
-### Usage example
-
-```jsx
-<Tooltip tooltip="Hi there!" placement="top" trigger="click">Click me</Tooltip>
-```
 
 ## Inspiration and Thanks!
 
