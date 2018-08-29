@@ -62,9 +62,9 @@ const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
     {...props}   
     tooltip={({ getTooltipProps, tooltipRef, arrowStyle, arrowRef, arrowPlacement }) => (
-      <div className="popperBox" ref={tooltipRef} {...getTooltipProps()}>
+      <div className="tooltipContainer" ref={tooltipRef} {...getTooltipProps()}>
         <div
-          className="popperArrow"
+          className="tooltipArrow"
           ref={arrowRef}
           style={arrowStyle}
           data-placement={arrowPlacement}
