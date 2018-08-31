@@ -71,6 +71,7 @@ export default class Tooltip extends PureComponent {
     if (trigger === 'click' || trigger === 'right-click') {
       const { addParentOutsideClickHandler } = this.props;
       document.removeEventListener('click', this._handleOutsideClick);
+      this._handleOutsideClick = undefined;
       addParentOutsideClickHandler && addParentOutsideClickHandler();
     }
   }
