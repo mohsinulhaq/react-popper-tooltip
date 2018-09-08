@@ -4,7 +4,8 @@
 [![Dependency Status](https://david-dm.org/mohsinulhaq/react-popper-tooltip.svg)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper).
+React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the 
+React wrapper around [popper.js](https://popper.js.org/) library.
 
 ## Example
 https://codesandbox.io/s/v04l1ky2rl
@@ -49,7 +50,7 @@ if you're not familiar with this approach.
 
 The package itself doesn't expose any styles and doesn't render anything. To start using it you
 have to provide styles and markup for the tooltip to be displayed. You may use default styles from
-`react-popper-tooltip/styles.css` or add your own.
+`react-popper-tooltip/dist/styles.css` or add your own.
 
 ### Tooltip.js
 
@@ -80,7 +81,7 @@ const Tooltip = ({ tooltip, children, ...props }) => (
 export default Tooltip;
 ```
 
-Then you can use as shown in the example below. 
+Then you can use it as shown in the example below. 
 
 ```jsx
 <Tooltip tooltip="Hi there!" placement="top" trigger="click">Click me</Tooltip>
@@ -213,16 +214,16 @@ yourself to avoid your props being overridden (or overriding the props returned)
 
 ### children function
 
-|     property    |      type      |                              description                              |
-|:---------------:|:--------------:|:---------------------------------------------------------------------:|
+| property        | type           | description                                                           |
+|-----------------|----------------|-----------------------------------------------------------------------|
 | getTriggerProps | `function({})` | returns the props you should apply to the trigger element you render. |
 | triggerRef      | `node`         | returns the react ref you should apply to the trigger element.        |
 
 
 ### tooltip function
 
-|     property    |      type      |                              description                              |
-|:---------------:|:--------------:|:---------------------------------------------------------------------:|
+| property        | type           | description                                                           |
+|-----------------|----------------|-----------------------------------------------------------------------|
 | getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render. |
 | tooltipRef      | `node`         | return the react ref you should apply to the tooltip element.         |
 | arrowStyle      | `object`       | return the styles you should apply to the tooltip arrow style attr.   |
