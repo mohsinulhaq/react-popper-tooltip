@@ -218,7 +218,7 @@ export default class TooltipTrigger extends PureComponent {
                 </TooltipContext.Consumer>
               )}
             </Popper>,
-            document.querySelector('body')
+            document.body
           )}
       </Manager>
     );
