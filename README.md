@@ -26,9 +26,9 @@ render(
     tooltip={({ getTooltipProps, arrowProps, arrowPlacement }) => (
       <div className="tooltip" {...getTooltipProps()}>
         <div
+          data-placement={arrowPlacement}
           className="arrow"
           {...arrowProps}
-          data-placement={arrowPlacement}
         />
         {tooltip}
       </div>
@@ -40,17 +40,13 @@ render(
 );
 ```
 
-`<TooltipTrigger />` is the only component exposed by the package. 
-It doesn't render anything itself. It calls the render functions and renders that. 
+`TooltipTrigger` is the only component exposed by the package. It's just a positioning engine. What to render is left completely to the user, which can be provided using render props.
 
-Read more about [render prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) pattern 
-if you're not familiar with this approach. 
+Read more about [render prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) pattern if you're not familiar with this approach.
 
 ## Quick start
 
-The package itself doesn't expose any styles and doesn't render anything. To start using it you
-have to provide styles and markup for the tooltip to be displayed. You may use default styles from
-`react-popper-tooltip/dist/styles.css` or add your own.
+If you would like our opinionated container and arrow styles for your tooltip for quick start, you may import `react-popper-tooltip/dist/styles.css`, and use the classes `tooltip-container` and `tooltip-arrow` as follows:
 
 ### Tooltip.js
 
@@ -61,11 +57,11 @@ import 'react-popper-tooltip/dist/styles.css';
 
 const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
-    {...props}   
+    {...props}
     tooltip={({ getTooltipProps, tooltipRef, arrowStyle, arrowRef, arrowPlacement }) => (
-      <div className="tooltipContainer" ref={tooltipRef} {...getTooltipProps()}>
+      <div className="tooltip-container" ref={tooltipRef} {...getTooltipProps()}>
         <div
-          className="tooltipArrow"
+          className="tooltip-arrow"
           ref={arrowRef}
           style={arrowStyle}
           data-placement={arrowPlacement}
@@ -237,5 +233,3 @@ react wrapper around [Popper.js](https://popper.js.org).
 
 Using of render props, prop getters and doc style of this library are heavily inspired by 
 [downshift](https://github.com/paypal/downshift).
-
-

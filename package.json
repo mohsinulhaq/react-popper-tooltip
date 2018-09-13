@@ -23,19 +23,20 @@
   "author": "Mohsin Ul Haq <mohsinulhaq01@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0"
   },
   "dependencies": {
-    "prop-types": "^15.6.2",
-    "react-popper": "^1.0.0"
+    "react-popper": "^1.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.1",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-preset-minify": "^0.4.3",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "prop-types": "^15.6.2",
     "rimraf": "^2.6.2"
   }
 }

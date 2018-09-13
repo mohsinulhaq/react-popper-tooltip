@@ -8,6 +8,7 @@ const MUTATION_OBSERVER_CONFIG = {
   childList: true,
   subtree: true
 };
+
 /**
  * @private
  */
