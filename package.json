@@ -22,6 +22,12 @@
   ],
   "author": "Mohsin Ul Haq <mohsinulhaq01@gmail.com>",
   "license": "MIT",
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 1 Edge version",
+    "last 1 Safari version"
+  ],
   "peerDependencies": {
     "react": "^16.5.0",
     "react-dom": "^16.5.0"
