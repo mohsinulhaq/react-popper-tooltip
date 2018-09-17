@@ -52,7 +52,7 @@ render(
     )}
   >
     {({ getTriggerProps, triggerRef }) => (
-      <div
+      <span
         {...getTriggerProps({
           ref: triggerRef,
           className: 'trigger'
@@ -60,7 +60,7 @@ render(
         })}
       >
         Click Me!
-      </div>
+      </span>
     )}
   </TooltipTrigger>,
   document.getElementById('root')
