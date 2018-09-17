@@ -5,8 +5,8 @@ import React, { PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
-import { callAll } from './utils';
 import Tooltip from './Tooltip';
+import { callAll } from './utils';
 
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
@@ -185,9 +185,9 @@ export default class TooltipTrigger extends PureComponent {
                 ref,
                 style,
                 placement,
+                arrowProps,
                 outOfBoundaries,
-                scheduleUpdate,
-                arrowProps
+                scheduleUpdate
               }) => (
                 <TooltipContext.Consumer>
                   {({

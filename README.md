@@ -8,7 +8,7 @@ React tooltip component based on [react-popper](https://github.com/FezVrasta/rea
 React wrapper around [popper.js](https://popper.js.org/) library.
 
 ## Example
-https://codesandbox.io/s/v04l1ky2rl
+https://codesandbox.io/s/pykkz77z5j
 
 ### Usage
 
@@ -23,24 +23,51 @@ import TooltipTrigger from 'react-popper-tooltip';
 
 render(
   <TooltipTrigger
-    tooltip={({ getTooltipProps, arrowProps, arrowPlacement }) => (
-      <div className="tooltip" {...getTooltipProps()}>
+    placement="right"
+    trigger="click"
+    tooltip={({
+      getTooltipProps,
+      getArrowProps,
+      tooltipRef,
+      arrowRef,
+      placement
+    }) => (
+      <div
+        {...getTooltipProps({
+          ref: tooltipRef,
+          className: 'tooltip-container'
+          /* your props here */
+        })}
+      >
         <div
-          data-placement={arrowPlacement}
-          className="arrow"
-          {...arrowProps}
+          {...getArrowProps({
+            ref: arrowRef,
+            'data-placement': placement,
+            className: 'tooltip-arrow'
+            /* your props here */
+          })}
         />
-        {tooltip}
+        <div className="tooltip-body">Hello, World!</div>
       </div>
     )}
   >
-    {({ getTriggerProps }) => <span {...getTriggerProps()}>{children}</span>}
+    {({ getTriggerProps, triggerRef }) => (
+      <div
+        {...getTriggerProps({
+          ref: triggerRef,
+          className: 'trigger'
+          /* your props here */
+        })}
+      >
+        Click Me!
+      </div>
+    )}
   </TooltipTrigger>,
   document.getElementById('root')
 );
 ```
 
-`TooltipTrigger` is the only component exposed by the package. It's just a positioning engine. What to render is left completely to the user, which can be provided using render props.
+`TooltipTrigger` is the only component exposed by the package. It's just a positioning engine. What to render is left completely to the user, which can be provided using render props. Your props should be passed through `getTriggerProps`, `getTooltipProps` and `getArrowProps`.
 
 Read more about [render prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) pattern if you're not familiar with this approach.
 
@@ -52,25 +79,46 @@ If you would like our opinionated container and arrow styles for your tooltip fo
 
 ```jsx
 import React from 'react';
-import TooltipTrigger from "react-popper-tooltip";
+import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 
 const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
     {...props}
-    tooltip={({ getTooltipProps, tooltipRef, arrowStyle, arrowRef, arrowPlacement }) => (
-      <div className="tooltip-container" ref={tooltipRef} {...getTooltipProps()}>
+    tooltip={({
+      getTooltipProps,
+      getArrowProps,
+      tooltipRef,
+      arrowRef,
+      placement
+    }) => (
+      <div
+        {...getTooltipProps({
+          ref: tooltipRef,
+          className: 'tooltip-container'
+        })}
+      >
         <div
-          className="tooltip-arrow"
-          ref={arrowRef}
-          style={arrowStyle}
-          data-placement={arrowPlacement}
+          {...getArrowProps({
+            ref: arrowRef,
+            'data-placement': placement,
+            className: 'tooltip-arrow'
+          })}
         />
         {tooltip}
       </div>
     )}
   >
-    {({ getTriggerProps, triggerRef }) => <span ref={triggerRef} {...getTriggerProps()}>{children}</span>}
+    {({ getTriggerProps, triggerRef }) => (
+      <span
+        {...getTriggerProps({
+          ref: triggerRef,
+          className: 'trigger'
+        })}
+      >
+        {children}
+      </span>
+    )}
   </TooltipTrigger>
 );
 
@@ -80,7 +128,7 @@ export default Tooltip;
 Then you can use it as shown in the example below. 
 
 ```jsx
-<Tooltip tooltip="Hi there!" placement="top" trigger="click">Click me</Tooltip>
+<Tooltip placement="top" trigger="click" tooltip="Hi there!">Click me</Tooltip>
 ```
 
 ## Props
@@ -211,20 +259,20 @@ yourself to avoid your props being overridden (or overriding the props returned)
 ### children function
 
 | property        | type           | description                                                           |
-|-----------------|----------------|-----------------------------------------------------------------------|
+| --------------- | -------------- | --------------------------------------------------------------------- |
 | getTriggerProps | `function({})` | returns the props you should apply to the trigger element you render. |
 | triggerRef      | `node`         | returns the react ref you should apply to the trigger element.        |
 
 
 ### tooltip function
 
-| property        | type           | description                                                           |
-|-----------------|----------------|-----------------------------------------------------------------------|
-| getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render. |
-| tooltipRef      | `node`         | return the react ref you should apply to the tooltip element.         |
-| arrowStyle      | `object`       | return the styles you should apply to the tooltip arrow style attr.   |
-| arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow you render.|
-| placement       | `string`       | return the placement of the tooltip arrow element.                    |
+| property        | type           | description                                                            |
+| --------------- | -------------- | ---------------------------------------------------------------------- |
+| getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render.  |
+| tooltipRef      | `node`         | return the react ref you should apply to the tooltip element.          |
+| arrowStyle      | `object`       | return the styles you should apply to the tooltip arrow style attr.    |
+| arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow you render. |
+| placement       | `string`       | return the placement of the tooltip arrow element.                     |
 
 ## Inspiration and Thanks!
 

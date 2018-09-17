@@ -8,9 +8,12 @@
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
   },
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "clean": "rimraf dist/",
-    "prepare": "npm run clean && babel src -d dist -s && cp src/styles.css dist"
+    "clean": "rimraf dist",
+    "prepare": "npm run clean && babel src -d dist && cp src/styles.css dist"
   },
   "keywords": [
     "react",
@@ -23,14 +26,11 @@
   "author": "Mohsin Ul Haq <mohsinulhaq01@gmail.com>",
   "license": "MIT",
   "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Firefox versions",
-    "last 1 Edge version",
-    "last 1 Safari version"
+    "defaults"
   ],
   "peerDependencies": {
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "dependencies": {
     "react-popper": "^1.0.2"

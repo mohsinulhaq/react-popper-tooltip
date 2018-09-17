@@ -83,6 +83,11 @@ export default class Tooltip extends PureComponent {
     }
   }
 
+  getArrowProps = (props = {}) => ({
+    ...props,
+    style: { ...props.style, ...this.props.arrowProps.style }
+  });
+
   getTooltipProps = (props = {}) => {
     const isHoverTriggered = this.props.trigger === 'hover';
 
@@ -113,10 +118,10 @@ export default class Tooltip extends PureComponent {
       >
         {tooltip({
           getTooltipProps: this.getTooltipProps,
+          getArrowProps: this.getArrowProps,
           tooltipRef: innerRef,
-          arrowStyle: arrowProps.style,
           arrowRef: arrowProps.ref,
-          arrowPlacement: placement
+          placement
         })}
       </TooltipContext.Provider>
     );
