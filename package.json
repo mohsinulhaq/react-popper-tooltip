@@ -11,13 +11,13 @@
   "module": "lib/esm/index.js",
   "typings": "typings/react-popper-tooltip.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "dist"
   ],
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && npm run copy-styles",
-    "build:cjs": "babel --delete-dir-on-start src -d lib/cjs -s",
-    "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm -s",
-    "copy-styles": "cp src/styles.css lib/cjs && cp src/styles.css lib/esm",
+    "build": "npm run build:cjs && npm run build:esm && cp src/styles.css dist",
+    "build:cjs": "babel --delete-dir-on-start src -d lib/cjs",
+    "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm",
     "prepare": "npm run build"
   },
   "keywords": [
