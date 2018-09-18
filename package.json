@@ -12,7 +12,8 @@
   "typings": "typings/react-popper-tooltip.d.ts",
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "/typings/react-popper.d.ts"
   ],
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm && cp src/styles.css dist",
