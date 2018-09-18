@@ -10,10 +10,26 @@ const presets = [
     {
       useBuiltIns: true
     }
-  ],
-  'minify'
+  ]
 ];
 
-const plugins = ['@babel/plugin-proposal-class-properties'];
+const plugins = [
+  '@babel/plugin-transform-runtime',
+  '@babel/plugin-proposal-class-properties'
+];
 
-module.exports = { presets, plugins };
+const env = {
+  esm: {
+    presets: [
+      [
+        '@babel/env',
+        {
+          modules: false,
+          useBuiltIns: 'usage'
+        }
+      ]
+    ]
+  }
+};
+
+module.exports = { presets, plugins, env };

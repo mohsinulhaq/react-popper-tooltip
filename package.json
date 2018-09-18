@@ -7,13 +7,18 @@
     "type": "git",
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
   },
-  "main": "dist/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "typings": "typings/react-popper-tooltip.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "clean": "rimraf dist",
-    "prepare": "npm run clean && babel src -d dist && cp src/styles.css dist"
+    "build": "npm run build:cjs && npm run build:esm && npm run copy-styles",
+    "build:cjs": "babel --delete-dir-on-start src -d lib/cjs -s",
+    "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm -s",
+    "copy-styles": "cp src/styles.css lib/cjs && cp src/styles.css lib/esm",
+    "prepare": "npm run build"
   },
   "keywords": [
     "react",
@@ -33,16 +38,16 @@
     "react-dom": "^16.3.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0",
     "react-popper": "^1.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-preset-minify": "^0.4.3",
-    "prop-types": "^15.6.2",
-    "rimraf": "^2.6.2"
+    "prop-types": "^15.6.2"
   }
 }
