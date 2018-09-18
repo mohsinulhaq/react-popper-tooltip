@@ -11,7 +11,7 @@
   "module": "lib/esm/index.js",
   "typings": "typings/react-popper-tooltip.d.ts",
   "files": [
-    "dist"
+    "lib"
   ],
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm && npm run copy-styles",
