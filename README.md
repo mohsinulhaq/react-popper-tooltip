@@ -221,7 +221,8 @@ Modifiers, applied by default:
 }
 ```
 
-You also have the ability to attach ref to the `TooltipTrigger` component which exposes following methods for programmatic control of the tooltip:
+You also have the ability to attach ref to the `TooltipTrigger` component which exposes following 
+methods for programmatic control of the tooltip:
 - `showTooltip` (show immediately)
 - `hideTooltip` (hide immediately)
 - `toggleTooltip` (toggle immediately)
@@ -270,7 +271,7 @@ yourself to avoid your props being overridden (or overriding the props returned)
 | --------------- | -------------- | ---------------------------------------------------------------------- |
 | getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render.  |
 | tooltipRef      | `node`         | return the react ref you should apply to the tooltip element.          |
-| arrowStyle      | `object`       | return the styles you should apply to the tooltip arrow style attr.    |
+| getArrowProps   | `function({})` | return the props you should apply to the tooltip arrow element.        |
 | arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow you render. |
 | placement       | `string`       | return the placement of the tooltip arrow element.                     |
 
