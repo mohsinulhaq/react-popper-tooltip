@@ -36,7 +36,7 @@ export default class TooltipTrigger extends PureComponent {
      */
     tooltipShown: T.bool,
     /**
-     * use to create controlled tooltip
+     * сalled when the visibility of the tooltip changes
      */
     onVisibilityChange: T.func,
     /**
