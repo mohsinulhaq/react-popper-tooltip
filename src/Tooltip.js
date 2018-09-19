@@ -20,7 +20,6 @@ export default class Tooltip extends PureComponent {
     placement: T.string,
     trigger: T.string,
     clearScheduled: T.func,
-    scheduleHide: T.func,
     tooltip: T.func,
     hideTooltip: T.func,
     parentOutsideClickHandler: T.func,
@@ -99,7 +98,7 @@ export default class Tooltip extends PureComponent {
         props.onMouseEnter
       ),
       onMouseLeave: callAll(
-        isHoverTriggered && this.props.scheduleHide,
+        isHoverTriggered && this.props.hideTooltip,
         props.onMouseLeave
       )
     };
