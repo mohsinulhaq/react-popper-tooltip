@@ -168,7 +168,7 @@ Use this prop if you want to control the visibility state of the tooltip.
 
 `react-popper-tooltip` manages its own state internally. You can use this prop to pass the 
 visibility state of the tooltip from the outside. You will be required to keep this state up to 
-date (this is where `onVisibilityChange` becomes usefull), but you can also control the state 
+date (this is where `onVisibilityChange` becomes useful), but you can also control the state 
 from anywhere, be that state from other components, `redux`, `react-router`, or anywhere else.
 
 ### delayShow
