@@ -1,4 +1,4 @@
-// Type definitions for react-popper-tooltip > v2.0.1
+// Type definitions for react-popper-tooltip > v2.2.1
 // Project: https://github.com/mohsinulhaq/react-popper-tooltip
 // Definitions by Johan Brook <https://github.com/brookback>
 
