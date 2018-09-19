@@ -272,8 +272,8 @@ yourself to avoid your props being overridden (or overriding the props returned)
 | getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render.  |
 | tooltipRef      | `node`         | return the react ref you should apply to the tooltip element.          |
 | getArrowProps   | `function({})` | return the props you should apply to the tooltip arrow element.        |
-| arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow you render. |
-| placement       | `string`       | return the placement of the tooltip arrow element.                     |
+| arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow element.    |
+| placement       | `string`       | return the placement of the tooltip.                                   |
 
 ## Inspiration and Thanks!
 
