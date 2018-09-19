@@ -2,7 +2,7 @@ import React from 'react';
 import TooltipTrigger from '../../src/index';
 import '../../src/styles.css';
 
-export const Tooltip = ({ handleTooltipState, tooltip, children, ...props }) => (
+export const Tooltip = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
     {...props}
     tooltip={({
@@ -16,7 +16,7 @@ export const Tooltip = ({ handleTooltipState, tooltip, children, ...props }) => 
         {...getTooltipProps({
           innerRef: tooltipRef,
           className: "tooltip-container",
-          handleTooltipState
+          handleTooltipState: props.onVisibilityChange
         })}
       >
         <div
