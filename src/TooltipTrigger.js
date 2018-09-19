@@ -87,7 +87,7 @@ export default class TooltipTrigger extends PureComponent {
 
   state = {
     tooltipShown: this._isControlled()
-      ? undefined
+      ? false
       : this.props.defaultTooltipShown || false
   };
 
