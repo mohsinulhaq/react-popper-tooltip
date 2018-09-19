@@ -143,7 +143,7 @@ export default class TooltipTrigger extends PureComponent {
         props.onMouseEnter
       ),
       onMouseLeave: callAll(
-        isHoverTriggered && this._hideTooltip(),
+        isHoverTriggered && this._hideTooltip,
         props.onMouseLeave
       )
     };
