@@ -16,7 +16,7 @@
     "typings/react-popper-tooltip.d.ts"
   ],
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && cp src/styles.css dist",
+    "build": "npm run build:cjs; npm run build:esm; mkdir -p dist && cp src/styles.css dist",
     "build:cjs": "babel --delete-dir-on-start src -d lib/cjs",
     "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm",
     "prepare": "npm run build"
