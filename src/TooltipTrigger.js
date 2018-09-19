@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
 import Tooltip from './Tooltip';
-import { callAll } from './utils';
+import { callAll, noop } from './utils';
 
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
@@ -35,6 +35,10 @@ export default class TooltipTrigger extends PureComponent {
      * use to create controlled tooltip
      */
     tooltipShown: T.bool,
+    /**
+     * сalled when the visibility of the tooltip changes
+     */
+    onVisibilityChange: T.func,
     /**
      * delay in showing the tooltip
      */
@@ -77,11 +81,32 @@ export default class TooltipTrigger extends PureComponent {
     defaultTooltipShown: false,
     placement: 'right',
     trigger: 'hover',
-    closeOnOutOfBoundaries: true
+    closeOnOutOfBoundaries: true,
+    onVisibilityChange: noop
   };
 
   state = {
-    tooltipShown: this.props.defaultTooltipShown
+    tooltipShown: this._isControlled() ? false : this.props.defaultTooltipShown
+  };
+
+  _isControlled() {
+    return this.props.tooltipShown !== undefined;
+  }
+
+  _getState() {
+    return this._isControlled()
+      ? this.props.tooltipShown
+      : this.state.tooltipShown;
+  }
+
+  _setTooltipState = state => {
+    const cb = () => this.props.onVisibilityChange(state);
+
+    if (this._isControlled()) {
+      cb();
+    } else {
+      this.setState({ tooltipShown: state }, cb);
+    }
   };
 
   _clearScheduled = () => {
@@ -91,24 +116,16 @@ export default class TooltipTrigger extends PureComponent {
 
   _showTooltip = (delay = this.props.delayShow) => {
     this._clearScheduled();
-
-    this._showTimeout = setTimeout(
-      () => this.setState({ tooltipShown: true }),
-      delay
-    );
+    this._showTimeout = setTimeout(() => this._setTooltipState(true), delay);
   };
 
   _hideTooltip = (delay = this.props.delayHide) => {
     this._clearScheduled();
-
-    this._hideTimeout = setTimeout(
-      () => this.setState({ tooltipShown: false }),
-      delay
-    );
+    this._hideTimeout = setTimeout(() => this._setTooltipState(false), delay);
   };
 
   _toggleTooltip = delay => {
-    const action = this.state.tooltipShown ? '_hideTooltip' : '_showTooltip';
+    const action = this._getState() ? '_hideTooltip' : '_showTooltip';
     this[action](delay);
   };
 
@@ -116,11 +133,6 @@ export default class TooltipTrigger extends PureComponent {
     event.preventDefault();
     this._toggleTooltip();
   };
-
-  static getDerivedStateFromProps(props) {
-    const { tooltipShown } = props;
-    return tooltipShown != null ? { tooltipShown } : null;
-  }
 
   componentWillUnmount() {
     this._clearScheduled();
@@ -166,7 +178,7 @@ export default class TooltipTrigger extends PureComponent {
             children({ getTriggerProps: this.getTriggerProps, triggerRef: ref })
           }
         </Reference>
-        {this.state.tooltipShown &&
+        {this._getState() &&
           createPortal(
             <Popper
               placement={placement}

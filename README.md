@@ -154,14 +154,22 @@ the section "[Children and tooltip functions](#children-and-tooltip-functions)".
 
 This is the initial visibility state of the tooltip.
 
+### onVisibilityChange
+
+> `function(tooltipShown: boolean)`
+
+Called when the visibility of the tooltip changes. `tooltipShown` is a new state.
+
 ### tooltipShown
 
 > `boolean` | **control prop**
 
 Use this prop if you want to control the visibility state of the tooltip.
 
-Package manages its own state internally. You can use this prop to pass the visibility state of the
-tooltip from the outside.
+`react-popper-tooltip` manages its own state internally. You can use this prop to pass the 
+visibility state of the tooltip from the outside. You will be required to keep this state up to 
+date (this is where `onVisibilityChange` becomes useful), but you can also control the state 
+from anywhere, be that state from other components, `redux`, `react-router`, or anywhere else.
 
 ### delayShow
 
@@ -220,15 +228,6 @@ Modifiers, applied by default:
   }
 }
 ```
-
-You also have the ability to attach ref to the `TooltipTrigger` component which exposes following 
-methods for programmatic control of the tooltip:
-- `showTooltip` (show immediately)
-- `hideTooltip` (hide immediately)
-- `toggleTooltip` (toggle immediately)
-- `scheduleShow` (show respecting delayShow prop)
-- `scheduleHide` (hide respecting delayHide prop)
-- `scheduleToggle` (toggle respecting delayShow and delayHide props)
 
 ## Children and tooltip functions
 
