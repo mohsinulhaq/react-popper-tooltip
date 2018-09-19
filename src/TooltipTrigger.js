@@ -89,36 +89,27 @@ export default class TooltipTrigger extends PureComponent {
     clearTimeout(this._showTimeout);
   };
 
-  showTooltip = () => {
+  _showTooltip = (delay = this.props.delayShow) => {
     this._clearScheduled();
-    this.setState({ tooltipShown: true });
+
+    this._showTimeout = setTimeout(
+      () => this.setState({ tooltipShown: true }),
+      delay
+    );
   };
 
-  hideTooltip = () => {
+  _hideTooltip = (delay = this.props.delayHide) => {
     this._clearScheduled();
-    this.setState({ tooltipShown: false });
+
+    this._hideTimeout = setTimeout(
+      () => this.setState({ tooltipShown: false }),
+      delay
+    );
   };
 
-  toggleTooltip = () => {
-    this._clearScheduled();
-    this.setState(prevState => ({
-      tooltipShown: !prevState.tooltipShown
-    }));
-  };
-
-  scheduleShow = () => {
-    this._clearScheduled();
-    this._showTimeout = setTimeout(this.showTooltip, this.props.delayShow);
-  };
-
-  scheduleHide = () => {
-    this._clearScheduled();
-    this._hideTimeout = setTimeout(this.hideTooltip, this.props.delayHide);
-  };
-
-  scheduleToggle = () => {
-    const action = this.state.tooltipShown ? 'scheduleHide' : 'scheduleShow';
-    this[action]();
+  _toggleTooltip = delay => {
+    const action = this.state.tooltipShown ? '_hideTooltip' : '_showTooltip';
+    this[action](delay);
   };
 
   _contextMenuToggle = event => {
@@ -142,17 +133,17 @@ export default class TooltipTrigger extends PureComponent {
 
     return {
       ...props,
-      onClick: callAll(isClickTriggered && this.scheduleToggle, props.onClick),
+      onClick: callAll(isClickTriggered && this._toggleTooltip, props.onClick),
       onContextMenu: callAll(
         isRightClickTriggered && this._contextMenuToggle,
         props.onContextMenu
       ),
       onMouseEnter: callAll(
-        isHoverTriggered && this.scheduleShow,
+        isHoverTriggered && this._showTooltip,
         props.onMouseEnter
       ),
       onMouseLeave: callAll(
-        isHoverTriggered && this.scheduleHide,
+        isHoverTriggered && this._hideTooltip(),
         props.onMouseLeave
       )
     };
@@ -210,9 +201,8 @@ export default class TooltipTrigger extends PureComponent {
                         scheduleUpdate
                       }}
                       innerRef={ref}
-                      hideTooltip={this.hideTooltip}
+                      hideTooltip={this._hideTooltip}
                       clearScheduled={this._clearScheduled}
-                      scheduleHide={this.scheduleHide}
                     />
                   )}
                 </TooltipContext.Consumer>
