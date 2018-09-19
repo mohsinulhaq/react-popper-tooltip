@@ -114,7 +114,7 @@ export default class TooltipTrigger extends PureComponent {
 
   _contextMenuToggle = event => {
     event.preventDefault();
-    this.scheduleToggle();
+    this._toggleTooltip();
   };
 
   static getDerivedStateFromProps(props) {
