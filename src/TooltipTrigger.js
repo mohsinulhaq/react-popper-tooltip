@@ -89,7 +89,7 @@ export default class TooltipTrigger extends PureComponent {
     clearTimeout(this._showTimeout);
   };
 
-  showTooltip = (delay = this.props.delayShow) => {
+  _showTooltip = (delay = this.props.delayShow) => {
     this._clearScheduled();
 
     this._showTimeout = setTimeout(
@@ -98,7 +98,7 @@ export default class TooltipTrigger extends PureComponent {
     );
   };
 
-  hideTooltip = (delay = this.props.delayHide) => {
+  _hideTooltip = (delay = this.props.delayHide) => {
     this._clearScheduled();
 
     this._hideTimeout = setTimeout(
@@ -107,8 +107,8 @@ export default class TooltipTrigger extends PureComponent {
     );
   };
 
-  toggleTooltip = delay => {
-    const action = this.state.tooltipShown ? 'hideTooltip' : 'showTooltip';
+  _toggleTooltip = delay => {
+    const action = this.state.tooltipShown ? '_hideTooltip' : '_showTooltip';
     this[action](delay);
   };
 
@@ -133,17 +133,17 @@ export default class TooltipTrigger extends PureComponent {
 
     return {
       ...props,
-      onClick: callAll(isClickTriggered && this.toggleTooltip, props.onClick),
+      onClick: callAll(isClickTriggered && this._toggleTooltip, props.onClick),
       onContextMenu: callAll(
         isRightClickTriggered && this._contextMenuToggle,
         props.onContextMenu
       ),
       onMouseEnter: callAll(
-        isHoverTriggered && this.showTooltip,
+        isHoverTriggered && this._showTooltip,
         props.onMouseEnter
       ),
       onMouseLeave: callAll(
-        isHoverTriggered && this.hideTooltip(),
+        isHoverTriggered && this._hideTooltip(),
         props.onMouseLeave
       )
     };
@@ -201,7 +201,7 @@ export default class TooltipTrigger extends PureComponent {
                         scheduleUpdate
                       }}
                       innerRef={ref}
-                      hideTooltip={this.hideTooltip}
+                      hideTooltip={this._hideTooltip}
                       clearScheduled={this._clearScheduled}
                     />
                   )}
