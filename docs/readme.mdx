@@ -1,0 +1,43 @@
+---
+name: Main
+route: /
+---
+
+import { Playground, PropsTable } from 'docz';
+import BasicTooltip from './examples/Basic';
+import { Container, Tooltip, TooltipEsc }  from './examples/externalState';
+
+# react-popper-tooltip
+
+The example files are in `docs/examples` directory.
+
+## Basic example
+
+<Playground>
+  <BasicTooltip tooltip="Hello">Hover me</BasicTooltip>
+</Playground>
+
+
+## External state
+
+`Container` is for demo purpose only and used for state management.
+
+<Playground>
+  <Container>
+    {({ on, set }) => (
+      <div>
+        <button onClick={() => set(true)}>Show tooltip</button>
+        <br /><br />
+        <Tooltip
+          trigger="click"
+          tooltipShown={on}
+          tooltip="Press ESC to close"
+          onVisibilityChange={set}
+          handleTooltipState={set}
+        >
+          Click me
+        </Tooltip>
+      </div>
+    )}
+  </Container>
+</Playground>

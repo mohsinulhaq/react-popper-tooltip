@@ -19,7 +19,8 @@
     "build": "npm run build:cjs; npm run build:esm; mkdir -p dist && cp src/styles.css dist",
     "build:cjs": "babel --delete-dir-on-start src -d lib/cjs",
     "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "docs": "docz dev"
   },
   "keywords": [
     "react",
@@ -34,10 +35,6 @@
   "browserslist": [
     "defaults"
   ],
-  "peerDependencies": {
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "react-popper": "^1.0.2"
@@ -49,6 +46,10 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "prop-types": "^15.6.2"
+    "docz": "^0.11.2",
+    "docz-plugin-css": "^0.11.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
   }
 }
