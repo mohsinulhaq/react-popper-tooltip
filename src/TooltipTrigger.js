@@ -82,7 +82,7 @@ export default class TooltipTrigger extends PureComponent {
     placement: 'right',
     trigger: 'hover',
     closeOnOutOfBoundaries: true,
-    onChange: noop
+    onVisibilityChange: noop
   };
 
   state = {
