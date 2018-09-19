@@ -58,7 +58,7 @@ declare module 'react-popper-tooltip' {
       [key: string]: any;
     };
     tooltipRef: React.RefObject<any>;
-    getArrowProps: (props: any) => {
+    getArrowProps: (props?: any) => {
       style: React.CSSProperties;
       [key: string]: any;
     };
