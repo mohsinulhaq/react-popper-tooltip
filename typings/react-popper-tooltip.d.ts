@@ -6,40 +6,24 @@ declare module 'react-popper-tooltip' {
   import * as React from 'react';
   import Popper from 'popper.js';
 
-  type GetTriggerProps = (
-    props?: {
-      onClick?: (evt: React.SyntheticEvent) => void;
-      onContextMenu?: (evt: React.SyntheticEvent) => void;
-      onMouseEnter?: (evt: React.SyntheticEvent) => void;
-      onMouseLeave?: (evt: React.SyntheticEvent) => void;
-      [key: string]: any;
-    }
-  ) => {
-    onClick: (evt: React.SyntheticEvent) => void;
-    onContextMenu: (evt: React.SyntheticEvent) => void;
-    onMouseEnter: (evt: React.SyntheticEvent) => void;
-    onMouseLeave: (evt: React.SyntheticEvent) => void;
-    [key: string]: any;
-  };
-
-  export default class TooltipTrigger extends React.PureComponent<Props, {}> {
-    showTooltip(): void;
-
-    hideTooltip(): void;
-
-    toggleTooltip(): void;
-
-    scheduleShow(): void;
-
-    scheduleHide(): void;
-
-    scheduleToggle(): void;
-
-    getTriggerProps: GetTriggerProps;
-  }
+  export default class TooltipTrigger extends React.PureComponent<Props, {}> {}
 
   interface ChildProps {
-    getTriggerProps: GetTriggerProps;
+    getTriggerProps: (
+      props?: {
+        onClick?: (evt: React.SyntheticEvent) => void;
+        onContextMenu?: (evt: React.SyntheticEvent) => void;
+        onMouseEnter?: (evt: React.SyntheticEvent) => void;
+        onMouseLeave?: (evt: React.SyntheticEvent) => void;
+        [key: string]: any;
+      }
+    ) => {
+      onClick: (evt: React.SyntheticEvent) => void;
+      onContextMenu: (evt: React.SyntheticEvent) => void;
+      onMouseEnter: (evt: React.SyntheticEvent) => void;
+      onMouseLeave: (evt: React.SyntheticEvent) => void;
+      [key: string]: any;
+    };;
     triggerRef: React.RefObject<any>;
   }
 
@@ -71,6 +55,7 @@ declare module 'react-popper-tooltip' {
     children: (props: ChildProps) => JSX.Element;
     defaultTooltipShown?: boolean;
     tooltipShown?: boolean;
+    onVisibilityChange: (tooltipShown: boolean) => void;
     delayShow?: number;
     delayHide?: number;
     trigger?: 'click' | 'hover' | 'right-click' | 'none';
