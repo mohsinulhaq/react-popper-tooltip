@@ -49,7 +49,7 @@
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
     "prop-types": "^15.6.2",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   }
 }
