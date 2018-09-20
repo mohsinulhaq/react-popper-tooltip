@@ -1,42 +1,61 @@
 ---
-name: Main
+name: TooltipTrigger
 route: /
 ---
 
 import { Playground, PropsTable } from 'docz';
-import BasicTooltip from './examples/Basic';
-import { Container, Tooltip, TooltipEsc }  from './examples/externalState';
+import BasicTooltipTrigger from './examples/BasicTooltipTrigger';
+import EscapeToClose from './examples/EscapeToClose';
+import {StateContainer} from './examples/utils';
 
-# react-popper-tooltip
+# TooltipTrigger
 
 The example files are in `docs/examples` directory.
 
 ## Basic example
 
 <Playground>
-  <BasicTooltip tooltip="Hello">Hover me</BasicTooltip>
+  <BasicTooltipTrigger tooltip="Hello, World!">Hover over me</BasicTooltipTrigger>
 </Playground>
 
 
-## External state
-
-`Container` is for demo purpose only and used for state management.
+## Controlled
 
 <Playground>
-  <Container>
-    {({ on, set }) => (
+  <StateContainer>
+    {({ on, set, toggle }) => (
       <div>
-        <button onClick={() => set(true)}>Show tooltip</button>
+        <button onClick={toggle}>Toggle tooltip</button>
         <br /><br />
-        <Tooltip
-          trigger="click"
+        <BasicTooltipTrigger
+          trigger="none"
           tooltipShown={on}
-          tooltip="Press ESC to close"
+          tooltip="Hello, Controlled!"
           onVisibilityChange={set}
         >
-          Click me
-        </Tooltip>
+          I am state controlled!
+        </BasicTooltipTrigger>
       </div>
     )}
-  </Container>
+  </StateContainer>
 </Playground>
+
+
+## Escape to close
+
+<Playground>
+  <StateContainer>
+    {({ on, set }) => (
+      <BasicTooltipTrigger
+        trigger="click"
+        tooltipShown={on}
+        tooltip={<EscapeToClose closeTooltip={() => set(false)} />}
+        onVisibilityChange={set}
+      >
+        <button>Click Here</button>
+      </BasicTooltipTrigger>
+    )}
+  </StateContainer>
+</Playground>
+
+Note: `StateContainer` is for demo purpose only and used for state management.

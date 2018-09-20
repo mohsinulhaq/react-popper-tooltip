@@ -1,8 +1,8 @@
 import React from 'react';
-import TooltipTrigger from '../../src/index';
+import TooltipTrigger from '../../src';
 import '../../src/styles.css';
 
-const Tooltip = ({ tooltip, children, ...props }) => (
+const BasicTooltipTrigger = ({ tooltip, children, ...props }) => (
   <TooltipTrigger
     {...props}
     tooltip={({
@@ -12,13 +12,13 @@ const Tooltip = ({ tooltip, children, ...props }) => (
       arrowRef,
       placement
     }) => (
-      <div
+      <span
         {...getTooltipProps({
           ref: tooltipRef,
           className: 'tooltip-container'
         })}
       >
-        <div
+        <span
           {...getArrowProps({
             ref: arrowRef,
             'data-placement': placement,
@@ -26,7 +26,7 @@ const Tooltip = ({ tooltip, children, ...props }) => (
           })}
         />
         {tooltip}
-      </div>
+      </span>
     )}
   >
     {({ getTriggerProps, triggerRef }) => (
@@ -41,4 +41,4 @@ const Tooltip = ({ tooltip, children, ...props }) => (
   </TooltipTrigger>
 );
 
-export default Tooltip;
+export default BasicTooltipTrigger;

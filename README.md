@@ -32,14 +32,14 @@ render(
       arrowRef,
       placement
     }) => (
-      <div
+      <span
         {...getTooltipProps({
           ref: tooltipRef,
           className: 'tooltip-container'
           /* your props here */
         })}
       >
-        <div
+        <span
           {...getArrowProps({
             ref: arrowRef,
             'data-placement': placement,
@@ -47,8 +47,8 @@ render(
             /* your props here */
           })}
         />
-        <div className="tooltip-body">Hello, World!</div>
-      </div>
+        <span className="tooltip-body">Hello, World!</span>
+      </span>
     )}
   >
     {({ getTriggerProps, triggerRef }) => (
@@ -92,13 +92,13 @@ const Tooltip = ({ tooltip, children, ...props }) => (
       arrowRef,
       placement
     }) => (
-      <div
+      <span
         {...getTooltipProps({
           ref: tooltipRef,
           className: 'tooltip-container'
         })}
       >
-        <div
+        <span
           {...getArrowProps({
             ref: arrowRef,
             'data-placement': placement,
@@ -106,7 +106,7 @@ const Tooltip = ({ tooltip, children, ...props }) => (
           })}
         />
         {tooltip}
-      </div>
+      </span>
     )}
   >
     {({ getTriggerProps, triggerRef }) => (
@@ -130,6 +130,13 @@ Then you can use it as shown in the example below.
 ```jsx
 <Tooltip placement="top" trigger="click" tooltip="Hi there!">Click me</Tooltip>
 ```
+
+## Examples
+To fiddle with our example recipes, run:
+```
+npm run docz:dev
+```
+and  open up [localhost:3000](http://localhost:3000) in your browser.
 
 ## Props
 
@@ -158,7 +165,7 @@ This is the initial visibility state of the tooltip.
 
 > `function(tooltipShown: boolean)`
 
-Called when the visibility of the tooltip changes. `tooltipShown` is a new state.
+Called with the tooltip state, when the visibility of the tooltip changes
 
 ### tooltipShown
 

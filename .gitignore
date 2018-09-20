@@ -5,7 +5,9 @@
 .DS_Store
 .idea
 npm-debug.log
+yarn-error.log
 node_modules
+package-lock.json
 lib
 dist
 .docz
