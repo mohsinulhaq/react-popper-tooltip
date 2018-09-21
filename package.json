@@ -20,8 +20,8 @@
     "build:cjs": "babel --delete-dir-on-start src -d lib/cjs",
     "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm",
     "prepare": "npm run build",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "docs": "docz dev",
+    "docs:build": "docz build"
   },
   "keywords": [
     "react",

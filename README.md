@@ -32,14 +32,14 @@ render(
       arrowRef,
       placement
     }) => (
-      <span
+      <div
         {...getTooltipProps({
           ref: tooltipRef,
           className: 'tooltip-container'
           /* your props here */
         })}
       >
-        <span
+        <div
           {...getArrowProps({
             ref: arrowRef,
             'data-placement': placement,
@@ -47,8 +47,8 @@ render(
             /* your props here */
           })}
         />
-        <span className="tooltip-body">Hello, World!</span>
-      </span>
+        Hello, World!
+      </div>
     )}
   >
     {({ getTriggerProps, triggerRef }) => (
@@ -92,13 +92,13 @@ const Tooltip = ({ tooltip, children, ...props }) => (
       arrowRef,
       placement
     }) => (
-      <span
+      <div
         {...getTooltipProps({
           ref: tooltipRef,
           className: 'tooltip-container'
         })}
       >
-        <span
+        <div
           {...getArrowProps({
             ref: arrowRef,
             'data-placement': placement,
@@ -106,7 +106,7 @@ const Tooltip = ({ tooltip, children, ...props }) => (
           })}
         />
         {tooltip}
-      </span>
+      </div>
     )}
   >
     {({ getTriggerProps, triggerRef }) => (
@@ -134,7 +134,8 @@ Then you can use it as shown in the example below.
 ## Examples
 To fiddle with our example recipes, run:
 ```
-npm run docz:dev
+> npm install
+> npm run docs
 ```
 and  open up [localhost:3000](http://localhost:3000) in your browser.
 
