@@ -30,8 +30,8 @@ The example files are in `docs/examples` directory.
         <BasicTooltipTrigger
           trigger="none"
           tooltipShown={on}
-          tooltip="Hello, Controlled!"
           onVisibilityChange={set}
+          tooltip="Hello, Controlled!"
         >
           I am state controlled!
         </BasicTooltipTrigger>
@@ -49,8 +49,8 @@ The example files are in `docs/examples` directory.
       <BasicTooltipTrigger
         trigger="click"
         tooltipShown={on}
-        tooltip={<EscapeToClose closeTooltip={() => set(false)}>Press Esc to Close</EscapeToClose>}
         onVisibilityChange={set}
+        tooltip={<EscapeToClose closeTooltip={() => set(false)}>Press Esc to Close</EscapeToClose>}
       >
         Click Here
       </BasicTooltipTrigger>
