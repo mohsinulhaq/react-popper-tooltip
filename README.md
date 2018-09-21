@@ -7,6 +7,9 @@
 React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the 
 React wrapper around [popper.js](https://popper.js.org/) library.
 
+## Homepage
+https://mohsinulhaq.github.io/react-popper-tooltip
+
 ## Example
 https://codesandbox.io/s/pykkz77z5j
 
@@ -14,6 +17,10 @@ https://codesandbox.io/s/pykkz77z5j
 
 ```
 npm install react-popper-tooltip
+```
+or
+```
+yarn add react-popper-tooltip
 ```
 
 ```jsx
@@ -136,6 +143,11 @@ To fiddle with our example recipes, run:
 ```
 > npm install
 > npm run docs
+```
+or
+```
+> yarn
+> yarn docs
 ```
 and  open up [localhost:3000](http://localhost:3000) in your browser.
 

@@ -2,7 +2,7 @@
   "name": "react-popper-tooltip",
   "version": "2.3.4",
   "description": "React tooltip library built around react-popper",
-  "homepage": "https://github.com/mohsinulhaq/react-popper-tooltip",
+  "homepage": "https://mohsinulhaq.github.io/react-popper-tooltip",
   "repository": {
     "type": "git",
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
@@ -16,12 +16,13 @@
     "typings/react-popper-tooltip.d.ts"
   ],
   "scripts": {
-    "build": "npm run build:cjs; npm run build:esm; mkdir -p dist && cp src/styles.css dist",
+    "build": "yarn build:cjs; yarn build:esm; mkdir -p dist && cp src/styles.css dist",
     "build:cjs": "babel --delete-dir-on-start src -d lib/cjs",
     "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm",
-    "prepare": "npm run build",
+    "prepare": "yarn build && yarn docs:deploy",
     "docs": "docz dev",
-    "docs:build": "docz build"
+    "docs:build": "docz build",
+    "docs:deploy": "yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html && gh-pages -d .docz/dist"
   },
   "keywords": [
     "react",
@@ -36,6 +37,9 @@
   "browserslist": [
     "defaults"
   ],
+  "prettier": {
+    "singleQuote": true
+  },
   "peerDependencies": {
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
@@ -53,6 +57,7 @@
     "@babel/preset-react": "^7.0.0",
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
+    "gh-pages": "^2.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
