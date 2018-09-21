@@ -49,10 +49,10 @@ The example files are in `docs/examples` directory.
       <BasicTooltipTrigger
         trigger="click"
         tooltipShown={on}
-        tooltip={<EscapeToClose closeTooltip={() => set(false)} />}
+        tooltip={<EscapeToClose closeTooltip={() => set(false)}>Press Esc to Close</EscapeToClose>}
         onVisibilityChange={set}
       >
-        <button>Click Here</button>
+        Click Here
       </BasicTooltipTrigger>
     )}
   </StateContainer>
