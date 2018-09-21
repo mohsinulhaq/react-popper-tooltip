@@ -1,0 +1,61 @@
+---
+name: TooltipTrigger
+route: /
+---
+
+import { Playground, PropsTable } from 'docz';
+import BasicTooltipTrigger from './examples/BasicTooltipTrigger';
+import EscapeToClose from './examples/EscapeToClose';
+import {StateContainer} from './examples/utils';
+
+# TooltipTrigger
+
+The example files are in `docs/examples` directory.
+
+## Basic example
+
+<Playground>
+  <BasicTooltipTrigger tooltip="Hello, World!">Hover over me</BasicTooltipTrigger>
+</Playground>
+
+
+## Controlled
+
+<Playground>
+  <StateContainer>
+    {({ on, set, toggle }) => (
+      <div>
+        <button onClick={toggle}>Toggle tooltip</button>
+        <br /><br />
+        <BasicTooltipTrigger
+          trigger="none"
+          tooltipShown={on}
+          onVisibilityChange={set}
+          tooltip="Hello, Controlled!"
+        >
+          I am state controlled!
+        </BasicTooltipTrigger>
+      </div>
+    )}
+  </StateContainer>
+</Playground>
+
+
+## Escape to close
+
+<Playground>
+  <StateContainer>
+    {({ on, set }) => (
+      <BasicTooltipTrigger
+        trigger="click"
+        tooltipShown={on}
+        onVisibilityChange={set}
+        tooltip={<EscapeToClose closeTooltip={() => set(false)}>Press Esc to Close</EscapeToClose>}
+      >
+        Click Here
+      </BasicTooltipTrigger>
+    )}
+  </StateContainer>
+</Playground>
+
+Note: `StateContainer` is for demo purpose only and used for state management.

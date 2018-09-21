@@ -19,7 +19,9 @@
     "build": "npm run build:cjs; npm run build:esm; mkdir -p dist && cp src/styles.css dist",
     "build:cjs": "babel --delete-dir-on-start src -d lib/cjs",
     "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "docs": "docz dev",
+    "docs:build": "docz build"
   },
   "keywords": [
     "react",
@@ -49,6 +51,10 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "prop-types": "^15.6.2"
+    "docz": "^0.11.2",
+    "docz-plugin-css": "^0.11.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   }
 }

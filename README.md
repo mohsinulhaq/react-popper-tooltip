@@ -47,7 +47,7 @@ render(
             /* your props here */
           })}
         />
-        <div className="tooltip-body">Hello, World!</div>
+        Hello, World!
       </div>
     )}
   >
@@ -131,6 +131,14 @@ Then you can use it as shown in the example below.
 <Tooltip placement="top" trigger="click" tooltip="Hi there!">Click me</Tooltip>
 ```
 
+## Examples
+To fiddle with our example recipes, run:
+```
+> npm install
+> npm run docs
+```
+and  open up [localhost:3000](http://localhost:3000) in your browser.
+
 ## Props
 
 ### children
@@ -158,7 +166,7 @@ This is the initial visibility state of the tooltip.
 
 > `function(tooltipShown: boolean)`
 
-Called when the visibility of the tooltip changes. `tooltipShown` is a new state.
+Called with the tooltip state, when the visibility of the tooltip changes
 
 ### tooltipShown
 
