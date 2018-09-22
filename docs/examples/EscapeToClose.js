@@ -1,6 +1,12 @@
 import React from 'react';
+import T from 'prop-types';
 
 export default class EscapeToClose extends React.Component {
+  static propTypes = {
+    closeTooltip: T.func.required,
+    children: T.object
+  };
+
   componentDidMount() {
     document.addEventListener('keydown', this._handleKeyDown);
   }

@@ -19,11 +19,13 @@
     "build": "yarn build:cjs; yarn build:esm; mkdir -p dist && cp src/styles.css dist",
     "build:cjs": "babel --delete-dir-on-start src -d lib/cjs",
     "build:esm": "babel --delete-dir-on-start --env-name esm src -d lib/esm",
-    "prepare": "yarn build && yarn docs:deploy",
+    "prepublishOnly": "yarn lint && yarn build && yarn docs:deploy",
     "docs": "docz dev",
     "docs:build": "docz build",
-    "docs:deploy": "yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html && gh-pages -d .docz/dist"
+    "docs:deploy": "yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html && gh-pages -d .docz/dist",
+    "lint": "eslint ."
   },
+  "pre-commit": "lint",
   "keywords": [
     "react",
     "tooltip",
@@ -40,6 +42,58 @@
   "prettier": {
     "singleQuote": true
   },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true
+    },
+    "parser": "babel-eslint",
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:jsx-a11y/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "jsx-a11y"
+    ],
+    "settings": {
+      "react": {
+        "version": "latest"
+      }
+    },
+    "rules": {
+      "indent": [
+        "error",
+        2
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "dist",
+    "lib"
+  ],
   "peerDependencies": {
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
@@ -55,9 +109,16 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^9.0.0",
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
+    "eslint": "^5.6.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^2.0.0",
+    "pre-commit": "^1.2.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"

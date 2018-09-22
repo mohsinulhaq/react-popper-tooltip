@@ -1,3 +1,4 @@
+/* eslint-disable react/no-find-dom-node */
 import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import T from 'prop-types';
