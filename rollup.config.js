@@ -25,30 +25,10 @@ export default [
     input,
     output: {
       name,
-      file: 'dist/react-popper-tooltip.js',
+      file: 'dist/index.js',
       format: 'iife',
-      globals
-    },
-    external: Object.keys(globals),
-    plugins: [
-      resolve({
-        browser: true,
-        modulesOnly: true
-      }),
-      commonjs({
-        include: 'node_modules/**'
-      }),
-      babel(getBabelOptions()),
-      sizeSnapshot()
-    ]
-  },
-  {
-    input,
-    output: {
-      name,
-      file: 'dist/react-popper-tooltip.min.js',
-      format: 'iife',
-      globals
+      globals,
+      interop: false
     },
     external: Object.keys(globals),
     plugins: [
@@ -66,13 +46,21 @@ export default [
   },
   {
     input,
-    output: { file: pkg.main, format: 'cjs' },
+    output: {
+      file: pkg.browser,
+      format: 'cjs',
+      interop: false
+    },
     external,
     plugins: [babel(getBabelOptions({ useESModules: false })), sizeSnapshot()]
   },
   {
     input,
-    output: { file: pkg.module, format: 'esm' },
+    output: {
+      file: pkg.module,
+      format: 'esm',
+      interop: false
+    },
     external,
     plugins: [babel(getBabelOptions()), sizeSnapshot()]
   }

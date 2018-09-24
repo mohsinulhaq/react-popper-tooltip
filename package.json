@@ -7,9 +7,9 @@
     "type": "git",
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
   },
-  "browser": "dist/react-popper-tooltip.min.js",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.esm.js",
+  "browser": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "unpkg": "dist/index.js",
   "style": "dist/styles.css",
   "typings": "typings/react-popper-tooltip.d.ts",
   "files": [
@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "rimraf dist lib && rollup -c && cp src/styles.css dist",
-    "prepublishOnly": "yarn lint && yarn build && yarn docs:deploy",
+    "prepublishOnly": "yarn lint && yarn build",
     "docs": "docz dev",
     "docs:build": "docz build",
     "docs:deploy": "yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html && gh-pages -d .docz/dist",
@@ -101,6 +101,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
+    "prop-types": "^15.6.2",
     "react-popper": "^1.0.2"
   },
   "devDependencies": {
@@ -111,7 +112,6 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^9.0.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.18",
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
     "eslint": "^5.6.0",
@@ -122,7 +122,6 @@
     "gh-pages": "^2.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.14.3",
-    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "rimraf": "^2.6.2",
@@ -132,5 +131,6 @@
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-size-snapshot": "^0.7.0",
     "rollup-plugin-terser": "^3.0.0"
-  }
+  },
+  "sideEffects": false
 }

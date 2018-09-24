@@ -3,13 +3,11 @@ module.exports = {
     [
       '@babel/env',
       {
-        modules: false
+        modules: false,
+        loose: true
       }
     ],
-    ['@babel/react']
+    '@babel/react'
   ],
-  plugins: [
-    '@babel/plugin-proposal-class-properties',
-    'transform-react-remove-prop-types'
-  ]
+  plugins: [['@babel/proposal-class-properties', { loose: true }]]
 };

@@ -1,30 +1,25 @@
 {
-  "dist/react-popper-tooltip.js": {
-    "bundled": 16587,
-    "minified": 7824,
-    "gzipped": 2402
+  "dist/index.js": {
+    "bundled": 6280,
+    "minified": 6280,
+    "gzipped": 1974
   },
-  "dist/react-popper-tooltip.min.js": {
-    "bundled": 7824,
-    "minified": 7824,
-    "gzipped": 2402
+  "lib/cjs/index.js": {
+    "bundled": 11982,
+    "minified": 6536,
+    "gzipped": 1904
   },
-  "lib/index.cjs.js": {
-    "bundled": 12754,
-    "minified": 7979,
-    "gzipped": 1986
-  },
-  "lib/index.esm.js": {
-    "bundled": 12342,
-    "minified": 7648,
-    "gzipped": 1923,
+  "lib/esm/index.js": {
+    "bundled": 11940,
+    "minified": 6518,
+    "gzipped": 1906,
     "treeshaked": {
       "rollup": {
-        "code": 6202,
-        "import_statements": 697
+        "code": 6028,
+        "import_statements": 361
       },
       "webpack": {
-        "code": 7775
+        "code": 7329
       }
     }
   }
