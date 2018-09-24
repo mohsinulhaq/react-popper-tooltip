@@ -1,35 +1,15 @@
-const presets = [
-  [
-    '@babel/env',
-    {
-      useBuiltIns: 'usage'
-    }
+module.exports = {
+  presets: [
+    [
+      '@babel/env',
+      {
+        modules: false
+      }
+    ],
+    ['@babel/react']
   ],
-  [
-    '@babel/react',
-    {
-      useBuiltIns: true
-    }
+  plugins: [
+    '@babel/plugin-proposal-class-properties',
+    'transform-react-remove-prop-types'
   ]
-];
-
-const plugins = [
-  '@babel/plugin-transform-runtime',
-  '@babel/plugin-proposal-class-properties'
-];
-
-const env = {
-  esm: {
-    presets: [
-      [
-        '@babel/env',
-        {
-          modules: false,
-          useBuiltIns: 'usage'
-        }
-      ]
-    ]
-  }
 };
-
-module.exports = { presets, plugins, env };

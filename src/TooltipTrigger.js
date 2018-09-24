@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
 import Tooltip from './Tooltip';
-import { callAll, noop } from './utils';
+import { TooltipContext, callAll, noop } from './utils';
 
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
@@ -14,8 +14,6 @@ const DEFAULT_MODIFIERS = {
     padding: 0
   }
 };
-
-export const TooltipContext = React.createContext({});
 
 export default class TooltipTrigger extends PureComponent {
   static propTypes = {

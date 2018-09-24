@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import T from 'prop-types';
-import { TooltipContext } from './TooltipTrigger';
+import { TooltipContext } from './utils';
 import { callAll } from './utils';
 
 const MUTATION_OBSERVER_CONFIG = {
