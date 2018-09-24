@@ -1,11 +1,6 @@
 import React from 'react';
-import T from 'prop-types';
 
 export class StateContainer extends React.Component {
-  static propTypes = {
-    children: T.func.required
-  };
-
   state = {
     on: false
   };

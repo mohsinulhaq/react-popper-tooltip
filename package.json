@@ -92,7 +92,8 @@
   },
   "eslintIgnore": [
     "dist",
-    "lib"
+    "lib",
+    "docs"
   ],
   "peerDependencies": {
     "react": "^16.3.0",

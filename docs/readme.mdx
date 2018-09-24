@@ -59,3 +59,55 @@ The example files are in `docs/examples` directory.
 </Playground>
 
 Note: `StateContainer` is for demo purpose only and used for state management.
+
+## Continuation
+*Could be used for creating dropdown menu framework, datepicker, etc.*
+
+### Hover Continuation
+<Playground>
+  <BasicTooltipTrigger
+    tooltip={
+      <BasicTooltipTrigger
+        tooltip={
+          <BasicTooltipTrigger placement="bottom" tooltip="Four">
+            Three
+          </BasicTooltipTrigger>
+        }
+      >
+        Two
+      </BasicTooltipTrigger>
+    }
+  >
+    One
+  </BasicTooltipTrigger>
+</Playground>
+
+
+### Click Continuation
+<Playground>
+  <BasicTooltipTrigger
+    trigger="click"
+    tooltip={
+      <BasicTooltipTrigger
+        trigger="click"
+        tooltip={
+          <BasicTooltipTrigger
+            trigger="click"
+            placement="bottom"
+            tooltip={
+              <BasicTooltipTrigger trigger="click" tooltip="Five">
+                Four
+              </BasicTooltipTrigger>
+            }
+          >
+            Three
+          </BasicTooltipTrigger>
+        }
+      >
+        Two
+      </BasicTooltipTrigger>
+    }
+  >
+    One
+  </BasicTooltipTrigger>
+</Playground>
