@@ -16,12 +16,16 @@ https://codesandbox.io/s/pykkz77z5j
 
 ### Usage
 
-```
+```bash
 npm install react-popper-tooltip
 ```
 or
-```
+```bash
 yarn add react-popper-tooltip
+```
+or
+```html
+<script src="https://unpkg.com/react-popper-tooltip/dist/index.js"></script>
 ```
 
 ```jsx
@@ -141,12 +145,12 @@ Then you can use it as shown in the example below.
 
 ## Examples
 To fiddle with our example recipes, run:
-```
+```bash
 > npm install
 > npm run docs
 ```
 or
-```
+```bash
 > yarn
 > yarn docs
 ```
