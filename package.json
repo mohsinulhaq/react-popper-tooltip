@@ -8,6 +8,7 @@
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
   },
   "browser": "lib/cjs/index.js",
+   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "unpkg": "dist/index.js",
   "style": "dist/styles.css",
