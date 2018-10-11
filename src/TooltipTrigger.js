@@ -66,6 +66,10 @@ export default class TooltipTrigger extends PureComponent {
      */
     closeOnOutOfBoundaries: T.bool,
     /**
+     * whether to React.createPortal for creating tooltip
+     */
+    usePortal: T.bool,
+    /**
      * modifiers passed directly to the underlying popper.js instance
      * For more information, refer to Popper.js’ modifier docs:
      * @link https://popper.js.org/popper-documentation.html#modifiers
@@ -80,7 +84,8 @@ export default class TooltipTrigger extends PureComponent {
     placement: 'right',
     trigger: 'hover',
     closeOnOutOfBoundaries: true,
-    onVisibilityChange: noop
+    onVisibilityChange: noop,
+    usePortal: true
   };
 
   state = {
@@ -166,8 +171,52 @@ export default class TooltipTrigger extends PureComponent {
       placement,
       trigger,
       modifiers,
-      closeOnOutOfBoundaries
+      closeOnOutOfBoundaries,
+      usePortal
     } = this.props;
+
+    const popper = (
+      <Popper
+        placement={placement}
+        modifiers={{ ...DEFAULT_MODIFIERS, ...modifiers }}
+      >
+        {({
+          ref,
+          style,
+          placement,
+          arrowProps,
+          outOfBoundaries,
+          scheduleUpdate
+        }) => (
+          <TooltipContext.Consumer>
+            {({
+              addParentOutsideClickHandler,
+              removeParentOutsideClickHandler,
+              parentOutsideClickHandler
+            }) => (
+              <Tooltip
+                {...{
+                  style,
+                  arrowProps,
+                  placement,
+                  trigger,
+                  closeOnOutOfBoundaries,
+                  tooltip,
+                  addParentOutsideClickHandler,
+                  removeParentOutsideClickHandler,
+                  parentOutsideClickHandler,
+                  outOfBoundaries,
+                  scheduleUpdate
+                }}
+                innerRef={ref}
+                hideTooltip={this._hideTooltip}
+                clearScheduled={this._clearScheduled}
+              />
+            )}
+          </TooltipContext.Consumer>
+        )}
+      </Popper>
+    );
 
     return (
       <Manager>
@@ -177,49 +226,7 @@ export default class TooltipTrigger extends PureComponent {
           }
         </Reference>
         {this._getState() &&
-          createPortal(
-            <Popper
-              placement={placement}
-              modifiers={{ ...DEFAULT_MODIFIERS, ...modifiers }}
-            >
-              {({
-                ref,
-                style,
-                placement,
-                arrowProps,
-                outOfBoundaries,
-                scheduleUpdate
-              }) => (
-                <TooltipContext.Consumer>
-                  {({
-                    addParentOutsideClickHandler,
-                    removeParentOutsideClickHandler,
-                    parentOutsideClickHandler
-                  }) => (
-                    <Tooltip
-                      {...{
-                        style,
-                        arrowProps,
-                        placement,
-                        trigger,
-                        closeOnOutOfBoundaries,
-                        tooltip,
-                        addParentOutsideClickHandler,
-                        removeParentOutsideClickHandler,
-                        parentOutsideClickHandler,
-                        outOfBoundaries,
-                        scheduleUpdate
-                      }}
-                      innerRef={ref}
-                      hideTooltip={this._hideTooltip}
-                      clearScheduled={this._clearScheduled}
-                    />
-                  )}
-                </TooltipContext.Consumer>
-              )}
-            </Popper>,
-            document.body
-          )}
+          (usePortal ? createPortal(popper, document.body) : popper)}
       </Manager>
     );
   }
