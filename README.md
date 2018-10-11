@@ -25,7 +25,7 @@ yarn add react-popper-tooltip
 ```
 or
 ```html
-<script src="https://unpkg.com/react-popper-tooltip/dist/index.js"></script>
+<script src="https://unpkg.com/react-popper-tooltip"></script>
 ```
 
 ```jsx
@@ -231,9 +231,15 @@ The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `no
 
 ### closeOnOutOfBoundaries
 
-> `boolean` | defaults to `true` 
+> `boolean` | defaults to `true`
 
 Whether to close the tooltip when it's trigger is out of the boundary.
+
+### usePortal
+
+> `boolean` | defaults to `true`
+
+Whether to use `React.createPortal` for creating tooltip.
 
 ### modifiers
 

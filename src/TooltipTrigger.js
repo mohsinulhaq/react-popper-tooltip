@@ -66,7 +66,7 @@ export default class TooltipTrigger extends PureComponent {
      */
     closeOnOutOfBoundaries: T.bool,
     /**
-     * whether to React.createPortal for creating tooltip
+     * whether to use React.createPortal for creating tooltip
      */
     usePortal: T.bool,
     /**

@@ -99,6 +99,10 @@ declare module 'react-popper-tooltip' {
      * Defaults to true.
      */
     closeOnOutOfBoundaries?: boolean;
+    /** Whether to use React.createPortal for creating tooltip.
+     * Defaults to true.
+     */
+    usePortal?: boolean;
     /**
      * Modifiers passed directly to the underlying popper.js instance. For more
      * information, refer to Popper.js’ [modifier docs](https://popper.js.org/popper-documentation.html#modifiers).
