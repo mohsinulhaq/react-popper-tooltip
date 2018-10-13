@@ -241,6 +241,12 @@ Whether to close the tooltip when it's trigger is out of the boundary.
 
 Whether to use `React.createPortal` for creating tooltip.
 
+### portalContainer
+
+> `HTMLElement` | defaults to `document.body`
+
+Element to be used as portal container
+
 ### modifiers
 
 > `object` 

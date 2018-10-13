@@ -72,6 +72,11 @@ declare module 'react-popper-tooltip' {
     tooltip: (props: TooltipProps) => JSX.Element;
     /** The trigger child. */
     children: (props: ChildProps) => JSX.Element;
+    /**
+     * The tooltip placement.
+     * @see https://popper.js.org/popper-documentation.html#Popper.placements
+     */
+    placement?: Popper.Placement;
     /** The initial visibility state of the tooltip. */
     defaultTooltipShown?: boolean;
     /**
@@ -84,7 +89,8 @@ declare module 'react-popper-tooltip' {
      * redux, react-router, or anywhere else. */
     tooltipShown?: boolean;
     /** Called when the visibility of the tooltip changes.
-     * `tooltipShown` is a new state. */
+     * `tooltipShown` is the new state.
+     */
     onVisibilityChange: (tooltipShown: boolean) => void;
     /** Delay in showing the tooltip (ms). Defaults to 0. */
     delayShow?: number;
@@ -95,14 +101,21 @@ declare module 'react-popper-tooltip' {
      * Defaults to hover.
      */
     trigger?: 'click' | 'hover' | 'right-click' | 'none';
-    /** Whether to close the tooltip when it's trigger is out of the boundary.
+    /**
+     * Whether to close the tooltip when it's trigger is out of the boundary.
      * Defaults to true.
      */
     closeOnOutOfBoundaries?: boolean;
-    /** Whether to use React.createPortal for creating tooltip.
+    /**
+     * Whether to use React.createPortal for creating tooltip.
      * Defaults to true.
      */
     usePortal?: boolean;
+    /**
+     * Element to be used as portal container
+     * Defaults to document.body.
+     */
+    portalContainer?: HTMLElement;
     /**
      * Modifiers passed directly to the underlying popper.js instance. For more
      * information, refer to Popper.js’ [modifier docs](https://popper.js.org/popper-documentation.html#modifiers).
@@ -118,11 +131,5 @@ declare module 'react-popper-tooltip' {
     ```
     */
     modifiers?: Popper.Modifiers;
-    /**
-     * The tooltip placement.
-     *
-     * @see https://popper.js.org/popper-documentation.html#Popper.placements
-     */
-    placement?: Popper.Placement;
   }
 }
