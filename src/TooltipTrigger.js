@@ -70,6 +70,10 @@ export default class TooltipTrigger extends PureComponent {
      */
     usePortal: T.bool,
     /**
+     * element to be used as portal container
+     */
+    portalContainer: T.instanceOf(HTMLElement),
+    /**
      * modifiers passed directly to the underlying popper.js instance
      * For more information, refer to Popper.js’ modifier docs:
      * @link https://popper.js.org/popper-documentation.html#modifiers
@@ -85,7 +89,8 @@ export default class TooltipTrigger extends PureComponent {
     trigger: 'hover',
     closeOnOutOfBoundaries: true,
     onVisibilityChange: noop,
-    usePortal: true
+    usePortal: true,
+    portalContainer: document.body
   };
 
   state = {
@@ -172,7 +177,8 @@ export default class TooltipTrigger extends PureComponent {
       trigger,
       modifiers,
       closeOnOutOfBoundaries,
-      usePortal
+      usePortal,
+      portalContainer
     } = this.props;
 
     const popper = (
@@ -226,7 +232,7 @@ export default class TooltipTrigger extends PureComponent {
           }
         </Reference>
         {this._getState() &&
-          (usePortal ? createPortal(popper, document.body) : popper)}
+          (usePortal ? createPortal(popper, portalContainer) : popper)}
       </Manager>
     );
   }
