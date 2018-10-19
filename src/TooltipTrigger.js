@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
 import Tooltip from './Tooltip';
-import { TooltipContext, callAll, noop } from './utils';
+import { TooltipContext, callAll, noop, canUseDOM } from './utils';
 
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
@@ -72,7 +72,7 @@ export default class TooltipTrigger extends PureComponent {
     /**
      * element to be used as portal container
      */
-    portalContainer: T.instanceOf(HTMLElement),
+    portalContainer: canUseDOM() ? T.instanceOf(HTMLElement) : T.object,
     /**
      * modifiers passed directly to the underlying popper.js instance
      * For more information, refer to Popper.js’ modifier docs:
@@ -89,8 +89,8 @@ export default class TooltipTrigger extends PureComponent {
     trigger: 'hover',
     closeOnOutOfBoundaries: true,
     onVisibilityChange: noop,
-    usePortal: true,
-    portalContainer: document.body
+    usePortal: canUseDOM(),
+    portalContainer: canUseDOM() ? document.body : null
   };
 
   state = {
