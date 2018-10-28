@@ -22,6 +22,7 @@ declare module 'react-popper-tooltip' {
         onContextMenu?: (evt: React.SyntheticEvent) => void;
         onMouseEnter?: (evt: React.SyntheticEvent) => void;
         onMouseLeave?: (evt: React.SyntheticEvent) => void;
+        onMouseMove?: (evt: React.SyntheticEvent) => void;
         [key: string]: any;
       }
     ) => {
@@ -29,6 +30,7 @@ declare module 'react-popper-tooltip' {
       onContextMenu: (evt: React.SyntheticEvent) => void;
       onMouseEnter: (evt: React.SyntheticEvent) => void;
       onMouseLeave: (evt: React.SyntheticEvent) => void;
+      onMouseMove: (evt: React.SyntheticEvent) => void;
       [key: string]: any;
     };
     /** Returns the react ref you should apply to the trigger element. */
@@ -86,7 +88,8 @@ declare module 'react-popper-tooltip' {
      * pass the visibility state of the tooltip from the outside. You will be required to
      * keep this state up to date (this is where onVisibilityChange becomes useful), but
      * you can also control the state from anywhere, be that state from other components,
-     * redux, react-router, or anywhere else. */
+     * redux, react-router, or anywhere else.
+     */
     tooltipShown?: boolean;
     /** Called when the visibility of the tooltip changes.
      * `tooltipShown` is the new state.
@@ -116,6 +119,11 @@ declare module 'react-popper-tooltip' {
      * Defaults to document.body.
      */
     portalContainer?: any;
+    /**
+     * Whether to spawn the tooltip at the cursor position.
+     * Recommended usage with hover trigger and no arrow element
+     */
+    followCursor?: boolean;
     /**
      * Modifiers passed directly to the underlying popper.js instance. For more
      * information, refer to Popper.js’ [modifier docs](https://popper.js.org/popper-documentation.html#modifiers).

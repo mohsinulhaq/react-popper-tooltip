@@ -10,7 +10,6 @@ const name = 'TooltipTrigger';
 const globals = {
   react: 'React',
   'react-dom': 'ReactDOM',
-  'prop-types': 'PropTypes',
   'react-popper': 'ReactPopper'
 };
 const external = id => !id.startsWith('.') && !id.startsWith('/');

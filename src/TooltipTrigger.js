@@ -1,7 +1,7 @@
 /**
  * @author Mohsin Ul Haq <mohsinulhaq01@gmail.com>
  */
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
@@ -15,7 +15,7 @@ const DEFAULT_MODIFIERS = {
   }
 };
 
-export default class TooltipTrigger extends PureComponent {
+export default class TooltipTrigger extends Component {
   static propTypes = {
     /**
      * trigger
@@ -74,6 +74,11 @@ export default class TooltipTrigger extends PureComponent {
      */
     portalContainer: canUseDOM() ? T.instanceOf(HTMLElement) : T.object,
     /**
+     * whether to make the tooltip spawn at cursor position
+     * @default false
+     */
+    followCursor: T.bool,
+    /**
      * modifiers passed directly to the underlying popper.js instance
      * For more information, refer to Popper.js’ modifier docs:
      * @link https://popper.js.org/popper-documentation.html#modifiers
@@ -90,11 +95,16 @@ export default class TooltipTrigger extends PureComponent {
     closeOnOutOfBoundaries: true,
     onVisibilityChange: noop,
     usePortal: canUseDOM(),
-    portalContainer: canUseDOM() ? document.body : null
+    portalContainer: canUseDOM() ? document.body : null,
+    followCursor: false
   };
 
+  static contextType = TooltipContext;
+
   state = {
-    tooltipShown: this._isControlled() ? false : this.props.defaultTooltipShown
+    tooltipShown: this._isControlled() ? false : this.props.defaultTooltipShown,
+    pageX: null,
+    pageY: null
   };
 
   _isControlled() {
@@ -108,12 +118,12 @@ export default class TooltipTrigger extends PureComponent {
   }
 
   _setTooltipState = state => {
-    const cb = () => this.props.onVisibilityChange(state);
+    const cb = () => this.props.onVisibilityChange(state.tooltipShown);
 
     if (this._isControlled()) {
       cb();
     } else {
-      this.setState({ tooltipShown: state }, cb);
+      this.setState(state, cb);
     }
   };
 
@@ -122,24 +132,46 @@ export default class TooltipTrigger extends PureComponent {
     clearTimeout(this._showTimeout);
   };
 
-  _showTooltip = (delay = this.props.delayShow) => {
+  _showTooltip = ({ pageX, pageY }) => {
     this._clearScheduled();
-    this._showTimeout = setTimeout(() => this._setTooltipState(true), delay);
+    let state = { tooltipShown: true };
+    if (this.props.followCursor) {
+      state = {
+        ...state,
+        pageX,
+        pageY
+      };
+    }
+    this._showTimeout = setTimeout(
+      () => this._setTooltipState(state),
+      this.props.delayShow
+    );
   };
 
-  _hideTooltip = (delay = this.props.delayHide) => {
+  _hideTooltip = () => {
     this._clearScheduled();
-    this._hideTimeout = setTimeout(() => this._setTooltipState(false), delay);
+    this._hideTimeout = setTimeout(
+      () => this._setTooltipState({ tooltipShown: false }),
+      this.props.delayHide
+    );
   };
 
-  _toggleTooltip = delay => {
+  _toggleTooltip = ({ pageX, pageY }) => {
     const action = this._getState() ? '_hideTooltip' : '_showTooltip';
-    this[action](delay);
+    this[action]({ pageX, pageY });
+  };
+
+  _clickToggle = event => {
+    const { pageX, pageY } = event;
+    const action = this.props.followCursor ? '_showTooltip' : '_toggleTooltip';
+    this[action]({ pageX, pageY });
   };
 
   _contextMenuToggle = event => {
     event.preventDefault();
-    this._toggleTooltip();
+    const { pageX, pageY } = event;
+    const action = this.props.followCursor ? '_showTooltip' : '_toggleTooltip';
+    this[action]({ pageX, pageY });
   };
 
   componentWillUnmount() {
@@ -153,7 +185,7 @@ export default class TooltipTrigger extends PureComponent {
 
     return {
       ...props,
-      onClick: callAll(isClickTriggered && this._toggleTooltip, props.onClick),
+      onClick: callAll(isClickTriggered && this._clickToggle, props.onClick),
       onContextMenu: callAll(
         isRightClickTriggered && this._contextMenuToggle,
         props.onContextMenu
@@ -165,6 +197,10 @@ export default class TooltipTrigger extends PureComponent {
       onMouseLeave: callAll(
         isHoverTriggered && this._hideTooltip,
         props.onMouseLeave
+      ),
+      onMouseMove: callAll(
+        isHoverTriggered && this.props.followCursor && this._showTooltip,
+        props.onMouseMove
       )
     };
   };
@@ -178,8 +214,18 @@ export default class TooltipTrigger extends PureComponent {
       modifiers,
       closeOnOutOfBoundaries,
       usePortal,
-      portalContainer
+      portalContainer,
+      followCursor
     } = this.props;
+
+    const {
+      parentOutsideClickHandler,
+      addParentOutsideClickHandler,
+      removeParentOutsideClickHandler,
+      parentOutsideRightClickHandler,
+      addParentOutsideRightClickHandler,
+      removeParentOutsideRightClickHandler
+    } = this.context;
 
     const popper = (
       <Popper
@@ -193,34 +239,35 @@ export default class TooltipTrigger extends PureComponent {
           arrowProps,
           outOfBoundaries,
           scheduleUpdate
-        }) => (
-          <TooltipContext.Consumer>
-            {({
-              addParentOutsideClickHandler,
-              removeParentOutsideClickHandler,
-              parentOutsideClickHandler
-            }) => (
-              <Tooltip
-                {...{
-                  style,
-                  arrowProps,
-                  placement,
-                  trigger,
-                  closeOnOutOfBoundaries,
-                  tooltip,
-                  addParentOutsideClickHandler,
-                  removeParentOutsideClickHandler,
-                  parentOutsideClickHandler,
-                  outOfBoundaries,
-                  scheduleUpdate
-                }}
-                innerRef={ref}
-                hideTooltip={this._hideTooltip}
-                clearScheduled={this._clearScheduled}
-              />
-            )}
-          </TooltipContext.Consumer>
-        )}
+        }) => {
+          if (followCursor) {
+            const { pageX, pageY } = this.state;
+            style.transform = `translate3d(${pageX}px, ${pageY}px, 0`;
+          }
+          return (
+            <Tooltip
+              {...{
+                style,
+                arrowProps,
+                placement,
+                trigger,
+                closeOnOutOfBoundaries,
+                tooltip,
+                parentOutsideClickHandler,
+                addParentOutsideClickHandler,
+                removeParentOutsideClickHandler,
+                parentOutsideRightClickHandler,
+                addParentOutsideRightClickHandler,
+                removeParentOutsideRightClickHandler,
+                outOfBoundaries,
+                scheduleUpdate
+              }}
+              innerRef={ref}
+              hideTooltip={this._hideTooltip}
+              clearScheduled={this._clearScheduled}
+            />
+          );
+        }}
       </Popper>
     );
 

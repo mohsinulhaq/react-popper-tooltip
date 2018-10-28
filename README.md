@@ -94,7 +94,7 @@ import React from 'react';
 import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 
-const Tooltip = ({ tooltip, children, ...props }) => (
+const Tooltip = ({ tooltip, children, hideArrow ...props }) => (
   <TooltipTrigger
     {...props}
     tooltip={({
@@ -110,13 +110,13 @@ const Tooltip = ({ tooltip, children, ...props }) => (
           className: 'tooltip-container'
         })}
       >
-        <div
+        {!hideArrow && <div
           {...getArrowProps({
             ref: arrowRef,
             'data-placement': placement,
             className: 'tooltip-arrow'
           })}
-        />
+        />}
         {tooltip}
       </div>
     )}
@@ -246,6 +246,14 @@ Whether to use `React.createPortal` for creating tooltip.
 > `HTMLElement` | defaults to `document.body`
 
 Element to be used as portal container
+
+### followCursor
+
+> `boolean` | defaults to `false`
+
+Whether to spawn the tooltip at the cursor position.
+
+Recommended usage with hover trigger and no arrow element
 
 ### modifiers
 
