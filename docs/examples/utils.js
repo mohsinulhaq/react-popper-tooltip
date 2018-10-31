@@ -5,9 +5,9 @@ export class StateContainer extends React.Component {
     on: false
   };
 
-  set = on => this.setState({ on });
+  set = on => this.setState({on});
 
-  toggle = () => this.setState(prevState => ({ on: !prevState.on }));
+  toggle = () => this.setState(prevState => ({on: !prevState.on}));
 
   render() {
     return this.props.children({

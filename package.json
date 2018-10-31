@@ -44,7 +44,8 @@
     "not op_mini all"
   ],
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "bracketSpacing": false
   },
   "eslintConfig": {
     "env": {
@@ -68,6 +69,7 @@
     },
     "plugins": [
       "react",
+      "react-hooks",
       "jsx-a11y"
     ],
     "settings": {
@@ -91,7 +93,12 @@
       "semi": [
         "error",
         "always"
-      ]
+      ],
+      "object-curly-spacing": [
+        "error",
+        "never"
+      ],
+      "react-hooks/rules-of-hooks": "error"
     }
   },
   "eslintIgnore": [
@@ -100,8 +107,8 @@
     "docs"
   ],
   "peerDependencies": {
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0"
+    "react": "^16.7.0-alpha.0",
+    "react-dom": "^16.7.0-alpha.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
@@ -116,19 +123,20 @@
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
-    "docz": "^0.12.5",
+    "docz": "^0.12.7",
     "docz-plugin-css": "^0.11.0",
     "eslint": "^5.8.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "^0.0.0",
     "gh-pages": "^2.0.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "react": "^16.7.0-alpha.0",
+    "react-dom": "^16.7.0-alpha.0",
     "rimraf": "^2.6.2",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",

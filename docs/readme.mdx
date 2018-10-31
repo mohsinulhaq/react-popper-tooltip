@@ -3,7 +3,7 @@ name: TooltipTrigger
 route: /
 ---
 
-import { Playground, PropsTable } from 'docz';
+import {Playground, PropsTable} from 'docz';
 import BasicTooltipTrigger from './examples/BasicTooltipTrigger';
 import EscapeToClose from './examples/EscapeToClose';
 import {StateContainer} from './examples/utils';
@@ -23,7 +23,7 @@ The example files are in `docs/examples` directory.
 
 <Playground>
   <StateContainer>
-    {({ on, set, toggle }) => (
+    {({on, set, toggle}) => (
       <div>
         <button onClick={toggle}>Toggle tooltip</button>
         <br /><br />
@@ -45,7 +45,7 @@ The example files are in `docs/examples` directory.
 
 <Playground>
   <StateContainer>
-    {({ on, set }) => (
+    {({on, set}) => (
       <BasicTooltipTrigger
         trigger="click"
         tooltipShown={on}

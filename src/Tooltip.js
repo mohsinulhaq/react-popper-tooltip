@@ -1,171 +1,160 @@
 /* eslint-disable react/no-find-dom-node */
-import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
+import React, {useRef, useEffect} from 'react';
 import T from 'prop-types';
-import { TooltipContext } from './utils';
-import { callAll } from './utils';
+import {TooltipContext} from './utils';
+import {callAll} from './utils';
 
 const MUTATION_OBSERVER_CONFIG = {
   childList: true,
   subtree: true
 };
 
-/**
- * @private
- */
-export default class Tooltip extends Component {
-  static propTypes = {
-    innerRef: T.func,
-    style: T.object,
-    arrowProps: T.object,
-    placement: T.string,
-    trigger: T.string,
-    clearScheduled: T.func,
-    tooltip: T.func,
-    hideTooltip: T.func,
-    scheduleUpdate: T.func,
-    parentOutsideClickHandler: T.func,
-    removeParentOutsideClickHandler: T.func,
-    addParentOutsideClickHandler: T.func,
-    parentOutsideRightClickHandler: T.func,
-    removeParentOutsideRightClickHandler: T.func,
-    addParentOutsideRightClickHandler: T.func,
-    closeOnOutOfBoundaries: T.bool,
-    outOfBoundaries: T.bool
-  };
+export default function Tooltip(props) {
+  const {
+    arrowProps,
+    placement,
+    tooltip,
+    innerRef,
+    trigger,
+    addParentOutsideClickHandler,
+    addParentOutsideRightClickHandler,
+    removeParentOutsideClickHandler,
+    removeParentOutsideRightClickHandler,
+    scheduleUpdate,
+    clearScheduled,
+    hideTooltip,
+    closeOnOutOfBoundaries,
+    outOfBoundaries
+  } = props;
 
-  _handleOutsideClick = e => {
-    if (!findDOMNode(this).contains(e.target)) {
-      const {
-        hideTooltip,
-        clearScheduled,
-        parentOutsideClickHandler
-      } = this.props;
+  function handleOutsideClick(event) {
+    if (!tooltipRef.current.contains(event.target)) {
+      const {hideTooltip, clearScheduled, parentOutsideClickHandler} = props;
 
       clearScheduled();
       hideTooltip();
-      parentOutsideClickHandler && parentOutsideClickHandler(e);
+      parentOutsideClickHandler && parentOutsideClickHandler(event);
     }
-  };
+  }
 
-  _handleOutsideRightClick = e => {
-    if (!findDOMNode(this).contains(e.target)) {
-      const {
-        hideTooltip,
-        clearScheduled,
-        parentOutsideRightClickHandler
-      } = this.props;
+  function handleOutsideRightClick(event) {
+    if (!tooltipRef.current.contains(event.target)) {
+      const {hideTooltip, clearScheduled, parentOutsideClickHandler} = props;
 
       clearScheduled();
       hideTooltip();
-      parentOutsideRightClickHandler && parentOutsideRightClickHandler(e);
+      parentOutsideClickHandler && parentOutsideClickHandler(event);
     }
-  };
+  }
 
-  _addOutsideClickHandler = () =>
-    document.addEventListener('click', this._handleOutsideClick);
+  function addOutsideClickHandler() {
+    document.addEventListener('click', handleOutsideClick);
+  }
 
-  _removeOutsideClickHandler = () =>
-    document.removeEventListener('click', this._handleOutsideClick);
+  function removeOutsideClickHandler() {
+    document.removeEventListener('click', handleOutsideClick);
+  }
 
-  _addOutsideRightClickHandler = () =>
-    document.addEventListener('contextmenu', this._handleOutsideRightClick);
+  function addOutsideRightClickHandler() {
+    document.addEventListener('contextmenu', handleOutsideRightClick);
+  }
 
-  _removeOutsideRightClickHandler = () =>
-    document.removeEventListener('contextmenu', this._handleOutsideRightClick);
+  function removeOutsideRightClickHandler() {
+    document.removeEventListener('contextmenu', handleOutsideRightClick);
+  }
 
-  componentDidMount() {
-    const { trigger } = this.props;
-    const observer = (this.observer = new MutationObserver(() => {
-      this.props.scheduleUpdate();
-    }));
-    observer.observe(findDOMNode(this), MUTATION_OBSERVER_CONFIG);
+  function getArrowProps({style, ...rest}) {
+    return {
+      ...rest,
+      style: {...style, ...arrowProps.style}
+    };
+  }
+
+  function getTooltipProps({style, onMouseEnter, onMouseLeave, ...rest}) {
+    const isHoverTriggered = trigger === 'hover';
+
+    return {
+      ...rest,
+      style: {...style, ...props.style},
+      onMouseEnter: callAll(isHoverTriggered && clearScheduled, onMouseEnter),
+      onMouseLeave: callAll(isHoverTriggered && hideTooltip, onMouseLeave)
+    };
+  }
+
+  const tooltipRef = useRef();
+
+  function setRef(ref) {
+    innerRef(ref);
+    tooltipRef.current = ref;
+  }
+
+  useEffect(() => {
+    const observer = new MutationObserver(scheduleUpdate);
+    observer.observe(tooltipRef.current, MUTATION_OBSERVER_CONFIG);
 
     if (trigger === 'click' || trigger === 'right-click') {
-      const {
-        removeParentOutsideClickHandler,
-        removeParentOutsideRightClickHandler
-      } = this.props;
-      document.addEventListener('click', this._handleOutsideClick);
-      document.addEventListener('contextmenu', this._handleOutsideRightClick);
+      document.addEventListener('click', handleOutsideClick);
+      document.addEventListener('contextmenu', handleOutsideRightClick);
       removeParentOutsideClickHandler && removeParentOutsideClickHandler();
       removeParentOutsideRightClickHandler &&
         removeParentOutsideRightClickHandler();
     }
-  }
 
-  componentWillUnmount() {
-    const { trigger } = this.props;
-    this.observer.disconnect();
+    return () => {
+      observer.disconnect();
 
-    if (trigger === 'click' || trigger === 'right-click') {
-      const {
-        addParentOutsideClickHandler,
-        addParentOutsideRightClickHandler
-      } = this.props;
-      document.removeEventListener('click', this._handleOutsideClick);
-      document.removeEventListener(
-        'contextmenu',
-        this._handleOutsideRightClick
-      );
-      this._handleOutsideClick = undefined;
-      this._handleOutsideRightClick = undefined;
-      addParentOutsideClickHandler && addParentOutsideClickHandler();
-      addParentOutsideRightClickHandler && addParentOutsideRightClickHandler();
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.closeOnOutOfBoundaries && this.props.outOfBoundaries) {
-      this.props.hideTooltip();
-    }
-  }
-
-  getArrowProps = (props = {}) => ({
-    ...props,
-    style: { ...props.style, ...this.props.arrowProps.style }
-  });
-
-  getTooltipProps = (props = {}) => {
-    const isHoverTriggered = this.props.trigger === 'hover';
-
-    return {
-      ...props,
-      style: { ...props.style, ...this.props.style },
-      onMouseEnter: callAll(
-        isHoverTriggered && this.props.clearScheduled,
-        props.onMouseEnter
-      ),
-      onMouseLeave: callAll(
-        isHoverTriggered && this.props.hideTooltip,
-        props.onMouseLeave
-      )
+      if (trigger === 'click' || trigger === 'right-click') {
+        document.removeEventListener('click', handleOutsideClick);
+        document.removeEventListener('contextmenu', handleOutsideRightClick);
+        addParentOutsideClickHandler && addParentOutsideClickHandler();
+        addParentOutsideRightClickHandler &&
+          addParentOutsideRightClickHandler();
+      }
     };
-  };
+  }, []);
 
-  render() {
-    const { arrowProps, placement, tooltip, innerRef } = this.props;
+  useEffect(() => closeOnOutOfBoundaries && outOfBoundaries && hideTooltip(), [
+    outOfBoundaries
+  ]);
 
-    return (
-      <TooltipContext.Provider
-        value={{
-          parentOutsideClickHandler: this._handleOutsideClick,
-          addParentOutsideClickHandler: this._addOutsideClickHandler,
-          removeParentOutsideClickHandler: this._removeOutsideClickHandler,
-          parentOutsideRightClickHandler: this._handleOutsideRightClick,
-          addParentOutsideRightClickHandler: this._addOutsideRightClickHandler,
-          removeParentOutsideRightClickHandler: this
-            ._removeOutsideRightClickHandler
-        }}
-      >
-        {tooltip({
-          getTooltipProps: this.getTooltipProps,
-          getArrowProps: this.getArrowProps,
-          tooltipRef: innerRef,
-          arrowRef: arrowProps.ref,
-          placement
-        })}
-      </TooltipContext.Provider>
-    );
-  }
+  return (
+    <TooltipContext.Provider
+      value={{
+        parentOutsideClickHandler: handleOutsideClick,
+        addParentOutsideClickHandler: addOutsideClickHandler,
+        removeParentOutsideClickHandler: removeOutsideClickHandler,
+        parentOutsideRightClickHandler: handleOutsideRightClick,
+        addParentOutsideRightClickHandler: addOutsideRightClickHandler,
+        removeParentOutsideRightClickHandler: removeOutsideRightClickHandler
+      }}
+    >
+      {tooltip({
+        getTooltipProps: getTooltipProps,
+        getArrowProps: getArrowProps,
+        tooltipRef: setRef,
+        arrowRef: arrowProps.ref,
+        placement
+      })}
+    </TooltipContext.Provider>
+  );
 }
+
+Tooltip.propTypes = {
+  innerRef: T.func,
+  style: T.object,
+  arrowProps: T.object,
+  placement: T.string,
+  trigger: T.string,
+  clearScheduled: T.func,
+  tooltip: T.func,
+  hideTooltip: T.func,
+  scheduleUpdate: T.func,
+  parentOutsideClickHandler: T.func,
+  removeParentOutsideClickHandler: T.func,
+  addParentOutsideClickHandler: T.func,
+  parentOutsideRightClickHandler: T.func,
+  removeParentOutsideRightClickHandler: T.func,
+  addParentOutsideRightClickHandler: T.func,
+  closeOnOutOfBoundaries: T.bool,
+  outOfBoundaries: T.bool
+};

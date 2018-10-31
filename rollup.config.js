@@ -1,8 +1,8 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
+import {terser} from 'rollup-plugin-terser';
+import {sizeSnapshot} from 'rollup-plugin-size-snapshot';
 import pkg from './package.json';
 
 const input = 'src/index.js';
@@ -13,10 +13,10 @@ const globals = {
   'react-popper': 'ReactPopper'
 };
 const external = id => !id.startsWith('.') && !id.startsWith('/');
-const getBabelOptions = ({ useESModules = true } = {}) => ({
+const getBabelOptions = ({useESModules = true} = {}) => ({
   exclude: 'node_modules/**',
   runtimeHelpers: true,
-  plugins: [['@babel/plugin-transform-runtime', { useESModules }]]
+  plugins: [['@babel/plugin-transform-runtime', {useESModules}]]
 });
 
 export default [
@@ -51,7 +51,7 @@ export default [
       interop: false
     },
     external,
-    plugins: [babel(getBabelOptions({ useESModules: false })), sizeSnapshot()]
+    plugins: [babel(getBabelOptions({useESModules: false})), sizeSnapshot()]
   },
   {
     input,
