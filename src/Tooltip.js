@@ -16,6 +16,8 @@ export default function Tooltip(props) {
     tooltip,
     innerRef,
     trigger,
+    parentOutsideClickHandler,
+    parentOutsideRightClickHandler,
     addParentOutsideClickHandler,
     addParentOutsideRightClickHandler,
     removeParentOutsideClickHandler,
@@ -29,8 +31,6 @@ export default function Tooltip(props) {
 
   function handleOutsideClick(event) {
     if (!tooltipRef.current.contains(event.target)) {
-      const {hideTooltip, clearScheduled, parentOutsideClickHandler} = props;
-
       clearScheduled();
       hideTooltip();
       parentOutsideClickHandler && parentOutsideClickHandler(event);
@@ -39,28 +39,35 @@ export default function Tooltip(props) {
 
   function handleOutsideRightClick(event) {
     if (!tooltipRef.current.contains(event.target)) {
-      const {hideTooltip, clearScheduled, parentOutsideClickHandler} = props;
-
       clearScheduled();
       hideTooltip();
-      parentOutsideClickHandler && parentOutsideClickHandler(event);
+      parentOutsideRightClickHandler && parentOutsideRightClickHandler(event);
     }
   }
 
+  const handleOutsideClickRef = useRef(handleOutsideClick);
+  const handleOutsideRightClickRef = useRef(handleOutsideRightClick);
+
   function addOutsideClickHandler() {
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('click', handleOutsideClickRef.current);
   }
 
   function removeOutsideClickHandler() {
-    document.removeEventListener('click', handleOutsideClick);
+    document.removeEventListener('click', handleOutsideClickRef.current);
   }
 
   function addOutsideRightClickHandler() {
-    document.addEventListener('contextmenu', handleOutsideRightClick);
+    document.addEventListener(
+      'contextmenu',
+      handleOutsideRightClickRef.current
+    );
   }
 
   function removeOutsideRightClickHandler() {
-    document.removeEventListener('contextmenu', handleOutsideRightClick);
+    document.removeEventListener(
+      'contextmenu',
+      handleOutsideRightClickRef.current
+    );
   }
 
   function getArrowProps({style, ...rest}) {
@@ -93,19 +100,19 @@ export default function Tooltip(props) {
     observer.observe(tooltipRef.current, MUTATION_OBSERVER_CONFIG);
 
     if (trigger === 'click' || trigger === 'right-click') {
-      document.addEventListener('click', handleOutsideClick);
-      document.addEventListener('contextmenu', handleOutsideRightClick);
       removeParentOutsideClickHandler && removeParentOutsideClickHandler();
       removeParentOutsideRightClickHandler &&
         removeParentOutsideRightClickHandler();
+      addOutsideClickHandler();
+      addOutsideRightClickHandler();
     }
 
     return () => {
       observer.disconnect();
 
       if (trigger === 'click' || trigger === 'right-click') {
-        document.removeEventListener('click', handleOutsideClick);
-        document.removeEventListener('contextmenu', handleOutsideRightClick);
+        removeOutsideClickHandler();
+        removeOutsideRightClickHandler();
         addParentOutsideClickHandler && addParentOutsideClickHandler();
         addParentOutsideRightClickHandler &&
           addParentOutsideRightClickHandler();

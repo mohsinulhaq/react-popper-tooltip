@@ -263,7 +263,7 @@
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.0.0-beta.53.tgz#1f45eb617bf9463d482b2c04d349d9e4edbf4892"
   integrity sha1-H0XrYXv5Rj1IKywE00nZ5O2/SJI=
 
-"@babel/parser@^7.0.0", "@babel/parser@^7.1.0", "@babel/parser@^7.1.2", "@babel/parser@^7.1.3":
+"@babel/parser@^7.0.0", "@babel/parser@^7.1.2", "@babel/parser@^7.1.3":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.1.3.tgz#2c92469bac2b7fbff810b67fca07bd138b48af77"
   integrity sha512-gqmspPZOMW3MIRb9HlrnbZHXI1/KHTOroBwN1NcLL6pWxzqzEKGvRTq0W/PxS45OtQGbaFikSQpkS5zbnsQm2w==
@@ -938,7 +938,7 @@
   resolved "https://registry.yarnpkg.com/@hbetts/parse-repository-url/-/parse-repository-url-2.1.2.tgz#f78e6950529be9fd0b904fc90e06b078ddf4a847"
   integrity sha512-e4GS7ATDwnrft2I99M0jV6/0YH8oVA943vWWXAHULhpzzBui29RgMBz4ZaFIY+L3BqW/6OTdlzTM88rFRq/RNg==
 
-"@mdx-js/loader@^0.15.0", "@mdx-js/loader@^0.15.5":
+"@mdx-js/loader@^0.15.0", "@mdx-js/loader@^0.15.6":
   version "0.15.6"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-0.15.6.tgz#f6542e107702e593fe6030674ee78a84b41b1375"
   integrity sha512-bkL61GGLdaO+yc6hLeueiumqYVTP2pUZI9VXMfPe7ZbxQ2HtpHD9QTyZPoOFntyPzbSgkzZ2Z0BIofdBdWfTNA==
@@ -947,7 +947,7 @@
     "@mdx-js/tag" "^0.15.6"
     loader-utils "^1.1.0"
 
-"@mdx-js/mdx@^0.15.0", "@mdx-js/mdx@^0.15.5", "@mdx-js/mdx@^0.15.6":
+"@mdx-js/mdx@^0.15.0", "@mdx-js/mdx@^0.15.6":
   version "0.15.6"
   resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-0.15.6.tgz#b6644c3d674b9e94a1ad933ef1a76944917e2963"
   integrity sha512-i27p31RE7UFU3B0B5/T1T94TLbJIPZTYAtNau0jFTF60STAo8SHEvq0dYPv0CrIYwUFdIHVCmSLE3+EDFKc1gQ==
@@ -960,14 +960,14 @@
     unified "^6.1.6"
     unist-util-visit "^1.3.0"
 
-"@mdx-js/mdxast@^0.15.0":
+"@mdx-js/mdxast@^0.15.0", "@mdx-js/mdxast@^0.15.6":
   version "0.15.6"
   resolved "https://registry.yarnpkg.com/@mdx-js/mdxast/-/mdxast-0.15.6.tgz#4cced39596f397671c15f0ef427a97dc71c9ec7d"
   integrity sha512-xGRQjOWJLVvdmBibwwpSC41GlqNodApvIFRjZEPBAq6ySkQPzzHelaKnzDzXavAu01aYPm0fFgl4q3rjX/mSSg==
   dependencies:
     unist-util-visit "^1.3.0"
 
-"@mdx-js/tag@^0.15.0", "@mdx-js/tag@^0.15.6":
+"@mdx-js/tag@^0.15.6":
   version "0.15.6"
   resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.15.6.tgz#1a0aa575d5c9ac2b082631ca3e733034272114c1"
   integrity sha512-u1H93/n7t2XE69fWiKIQIcnSHIHV9LgOew09rrzu+ceF+TK8jMacE2FxW09lQDUyL/Rat3fJDS4dQdTY8g/ZdQ==
@@ -1020,10 +1020,10 @@
     escape-string-regexp "^1.0.5"
     lodash.deburr "^4.1.0"
 
-"@sindresorhus/slugify@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@sindresorhus/slugify/-/slugify-0.4.0.tgz#3afe0f74570de515e9d7fd2fa3dcc386c2cb3a35"
-  integrity sha512-ZkpLszhRaPFDGTya102Od9mxeeE7k0hWy8NiwHE+rpjUdH+Xku4YfrPoxPGtwqMCw4UtJseAJiunZcBEo/+hqQ==
+"@sindresorhus/slugify@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@sindresorhus/slugify/-/slugify-0.6.0.tgz#21ea00f4abf43d13a4c39c8174f241ff9b5d12bc"
+  integrity sha512-m6smRWGuY0kr0oRdfuTNHWvtBlgtr/ixSa9xiGzFtRjXHghQIlf8s8ZKPWSXj/KraaYuvI//bVBEcncIMzjxVg==
   dependencies:
     escape-string-regexp "^1.0.5"
     lodash.deburr "^4.1.0"
@@ -1059,9 +1059,9 @@
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
 "@types/node@*", "@types/node@^10.11.7":
-  version "10.12.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.1.tgz#da61b64a2930a80fa708e57c45cd5441eb379d5b"
-  integrity sha512-i1sl+WCX2OCHeUi9oi7PiCNUtYFrpWhpcx878vpeq/tlZTKzcFdHePlyFHVbWqeuKN0SRPl/9ZFDSTsfv9h7VQ==
+  version "10.12.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.2.tgz#d77f9faa027cadad9c912cd47f4f8b07b0fb0864"
+  integrity sha512-53ElVDSnZeFUUFIYzI8WLQ25IhWzb6vbddNp8UHlXQyU0ET2RhV5zg0NfubzU7iNMh5bBXb0htCzfvrSVNgzaQ==
 
 "@types/semver@^5.5.0":
   version "5.5.0"
@@ -1747,11 +1747,6 @@ babel-plugin-react-docgen@^2.0.0:
     lodash "^4.17.10"
     react-docgen "^3.0.0-rc.1"
 
-babel-plugin-syntax-dynamic-import@^6.18.0:
-  version "6.18.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz#8d6a26229c83745a9982a441051572caa179b1da"
-  integrity sha1-jWomIpyDdFqZgqRBBRVyyqF5sdo=
-
 babel-plugin-syntax-jsx@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
@@ -1769,7 +1764,7 @@ babel-plugin-transform-react-remove-prop-types@^0.4.15, babel-plugin-transform-r
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.19.tgz#dc9d8fb176a407a75efe73f231550450e29a3b17"
   integrity sha512-f49NsaohQ1ByY20nUrpc30QFdbeT4ntV4PAL2vSZe6uCB5nqAcqXS/qzU+aI6ZfYhWASx5eIsTFvFrs1B2ffGg==
 
-babel-polyfill@^6.23.0, babel-polyfill@^6.26.0:
+babel-polyfill@^6.23.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
   integrity sha1-N5k3q8Z9eJWXCtxiHyhM2WbPIVM=
@@ -2146,7 +2141,7 @@ cache-content-type@^1.0.0:
     mime-types "^2.1.18"
     ylru "^1.2.0"
 
-cache-loader@^1.2.2:
+cache-loader@^1.2.2, cache-loader@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/cache-loader/-/cache-loader-1.2.5.tgz#9ab15b0ae5f546f376083a695fc1a75f546cb266"
   integrity sha512-enWKEQ4kO3YreDFd7AtVRjtJBmNiqh/X9hVDReu0C4qm8gsGmySkwuWtdc+N5O+vq5FzxL1mIZc30NyXCB7o/Q==
@@ -3499,24 +3494,24 @@ docz-core@^0.11.0:
     ws "^6.0.0"
     yargs "^12.0.1"
 
-docz-core@^0.12.7:
-  version "0.12.7"
-  resolved "https://registry.yarnpkg.com/docz-core/-/docz-core-0.12.7.tgz#1e302e26691d2129e1cc8cbc7baa6bb8c3f3273a"
-  integrity sha512-oadoxCXmln3cm9/UyyqJ87GI84Wpysvf5pKpUoDB3zcjVzBWzsVrs4kBCNWyNBrRVDvvsSMq53cInLCN7Qdn6g==
+docz-core@^0.12.9:
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/docz-core/-/docz-core-0.12.9.tgz#9d72757d49e4d2f7aa5822afea2db332c1710dee"
+  integrity sha512-/ooY8+fqIZay6WW0EoOxDClKt87KRjWX+LWNelzviNDz6oK+ykoFSEgLNTRsWHxboox0O2RrrFX3RsqOb4LfBw==
   dependencies:
     "@babel/core" "7.1.2"
     "@babel/polyfill" "7.0.0"
     "@babel/runtime" "^7.1.2"
-    "@mdx-js/loader" "^0.15.5"
-    "@mdx-js/mdx" "^0.15.5"
-    "@mdx-js/mdxast" "^0.15.0"
-    "@sindresorhus/slugify" "^0.4.0"
+    "@mdx-js/loader" "^0.15.6"
+    "@mdx-js/mdx" "^0.15.6"
+    "@mdx-js/mdxast" "^0.15.6"
+    "@sindresorhus/slugify" "^0.6.0"
     "@svgr/webpack" "^3.1.0"
     art-template "^4.13.0"
     babel-loader "^8.0.2"
     babel-preset-docz "^0.12.6"
     babylon "^6.18.0"
-    cache-loader "^1.2.2"
+    cache-loader "^1.2.5"
     chalk "^2.4.1"
     chokidar "^2.0.4"
     common-tags "^1.8.0"
@@ -3524,7 +3519,7 @@ docz-core@^0.12.7:
     cpy "^7.0.1"
     deepmerge "^2.2.1"
     detect-port "^1.2.3"
-    docz-utils "^0.12.6"
+    docz-utils "^0.12.9"
     dotenv "^6.1.0"
     env-dot-prop "^1.0.2"
     fast-deep-equal "^2.0.1"
@@ -3548,7 +3543,7 @@ docz-core@^0.12.7:
     react-dev-utils "^6.1.0"
     react-docgen-typescript-loader "^3.0.0-rc.0"
     react-hot-loader "4.3.11"
-    rehype-docz "^0.12.6"
+    rehype-docz "^0.12.9"
     rehype-slug "^2.0.1"
     remark-docz "^0.12.2"
     remark-frontmatter "^1.2.1"
@@ -3594,14 +3589,14 @@ docz-plugin-css@^0.11.0:
     webpack "^4.17.1"
     webpack-chain "^4.9.0"
 
-docz-theme-default@^0.12.7:
-  version "0.12.7"
-  resolved "https://registry.yarnpkg.com/docz-theme-default/-/docz-theme-default-0.12.7.tgz#57af3ea2d7caa085371e1512e1bfb82db1d5862c"
-  integrity sha512-Z8zfBgGnhp9c2BvyMM1SE/p7NEvKES/fU5LAm9d/9BRDXbJlU4Mq15u+HK8z7PbCm2oDzEYVHJGegolYO1+ieQ==
+docz-theme-default@^0.12.9:
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/docz-theme-default/-/docz-theme-default-0.12.9.tgz#e69371f695e9b0bf029bba783041129b811973b6"
+  integrity sha512-Zz33L0dfNdzR2x3onitoUTENR+wzE6QVMVG9+LHn5scr0yKT/1Z7Yt7RBHLnAHUkelitTNbWzC9SwGB+3l30Xg==
   dependencies:
     codemirror "^5.41.0"
     copy-text-to-clipboard "^1.0.4"
-    docz "^0.12.7"
+    docz "^0.12.9"
     emotion "^9.2.12"
     emotion-theming "^9.2.9"
     facepaint "^1.2.1"
@@ -3626,13 +3621,13 @@ docz-theme-default@^0.12.7:
     react-sizes "^1.0.4"
     webfontloader "^1.6.28"
 
-docz-utils@^0.12.6:
-  version "0.12.6"
-  resolved "https://registry.yarnpkg.com/docz-utils/-/docz-utils-0.12.6.tgz#5533a3f6bd34a231f69145f5e2bfde1b5aa91b81"
-  integrity sha512-jBJtzgidg6wfB6F4S9p2TVMwaawRCagx2hQZqvt8YqcxDtl44PRKeW0FGcPKsg2hHmZAdIjuDC8SyEC/84RwMw==
+docz-utils@^0.12.9:
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/docz-utils/-/docz-utils-0.12.9.tgz#758f6ad04cb42d7331dcfe33d9727a036696c2eb"
+  integrity sha512-QMdFXhKNaAHqKJlHlNGV4Vu4k7nsVaOVjLT57JBNFsp0GffUKzaVsMIXPpYoFXqFv27ySGrSqrnZukXIl2Uw+Q==
   dependencies:
     "@babel/generator" "^7.1.3"
-    "@babel/parser" "^7.1.0"
+    "@babel/parser" "^7.1.3"
     "@babel/traverse" "^7.1.4"
     codesandboxer-fs "^0.4.1"
     fs-extra "^7.0.0"
@@ -3642,7 +3637,7 @@ docz-utils@^0.12.6:
     lodash.get "^4.4.2"
     prettier "^1.14.3"
     remark-frontmatter "^1.2.1"
-    remark-parse "^5.0.0"
+    remark-parse "^6.0.1"
     remark-parse-yaml "^0.0.1"
     remark-slug "^5.1.0"
     signale "^1.3.0"
@@ -3653,25 +3648,25 @@ docz-utils@^0.12.6:
     unist-util-is "^2.1.2"
     unist-util-visit "^1.4.0"
 
-docz@^0.12.7:
-  version "0.12.7"
-  resolved "https://registry.yarnpkg.com/docz/-/docz-0.12.7.tgz#ad8a602016cef9eaf0396b53e073fc6707b4950b"
-  integrity sha512-c/YNDNpGxoAx01FftWkNinkROzE+7VT+WdMeMFPHRX6vVMHERgIF6h7RvH0zM0JyIUy28OBLdutnmKyr/MKLYw==
+docz@^0.12.7, docz@^0.12.9:
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/docz/-/docz-0.12.9.tgz#752755e4794344bd7801f2368f6d36950f35ffd7"
+  integrity sha512-GAEoFt2DOfuIQymVOioEgjr9Kr2q/l7k5uYyHb+uvat4cKCeCs1iKOtikQeLe/J9om2SkbkD/SMgozpXSFN5GQ==
   dependencies:
-    "@mdx-js/tag" "^0.15.0"
-    "@sindresorhus/slugify" "^0.4.0"
+    "@mdx-js/tag" "^0.15.6"
+    "@sindresorhus/slugify" "^0.6.0"
     array-sort "^1.0.0"
     capitalize "^2.0.0"
     create-react-context "^0.2.3"
     deepmerge "^2.2.1"
-    docz-core "^0.12.7"
-    docz-theme-default "^0.12.7"
+    docz-core "^0.12.9"
+    docz-theme-default "^0.12.9"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     react "^16.6.0"
     react-copy-write "^0.8.0"
     react-dom "^16.6.0"
-    react-imported-component "^4.6.2"
+    react-imported-component "^5.1.2"
     react-router "^4.3.1"
     react-router-dom "^4.3.1"
     react-router-hash-link "^1.2.0"
@@ -3804,9 +3799,9 @@ ejs@^2.6.1:
   integrity sha512-0xy4A/twfrRCnkhfk8ErDi5DqdAsAqeGxht4xkCUrsvhhbQNs7E+4jV0CN7+NKIY0aHE72+XvqtBIXzD31ZbXQ==
 
 electron-to-chromium@^1.3.62, electron-to-chromium@^1.3.82:
-  version "1.3.82"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.82.tgz#7d13ae4437d2a783de3f4efba96b186c540b67b1"
-  integrity sha512-NI4nB2IWGcU4JVT1AE8kBb/dFor4zjLHMLsOROPahppeHrR0FG5uslxMmkp/thO1MvPjM2xhlKoY29/I60s0ew==
+  version "1.3.83"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.83.tgz#74584eb0972bb6777811c5d68d988c722f5e6666"
+  integrity sha512-DqJoDarxq50dcHsOOlMLNoy+qQitlMNbYb6wwbE0oUw2veHdRkpNrhmngiUYKMErdJ8SJ48rpJsZTQgy5SoEAA==
 
 elliptic@^6.0.0:
   version "6.4.1"
@@ -8658,9 +8653,9 @@ react-dev-utils@^5.0.2:
     text-table "0.2.0"
 
 react-dev-utils@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.1.0.tgz#d0cd6e8204c371a4ce3874812bd1369b11c1df07"
-  integrity sha512-ZKM+x/MbnZXF++4QNmL2hS5DuHVjuJVCBRwNzxb+SYrKGDf25lxRAEiXwVzJApyuBOFeZZuKCL7/UIc+jvSZSA==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.1.1.tgz#a07e3e8923c4609d9f27e5af5207e3ca20724895"
+  integrity sha512-ThbJ86coVd6wV/QiTo8klDTvdAJ1WsFCGQN07+UkN+QN9CtCSsl/+YuDJToKGeG8X4j9HMGXNKbk2QhPAZr43w==
   dependencies:
     "@babel/code-frame" "7.0.0"
     address "1.0.3"
@@ -8680,7 +8675,7 @@ react-dev-utils@^6.1.0:
     loader-utils "1.1.0"
     opn "5.4.0"
     pkg-up "2.0.0"
-    react-error-overlay "^5.0.6"
+    react-error-overlay "^5.1.0"
     recursive-readdir "2.2.2"
     shell-quote "1.6.1"
     sockjs-client "1.1.5"
@@ -8747,10 +8742,10 @@ react-error-overlay@^4.0.1:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.1.tgz#417addb0814a90f3a7082eacba7cee588d00da89"
   integrity sha512-xXUbDAZkU08aAkjtUvldqbvI04ogv+a1XdHxvYuHPYKIVk/42BIOD0zSKTHAWV4+gDy3yGm283z2072rA2gdtw==
 
-react-error-overlay@^5.0.6:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.0.6.tgz#3d9adba42082e182f873212960263e25d622fc1c"
-  integrity sha512-zB78cLzIL43cAso2dfrrZbu/MFUM+8FiGVH9j28peI6kvtIM870wmw1qjLA6g83DqNpXxuRdVNLimQJ6O9x2qA==
+react-error-overlay@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.0.tgz#c516995a5652e7bfbed8b497910d5280df74a7e8"
+  integrity sha512-akMy/BQT5m1J3iJIHkSb4qycq2wzllWsmmolaaFVnb+LPV9cIJ/nTud40ZsiiT0H3P+/wXIdbjx2fzF61OaeOQ==
 
 react-feather@^1.1.4:
   version "1.1.4"
@@ -8781,13 +8776,11 @@ react-hot-loader@4.3.6:
     react-lifecycles-compat "^3.0.4"
     shallowequal "^1.0.2"
 
-react-imported-component@^4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/react-imported-component/-/react-imported-component-4.6.2.tgz#0a7f35bf021adf2a1f2a4874ce72418a0995db3d"
-  integrity sha512-/uT86nHdCrApNVYuu396Kk38jv02rae8Rr0QAveDOrThhZNjnjCdUGoOuaTGdDRrUy4GSrPfSH93hkW2X2whHQ==
+react-imported-component@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/react-imported-component/-/react-imported-component-5.1.2.tgz#b5c7421976ad948616dec75714a492f1b3396524"
+  integrity sha512-9+HyjvZxrNDkUV2CgvOo1LWZ44JR1+CMpxYPmwgwvsDR+y4lHjui2wPIdz9cw0TwMyi0/oNnMH9hm8BAovmDyw==
   dependencies:
-    babel-plugin-syntax-dynamic-import "^6.18.0"
-    babel-polyfill "^6.26.0"
     crc-32 "^1.2.0"
     detect-node "^2.0.3"
     prop-types "15.6.2"
@@ -9123,12 +9116,12 @@ rehype-docz@^0.11.0:
     strip-indent "^2.0.0"
     unist-util-is "^2.1.2"
 
-rehype-docz@^0.12.6:
-  version "0.12.6"
-  resolved "https://registry.yarnpkg.com/rehype-docz/-/rehype-docz-0.12.6.tgz#a1ef02526bb22417f71a459cd64b0de9cb179049"
-  integrity sha512-ilAtM2PtZAoG0ZpQzXR0GJYX9J8ehpwW9Rmp3GawF/Cvm0VSGVtGWNtm3IKjYlevAGhLdW6uWptutHRCepC1CA==
+rehype-docz@^0.12.9:
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/rehype-docz/-/rehype-docz-0.12.9.tgz#57e39efa6bf8eeaf5fd9f63dcb9a288cfb50cf45"
+  integrity sha512-r1sDx6x+3PQaOLEQFJNKX6m4BVTQxn+n2quhKOSjY8gn1Bs+GP1PHx8iqVH8wzICO9UBE3LXU9rlURSoZFH0IQ==
   dependencies:
-    docz-utils "^0.12.6"
+    docz-utils "^0.12.9"
     hast-util-to-string "^1.0.1"
     jsx-ast-utils "^2.0.1"
     lodash.flatten "^4.4.0"
@@ -10834,9 +10827,9 @@ unist-util-find@^1.0.1:
     unist-util-visit "^1.1.0"
 
 unist-util-generated@^1.1.0:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/unist-util-generated/-/unist-util-generated-1.1.2.tgz#8b993f9239d8e560be6ee6e91c3f7b7208e5ce25"
-  integrity sha512-1HcwiEO62dr0XWGT+abVK4f0aAm8Ik8N08c5nAYVmuSxfvpA9rCcNyX/le8xXj1pJK5nBrGlZefeWB6bN8Pstw==
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/unist-util-generated/-/unist-util-generated-1.1.3.tgz#ca650470aef2fbcc5fe54c465bc26b41ca109e2b"
+  integrity sha512-qlPeDqnQnd84KIqwphzOR+l02cxjDzvEYEBl84EjmKRrX4eUmjyAo8xJv1SCDhJqNjyHRnBMZWNKAiBtXE6hBg==
 
 unist-util-is@^2.0.0, unist-util-is@^2.1.2:
   version "2.1.2"
@@ -10851,9 +10844,9 @@ unist-util-map@^1.0.3:
     object-assign "^4.0.1"
 
 unist-util-position@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/unist-util-position/-/unist-util-position-3.0.1.tgz#8e220c24658239bf7ddafada5725ed0ea1ebbc26"
-  integrity sha512-05QfJDPI7PE1BIUtAxeSV+cDx21xP7+tUZgSval5CA7tr0pHBwybF7OnEa1dOFqg6BfYH/qiMUnWwWj+Frhlww==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/unist-util-position/-/unist-util-position-3.0.2.tgz#80ad4a05efc4ab01a66886cc70493893ba73c5eb"
+  integrity sha512-npmFu92l/+b1Ao6uGP4I1WFz9hsKv7qleZ4aliw6x0RVu6A9A3tAf57NMpFfzQ02jxRtJZuRn+C8xWT7GWnH0g==
 
 unist-util-remove-position@^1.0.0:
   version "1.1.2"
