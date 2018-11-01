@@ -129,7 +129,7 @@ export default function Tooltip(props) {
       }}
     >
       {tooltip({
-        getTooltipProps: getTooltipProps,
+        getTooltipProps,
         getArrowProps: getArrowProps,
         tooltipRef: setRef,
         arrowRef: arrowProps.ref,
