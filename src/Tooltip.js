@@ -9,26 +9,25 @@ const MUTATION_OBSERVER_CONFIG = {
   subtree: true
 };
 
-export default function Tooltip(props) {
-  const {
-    arrowProps,
-    placement,
-    tooltip,
-    innerRef,
-    trigger,
-    parentOutsideClickHandler,
-    parentOutsideRightClickHandler,
-    addParentOutsideClickHandler,
-    addParentOutsideRightClickHandler,
-    removeParentOutsideClickHandler,
-    removeParentOutsideRightClickHandler,
-    scheduleUpdate,
-    clearScheduled,
-    hideTooltip,
-    closeOnOutOfBoundaries,
-    outOfBoundaries
-  } = props;
-
+export default function Tooltip({
+  style: popperStyle,
+  arrowProps,
+  placement,
+  tooltip,
+  innerRef,
+  trigger,
+  parentOutsideClickHandler,
+  parentOutsideRightClickHandler,
+  addParentOutsideClickHandler,
+  addParentOutsideRightClickHandler,
+  removeParentOutsideClickHandler,
+  removeParentOutsideRightClickHandler,
+  scheduleUpdate,
+  clearScheduled,
+  hideTooltip,
+  closeOnOutOfBoundaries,
+  outOfBoundaries
+}) {
   function handleOutsideClick(event) {
     if (!tooltipRef.current.contains(event.target)) {
       clearScheduled();
@@ -82,7 +81,7 @@ export default function Tooltip(props) {
 
     return {
       ...rest,
-      style: {...style, ...props.style},
+      style: {...style, ...popperStyle},
       onMouseEnter: callAll(isHoverTriggered && clearScheduled, onMouseEnter),
       onMouseLeave: callAll(isHoverTriggered && hideTooltip, onMouseLeave)
     };
