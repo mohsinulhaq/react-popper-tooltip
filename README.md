@@ -229,6 +229,12 @@ Each placement can have a variation from this list:
 
 The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `none`.
 
+### getTriggerRef
+
+> `function(HTMLElement) => void` 
+
+Function that can be used to obtain a trigger element reference.
+
 ### closeOnOutOfBoundaries
 
 > `boolean` | defaults to `true`

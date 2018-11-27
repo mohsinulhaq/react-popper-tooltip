@@ -23,6 +23,7 @@ export default function TooltipTrigger(props) {
     tooltip,
     placement,
     trigger,
+    getTriggerRef,
     modifiers,
     closeOnOutOfBoundaries,
     usePortal,
@@ -177,7 +178,7 @@ export default function TooltipTrigger(props) {
 
   return (
     <Manager>
-      <Reference>
+      <Reference innerRef={getTriggerRef}>
         {({ref}) => children({getTriggerProps, triggerRef: ref})}
       </Reference>
       {getState() &&
@@ -231,6 +232,10 @@ TooltipTrigger.propTypes = {
    * the event that triggers the tooltip
    */
   trigger: T.oneOf(['click', 'hover', 'right-click', 'none']),
+  /**
+   * function that can be used to obtain a trigger element reference
+   */
+  getTriggerRef: T.func,
   /**
    * whether to close the tooltip when it's trigger is out of the boundary
    */
