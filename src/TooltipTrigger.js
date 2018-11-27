@@ -62,6 +62,10 @@ export default class TooltipTrigger extends Component {
      */
     trigger: T.oneOf(['click', 'hover', 'right-click', 'none']),
     /**
+     * function that can be used to obtain trigger reference
+     */
+    triggerRef: T.func,
+    /**
      * whether to close the tooltip when it's trigger is out of the boundary
      */
     closeOnOutOfBoundaries: T.bool,
@@ -211,6 +215,7 @@ export default class TooltipTrigger extends Component {
       tooltip,
       placement,
       trigger,
+      triggerRef,
       modifiers,
       closeOnOutOfBoundaries,
       usePortal,
@@ -273,7 +278,7 @@ export default class TooltipTrigger extends Component {
 
     return (
       <Manager>
-        <Reference>
+        <Reference innerRef={triggerRef}>
           {({ ref }) =>
             children({ getTriggerProps: this.getTriggerProps, triggerRef: ref })
           }
