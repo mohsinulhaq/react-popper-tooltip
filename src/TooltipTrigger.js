@@ -62,7 +62,7 @@ export default class TooltipTrigger extends Component {
      */
     trigger: T.oneOf(['click', 'hover', 'right-click', 'none']),
     /**
-     * function that can be used to obtain trigger reference
+     * function that can be used to obtain a trigger element reference
      */
     getTriggerRef: T.func,
     /**

@@ -233,7 +233,7 @@ The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `no
 
 > `function(HTMLElement) => void` 
 
-Function that can be used to obtain trigger reference.
+Function that can be used to obtain a trigger element reference.
 
 ### closeOnOutOfBoundaries
 
