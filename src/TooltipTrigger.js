@@ -64,7 +64,7 @@ export default class TooltipTrigger extends Component {
     /**
      * function that can be used to obtain trigger reference
      */
-    triggerRef: T.func,
+    getTriggerRef: T.func,
     /**
      * whether to close the tooltip when it's trigger is out of the boundary
      */
@@ -215,7 +215,7 @@ export default class TooltipTrigger extends Component {
       tooltip,
       placement,
       trigger,
-      triggerRef,
+      getTriggerRef,
       modifiers,
       closeOnOutOfBoundaries,
       usePortal,
@@ -278,7 +278,7 @@ export default class TooltipTrigger extends Component {
 
     return (
       <Manager>
-        <Reference innerRef={triggerRef}>
+        <Reference innerRef={getTriggerRef}>
           {({ ref }) =>
             children({ getTriggerProps: this.getTriggerProps, triggerRef: ref })
           }
