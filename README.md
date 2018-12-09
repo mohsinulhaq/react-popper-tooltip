@@ -30,50 +30,54 @@ or
 
 ```jsx
 import React from 'react';
-import { render } from 'react-dom';
+import {render} from 'react-dom';
 import TooltipTrigger from 'react-popper-tooltip';
+
+const Tooltip = ({
+  getTooltipProps,
+  getArrowProps,
+  tooltipRef,
+  arrowRef,
+  placement
+}) => (
+  <div
+    {...getTooltipProps({
+      ref: tooltipRef,
+      className: 'tooltip-container'
+      /* your props here */
+    })}
+  >
+    <div
+      {...getArrowProps({
+        ref: arrowRef,
+        'data-placement': placement,
+        className: 'tooltip-arrow'
+        /* your props here */
+      })}
+    />
+    Hello, World!
+  </div>
+);
+
+const Trigger = ({getTriggerProps, triggerRef}) => (
+  <span
+    {...getTriggerProps({
+      ref: triggerRef,
+      className: 'trigger'
+      /* your props here */
+    })}
+  >
+    Click Me!
+  </span>
+);
 
 render(
   <TooltipTrigger
     placement="right"
     trigger="click"
-    tooltip={({
-      getTooltipProps,
-      getArrowProps,
-      tooltipRef,
-      arrowRef,
-      placement
-    }) => (
-      <div
-        {...getTooltipProps({
-          ref: tooltipRef,
-          className: 'tooltip-container'
-          /* your props here */
-        })}
-      >
-        <div
-          {...getArrowProps({
-            ref: arrowRef,
-            'data-placement': placement,
-            className: 'tooltip-arrow'
-            /* your props here */
-          })}
-        />
-        Hello, World!
-      </div>
-    )}
+    tooltip={Tooltip}
   >
-    {({ getTriggerProps, triggerRef }) => (
-      <span
-        {...getTriggerProps({
-          ref: triggerRef,
-          className: 'trigger'
-          /* your props here */
-        })}
-      >
-        Click Me!
-      </span>
-    )}
+    {Trigger}
   </TooltipTrigger>,
   document.getElementById('root')
 );
@@ -94,7 +98,7 @@ import React from 'react';
 import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 
-const Tooltip = ({ tooltip, children, hideArrow ...props }) => (
+const Tooltip = ({tooltip, children, hideArrow ...props}) => (
   <TooltipTrigger
     {...props}
     tooltip={({
@@ -121,7 +125,7 @@ const Tooltip = ({ tooltip, children, hideArrow ...props }) => (
       </div>
     )}
   >
-    {({ getTriggerProps, triggerRef }) => (
+    {({getTriggerProps, triggerRef}) => (
       <span
         {...getTriggerProps({
           ref: triggerRef,
@@ -305,7 +309,7 @@ const tooltip = (
 These functions are used to apply props to the elements that you render. 
 It's advisable to pass all your props to that function rather than applying them on the element 
 yourself to avoid your props being overridden (or overriding the props returned). For example
-`<button {...getTriggerProps({ onClick: event => console.log(event))}>Click me</button>`
+`<button {...getTriggerProps({onClick: event => console.log(event))}>Click me</button>`
 
 ### children function
 

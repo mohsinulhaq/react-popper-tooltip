@@ -10,7 +10,12 @@ module.exports = {
     '@babel/react'
   ],
   plugins: [
-    ['@babel/proposal-class-properties', { loose: true }],
-    ['transform-react-remove-prop-types', { removeImport: true }]
-  ]
+    ['@babel/proposal-class-properties', {loose: true}],
+    ['transform-react-remove-prop-types', {removeImport: true}]
+  ],
+  env: {
+    test: {
+      presets: ['@babel/env']
+    }
+  }
 };

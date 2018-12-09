@@ -7,7 +7,7 @@ export default class EscapeToClose extends React.Component {
   componentWillUnmount() {
     document.removeEventListener('keydown', this._handleKeyDown);
   }
-  _handleKeyDown = ({ key }) => {
+  _handleKeyDown = ({key}) => {
     if (key === 'Escape') {
       this.props.closeTooltip();
     }

@@ -1,9 +1,9 @@
 /* eslint-disable react/no-find-dom-node */
-import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
+import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import T from 'prop-types';
-import { TooltipContext } from './utils';
-import { callAll } from './utils';
+import {TooltipContext} from './utils';
+import {callAll} from './utils';
 
 const MUTATION_OBSERVER_CONFIG = {
   childList: true,
@@ -75,7 +75,7 @@ export default class Tooltip extends Component {
     document.removeEventListener('contextmenu', this._handleOutsideRightClick);
 
   componentDidMount() {
-    const { trigger } = this.props;
+    const {trigger} = this.props;
     const observer = (this.observer = new MutationObserver(() => {
       this.props.scheduleUpdate();
     }));
@@ -95,7 +95,7 @@ export default class Tooltip extends Component {
   }
 
   componentWillUnmount() {
-    const { trigger } = this.props;
+    const {trigger} = this.props;
     this.observer.disconnect();
 
     if (trigger === 'click' || trigger === 'right-click') {
@@ -123,7 +123,7 @@ export default class Tooltip extends Component {
 
   getArrowProps = (props = {}) => ({
     ...props,
-    style: { ...props.style, ...this.props.arrowProps.style }
+    style: {...props.style, ...this.props.arrowProps.style}
   });
 
   getTooltipProps = (props = {}) => {
@@ -131,7 +131,7 @@ export default class Tooltip extends Component {
 
     return {
       ...props,
-      style: { ...props.style, ...this.props.style },
+      style: {...props.style, ...this.props.style},
       onMouseEnter: callAll(
         isHoverTriggered && this.props.clearScheduled,
         props.onMouseEnter
@@ -144,7 +144,7 @@ export default class Tooltip extends Component {
   };
 
   render() {
-    const { arrowProps, placement, tooltip, innerRef } = this.props;
+    const {arrowProps, placement, tooltip, innerRef} = this.props;
 
     return (
       <TooltipContext.Provider

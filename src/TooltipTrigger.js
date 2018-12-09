@@ -1,12 +1,12 @@
 /**
  * @author Mohsin Ul Haq <mohsinulhaq01@gmail.com>
  */
-import React, { Component } from 'react';
-import { createPortal } from 'react-dom';
+import React, {Component} from 'react';
+import {createPortal} from 'react-dom';
 import T from 'prop-types';
-import { Manager, Reference, Popper } from 'react-popper';
+import {Manager, Reference, Popper} from 'react-popper';
 import Tooltip from './Tooltip';
-import { TooltipContext, callAll, noop, canUseDOM } from './utils';
+import {TooltipContext, callAll, noop, canUseDOM} from './utils';
 
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
@@ -136,9 +136,9 @@ export default class TooltipTrigger extends Component {
     clearTimeout(this._showTimeout);
   };
 
-  _showTooltip = ({ pageX, pageY }) => {
+  _showTooltip = ({pageX, pageY}) => {
     this._clearScheduled();
-    let state = { tooltipShown: true };
+    let state = {tooltipShown: true};
     if (this.props.followCursor) {
       state = {
         ...state,
@@ -155,27 +155,27 @@ export default class TooltipTrigger extends Component {
   _hideTooltip = () => {
     this._clearScheduled();
     this._hideTimeout = setTimeout(
-      () => this._setTooltipState({ tooltipShown: false }),
+      () => this._setTooltipState({tooltipShown: false}),
       this.props.delayHide
     );
   };
 
-  _toggleTooltip = ({ pageX, pageY }) => {
+  _toggleTooltip = ({pageX, pageY}) => {
     const action = this._getState() ? '_hideTooltip' : '_showTooltip';
-    this[action]({ pageX, pageY });
+    this[action]({pageX, pageY});
   };
 
   _clickToggle = event => {
-    const { pageX, pageY } = event;
+    const {pageX, pageY} = event;
     const action = this.props.followCursor ? '_showTooltip' : '_toggleTooltip';
-    this[action]({ pageX, pageY });
+    this[action]({pageX, pageY});
   };
 
   _contextMenuToggle = event => {
     event.preventDefault();
-    const { pageX, pageY } = event;
+    const {pageX, pageY} = event;
     const action = this.props.followCursor ? '_showTooltip' : '_toggleTooltip';
-    this[action]({ pageX, pageY });
+    this[action]({pageX, pageY});
   };
 
   componentWillUnmount() {
@@ -235,7 +235,7 @@ export default class TooltipTrigger extends Component {
     const popper = (
       <Popper
         placement={placement}
-        modifiers={{ ...DEFAULT_MODIFIERS, ...modifiers }}
+        modifiers={{...DEFAULT_MODIFIERS, ...modifiers}}
       >
         {({
           ref,
@@ -246,7 +246,7 @@ export default class TooltipTrigger extends Component {
           scheduleUpdate
         }) => {
           if (followCursor) {
-            const { pageX, pageY } = this.state;
+            const {pageX, pageY} = this.state;
             style.transform = `translate3d(${pageX}px, ${pageY}px, 0`;
           }
           return (
@@ -279,8 +279,8 @@ export default class TooltipTrigger extends Component {
     return (
       <Manager>
         <Reference innerRef={getTriggerRef}>
-          {({ ref }) =>
-            children({ getTriggerProps: this.getTriggerProps, triggerRef: ref })
+          {({ref}) =>
+            children({getTriggerProps: this.getTriggerProps, triggerRef: ref})
           }
         </Reference>
         {this._getState() &&
