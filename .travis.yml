@@ -6,6 +6,7 @@ cache: yarn
 branches:
   only:
     - master
+    - /^greenkeeper/.*$/
 script:
   - yarn lint
   - yarn test
