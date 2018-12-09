@@ -3,10 +3,11 @@
 *.iml
 .*.haste_cache.*
 .DS_Store
-.idea
 npm-debug.log
 yarn-error.log
-node_modules
-lib
-dist
-.docz
+.idea/
+node_modules/
+lib/
+dist/
+.docz/
+coverage/
