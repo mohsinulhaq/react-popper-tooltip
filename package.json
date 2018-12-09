@@ -2,7 +2,7 @@
   "name": "react-popper-tooltip",
   "version": "2.7.0",
   "description": "React tooltip library built around react-popper",
-  "homepage": "https://mohsinulhaq.github.io/react-popper-tooltip",
+  "homepage": "https://mohsinulhaq.github.io/react-popper-tooltip/",
   "repository": {
     "type": "git",
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
@@ -69,7 +69,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
     "docz": "^0.12.15",
     "docz-plugin-css": "^0.11.0",
-    "eslint": "^5.9.0",
+    "eslint": "^5.10.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-jsx-a11y": "^6.1.2",

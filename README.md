@@ -9,7 +9,7 @@ React tooltip component based on [react-popper](https://github.com/FezVrasta/rea
 React wrapper around [popper.js](https://popper.js.org/) library.
 
 ## Homepage
-https://mohsinulhaq.github.io/react-popper-tooltip
+https://mohsinulhaq.github.io/react-popper-tooltip/
 
 ## Example
 https://codesandbox.io/s/pykkz77z5j

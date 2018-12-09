@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - 'stable'
+cache: yarn
+script:
+  - yarn lint
+  - yarn test
+  - yarn build
+  - yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: .docz/dist
+  on:
+    branch: master
