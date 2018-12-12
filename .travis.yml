@@ -4,12 +4,11 @@ node_js:
   - 'stable'
 cache: yarn
 branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
+  except:
+    - gh-pages
 script:
   - yarn lint
-  - yarn test
+  - yarn test --coverage
   - yarn build
   - yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html
 deploy:
@@ -19,3 +18,5 @@ deploy:
   local_dir: .docz/dist
   on:
     branch: master
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -e TRAVIS_NODE_VERSION
