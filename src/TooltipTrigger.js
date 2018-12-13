@@ -10,8 +10,7 @@ import {TooltipContext, callAll, noop, canUseDOM} from './utils';
 
 const DEFAULT_MODIFIERS = {
   preventOverflow: {
-    boundariesElement: 'viewport',
-    padding: 0
+    boundariesElement: 'viewport'
   }
 };
 

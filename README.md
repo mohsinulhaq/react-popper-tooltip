@@ -281,8 +281,7 @@ Modifiers, applied by default:
 ```
 {
   preventOverflow: {
-    boundariesElement: 'viewport',
-    padding: 0
+    boundariesElement: 'viewport'
   }
 }
 ```

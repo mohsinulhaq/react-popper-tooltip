@@ -132,8 +132,7 @@ declare module 'react-popper-tooltip' {
      ```
      {
         preventOverflow: {
-          boundariesElement: 'viewport',
-          padding: 0
+          boundariesElement: 'viewport'
         }
       }
     ```
