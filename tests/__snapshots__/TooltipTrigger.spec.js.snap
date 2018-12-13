@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches snapshot 1`] = `
-<span
-  class="trigger"
->
-  Hello
+<span>
+  Trigger
 </span>
 `;
