@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "rimraf dist lib && rollup -c && cp src/styles.css dist",
-    "prepublishOnly": "yarn lint && yarn build",
+    "prepublishOnly": "yarn lint && yarn test && yarn build",
     "docs": "docz dev",
     "docs:build": "docz build",
     "docs:deploy": "yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html && gh-pages -d .docz/dist",
