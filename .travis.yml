@@ -1,11 +1,16 @@
 language: node_js
 dist: xenial
+sudo: required
 node_js:
   - 'stable'
 cache: yarn
 branches:
   except:
     - gh-pages
+before_install:
+  - sudo apt update
+  - sudo apt upgrade -y
+  - sudo apt autoremove -y
 script:
   - yarn lint
   - yarn test --coverage
