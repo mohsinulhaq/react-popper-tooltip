@@ -12,14 +12,14 @@ const BasicTooltipTrigger = memo(({tooltip, children, hideArrow, ...props}) => (
       arrowRef,
       placement
     }) => (
-      <span
+      <div
         {...getTooltipProps({
           ref: tooltipRef,
           className: 'tooltip-container'
         })}
       >
         {!hideArrow && (
-          <span
+          <div
             {...getArrowProps({
               ref: arrowRef,
               'data-placement': placement,
@@ -28,7 +28,7 @@ const BasicTooltipTrigger = memo(({tooltip, children, hideArrow, ...props}) => (
           />
         )}
         {tooltip}
-      </span>
+      </div>
     )}
   >
     {({getTriggerProps, triggerRef}) => (

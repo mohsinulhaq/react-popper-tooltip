@@ -1,7 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches snapshot 1`] = `
-<span>
-  Trigger
-</span>
+<body>
+  <div>
+    <span>
+      Trigger
+    </span>
+  </div>
+  <div
+    class="tooltip-container"
+    style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
+  >
+    <div
+      class="tooltip-arrow"
+    />
+    Tooltip
+  </div>
+</body>
 `;

@@ -86,8 +86,8 @@ export default class Tooltip extends Component {
         removeParentOutsideClickHandler,
         removeParentOutsideRightClickHandler
       } = this.props;
-      document.addEventListener('click', this._handleOutsideClick);
-      document.addEventListener('contextmenu', this._handleOutsideRightClick);
+      this._addOutsideClickHandler();
+      this._addOutsideRightClickHandler();
       removeParentOutsideClickHandler && removeParentOutsideClickHandler();
       removeParentOutsideRightClickHandler &&
         removeParentOutsideRightClickHandler();
@@ -103,11 +103,8 @@ export default class Tooltip extends Component {
         addParentOutsideClickHandler,
         addParentOutsideRightClickHandler
       } = this.props;
-      document.removeEventListener('click', this._handleOutsideClick);
-      document.removeEventListener(
-        'contextmenu',
-        this._handleOutsideRightClick
-      );
+      this._removeOutsideClickHandler();
+      this._removeOutsideRightClickHandler();
       this._handleOutsideClick = undefined;
       this._handleOutsideRightClick = undefined;
       addParentOutsideClickHandler && addParentOutsideClickHandler();
