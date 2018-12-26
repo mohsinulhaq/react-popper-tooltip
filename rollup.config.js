@@ -1,6 +1,5 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 import {terser} from 'rollup-plugin-terser';
 import {sizeSnapshot} from 'rollup-plugin-size-snapshot';
 import pkg from './package.json';
@@ -30,18 +29,7 @@ export default [
       interop: false
     },
     external: Object.keys(globals),
-    plugins: [
-      resolve({
-        browser: true,
-        modulesOnly: true
-      }),
-      commonjs({
-        include: 'node_modules/**'
-      }),
-      babel(getBabelOptions()),
-      terser(),
-      sizeSnapshot()
-    ]
+    plugins: [resolve(), babel(getBabelOptions()), terser(), sizeSnapshot()]
   },
   {
     input,

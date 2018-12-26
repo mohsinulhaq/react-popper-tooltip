@@ -1,4 +1,5 @@
 import React from 'react';
+import T from 'prop-types';
 import {render, fireEvent, cleanup} from 'react-testing-library';
 import TooltipTrigger from '../src';
 
@@ -42,6 +43,12 @@ const BasicTooltipTrigger = ({tooltip, children, hideArrow, ...props}) => (
     )}
   </TooltipTrigger>
 );
+
+BasicTooltipTrigger.propTypes = {
+  tooltip: T.func,
+  children: T.func,
+  hideArrow: T.bool
+};
 
 const Tooltip = 'Tooltip';
 const Trigger = 'Trigger';
