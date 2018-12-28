@@ -1,15 +1,10 @@
 {
-  "dist/index.js": {
-    "bundled": 7333,
-    "minified": 7333,
-    "gzipped": 2207
-  },
-  "lib/cjs/index.js": {
+  "dist/cjs/react-popper-tooltip.js": {
     "bundled": 13954,
     "minified": 7653,
     "gzipped": 2137
   },
-  "lib/esm/index.js": {
+  "dist/esm/react-popper-tooltip.js": {
     "bundled": 13902,
     "minified": 7620,
     "gzipped": 2132,

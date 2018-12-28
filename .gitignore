@@ -7,7 +7,6 @@ npm-debug.log
 yarn-error.log
 .idea/
 node_modules/
-lib/
 dist/
 .docz/
 coverage/
