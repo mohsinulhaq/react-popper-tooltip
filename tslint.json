@@ -1,0 +1,16 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-eslint-rules",
+    "tslint-config-prettier",
+    "tslint-react"
+  ],
+  "jsRules": {},
+  "rules": {
+    "prettier": true,
+    "jsx-no-multiline-js": false,
+    "jsx-curly-spacing": false
+  },
+  "rulesDirectory": ["tslint-plugin-prettier"]
+}

@@ -10,24 +10,25 @@
   "main": "dist/cjs/react-popper-tooltip.js",
   "module": "dist/esm/react-popper-tooltip.js",
   "style": "dist/styles.css",
-  "typings": "typings/react-popper-tooltip.d.ts",
+  "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "typings/react-popper-tooltip.d.ts"
+    "dist"
   ],
   "sideEffects": [
     "*.css"
   ],
   "scripts": {
-    "build": "rimraf dist && rollup -c && cp src/styles.css dist",
-    "prepublishOnly": "yarn lint && yarn test && yarn build",
+    "build": "rimraf dist && rollup -c && cp src/styles.css dist && yarn tsc && rimraf compiled",
+    "prepublishOnly": "yarn typecheck && yarn lint && yarn test && yarn build",
     "docs": "docz dev",
     "docs:build": "docz build",
     "docs:deploy": "yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html && gh-pages -d .docz/dist",
-    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "lint": "tslint -p .",
     "test": "jest"
   },
   "pre-commit": [
+    "typecheck",
     "lint",
     "test"
   ],
@@ -56,22 +57,15 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
     "@types/jest": "^23.3.12",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
     "docz": "^0.13.7",
     "docz-plugin-css": "^0.11.0",
     "docz-theme-default": "^0.13.7",
-    "eslint": "^5.12.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-jest": "^22.1.3",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-prettier": "^3.0.1",
-    "eslint-plugin-react": "^7.12.3",
     "gh-pages": "^2.0.1",
     "jest": "^23.6.0",
     "pre-commit": "^1.2.2",
@@ -83,6 +77,13 @@
     "rimraf": "^2.6.3",
     "rollup": "^0.68.2",
     "rollup-plugin-babel": "^4.3.0",
-    "rollup-plugin-size-snapshot": "^0.7.0"
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-size-snapshot": "^0.7.0",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.2.2"
   }
 }

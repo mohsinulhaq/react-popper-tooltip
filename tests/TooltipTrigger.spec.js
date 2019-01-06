@@ -1,30 +1,26 @@
 import React from 'react';
-import T from 'prop-types';
-import {render, fireEvent, cleanup} from 'react-testing-library';
+import {cleanup, fireEvent, render} from 'react-testing-library';
 import TooltipTrigger from '../src';
 
 const BasicTooltipTrigger = ({tooltip, children, hideArrow, ...props}) => (
   <TooltipTrigger
     {...props}
     tooltip={({
-      getTooltipProps,
       getArrowProps,
-      tooltipRef,
+      getTooltipProps,
       arrowRef,
+      tooltipRef,
       placement
     }) => (
       <div
-        {...getTooltipProps({
-          ref: tooltipRef,
-          className: 'tooltip-container'
-        })}
+        {...getTooltipProps({ref: tooltipRef, className: 'tooltip-container'})}
       >
         {!hideArrow && (
           <div
             {...getArrowProps({
               ref: arrowRef,
-              'data-placement': placement,
-              className: 'tooltip-arrow'
+              className: 'tooltip-arrow',
+              'data-placement': placement
             })}
           />
         )}
@@ -33,22 +29,10 @@ const BasicTooltipTrigger = ({tooltip, children, hideArrow, ...props}) => (
     )}
   >
     {({getTriggerProps, triggerRef}) => (
-      <span
-        {...getTriggerProps({
-          ref: triggerRef
-        })}
-      >
-        {children}
-      </span>
+      <span {...getTriggerProps({ref: triggerRef})}>{children}</span>
     )}
   </TooltipTrigger>
 );
-
-BasicTooltipTrigger.propTypes = {
-  tooltip: T.func,
-  children: T.func,
-  hideArrow: T.bool
-};
 
 const Tooltip = 'Tooltip';
 const Trigger = 'Trigger';
