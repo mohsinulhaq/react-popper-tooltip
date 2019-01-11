@@ -64,8 +64,11 @@ export default class Tooltip extends Component {
   };
 
   _addOutsideClickHandler = () => {
-    document.addEventListener('touchend', this._handleOutsideClick);
-    document.addEventListener('click', this._handleOutsideClick);
+    if ('ontouchend' in window) {
+      document.addEventListener('touchend', this._handleOutsideClick);
+    } else {
+      document.addEventListener('click', this._handleOutsideClick);
+    }
   };
 
   _removeOutsideClickHandler = () => {
