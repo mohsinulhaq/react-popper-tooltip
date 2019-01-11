@@ -185,10 +185,18 @@ export default class TooltipTrigger extends Component {
     const isClickTriggered = this.props.trigger === 'click';
     const isHoverTriggered = this.props.trigger === 'hover';
     const isRightClickTriggered = this.props.trigger === 'right-click';
+    const isTouchEnabled = canUseDOM() && 'ontouchend' in window;
 
     return {
       ...props,
-      onClick: callAll(isClickTriggered && this._clickToggle, props.onClick),
+      onTouchEnd: callAll(
+        isClickTriggered && isTouchEnabled && this._clickToggle,
+        props.onTouchEnd
+      ),
+      onClick: callAll(
+        isClickTriggered && !isTouchEnabled && this._clickToggle,
+        props.onClick
+      ),
       onContextMenu: callAll(
         isRightClickTriggered && this._contextMenuToggle,
         props.onContextMenu
