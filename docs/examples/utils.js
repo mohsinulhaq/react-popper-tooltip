@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class StateContainer extends React.Component {
+class StateContainer extends React.Component {
   state = {
     on: false
   };
@@ -17,3 +17,5 @@ export class StateContainer extends React.Component {
     });
   }
 }
+
+export {StateContainer};

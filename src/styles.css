@@ -2,13 +2,13 @@
   background-color: white;
   border-radius: 3px;
   border: 1px solid silver;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
   margin: 0.4rem;
   padding: 0.4rem;
   transition: opacity 0.3s;
-  z-index: 999;
+  z-index: 2147483647;
 }
 
 .tooltip-arrow {
@@ -110,6 +110,6 @@
 .tooltip-arrow[data-placement*='left']::after {
   border-color: transparent transparent transparent white;
   border-width: 0.5rem 0 0.5rem 0.4em;
-  left: 4px;
+  left: 3px;
   top: 0;
 }

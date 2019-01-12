@@ -2,44 +2,45 @@ import React, {memo} from 'react';
 import TooltipTrigger from '../../src';
 import '../../src/styles.css';
 
-const BasicTooltipTrigger = memo(({tooltip, children, hideArrow, ...props}) => (
-  <TooltipTrigger
-    {...props}
-    tooltip={({
-      getTooltipProps,
-      getArrowProps,
-      tooltipRef,
-      arrowRef,
-      placement
-    }) => (
-      <div
-        {...getTooltipProps({
-          ref: tooltipRef,
-          className: 'tooltip-container'
-        })}
-      >
-        {!hideArrow && (
-          <div
-            {...getArrowProps({
-              ref: arrowRef,
-              'data-placement': placement,
-              className: 'tooltip-arrow'
-            })}
-          />
-        )}
-        {tooltip}
-      </div>
-    )}
+const Trigger = children => ({triggerRef, getTriggerProps}) => (
+  <span
+    {...getTriggerProps({
+      ref: triggerRef
+    })}
   >
-    {({getTriggerProps, triggerRef}) => (
-      <span
-        {...getTriggerProps({
-          ref: triggerRef
+    {children}
+  </span>
+);
+
+const Tooltip = (tooltip, hideArrow) => ({
+  arrowRef,
+  tooltipRef,
+  placement,
+  getTooltipProps,
+  getArrowProps
+}) => (
+  <div
+    {...getTooltipProps({
+      className: 'tooltip-container',
+      ref: tooltipRef
+    })}
+  >
+    {!hideArrow && (
+      <div
+        {...getArrowProps({
+          className: 'tooltip-arrow',
+          'data-placement': placement,
+          ref: arrowRef
         })}
-      >
-        {children}
-      </span>
+      />
     )}
+    {tooltip}
+  </div>
+);
+
+const BasicTooltipTrigger = memo(({tooltip, children, hideArrow, ...props}) => (
+  <TooltipTrigger {...props} tooltip={Tooltip(tooltip, hideArrow)}>
+    {Trigger(children)}
   </TooltipTrigger>
 ));
 

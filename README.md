@@ -1,4 +1,5 @@
 # React Tooltip
+
 [![npm version](https://img.shields.io/npm/v/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
 [![npm downloads](https://img.shields.io/npm/dm/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
 [![Build Status](https://travis-ci.com/mohsinulhaq/react-popper-tooltip.svg?branch=master)](https://travis-ci.com/mohsinulhaq/react-popper-tooltip)
@@ -6,13 +7,14 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
 
-React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the 
-React wrapper around [popper.js](https://popper.js.org/) library.
+React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org/) library.
 
 ## Homepage
+
 https://mohsinulhaq.github.io/react-popper-tooltip/
 
 ## Example
+
 https://codesandbox.io/s/pykkz77z5j
 
 ### Usage
@@ -20,7 +22,9 @@ https://codesandbox.io/s/pykkz77z5j
 ```bash
 npm install react-popper-tooltip
 ```
+
 or
+
 ```bash
 yarn add react-popper-tooltip
 ```
@@ -31,10 +35,10 @@ import {render} from 'react-dom';
 import TooltipTrigger from 'react-popper-tooltip';
 
 const Tooltip = ({
-  getTooltipProps,
-  getArrowProps,
-  tooltipRef,
   arrowRef,
+  tooltipRef,
+  getArrowProps,
+  getTooltipProps,
   placement
 }) => (
   <div
@@ -47,8 +51,8 @@ const Tooltip = ({
     <div
       {...getArrowProps({
         ref: arrowRef,
-        'data-placement': placement,
-        className: 'tooltip-arrow'
+        className: 'tooltip-arrow',
+        'data-placement': placement
         /* your props here */
       })}
     />
@@ -69,11 +73,7 @@ const Trigger = ({getTriggerProps, triggerRef}) => (
 );
 
 render(
-  <TooltipTrigger
-    placement="right"
-    trigger="click"
-    tooltip={Tooltip}
-  >
+  <TooltipTrigger placement="right" trigger="click" tooltip={Tooltip}>
     {Trigger}
   </TooltipTrigger>,
   document.getElementById('root')
@@ -95,14 +95,14 @@ import React from 'react';
 import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 
-const Tooltip = ({tooltip, children, hideArrow ...props}) => (
+const Tooltip = ({children, tooltip, hideArrow, ...props}) => (
   <TooltipTrigger
     {...props}
     tooltip={({
-      getTooltipProps,
-      getArrowProps,
-      tooltipRef,
       arrowRef,
+      tooltipRef,
+      getArrowProps,
+      getTooltipProps,
       placement
     }) => (
       <div
@@ -111,13 +111,15 @@ const Tooltip = ({tooltip, children, hideArrow ...props}) => (
           className: 'tooltip-container'
         })}
       >
-        {!hideArrow && <div
-          {...getArrowProps({
-            ref: arrowRef,
-            'data-placement': placement,
-            className: 'tooltip-arrow'
-          })}
-        />}
+        {!hideArrow && (
+          <div
+            {...getArrowProps({
+              ref: arrowRef,
+              className: 'tooltip-arrow',
+              'data-placement': placement
+            })}
+          />
+        )}
         {tooltip}
       </div>
     )}
@@ -138,24 +140,31 @@ const Tooltip = ({tooltip, children, hideArrow ...props}) => (
 export default Tooltip;
 ```
 
-Then you can use it as shown in the example below. 
+Then you can use it as shown in the example below.
 
 ```jsx
-<Tooltip placement="top" trigger="click" tooltip="Hi there!">Click me</Tooltip>
+<Tooltip placement="top" trigger="click" tooltip="Hi there!">
+  Click me
+</Tooltip>
 ```
 
 ## Examples
+
 To fiddle with our example recipes, run:
+
 ```bash
 > npm install
 > npm run docs
 ```
+
 or
+
 ```bash
 > yarn
 > yarn docs
 ```
-and  open up [localhost:3000](http://localhost:3000) in your browser.
+
+and open up [localhost:3000](http://localhost:3000) in your browser.
 
 ## Props
 
@@ -172,7 +181,6 @@ the section "[Children and tooltip functions](#children-and-tooltip-functions)".
 
 This is called with an object. Read more about the properties of this object in
 the section "[Children and tooltip functions](#children-and-tooltip-functions)".
-
 
 ### defaultTooltipShown
 
@@ -192,9 +200,9 @@ Called with the tooltip state, when the visibility of the tooltip changes
 
 Use this prop if you want to control the visibility state of the tooltip.
 
-`react-popper-tooltip` manages its own state internally. You can use this prop to pass the 
-visibility state of the tooltip from the outside. You will be required to keep this state up to 
-date (this is where `onVisibilityChange` becomes useful), but you can also control the state 
+`react-popper-tooltip` manages its own state internally. You can use this prop to pass the
+visibility state of the tooltip from the outside. You will be required to keep this state up to
+date (this is where `onVisibilityChange` becomes useful), but you can also control the state
 from anywhere, be that state from other components, `redux`, `react-router`, or anywhere else.
 
 ### delayShow
@@ -214,6 +222,7 @@ Delay in hiding the tooltip (ms).
 > `string` | defaults to `right`
 
 The tooltip placement. Valid placements are:
+
 - `auto`
 - `top`
 - `right`
@@ -221,18 +230,19 @@ The tooltip placement. Valid placements are:
 - `left`
 
 Each placement can have a variation from this list:
+
 - `-start`
 - `-end`
 
 ### trigger
 
-> `string` | defaults to `hover` 
+> `string` | defaults to `hover`
 
 The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `none`.
 
 ### getTriggerRef
 
-> `function(HTMLElement) => void` 
+> `function(HTMLElement) => void`
 
 Function that can be used to obtain a trigger element reference.
 
@@ -264,10 +274,10 @@ Recommended usage with hover trigger and no arrow element
 
 ### modifiers
 
-> `object` 
+> `object`
 
-Modifiers passed directly to the underlying popper.js instance. 
-For more information, refer to Popper.js’ 
+Modifiers passed directly to the underlying popper.js instance.
+For more information, refer to Popper.js’
 [modifier docs](https://popper.js.org/popper-documentation.html#modifiers)
 
 Modifiers, applied by default:
@@ -283,8 +293,8 @@ Modifiers, applied by default:
 ## Children and tooltip functions
 
 This is where you render whatever you want. `react-popper-tooltip` uses two render props `children`
-and `tooltip`. `Children` prop is used to trigger the appearance of the tooltip and `tooltip` 
-displays the tooltip itself. 
+and `tooltip`. `Children` prop is used to trigger the appearance of the tooltip and `tooltip`
+displays the tooltip itself.
 
 You use it like so:
 
@@ -302,8 +312,8 @@ const tooltip = (
 
 > See [the blog post about prop getters](https://blog.kentcdodds.com/how-to-give-rendering-control-to-users-with-prop-getters-549eaef76acf)
 
-These functions are used to apply props to the elements that you render. 
-It's advisable to pass all your props to that function rather than applying them on the element 
+These functions are used to apply props to the elements that you render.
+It's advisable to pass all your props to that function rather than applying them on the element
 yourself to avoid your props being overridden (or overriding the props returned). For example
 `<button {...getTriggerProps({onClick: event => console.log(event))}>Click me</button>`
 
@@ -311,24 +321,23 @@ yourself to avoid your props being overridden (or overriding the props returned)
 
 | property        | type           | description                                                           |
 | --------------- | -------------- | --------------------------------------------------------------------- |
+| triggerRef      | `function ref` | returns the react ref you should apply to the trigger element.        |
 | getTriggerProps | `function({})` | returns the props you should apply to the trigger element you render. |
-| triggerRef      | `node`         | returns the react ref you should apply to the trigger element.        |
-
 
 ### tooltip function
 
-| property        | type           | description                                                            |
-| --------------- | -------------- | ---------------------------------------------------------------------- |
-| getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render.  |
-| tooltipRef      | `node`         | return the react ref you should apply to the tooltip element.          |
-| getArrowProps   | `function({})` | return the props you should apply to the tooltip arrow element.        |
-| arrowRef        | `node`         | return the react ref you should apply to the tooltip arrow element.    |
-| placement       | `string`       | return the placement of the tooltip.                                   |
+| property        | type           | description                                                           |
+| --------------- | -------------- | --------------------------------------------------------------------- |
+| arrowRef        | `function ref` | return the react ref you should apply to the tooltip arrow element.   |
+| tooltipRef      | `function ref` | return the react ref you should apply to the tooltip element.         |
+| getArrowProps   | `function({})` | return the props you should apply to the tooltip arrow element.       |
+| getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render. |
+| placement       | `string`       | return the dynamic placement of the tooltip.                          |
 
 ## Inspiration and Thanks!
 
-This library is based on [react-popper](https://github.com/FezVrasta/react-popper), the official 
+This library is based on [react-popper](https://github.com/FezVrasta/react-popper), the official
 react wrapper around [Popper.js](https://popper.js.org).
 
-Using of render props, prop getters and doc style of this library are heavily inspired by 
+Using of render props, prop getters and doc style of this library are heavily inspired by
 [downshift](https://github.com/paypal/downshift).
