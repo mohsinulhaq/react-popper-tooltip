@@ -2,14 +2,26 @@ import React from 'react';
 import {cleanup, fireEvent, render} from 'react-testing-library';
 import TooltipTrigger from '../src';
 
-const BasicTooltipTrigger = ({tooltip, children, hideArrow, ...props}) => (
+interface IBasicTooltipTriggerProps {
+  tooltip: React.ReactNode;
+  children: React.ReactNode;
+  hideArrow?: boolean;
+  [key: string]: any;
+}
+
+const BasicTooltipTrigger = ({
+  tooltip,
+  children,
+  hideArrow,
+  ...props
+}: IBasicTooltipTriggerProps) => (
   <TooltipTrigger
     {...props}
     tooltip={({
-      getArrowProps,
-      getTooltipProps,
       arrowRef,
       tooltipRef,
+      getArrowProps,
+      getTooltipProps,
       placement
     }) => (
       <div
@@ -18,9 +30,9 @@ const BasicTooltipTrigger = ({tooltip, children, hideArrow, ...props}) => (
         {!hideArrow && (
           <div
             {...getArrowProps({
-              ref: arrowRef,
               className: 'tooltip-arrow',
-              'data-placement': placement
+              'data-placement': placement,
+              ref: arrowRef
             })}
           />
         )}
@@ -38,9 +50,10 @@ const Tooltip = 'Tooltip';
 const Trigger = 'Trigger';
 const Trigger2 = 'Trigger2';
 
+// @ts-ignore
 window.MutationObserver = class {
-  disconnect() {}
-  observe() {}
+  public disconnect() {}
+  public observe() {}
 };
 
 jest.useFakeTimers();
@@ -56,13 +69,14 @@ it('matches snapshot', () => {
 });
 
 describe('hover trigger', () => {
-  let container, queryByText;
+  let container: HTMLElement;
+  let queryByText: any;
 
   beforeEach(() => {
     ({container, queryByText} = render(
       <BasicTooltipTrigger tooltip={Tooltip}>{Trigger}</BasicTooltipTrigger>
     ));
-    fireEvent.mouseEnter(container.firstChild);
+    fireEvent.mouseEnter(container.firstChild as HTMLElement);
     jest.runAllTimers();
   });
 
@@ -71,13 +85,13 @@ describe('hover trigger', () => {
   });
 
   it('closes tooltip on mouseLeave', () => {
-    fireEvent.mouseLeave(container.firstChild);
+    fireEvent.mouseLeave(container.firstChild as HTMLElement);
     jest.runAllTimers();
     expect(queryByText(Tooltip)).toBeFalsy();
   });
 
   it('retains tooltip after hovering into it', () => {
-    fireEvent.mouseLeave(container.firstChild);
+    fireEvent.mouseLeave(container.firstChild as HTMLElement);
     fireEvent.mouseEnter(queryByText(Tooltip));
     jest.runAllTimers();
     expect(queryByText(Tooltip)).toBeTruthy();
@@ -85,7 +99,8 @@ describe('hover trigger', () => {
 });
 
 describe('click trigger', () => {
-  let container, queryByText;
+  let container: HTMLElement;
+  let queryByText: any;
 
   beforeEach(() => {
     ({container, queryByText} = render(
@@ -93,7 +108,7 @@ describe('click trigger', () => {
         {Trigger}
       </BasicTooltipTrigger>
     ));
-    fireEvent.click(container.firstChild);
+    fireEvent.click(container.firstChild as HTMLElement);
     jest.runAllTimers();
   });
 
@@ -102,14 +117,15 @@ describe('click trigger', () => {
   });
 
   it('closes tooltip on click', () => {
-    fireEvent.click(container.firstChild);
+    fireEvent.click(container.firstChild as HTMLElement);
     jest.runAllTimers();
     expect(queryByText(Tooltip)).toBeFalsy();
   });
 });
 
 describe('right-click trigger', () => {
-  let container, queryByText;
+  let container: HTMLElement;
+  let queryByText: any;
 
   beforeEach(() => {
     ({container, queryByText} = render(
@@ -117,7 +133,7 @@ describe('right-click trigger', () => {
         {Trigger}
       </BasicTooltipTrigger>
     ));
-    fireEvent.contextMenu(container.firstChild);
+    fireEvent.contextMenu(container.firstChild as HTMLElement);
     jest.runAllTimers();
   });
 
@@ -126,20 +142,21 @@ describe('right-click trigger', () => {
   });
 
   it('closes tooltip on rightClick', () => {
-    fireEvent.contextMenu(container.firstChild);
+    fireEvent.contextMenu(container.firstChild as HTMLElement);
     jest.runAllTimers();
     expect(queryByText(Tooltip)).toBeFalsy();
   });
 
   it('closes tooltip on click', () => {
-    fireEvent.click(container.firstChild);
+    fireEvent.click(container.firstChild as HTMLElement);
     jest.runAllTimers();
     expect(queryByText(Tooltip)).toBeFalsy();
   });
 });
 
 describe('follow cursor', () => {
-  let container, queryByText;
+  let container: HTMLElement;
+  let queryByText: any;
 
   beforeEach(() => {
     ({container, queryByText} = render(
@@ -147,7 +164,7 @@ describe('follow cursor', () => {
         {Trigger}
       </BasicTooltipTrigger>
     ));
-    fireEvent.mouseMove(container.firstChild);
+    fireEvent.mouseMove(container.firstChild as HTMLElement);
     jest.runAllTimers();
   });
 
@@ -156,7 +173,7 @@ describe('follow cursor', () => {
   });
 
   it('closes tooltip on mouseLeave', () => {
-    fireEvent.mouseLeave(container.firstChild);
+    fireEvent.mouseLeave(container.firstChild as HTMLElement);
     jest.runAllTimers();
     expect(queryByText(Tooltip)).toBeFalsy();
   });
@@ -172,10 +189,10 @@ it('closes on outside click', () => {
     </>
   );
 
-  fireEvent.click(container.firstChild);
+  fireEvent.click(container.firstChild as HTMLElement);
   jest.runAllTimers();
 
-  fireEvent.click(queryByText('Outside'));
+  fireEvent.click(queryByText('Outside')!);
   jest.runAllTimers();
 
   expect(queryByText(Tooltip)).toBeFalsy();
@@ -196,9 +213,9 @@ describe('nested tooltips', () => {
           {Trigger}
         </BasicTooltipTrigger>
       );
-      fireEvent.click(queryByText(Trigger));
+      fireEvent.click(queryByText(Trigger)!);
       jest.runAllTimers();
-      fireEvent.click(queryByText(Trigger2));
+      fireEvent.click(queryByText(Trigger2)!);
       jest.runAllTimers();
       expect(queryByText(Tooltip)).toBeTruthy();
     });
@@ -215,9 +232,9 @@ describe('nested tooltips', () => {
           {Trigger}
         </BasicTooltipTrigger>
       );
-      fireEvent.mouseEnter(queryByText(Trigger));
+      fireEvent.mouseEnter(queryByText(Trigger)!);
       jest.runAllTimers();
-      fireEvent.mouseEnter(queryByText(Trigger2));
+      fireEvent.mouseEnter(queryByText(Trigger2)!);
       jest.runAllTimers();
       expect(queryByText(Tooltip)).toBeTruthy();
     });
@@ -237,11 +254,11 @@ describe('nested tooltips', () => {
           {Trigger}
         </BasicTooltipTrigger>
       );
-      fireEvent.click(queryByText(Trigger));
+      fireEvent.click(queryByText(Trigger)!);
       jest.runAllTimers();
-      fireEvent.click(queryByText(Trigger2));
+      fireEvent.click(queryByText(Trigger2)!);
       jest.runAllTimers();
-      fireEvent.click(queryByText(Trigger2));
+      fireEvent.click(queryByText(Trigger2)!);
       jest.runAllTimers();
       expect(queryByText(Tooltip)).toBeFalsy();
       expect(queryByText(Trigger2)).toBeTruthy();
@@ -259,12 +276,12 @@ describe('nested tooltips', () => {
           {Trigger}
         </BasicTooltipTrigger>
       );
-      fireEvent.mouseEnter(queryByText(Trigger));
+      fireEvent.mouseEnter(queryByText(Trigger)!);
       jest.runAllTimers();
-      fireEvent.mouseEnter(queryByText(Trigger2));
+      fireEvent.mouseEnter(queryByText(Trigger2)!);
       jest.runAllTimers();
-      fireEvent.mouseLeave(queryByText(Trigger2));
-      fireEvent.mouseEnter(queryByText(Trigger));
+      fireEvent.mouseLeave(queryByText(Trigger2)!);
+      fireEvent.mouseEnter(queryByText(Trigger)!);
       jest.runAllTimers();
       expect(queryByText(Tooltip)).toBeFalsy();
       expect(queryByText(Trigger2)).toBeTruthy();
@@ -288,11 +305,11 @@ describe('nested tooltips', () => {
           <div>Outside</div>
         </>
       );
-      fireEvent.click(queryByText(Trigger));
+      fireEvent.click(queryByText(Trigger)!);
       jest.runAllTimers();
-      fireEvent.click(queryByText(Trigger2));
+      fireEvent.click(queryByText(Trigger2)!);
       jest.runAllTimers();
-      fireEvent.click(queryByText('Outside'));
+      fireEvent.click(queryByText('Outside')!);
       jest.runAllTimers();
       expect(queryByText(Tooltip)).toBeFalsy();
       expect(queryByText(Trigger2)).toBeFalsy();
@@ -312,11 +329,11 @@ describe('nested tooltips', () => {
           </BasicTooltipTrigger>
         </>
       );
-      fireEvent.mouseEnter(queryByText(Trigger));
+      fireEvent.mouseEnter(queryByText(Trigger)!);
       jest.runAllTimers();
-      fireEvent.mouseEnter(queryByText(Trigger2));
+      fireEvent.mouseEnter(queryByText(Trigger2)!);
       jest.runAllTimers();
-      fireEvent.mouseOut(queryByText(Trigger));
+      fireEvent.mouseOut(queryByText(Trigger)!);
       jest.runAllTimers();
       expect(queryByText(Tooltip)).toBeFalsy();
       expect(queryByText(Trigger2)).toBeFalsy();

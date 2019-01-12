@@ -10,7 +10,9 @@
   "rules": {
     "prettier": true,
     "jsx-no-multiline-js": false,
-    "jsx-curly-spacing": false
+    "jsx-curly-spacing": false,
+    "no-empty": false,
+    "jsx-boolean-value": false
   },
   "rulesDirectory": ["tslint-plugin-prettier"]
 }

@@ -8,7 +8,7 @@ type FnOrBool = undefined | Fn;
 export const callAll = (...fns: FnOrBool[]) => (...args: any[]) =>
   fns.forEach(fn => fn && fn(...args));
 
-export const noop = () => undefined;
+export const noop = () => {};
 
 export const canUseDOM = () =>
   !!(
