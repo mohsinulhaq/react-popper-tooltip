@@ -39,86 +39,79 @@ export interface ITooltipArg {
 
 export interface ITooltipTriggerProps {
   /**
-   * whether to close the tooltip when it's trigger is out of the boundary
+   * Whether to close the tooltip when it's trigger is out of the boundary
    * @default true
    */
   closeOnOutOfBoundaries: boolean;
   /**
-   * whether tooltip is shown by default
+   * Whether tooltip is shown by default
    * @default false
    */
   defaultTooltipShown: boolean;
   /**
-   * delay in hiding the tooltip
+   * Delay in hiding the tooltip
    * @default 0
    */
   delayHide: number;
   /**
-   * delay in showing the tooltip
+   * Delay in showing the tooltip
    * @default 0
    */
   delayShow: number;
   /**
-   * whether to make the tooltip spawn at cursor position
+   * Whether to make the tooltip spawn at cursor position
    * @default false
    */
   followCursor: boolean;
   /**
-   * function that can be used to obtain a tooltip element reference
+   * Function that can be used to obtain a tooltip element reference
    */
   getTooltipRef?: ReactPopper.RefHandler;
   /**
-   * function that can be used to obtain a trigger element reference
+   * Function that can be used to obtain a trigger element reference
    */
   getTriggerRef?: ReactPopper.RefHandler;
   /**
-   * modifiers passed directly to the underlying popper.js instance
+   * Modifiers passed directly to the underlying popper.js instance
    * For more information, refer to Popper.js’ modifier docs:
    * @link https://popper.js.org/popper-documentation.html#modifiers
    */
   modifiers?: PopperJS.Modifiers;
   /**
-   * Popper’s placement. Valid placements are:
-   *  - auto
-   *  - top
-   *  - right
-   *  - bottom
-   *  - left
-   * Each placement can have a variation from this list:
-   *  -start
-   *  -end
+   * Tooltip placement w.r.t. trigger
    *  @default right
    */
   placement: PopperJS.Placement;
   /**
-   * element to be used as portal container
+   * Element to be used as portal container
    * @default document.body
    */
   portalContainer: HTMLElement;
   /**
-   * use to create controlled tooltip
+   * Used to create controlled tooltip
    */
   tooltipShown?: boolean;
   /**
-   * the event that triggers the tooltip
+   * Event that triggers the tooltip
    * @default hover
    */
   trigger: 'none' | 'click' | 'right-click' | 'hover';
   /**
-   * whether to use React.createPortal for creating tooltip
+   * Whether to use React.createPortal for creating tooltip
+   * @default true // for browser environments
    */
   usePortal: boolean;
   /**
-   * trigger
+   * Trigger
    */
   children(arg: IChildrenArg): React.ReactNode;
   /**
-   * сalled when the visibility of the tooltip changes
-   * @default noop
+   * Called when the visibility of the tooltip changes
+   * @default no-op
    */
   onVisibilityChange(tooltipShown: boolean): void;
   /**
-   * tooltip
+   * Tooltip
    */
   tooltip(arg: ITooltipArg): React.ReactNode;
 }
