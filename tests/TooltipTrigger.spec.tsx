@@ -49,6 +49,7 @@ const BasicTooltipTrigger = ({
 const Tooltip = 'Tooltip';
 const Trigger = 'Trigger';
 const Trigger2 = 'Trigger2';
+const Outside = 'Outside';
 
 // @ts-ignore
 window.MutationObserver = class {
@@ -185,14 +186,14 @@ it('closes on outside click', () => {
       <BasicTooltipTrigger trigger="click" tooltip={Tooltip}>
         {Trigger}
       </BasicTooltipTrigger>
-      <div>Outside</div>
+      <div>{Outside}</div>
     </>
   );
 
   fireEvent.click(container.firstChild as HTMLElement);
   jest.runAllTimers();
 
-  fireEvent.click(queryByText('Outside')!);
+  fireEvent.click(queryByText(Outside)!);
   jest.runAllTimers();
 
   expect(queryByText(Tooltip)).toBeFalsy();
@@ -302,14 +303,14 @@ describe('nested tooltips', () => {
           >
             {Trigger}
           </BasicTooltipTrigger>
-          <div>Outside</div>
+          <div>{Outside}</div>
         </>
       );
       fireEvent.click(queryByText(Trigger)!);
       jest.runAllTimers();
       fireEvent.click(queryByText(Trigger2)!);
       jest.runAllTimers();
-      fireEvent.click(queryByText('Outside')!);
+      fireEvent.click(queryByText(Outside)!);
       jest.runAllTimers();
       expect(queryByText(Tooltip)).toBeFalsy();
       expect(queryByText(Trigger2)).toBeFalsy();
