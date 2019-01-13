@@ -116,7 +116,12 @@ _Could be used for creating dropdown menu framework, datepicker, nested popovers
     tooltip={
       <BasicTooltipTrigger
         tooltip={
-          <BasicTooltipTrigger placement="bottom" tooltip="Four">
+          <BasicTooltipTrigger
+            placement="bottom"
+            tooltip={
+              <BasicTooltipTrigger tooltip="Five">Four</BasicTooltipTrigger>
+            }
+          >
             Three
           </BasicTooltipTrigger>
         }
