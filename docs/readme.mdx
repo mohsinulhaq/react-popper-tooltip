@@ -3,7 +3,7 @@ name: TooltipTrigger
 route: /
 ---
 
-import { Playground, PropsTable } from 'docz';
+import {Playground, PropsTable} from 'docz';
 import BasicTooltipTrigger from './examples/BasicTooltipTrigger';
 import EscapeToClose from './examples/EscapeToClose';
 import {StateContainer} from './examples/utils';
@@ -12,21 +12,63 @@ import {StateContainer} from './examples/utils';
 
 The example files are in `docs/examples` directory.
 
-## Basic example
+## `hover` trigger
 
 <Playground>
-  <BasicTooltipTrigger tooltip="Hello, World!">Hover over me</BasicTooltipTrigger>
+  <BasicTooltipTrigger tooltip="Hello, World!">
+    Hover over me!
+  </BasicTooltipTrigger>
 </Playground>
 
+## `click` trigger
+
+<Playground>
+  <BasicTooltipTrigger trigger="click" tooltip="Hello, World!">
+    Click on me!
+  </BasicTooltipTrigger>
+</Playground>
+
+## `right-click` trigger
+
+_overrides browser's context menu_
+
+<Playground>
+  <BasicTooltipTrigger trigger="right-click" tooltip="Hello, World!">
+    Right Click on me!
+  </BasicTooltipTrigger>
+</Playground>
+
+## Follow cursor
+
+_`followCursor` prop_
+
+<Playground>
+  <BasicTooltipTrigger followCursor hideArrow tooltip="Hello, Cursor!">
+    <span
+      style={{
+        display: 'inline-block',
+        padding: 10,
+        width: 200,
+        height: 100,
+        border: '1px solid silver'
+      }}
+    >
+      Hover over here
+    </span>
+  </BasicTooltipTrigger>
+</Playground>
 
 ## Controlled
 
+_`tooltipShown` prop_
+
 <Playground>
   <StateContainer>
-    {({ on, set, toggle }) => (
+    {({on, set, toggle}) => (
       <div>
         <button onClick={toggle}>Toggle tooltip</button>
-        <br /><br />
+        <br />
+        <br />
         <BasicTooltipTrigger
           trigger="none"
           tooltipShown={on}
@@ -40,17 +82,20 @@ The example files are in `docs/examples` directory.
   </StateContainer>
 </Playground>
 
-
 ## Escape to close
 
 <Playground>
   <StateContainer>
-    {({ on, set }) => (
+    {({on, set}) => (
       <BasicTooltipTrigger
         trigger="click"
         tooltipShown={on}
         onVisibilityChange={set}
-        tooltip={<EscapeToClose closeTooltip={() => set(false)}>Press Esc to Close</EscapeToClose>}
+        tooltip={
+          <EscapeToClose closeTooltip={() => set(false)}>
+            Press Esc to Close
+          </EscapeToClose>
+        }
       >
         Click Here
       </BasicTooltipTrigger>
@@ -58,12 +103,14 @@ The example files are in `docs/examples` directory.
   </StateContainer>
 </Playground>
 
-Note: `StateContainer` is for demo purpose only and used for state management.
+_Note: `StateContainer` used in the snippet above is for demo purpose only and used for state management._
 
 ## Continuation
-*Could be used for creating dropdown menu framework, datepicker, etc.*
+
+_Could be used for creating dropdown menu framework, datepicker, nested popovers, etc._
 
 ### Hover Continuation
+
 <Playground>
   <BasicTooltipTrigger
     tooltip={
@@ -82,8 +129,8 @@ Note: `StateContainer` is for demo purpose only and used for state management.
   </BasicTooltipTrigger>
 </Playground>
 
-
 ### Click Continuation
+
 <Playground>
   <BasicTooltipTrigger
     trigger="click"
@@ -109,13 +156,5 @@ Note: `StateContainer` is for demo purpose only and used for state management.
     }
   >
     One
-  </BasicTooltipTrigger>
-</Playground>
-
-## Follow cursor example
-
-<Playground>
-  <BasicTooltipTrigger followCursor hideArrow tooltip="Hello, Cursor!">
-    <span style={{display: 'inline-block', padding: 10, width: 200, height:100, border: '1px solid silver'}}>Hover over here</span>
   </BasicTooltipTrigger>
 </Playground>
