@@ -58,8 +58,8 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
-    "@types/jest": "^23.3.12",
-    "@types/react": "^16.7.18",
+    "@types/jest": "^23.3.13",
+    "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
@@ -69,14 +69,14 @@
     "gh-pages": "^2.0.1",
     "jest": "^23.6.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.15.3",
+    "prettier": "^1.16.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-testing-library": "^5.4.4",
     "rimraf": "^2.6.3",
-    "rollup": "^1.1.0",
-    "rollup-plugin-babel": "^4.3.0",
+    "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-size-snapshot": "^0.8.0",
     "tslint": "^5.12.1",
@@ -84,6 +84,6 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.4"
   }
 }
