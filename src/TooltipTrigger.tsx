@@ -2,7 +2,7 @@
  * @author Mohsin Ul Haq <mohsinulhaq01@gmail.com>
  */
 import PopperJS from 'popper.js';
-import React, {Component} from 'react';
+import * as React from 'react';
 import {createPortal} from 'react-dom';
 import {Manager, Popper, Reference} from 'react-popper';
 import Tooltip from './Tooltip';
@@ -19,7 +19,7 @@ const DEFAULT_MODIFIERS: PopperJS.Modifiers = {
   }
 };
 
-class TooltipTrigger extends Component<
+class TooltipTrigger extends React.Component<
   ITooltipTriggerProps,
   ITooltipTriggerState
 > {

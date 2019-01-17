@@ -1,6 +1,6 @@
 import PopperJS from 'popper.js';
-import React from 'react';
-import ReactPopper from 'react-popper';
+import * as React from 'react';
+import * as ReactPopper from 'react-popper';
 
 export interface IGetTriggerPropsArg {
   onTouchEnd?(event: React.SyntheticEvent): void;

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import {findDOMNode} from 'react-dom';
 import {IGetArrowPropsArg, IGetTooltipPropsArg, ITooltipProps} from './types';
 import {callAll, TooltipContext} from './utils';
@@ -8,7 +8,7 @@ const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
   subtree: true
 };
 
-class Tooltip extends Component<ITooltipProps> {
+class Tooltip extends React.Component<ITooltipProps> {
   private observer?: MutationObserver;
 
   public componentDidMount() {
