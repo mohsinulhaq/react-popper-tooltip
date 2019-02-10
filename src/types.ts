@@ -35,6 +35,7 @@ export interface ITooltipArg {
   placement: PopperJS.Placement;
   getArrowProps(arg?: IGetArrowPropsArg): IGetArrowPropsArg;
   getTooltipProps(arg?: IGetTooltipPropsArg): IGetTooltipPropsArg;
+  hideTooltip(): void;
 }
 
 export interface ITooltipTriggerProps {
