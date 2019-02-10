@@ -5,7 +5,6 @@ node_js:
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - source ~/.bashrc
-cache: yarn
 branches:
   except:
     - gh-pages
