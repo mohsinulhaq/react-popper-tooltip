@@ -184,7 +184,10 @@ class TooltipTrigger extends Component<
     this[action]({pageX, pageY});
   };
 
-  private clickToggle: React.MouseEventHandler = ({pageX, pageY}) => {
+  private clickToggle: React.MouseEventHandler = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const {pageX, pageY} = event;
     const action = this.props.followCursor ? 'showTooltip' : 'toggleTooltip';
     this[action]({pageX, pageY});
   };
@@ -201,18 +204,13 @@ class TooltipTrigger extends Component<
     const isClickTriggered = trigger === 'click';
     const isHoverTriggered = trigger === 'hover';
     const isRightClickTriggered = trigger === 'right-click';
-    const isTouchEnabled = canUseDOM() && 'ontouchend' in window;
 
     return {
       ...props,
-      ...(isClickTriggered &&
-        isTouchEnabled && {
-          onTouchEnd: callAll(this.clickToggle, props.onTouchEnd)
-        }),
-      ...(isClickTriggered &&
-        !isTouchEnabled && {
-          onClick: callAll(this.clickToggle, props.onClick)
-        }),
+      ...(isClickTriggered && {
+        onClick: callAll(this.clickToggle, props.onClick),
+        onTouchEnd: callAll(this.clickToggle, props.onTouchEnd)
+      }),
       ...(isRightClickTriggered && {
         onContextMenu: callAll(this.contextMenuToggle, props.onContextMenu)
       }),

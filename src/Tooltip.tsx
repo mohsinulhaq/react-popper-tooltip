@@ -91,6 +91,8 @@ class Tooltip extends Component<ITooltipProps> {
   }
 
   private handleOutsideClick?: EventListener = event => {
+    event.stopPropagation();
+    event.preventDefault();
     if (!findDOMNode(this)!.contains(event.target as Node)) {
       const {
         hideTooltip,
@@ -123,11 +125,8 @@ class Tooltip extends Component<ITooltipProps> {
   };
 
   private addOutsideClickHandler = () => {
-    if ('ontouchend' in window) {
-      document.addEventListener('touchend', this.handleOutsideClick!);
-    } else {
-      document.addEventListener('click', this.handleOutsideClick!);
-    }
+    document.addEventListener('touchend', this.handleOutsideClick!);
+    document.addEventListener('click', this.handleOutsideClick!);
   };
 
   private removeOutsideClickHandler = () => {
