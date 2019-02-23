@@ -9,9 +9,11 @@ const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
 };
 
 class Tooltip extends Component<ITooltipProps> {
+  private mounted?: boolean;
   private observer?: MutationObserver;
 
   public componentDidMount() {
+    this.mounted = true;
     const {trigger} = this.props;
     const observer = (this.observer = new MutationObserver(() => {
       this.props.scheduleUpdate();
@@ -41,6 +43,7 @@ class Tooltip extends Component<ITooltipProps> {
   }
 
   public componentWillUnmount() {
+    this.mounted = false;
     const {trigger} = this.props;
     if (this.observer) {
       this.observer.disconnect();
@@ -93,7 +96,7 @@ class Tooltip extends Component<ITooltipProps> {
   private handleOutsideClick?: EventListener = event => {
     event.stopPropagation();
     event.preventDefault();
-    if (!findDOMNode(this)!.contains(event.target as Node)) {
+    if (this.mounted && !findDOMNode(this)!.contains(event.target as Node)) {
       const {
         hideTooltip,
         clearScheduled,
@@ -109,7 +112,7 @@ class Tooltip extends Component<ITooltipProps> {
   };
 
   private handleOutsideRightClick?: EventListener = event => {
-    if (!findDOMNode(this)!.contains(event.target as Node)) {
+    if (this.mounted && !findDOMNode(this)!.contains(event.target as Node)) {
       const {
         hideTooltip,
         clearScheduled,
