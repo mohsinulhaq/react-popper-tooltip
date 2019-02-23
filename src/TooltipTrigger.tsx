@@ -44,6 +44,7 @@ class TooltipTrigger extends Component<
 
   private hideTimeout?: number;
   private showTimeout?: number;
+  private popperOffset?: PopperJS.Offset;
 
   public componentWillUnmount() {
     this.clearScheduled();
@@ -77,7 +78,20 @@ class TooltipTrigger extends Component<
       <Popper
         innerRef={getTooltipRef}
         placement={placement}
-        modifiers={{...DEFAULT_MODIFIERS, ...modifiers}}
+        modifiers={{
+          ...DEFAULT_MODIFIERS,
+          ...(followCursor && {
+            followCursorModifier: {
+              enabled: true,
+              fn: data => {
+                this.popperOffset = data.offsets.popper;
+                return data;
+              },
+              order: 1000
+            }
+          }),
+          ...modifiers
+        }}
       >
         {({
           ref,
@@ -88,9 +102,18 @@ class TooltipTrigger extends Component<
           outOfBoundaries,
           scheduleUpdate
         }) => {
-          if (followCursor) {
+          if (followCursor && this.popperOffset) {
             const {pageX, pageY} = this.state;
-            style.transform = `translate3d(${pageX}px, ${pageY}px, 0`;
+            const {width, height} = this.popperOffset;
+            const x =
+              pageX! + width > window.scrollX + document.body.offsetWidth
+                ? pageX! - width
+                : pageX;
+            const y =
+              pageY! + height > window.scrollY + document.body.offsetHeight
+                ? pageY! - height
+                : pageY;
+            style.transform = `translate3d(${x}px, ${y}px, 0`;
           }
 
           return (
