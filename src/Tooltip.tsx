@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
-import {IGetArrowPropsArg, IGetTooltipPropsArg, ITooltipProps} from './types';
+import {GetArrowPropsArg, GetTooltipPropsArg, TooltipProps} from './types';
 import {callAll, TooltipContext} from './utils';
 
 const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
@@ -8,7 +8,7 @@ const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
   subtree: true
 };
 
-class Tooltip extends Component<ITooltipProps> {
+class Tooltip extends Component<TooltipProps> {
   private mounted?: boolean;
   private observer?: MutationObserver;
 
@@ -143,12 +143,12 @@ class Tooltip extends Component<ITooltipProps> {
   private removeOutsideRightClickHandler = () =>
     document.removeEventListener('contextmenu', this.handleOutsideRightClick!);
 
-  private getArrowProps = (props: IGetArrowPropsArg = {}) => ({
+  private getArrowProps = (props: GetArrowPropsArg = {}) => ({
     ...props,
     style: {...props.style, ...this.props.arrowProps.style}
   });
 
-  private getTooltipProps = (props: IGetTooltipPropsArg = {}) => {
+  private getTooltipProps = (props: GetTooltipPropsArg = {}) => {
     const isHoverTriggered = this.props.trigger === 'hover';
 
     return {

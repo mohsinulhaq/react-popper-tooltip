@@ -2,7 +2,7 @@ import React from 'react';
 import {cleanup, fireEvent, render} from 'react-testing-library';
 import TooltipTrigger from '../src';
 
-interface IBasicTooltipTriggerProps {
+interface BasicTooltipTriggerProps {
   tooltip: React.ReactNode;
   children: React.ReactNode;
   hideArrow?: boolean;
@@ -14,7 +14,7 @@ const BasicTooltipTrigger = ({
   children,
   hideArrow,
   ...props
-}: IBasicTooltipTriggerProps) => (
+}: BasicTooltipTriggerProps) => (
   <TooltipTrigger
     {...props}
     tooltip={({
@@ -51,7 +51,6 @@ const Trigger = 'Trigger';
 const Trigger2 = 'Trigger2';
 const Outside = 'Outside';
 
-// @ts-ignore
 window.MutationObserver = class {
   public disconnect() {}
   public observe() {}

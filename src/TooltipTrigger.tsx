@@ -7,9 +7,9 @@ import {createPortal} from 'react-dom';
 import {Manager, Popper, Reference} from 'react-popper';
 import Tooltip from './Tooltip';
 import {
-  IGetTriggerPropsArg,
-  ITooltipTriggerProps,
-  ITooltipTriggerState
+  GetTriggerPropsArg,
+  TooltipTriggerProps,
+  TooltipTriggerState
 } from './types';
 import {callAll, canUseDOM, noop, TooltipContext} from './utils';
 
@@ -20,8 +20,8 @@ const DEFAULT_MODIFIERS: PopperJS.Modifiers = {
 };
 
 class TooltipTrigger extends Component<
-  ITooltipTriggerProps,
-  ITooltipTriggerState
+  TooltipTriggerProps,
+  TooltipTriggerState
 > {
   public static defaultProps = {
     closeOnOutOfBoundaries: true,
@@ -38,7 +38,7 @@ class TooltipTrigger extends Component<
 
   public static contextType = TooltipContext;
 
-  public state: ITooltipTriggerState = {
+  public state: TooltipTriggerState = {
     tooltipShown: this.props.defaultTooltipShown
   };
 
@@ -166,7 +166,7 @@ class TooltipTrigger extends Component<
       : this.state.tooltipShown;
   }
 
-  private setTooltipState = (state: ITooltipTriggerState) => {
+  private setTooltipState = (state: TooltipTriggerState) => {
     const cb = () => this.props.onVisibilityChange(state.tooltipShown);
     this.isControlled() ? cb() : this.setState(state, cb);
   };
@@ -178,7 +178,7 @@ class TooltipTrigger extends Component<
 
   private showTooltip = ({pageX, pageY}: {pageX: number; pageY: number}) => {
     this.clearScheduled();
-    let state: ITooltipTriggerState = {
+    let state: TooltipTriggerState = {
       tooltipShown: true
     };
     if (this.props.followCursor) {
@@ -222,7 +222,7 @@ class TooltipTrigger extends Component<
     this[action]({pageX, pageY});
   };
 
-  private getTriggerProps = (props: IGetTriggerPropsArg = {}) => {
+  private getTriggerProps = (props: GetTriggerPropsArg = {}) => {
     const {trigger, followCursor} = this.props;
     const isClickTriggered = trigger === 'click';
     const isHoverTriggered = trigger === 'hover';

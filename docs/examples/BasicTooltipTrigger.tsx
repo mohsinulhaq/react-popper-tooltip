@@ -1,13 +1,13 @@
 import React, {memo} from 'react';
 import TooltipTrigger from '../../src';
 import '../../src/styles.css';
-import {IChildrenArg, ITooltipArg} from '../../src/types';
-import {IBasicTooltipTriggerProps} from './types';
+import {ChildrenArg, TooltipArg} from '../../src/types';
+import {BasicTooltipTriggerProps} from './types';
 
 const Trigger = (children: React.ReactNode) => ({
   triggerRef,
   getTriggerProps
-}: IChildrenArg) => (
+}: ChildrenArg) => (
   <span
     {...getTriggerProps({
       ref: triggerRef
@@ -23,7 +23,7 @@ const Tooltip = (tooltip: React.ReactNode, hideArrow?: boolean) => ({
   getArrowProps,
   getTooltipProps,
   placement
-}: ITooltipArg) => (
+}: TooltipArg) => (
   <div
     {...getTooltipProps({
       className: 'tooltip-container',
@@ -44,7 +44,7 @@ const Tooltip = (tooltip: React.ReactNode, hideArrow?: boolean) => ({
 );
 
 const BasicTooltipTrigger = memo(
-  ({tooltip, children, hideArrow, ...props}: IBasicTooltipTriggerProps) => (
+  ({tooltip, children, hideArrow, ...props}: BasicTooltipTriggerProps) => (
     <TooltipTrigger {...props} tooltip={Tooltip(tooltip, hideArrow)}>
       {Trigger(children)}
     </TooltipTrigger>

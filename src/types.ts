@@ -2,42 +2,45 @@ import PopperJS from 'popper.js';
 import React from 'react';
 import ReactPopper from 'react-popper';
 
-export interface IGetTriggerPropsArg {
+export interface GetTriggerPropsArg {
   onTouchEnd?(event: React.SyntheticEvent): void;
   onClick?(event: React.SyntheticEvent): void;
   onContextMenu?(event: React.SyntheticEvent): void;
   onMouseEnter?(event: React.SyntheticEvent): void;
   onMouseLeave?(event: React.SyntheticEvent): void;
   onMouseMove?(event: React.SyntheticEvent): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
-export interface IGetTooltipPropsArg {
+export interface GetTooltipPropsArg {
   style?: React.CSSProperties;
   onMouseEnter?: (event: React.SyntheticEvent) => void;
   onMouseLeave?: (event: React.SyntheticEvent) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
-export interface IGetArrowPropsArg {
+export interface GetArrowPropsArg {
   style?: React.CSSProperties;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
-export interface IChildrenArg {
+export interface ChildrenArg {
   triggerRef: ReactPopper.RefHandler;
-  getTriggerProps(arg?: IGetTriggerPropsArg): any;
+  getTriggerProps(arg?: GetTriggerPropsArg): GetTriggerPropsArg;
 }
 
-export interface ITooltipArg {
+export interface TooltipArg {
   arrowRef: ReactPopper.RefHandler;
   tooltipRef: ReactPopper.RefHandler;
   placement: PopperJS.Placement;
-  getArrowProps(arg?: IGetArrowPropsArg): IGetArrowPropsArg;
-  getTooltipProps(arg?: IGetTooltipPropsArg): IGetTooltipPropsArg;
+  getArrowProps(arg?: GetArrowPropsArg): GetArrowPropsArg;
+  getTooltipProps(arg?: GetTooltipPropsArg): GetTooltipPropsArg;
 }
 
-export interface ITooltipTriggerProps {
+export interface TooltipTriggerProps {
   /**
    * Whether to close the tooltip when it's trigger is out of the boundary
    * @default true
@@ -104,7 +107,7 @@ export interface ITooltipTriggerProps {
   /**
    * Trigger
    */
-  children(arg: IChildrenArg): React.ReactNode;
+  children(arg: ChildrenArg): React.ReactNode;
   /**
    * Called when the visibility of the tooltip changes
    * @default no-op
@@ -113,16 +116,16 @@ export interface ITooltipTriggerProps {
   /**
    * Tooltip
    */
-  tooltip(arg: ITooltipArg): React.ReactNode;
+  tooltip(arg: TooltipArg): React.ReactNode;
 }
 
-export interface ITooltipTriggerState {
+export interface TooltipTriggerState {
   pageX?: number;
   pageY?: number;
   tooltipShown: boolean;
 }
 
-export interface ITooltipProps {
+export interface TooltipProps {
   arrowProps: ReactPopper.PopperArrowProps;
   closeOnOutOfBoundaries: boolean;
   innerRef: ReactPopper.RefHandler;
@@ -138,6 +141,6 @@ export interface ITooltipProps {
   parentOutsideRightClickHandler(arg: Event): void;
   removeParentOutsideRightClickHandler(): void;
   removeParentOutsideClickHandler(): void;
-  tooltip(arg: ITooltipArg): React.ReactNode;
+  tooltip(arg: TooltipArg): React.ReactNode;
   scheduleUpdate(): void;
 }

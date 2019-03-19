@@ -1,11 +1,11 @@
 import React from 'react';
-import {IStateContainerProps, IStateContainerState} from './types';
+import {StateContainerProps, StateContainerState} from './types';
 
 class StateContainer extends React.Component<
-  IStateContainerProps,
-  IStateContainerState
+  StateContainerProps,
+  StateContainerState
 > {
-  public state: IStateContainerState = {
+  public state: StateContainerState = {
     on: false
   };
 
