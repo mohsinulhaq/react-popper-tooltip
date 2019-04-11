@@ -95,7 +95,6 @@ class Tooltip extends Component<TooltipProps> {
 
   private handleOutsideClick?: EventListener = event => {
     event.stopPropagation();
-    event.preventDefault();
     if (this.mounted && !findDOMNode(this)!.contains(event.target as Node)) {
       const {
         hideTooltip,
