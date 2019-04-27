@@ -2,6 +2,7 @@ dist: xenial
 language: node_js
 node_js:
   - '--lts'
+cache: yarn
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - source ~/.bashrc
@@ -13,13 +14,5 @@ script:
   - yarn lint
   - yarn test --ci --coverage
   - yarn build
-  - yarn docs:build && cp .docz/dist/index.html .docz/dist/404.html
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: .docz/dist
-  on:
-    branch: master
 after_success:
   - bash <(curl -s https://codecov.io/bash) -e TRAVIS_NODE_VERSION
