@@ -133,14 +133,8 @@ export interface TooltipProps {
   placement: PopperJS.Placement;
   style: React.CSSProperties;
   trigger: 'none' | 'click' | 'right-click' | 'hover';
-  addParentOutsideClickHandler(): void;
-  addParentOutsideRightClickHandler(): void;
   clearScheduled(): void;
   hideTooltip(): void;
-  parentOutsideClickHandler(arg: Event): void;
-  parentOutsideRightClickHandler(arg: Event): void;
-  removeParentOutsideRightClickHandler(): void;
-  removeParentOutsideClickHandler(): void;
   tooltip(arg: TooltipArg): React.ReactNode;
   scheduleUpdate(): void;
 }

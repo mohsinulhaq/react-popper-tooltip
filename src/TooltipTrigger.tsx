@@ -11,7 +11,7 @@ import {
   TooltipTriggerProps,
   TooltipTriggerState
 } from './types';
-import {callAll, canUseDOM, noop, TooltipContext} from './utils';
+import {callAll, canUseDOM, noop} from './utils';
 
 const DEFAULT_MODIFIERS: PopperJS.Modifiers = {
   preventOverflow: {
@@ -35,8 +35,6 @@ class TooltipTrigger extends Component<
     trigger: 'hover',
     usePortal: canUseDOM()
   };
-
-  public static contextType = TooltipContext;
 
   public state: TooltipTriggerState = {
     tooltipShown: this.props.defaultTooltipShown
@@ -64,15 +62,6 @@ class TooltipTrigger extends Component<
       followCursor,
       getTooltipRef
     } = this.props;
-
-    const {
-      parentOutsideClickHandler,
-      addParentOutsideClickHandler,
-      removeParentOutsideClickHandler,
-      parentOutsideRightClickHandler,
-      addParentOutsideRightClickHandler,
-      removeParentOutsideRightClickHandler
-    } = this.context;
 
     const popper = (
       <Popper
@@ -119,16 +108,10 @@ class TooltipTrigger extends Component<
           return (
             <Tooltip
               {...{
-                addParentOutsideClickHandler,
-                addParentOutsideRightClickHandler,
                 arrowProps,
                 closeOnOutOfBoundaries,
                 outOfBoundaries,
-                parentOutsideClickHandler,
-                parentOutsideRightClickHandler,
                 placement,
-                removeParentOutsideClickHandler,
-                removeParentOutsideRightClickHandler,
                 scheduleUpdate,
                 style,
                 tooltip,
@@ -238,9 +221,7 @@ class TooltipTrigger extends Component<
         onContextMenu: callAll(this.contextMenuToggle, props.onContextMenu)
       }),
       ...(isHoverTriggered && {
-        onMouseEnter: callAll(this.showTooltip, props.onMouseEnter)
-      }),
-      ...(isHoverTriggered && {
+        onMouseEnter: callAll(this.showTooltip, props.onMouseEnter),
         onMouseLeave: callAll(this.hideTooltip, props.onMouseLeave)
       }),
       ...(isHoverTriggered &&

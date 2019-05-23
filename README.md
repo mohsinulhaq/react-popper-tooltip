@@ -2,11 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
 [![npm downloads](https://img.shields.io/npm/dm/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
-[![Build Status](https://travis-ci.com/mohsinulhaq/react-popper-tooltip.svg?branch=master)](https://travis-ci.com/mohsinulhaq/react-popper-tooltip)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/dd7ae444-b156-4204-957e-4bf246d84359/deploy-status)](https://app.netlify.com/sites/react-popper-tooltip/deploys)
-[![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
+[![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
+[![Build Status](https://travis-ci.com/mohsinulhaq/react-popper-tooltip.svg?branch=master)](https://travis-ci.com/mohsinulhaq/react-popper-tooltip)
 
 React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org/) library.
 
