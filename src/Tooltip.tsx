@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
 import {GetArrowPropsArg, GetTooltipPropsArg, TooltipProps} from './types';
 import {callAll, TooltipContext} from './utils';
 
@@ -9,22 +8,23 @@ const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
 };
 
 class Tooltip extends Component<TooltipProps> {
-  private mounted?: boolean;
+  public static contextType = TooltipContext;
+
   private observer?: MutationObserver;
+  private tooltipRef = React.createRef<HTMLElement>();
 
   public componentDidMount() {
-    this.mounted = true;
     const {trigger} = this.props;
     const observer = (this.observer = new MutationObserver(() => {
       this.props.scheduleUpdate();
     }));
-    observer.observe(findDOMNode(this)!, MUTATION_OBSERVER_CONFIG);
+    observer.observe(this.tooltipRef.current!, MUTATION_OBSERVER_CONFIG);
 
-    if (trigger === 'click' || trigger === 'right-click') {
+    if (trigger !== 'none') {
       const {
         removeParentOutsideClickHandler,
         removeParentOutsideRightClickHandler
-      } = this.props;
+      } = this.context;
       this.addOutsideClickHandler();
       this.addOutsideRightClickHandler();
       if (removeParentOutsideClickHandler) {
@@ -43,64 +43,53 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   public componentWillUnmount() {
-    this.mounted = false;
     const {trigger} = this.props;
     if (this.observer) {
       this.observer.disconnect();
     }
 
-    if (trigger === 'click' || trigger === 'right-click') {
+    if (trigger !== 'none') {
       const {
+        isParentNoneTriggered,
         addParentOutsideClickHandler,
         addParentOutsideRightClickHandler
-      } = this.props;
+      } = this.context;
       this.removeOutsideClickHandler();
       this.removeOutsideRightClickHandler();
       this.handleOutsideClick = undefined;
       this.handleOutsideRightClick = undefined;
-      if (addParentOutsideClickHandler) {
+      if (!isParentNoneTriggered && addParentOutsideClickHandler) {
         addParentOutsideClickHandler();
       }
-      if (addParentOutsideRightClickHandler) {
+      if (!isParentNoneTriggered && addParentOutsideRightClickHandler) {
         addParentOutsideRightClickHandler();
       }
     }
   }
 
   public render() {
-    const {arrowProps, placement, tooltip, innerRef} = this.props;
+    const {arrowProps, placement, tooltip} = this.props;
 
     return (
-      <TooltipContext.Provider
-        value={{
-          addParentOutsideClickHandler: this.addOutsideClickHandler,
-          addParentOutsideRightClickHandler: this.addOutsideRightClickHandler,
-          parentOutsideClickHandler: this.handleOutsideClick,
-          parentOutsideRightClickHandler: this.handleOutsideRightClick,
-          removeParentOutsideClickHandler: this.removeOutsideClickHandler,
-          removeParentOutsideRightClickHandler: this
-            .removeOutsideRightClickHandler
-        }}
-      >
+      <TooltipContext.Provider value={this.contextValue}>
         {tooltip({
           arrowRef: arrowProps.ref,
           getArrowProps: this.getArrowProps,
           getTooltipProps: this.getTooltipProps,
           placement,
-          tooltipRef: innerRef
+          tooltipRef: this.getTooltipRef
         })}
       </TooltipContext.Provider>
     );
   }
 
   private handleOutsideClick?: EventListener = event => {
-    event.stopPropagation();
-    if (this.mounted && !findDOMNode(this)!.contains(event.target as Node)) {
-      const {
-        hideTooltip,
-        clearScheduled,
-        parentOutsideClickHandler
-      } = this.props;
+    if (
+      this.tooltipRef.current &&
+      !this.tooltipRef.current.contains(event.target as Node)
+    ) {
+      const {parentOutsideClickHandler} = this.context;
+      const {hideTooltip, clearScheduled} = this.props;
 
       clearScheduled();
       hideTooltip();
@@ -111,12 +100,12 @@ class Tooltip extends Component<TooltipProps> {
   };
 
   private handleOutsideRightClick?: EventListener = event => {
-    if (this.mounted && !findDOMNode(this)!.contains(event.target as Node)) {
-      const {
-        hideTooltip,
-        clearScheduled,
-        parentOutsideRightClickHandler
-      } = this.props;
+    if (
+      this.tooltipRef.current &&
+      !this.tooltipRef.current.contains(event.target as Node)
+    ) {
+      const {parentOutsideRightClickHandler} = this.context;
+      const {hideTooltip, clearScheduled} = this.props;
 
       clearScheduled();
       hideTooltip();
@@ -127,20 +116,32 @@ class Tooltip extends Component<TooltipProps> {
   };
 
   private addOutsideClickHandler = () => {
-    document.addEventListener('touchend', this.handleOutsideClick!);
-    document.addEventListener('click', this.handleOutsideClick!);
+    document.body.addEventListener('touchend', this.handleOutsideClick!);
+    document.body.addEventListener('click', this.handleOutsideClick!);
   };
 
   private removeOutsideClickHandler = () => {
-    document.removeEventListener('touchend', this.handleOutsideClick!);
-    document.removeEventListener('click', this.handleOutsideClick!);
+    document.body.removeEventListener('touchend', this.handleOutsideClick!);
+    document.body.removeEventListener('click', this.handleOutsideClick!);
   };
 
   private addOutsideRightClickHandler = () =>
-    document.addEventListener('contextmenu', this.handleOutsideRightClick!);
+    document.body.addEventListener(
+      'contextmenu',
+      this.handleOutsideRightClick!
+    );
 
   private removeOutsideRightClickHandler = () =>
-    document.removeEventListener('contextmenu', this.handleOutsideRightClick!);
+    document.body.removeEventListener(
+      'contextmenu',
+      this.handleOutsideRightClick!
+    );
+
+  private getTooltipRef = (ref: HTMLElement | null) => {
+    // @ts-ignore
+    this.tooltipRef.current = ref;
+    this.props.innerRef(ref);
+  };
 
   private getArrowProps = (props: GetArrowPropsArg = {}) => ({
     ...props,
@@ -153,13 +154,21 @@ class Tooltip extends Component<TooltipProps> {
     return {
       ...props,
       ...(isHoverTriggered && {
-        onMouseEnter: callAll(this.props.clearScheduled, props.onMouseEnter)
-      }),
-      ...(isHoverTriggered && {
+        onMouseEnter: callAll(this.props.clearScheduled, props.onMouseEnter),
         onMouseLeave: callAll(this.props.hideTooltip, props.onMouseLeave)
       }),
       style: {...props.style, ...this.props.style}
     };
+  };
+
+  private contextValue = {
+    isParentNoneTriggered: this.props.trigger === 'none',
+    addParentOutsideClickHandler: this.addOutsideClickHandler,
+    addParentOutsideRightClickHandler: this.addOutsideRightClickHandler,
+    parentOutsideClickHandler: this.handleOutsideClick,
+    parentOutsideRightClickHandler: this.handleOutsideRightClick,
+    removeParentOutsideClickHandler: this.removeOutsideClickHandler,
+    removeParentOutsideRightClickHandler: this.removeOutsideRightClickHandler
   };
 }
 
