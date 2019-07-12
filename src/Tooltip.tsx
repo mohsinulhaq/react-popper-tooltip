@@ -11,14 +11,14 @@ class Tooltip extends Component<TooltipProps> {
   public static contextType = TooltipContext;
 
   private observer?: MutationObserver;
-  private tooltipRef = React.createRef<HTMLElement>();
+  private tooltipRef!: HTMLElement | null;
 
   public componentDidMount() {
     const {trigger} = this.props;
     const observer = (this.observer = new MutationObserver(() => {
       this.props.scheduleUpdate();
     }));
-    observer.observe(this.tooltipRef.current!, MUTATION_OBSERVER_CONFIG);
+    observer.observe(this.tooltipRef!, MUTATION_OBSERVER_CONFIG);
 
     if (trigger !== 'none') {
       const {
@@ -84,10 +84,7 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   private handleOutsideClick?: EventListener = event => {
-    if (
-      this.tooltipRef.current &&
-      !this.tooltipRef.current.contains(event.target as Node)
-    ) {
+    if (this.tooltipRef && !this.tooltipRef.contains(event.target as Node)) {
       const {parentOutsideClickHandler} = this.context;
       const {hideTooltip, clearScheduled} = this.props;
 
@@ -100,10 +97,7 @@ class Tooltip extends Component<TooltipProps> {
   };
 
   private handleOutsideRightClick?: EventListener = event => {
-    if (
-      this.tooltipRef.current &&
-      !this.tooltipRef.current.contains(event.target as Node)
-    ) {
+    if (this.tooltipRef && !this.tooltipRef.contains(event.target as Node)) {
       const {parentOutsideRightClickHandler} = this.context;
       const {hideTooltip, clearScheduled} = this.props;
 
@@ -138,8 +132,7 @@ class Tooltip extends Component<TooltipProps> {
     );
 
   private getTooltipRef = (ref: HTMLElement | null) => {
-    // @ts-ignore
-    this.tooltipRef.current = ref;
+    this.tooltipRef = ref;
     this.props.innerRef(ref);
   };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {cleanup, fireEvent, render} from 'react-testing-library';
+import {fireEvent, render} from '@testing-library/react';
 import TooltipTrigger from '../src';
 
 interface BasicTooltipTriggerProps {
@@ -57,7 +57,6 @@ window.MutationObserver = class {
 };
 
 jest.useFakeTimers();
-afterEach(cleanup);
 
 it('matches snapshot', () => {
   render(
