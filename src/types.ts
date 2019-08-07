@@ -1,6 +1,6 @@
-import { Placement, Modifiers } from 'popper.js';
+import {Placement, Modifiers} from 'popper.js';
 import * as React from 'react';
-import { PopperArrowProps, RefHandler } from 'react-popper';
+import {PopperArrowProps, RefHandler} from 'react-popper';
 
 export interface GetTriggerPropsArg {
   onTouchEnd?(event: React.SyntheticEvent): void;
