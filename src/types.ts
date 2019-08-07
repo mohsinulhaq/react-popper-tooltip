@@ -1,6 +1,6 @@
-import PopperJS from 'popper.js';
-import React from 'react';
-import ReactPopper from 'react-popper';
+import { Placement, Modifiers } from 'popper.js';
+import * as React from 'react';
+import { PopperArrowProps, RefHandler } from 'react-popper';
 
 export interface GetTriggerPropsArg {
   onTouchEnd?(event: React.SyntheticEvent): void;
@@ -28,14 +28,14 @@ export interface GetArrowPropsArg {
 }
 
 export interface ChildrenArg {
-  triggerRef: ReactPopper.RefHandler;
+  triggerRef: RefHandler;
   getTriggerProps(arg?: GetTriggerPropsArg): GetTriggerPropsArg;
 }
 
 export interface TooltipArg {
-  arrowRef: ReactPopper.RefHandler;
-  tooltipRef: ReactPopper.RefHandler;
-  placement: PopperJS.Placement;
+  arrowRef: RefHandler;
+  tooltipRef: RefHandler;
+  placement: Placement;
   getArrowProps(arg?: GetArrowPropsArg): GetArrowPropsArg;
   getTooltipProps(arg?: GetTooltipPropsArg): GetTooltipPropsArg;
 }
@@ -69,22 +69,22 @@ export interface TooltipTriggerProps {
   /**
    * Function that can be used to obtain a tooltip element reference
    */
-  getTooltipRef?: ReactPopper.RefHandler;
+  getTooltipRef?: RefHandler;
   /**
    * Function that can be used to obtain a trigger element reference
    */
-  getTriggerRef?: ReactPopper.RefHandler;
+  getTriggerRef?: RefHandler;
   /**
    * Modifiers passed directly to the underlying popper.js instance
    * For more information, refer to Popper.js’ modifier docs:
    * @link https://popper.js.org/popper-documentation.html#modifiers
    */
-  modifiers?: PopperJS.Modifiers;
+  modifiers?: Modifiers;
   /**
    * Tooltip placement w.r.t. trigger
    *  @default right
    */
-  placement: PopperJS.Placement;
+  placement: Placement;
   /**
    * Element to be used as portal container
    * @default document.body
@@ -126,11 +126,11 @@ export interface TooltipTriggerState {
 }
 
 export interface TooltipProps {
-  arrowProps: ReactPopper.PopperArrowProps;
+  arrowProps: PopperArrowProps;
   closeOnOutOfBoundaries: boolean;
-  innerRef: ReactPopper.RefHandler;
+  innerRef: RefHandler;
   outOfBoundaries: boolean | null;
-  placement: PopperJS.Placement;
+  placement: Placement;
   style: React.CSSProperties;
   trigger: 'none' | 'click' | 'right-click' | 'hover';
   clearScheduled(): void;
