@@ -58,6 +58,45 @@ _`followCursor` prop_
   </BasicTooltipTrigger>
 </Playground>
 
+## `focus` trigger
+
+<Playground>
+  <div
+    tabIndex="-1"
+    style={{
+      border: '1px solid silver',
+      padding: 20,
+      display: 'flex',
+      justifyContent: 'space-between'
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        flex: 2,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+      }}
+    >
+      <BasicTooltipTrigger
+        trigger="focus"
+        tooltip="Hello, World!"
+        placement="top"
+      >
+        <button>Focus me!</button>
+      </BasicTooltipTrigger>
+      <BasicTooltipTrigger trigger="focus" tooltip="Hello, World!">
+        <button>Focus me too!</button>
+      </BasicTooltipTrigger>
+    </div>
+    <div style={{flex: 3, fontSize: 12, textAlign: 'center', padding: 50}}>
+      Click inside this area and focus using the Tab key on desktop. On mobile,
+      just click on the buttons.
+    </div>
+  </div>
+</Playground>
+
 ## Controlled
 
 _`tooltipShown` prop_

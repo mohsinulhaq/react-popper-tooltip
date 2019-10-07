@@ -2,6 +2,8 @@ import PopperJS from 'popper.js';
 import React from 'react';
 import ReactPopper from 'react-popper';
 
+export type TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
+
 export interface GetTriggerPropsArg {
   onTouchEnd?(event: React.SyntheticEvent): void;
   onClick?(event: React.SyntheticEvent): void;
@@ -9,6 +11,8 @@ export interface GetTriggerPropsArg {
   onMouseEnter?(event: React.SyntheticEvent): void;
   onMouseLeave?(event: React.SyntheticEvent): void;
   onMouseMove?(event: React.SyntheticEvent): void;
+  onFocus?(event: React.SyntheticEvent): void;
+  onBlur?(event: React.SyntheticEvent): void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
@@ -98,7 +102,7 @@ export interface TooltipTriggerProps {
    * Event that triggers the tooltip
    * @default hover
    */
-  trigger: 'none' | 'click' | 'right-click' | 'hover';
+  trigger: TriggerTypes;
   /**
    * Whether to use React.createPortal for creating tooltip
    * @default true // for browser environments
@@ -132,7 +136,7 @@ export interface TooltipProps {
   outOfBoundaries: boolean | null;
   placement: PopperJS.Placement;
   style: React.CSSProperties;
-  trigger: 'none' | 'click' | 'right-click' | 'hover';
+  trigger: TriggerTypes;
   clearScheduled(): void;
   hideTooltip(): void;
   tooltip(arg: TooltipArg): React.ReactNode;

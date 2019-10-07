@@ -210,6 +210,7 @@ class TooltipTrigger extends Component<
     const isClickTriggered = trigger === 'click';
     const isHoverTriggered = trigger === 'hover';
     const isRightClickTriggered = trigger === 'right-click';
+    const isFocusTriggered = trigger === 'focus';
 
     return {
       ...props,
@@ -227,7 +228,11 @@ class TooltipTrigger extends Component<
       ...(isHoverTriggered &&
         followCursor && {
           onMouseMove: callAll(this.showTooltip, props.onMouseMove)
-        })
+        }),
+      ...(isFocusTriggered && {
+        onFocus: callAll(this.showTooltip, props.onFocus),
+        onBlur: callAll(this.hideTooltip, props.onBlur)
+      })
     };
   };
 }
