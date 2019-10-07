@@ -237,7 +237,7 @@ Each placement can have a variation from this list:
 
 > `string` | defaults to `hover`
 
-The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `none`.
+The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `focus`, `none`.
 
 ### getTriggerRef
 
