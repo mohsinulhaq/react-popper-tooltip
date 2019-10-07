@@ -239,6 +239,8 @@ Each placement can have a variation from this list:
 
 The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `none`.
 
+See code examples in [issue #59](https://github.com/mohsinulhaq/react-popper-tooltip/issues/59) of how you can implement tooltip triggering on focus/blur events.
+
 ### getTriggerRef
 
 > `function(HTMLElement) => void`
