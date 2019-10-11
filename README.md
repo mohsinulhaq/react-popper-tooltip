@@ -237,7 +237,7 @@ Each placement can have a variation from this list:
 
 > `string` | defaults to `hover`
 
-The event that triggers the tooltip. One of `click`, `hover`, `right-click`, `focus`, `none`.
+The event that triggers the tooltip. One of `click`, `right-click`, `hover`, `focus`, and `none`.
 
 ### getTriggerRef
 
@@ -297,14 +297,12 @@ displays the tooltip itself.
 
 You use it like so:
 
-```
+```jsx
 const tooltip = (
-  <TooltipTrigger
-    tooltip={tooltip => (<div>{/* more jsx here */}</div>)}
-  >
-    {trigger => (<div>{/* more jsx here */}</div>)}
+  <TooltipTrigger tooltip={tooltip => <div>{/* more jsx here */}</div>}>
+    {trigger => <div>{/* more jsx here */}</div>}
   </TooltipTrigger>
-)
+);
 ```
 
 ### prop getters

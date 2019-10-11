@@ -191,7 +191,6 @@ class TooltipTrigger extends Component<
   };
 
   private clickToggle: React.MouseEventHandler = (event: React.MouseEvent) => {
-    event.stopPropagation();
     event.preventDefault();
     const {pageX, pageY} = event;
     const action = this.props.followCursor ? 'showTooltip' : 'toggleTooltip';
