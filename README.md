@@ -4,7 +4,6 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
 [![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
 [![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
-[![Build Status](https://travis-ci.com/mohsinulhaq/react-popper-tooltip.svg?branch=master)](https://travis-ci.com/mohsinulhaq/react-popper-tooltip)
 
 React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org/) library.
 
