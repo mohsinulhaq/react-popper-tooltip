@@ -5,5 +5,6 @@ export default {
   description: 'Documentation for react-popper-tooltip',
   typescript: true,
   codeSandbox: false,
-  plugins: [css()]
+  plugins: [css()],
+  host: '0.0.0.'
 };
