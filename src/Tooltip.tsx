@@ -20,7 +20,7 @@ class Tooltip extends Component<TooltipProps> {
     }));
     observer.observe(this.tooltipRef!, MUTATION_OBSERVER_CONFIG);
 
-    if (trigger !== 'none') {
+    if (trigger !== 'none' && trigger !== 'focus') {
       const {
         removeParentOutsideClickHandler,
         removeParentOutsideRightClickHandler
@@ -48,7 +48,7 @@ class Tooltip extends Component<TooltipProps> {
       this.observer.disconnect();
     }
 
-    if (trigger !== 'none') {
+    if (trigger !== 'none' && trigger !== 'focus') {
       const {
         isParentNoneTriggered,
         addParentOutsideClickHandler,

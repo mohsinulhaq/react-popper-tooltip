@@ -9,7 +9,8 @@ import Tooltip from './Tooltip';
 import {
   GetTriggerPropsArg,
   TooltipTriggerProps,
-  TooltipTriggerState
+  TooltipTriggerState,
+  TriggerTypes
 } from './types';
 import {callAll, canUseDOM, noop} from './utils';
 
@@ -204,31 +205,31 @@ class TooltipTrigger extends Component<
     this[action]({pageX, pageY});
   };
 
-  private getTriggerProps = (props: GetTriggerPropsArg = {}) => {
-    const {trigger, followCursor} = this.props;
-    const isClickTriggered = trigger === 'click';
-    const isHoverTriggered = trigger === 'hover';
-    const isRightClickTriggered = trigger === 'right-click';
-    const isFocusTriggered = trigger === 'focus';
+  private isTriggeredBy(event: TriggerTypes) {
+    const {trigger} = this.props;
+    return (
+      trigger === event || (Array.isArray(trigger) && trigger.includes(event))
+    );
+  }
 
+  private getTriggerProps = (props: GetTriggerPropsArg = {}) => {
     return {
       ...props,
-      ...(isClickTriggered && {
+      ...(this.isTriggeredBy('click') && {
         onClick: callAll(this.clickToggle, props.onClick),
         onTouchEnd: callAll(this.clickToggle, props.onTouchEnd)
       }),
-      ...(isRightClickTriggered && {
+      ...(this.isTriggeredBy('right-click') && {
         onContextMenu: callAll(this.contextMenuToggle, props.onContextMenu)
       }),
-      ...(isHoverTriggered && {
+      ...(this.isTriggeredBy('hover') && {
         onMouseEnter: callAll(this.showTooltip, props.onMouseEnter),
-        onMouseLeave: callAll(this.hideTooltip, props.onMouseLeave)
-      }),
-      ...(isHoverTriggered &&
-        followCursor && {
+        onMouseLeave: callAll(this.hideTooltip, props.onMouseLeave),
+        ...(this.props.followCursor && {
           onMouseMove: callAll(this.showTooltip, props.onMouseMove)
-        }),
-      ...(isFocusTriggered && {
+        })
+      }),
+      ...(this.isTriggeredBy('focus') && {
         onFocus: callAll(this.showTooltip, props.onFocus),
         onBlur: callAll(this.hideTooltip, props.onBlur)
       })

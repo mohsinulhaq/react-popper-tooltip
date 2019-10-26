@@ -203,6 +203,43 @@ describe('focus trigger', () => {
   });
 });
 
+describe('multi trigger', () => {
+  let container: HTMLElement;
+  let queryByText: any;
+
+  beforeEach(() => {
+    ({container, queryByText} = render(
+      <BasicTooltipTrigger trigger={['hover', 'focus']} tooltip={Tooltip}>
+        {Trigger}
+      </BasicTooltipTrigger>
+    ));
+    fireEvent.focus(container.firstChild as HTMLElement);
+    jest.runAllTimers();
+  });
+
+  it('opens tooltip on focus', () => {
+    expect(queryByText(Tooltip)).toBeTruthy();
+  });
+
+  it('closes tooltip on blur', () => {
+    fireEvent.blur(container.firstChild as HTMLElement);
+    jest.runAllTimers();
+    expect(queryByText(Tooltip)).toBeFalsy();
+  });
+
+  it('opens tooltip on mouseEnter', () => {
+    fireEvent.mouseEnter(container.firstChild as HTMLElement);
+    jest.runAllTimers();
+    expect(queryByText(Tooltip)).toBeTruthy();
+  });
+
+  it('closes tooltip on mouseLeave', () => {
+    fireEvent.mouseLeave(container.firstChild as HTMLElement);
+    jest.runAllTimers();
+    expect(queryByText(Tooltip)).toBeFalsy();
+  });
+});
+
 it('closes on outside click', () => {
   const {container, queryByText} = render(
     <>
