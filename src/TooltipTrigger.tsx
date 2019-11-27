@@ -61,7 +61,8 @@ class TooltipTrigger extends Component<
       usePortal,
       portalContainer,
       followCursor,
-      getTooltipRef
+      getTooltipRef,
+      ...restProps
     } = this.props;
 
     const popper = (
@@ -82,6 +83,7 @@ class TooltipTrigger extends Component<
           }),
           ...modifiers
         }}
+        {...restProps}
       >
         {({
           ref,
