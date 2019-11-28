@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
-import {GetArrowPropsArg, GetTooltipPropsArg, TooltipProps} from './types';
-import {callAll, TooltipContext} from './utils';
+import {
+  GetArrowPropsArg,
+  GetTooltipPropsArg,
+  TooltipProps,
+  TriggerTypes
+} from './types';
+import {callAll, TooltipContext, setRef} from './utils';
 
 const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
   childList: true,
@@ -14,13 +19,16 @@ class Tooltip extends Component<TooltipProps> {
   private tooltipRef!: HTMLElement | null;
 
   public componentDidMount() {
-    const {trigger} = this.props;
     const observer = (this.observer = new MutationObserver(() => {
       this.props.scheduleUpdate();
     }));
     observer.observe(this.tooltipRef!, MUTATION_OBSERVER_CONFIG);
 
-    if (trigger !== 'none' && trigger !== 'focus') {
+    if (
+      this.isTriggeredBy('hover') ||
+      this.isTriggeredBy('click') ||
+      this.isTriggeredBy('right-click')
+    ) {
       const {
         removeParentOutsideClickHandler,
         removeParentOutsideRightClickHandler
@@ -43,12 +51,15 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   public componentWillUnmount() {
-    const {trigger} = this.props;
     if (this.observer) {
       this.observer.disconnect();
     }
 
-    if (trigger !== 'none' && trigger !== 'focus') {
+    if (
+      this.isTriggeredBy('hover') ||
+      this.isTriggeredBy('click') ||
+      this.isTriggeredBy('right-click')
+    ) {
       const {
         isParentNoneTriggered,
         addParentOutsideClickHandler,
@@ -80,6 +91,13 @@ class Tooltip extends Component<TooltipProps> {
           tooltipRef: this.getTooltipRef
         })}
       </TooltipContext.Provider>
+    );
+  }
+
+  private isTriggeredBy(event: TriggerTypes) {
+    const {trigger} = this.props;
+    return (
+      trigger === event || (Array.isArray(trigger) && trigger.includes(event))
     );
   }
 
@@ -131,9 +149,9 @@ class Tooltip extends Component<TooltipProps> {
       this.handleOutsideRightClick!
     );
 
-  private getTooltipRef = (ref: HTMLElement | null) => {
-    this.tooltipRef = ref;
-    this.props.innerRef(ref);
+  private getTooltipRef = (node: HTMLElement | null) => {
+    this.tooltipRef = node;
+    setRef(this.props.innerRef, node);
   };
 
   private getArrowProps = (props: GetArrowPropsArg = {}) => ({
@@ -141,18 +159,14 @@ class Tooltip extends Component<TooltipProps> {
     style: {...props.style, ...this.props.arrowProps.style}
   });
 
-  private getTooltipProps = (props: GetTooltipPropsArg = {}) => {
-    const isHoverTriggered = this.props.trigger === 'hover';
-
-    return {
-      ...props,
-      ...(isHoverTriggered && {
-        onMouseEnter: callAll(this.props.clearScheduled, props.onMouseEnter),
-        onMouseLeave: callAll(this.props.hideTooltip, props.onMouseLeave)
-      }),
-      style: {...props.style, ...this.props.style}
-    };
-  };
+  private getTooltipProps = (props: GetTooltipPropsArg = {}) => ({
+    ...props,
+    ...(this.isTriggeredBy('hover') && {
+      onMouseEnter: callAll(this.props.clearScheduled, props.onMouseEnter),
+      onMouseLeave: callAll(this.props.hideTooltip, props.onMouseLeave)
+    }),
+    style: {...props.style, ...this.props.style}
+  });
 
   private contextValue = {
     isParentNoneTriggered: this.props.trigger === 'none',

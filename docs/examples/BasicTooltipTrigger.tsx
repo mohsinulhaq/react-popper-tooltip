@@ -51,4 +51,6 @@ const BasicTooltipTrigger = memo(
   )
 );
 
+BasicTooltipTrigger.displayName = 'BasicTooltipTrigger';
+
 export default BasicTooltipTrigger;

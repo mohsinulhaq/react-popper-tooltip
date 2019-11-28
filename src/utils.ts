@@ -1,4 +1,5 @@
 import React from 'react';
+import {Ref} from './types';
 
 export const TooltipContext = React.createContext({});
 
@@ -18,3 +19,11 @@ export const canUseDOM = () =>
     window.document &&
     window.document.createElement
   );
+
+export const setRef = (ref: Ref, node: HTMLElement | null) => {
+  if (typeof ref === 'function') {
+    return ref(node);
+  } else if (ref != null) {
+    ref.current = node;
+  }
+};

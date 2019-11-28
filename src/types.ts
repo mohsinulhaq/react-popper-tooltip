@@ -4,6 +4,10 @@ import ReactPopper from 'react-popper';
 
 export type TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
 export type Trigger = TriggerTypes | TriggerTypes[];
+export type Ref =
+  | ((element: HTMLElement | null) => void)
+  | {current: HTMLElement | null}
+  | null;
 
 export interface GetTriggerPropsArg {
   onTouchEnd?(event: React.SyntheticEvent): void;
@@ -33,13 +37,13 @@ export interface GetArrowPropsArg {
 }
 
 export interface ChildrenArg {
-  triggerRef: ReactPopper.RefHandler;
+  triggerRef: Ref;
   getTriggerProps(arg?: GetTriggerPropsArg): GetTriggerPropsArg;
 }
 
 export interface TooltipArg {
-  arrowRef: ReactPopper.RefHandler;
-  tooltipRef: ReactPopper.RefHandler;
+  arrowRef: Ref;
+  tooltipRef: Ref;
   placement: PopperJS.Placement;
   getArrowProps(arg?: GetArrowPropsArg): GetArrowPropsArg;
   getTooltipProps(arg?: GetTooltipPropsArg): GetTooltipPropsArg;
@@ -74,11 +78,11 @@ export interface TooltipTriggerProps {
   /**
    * Function that can be used to obtain a tooltip element reference
    */
-  getTooltipRef?: ReactPopper.RefHandler;
+  getTooltipRef?: Ref;
   /**
    * Function that can be used to obtain a trigger element reference
    */
-  getTriggerRef?: ReactPopper.RefHandler;
+  getTriggerRef?: Ref;
   /**
    * Modifiers passed directly to the underlying popper.js instance
    * For more information, refer to Popper.js’ modifier docs:
@@ -133,7 +137,7 @@ export interface TooltipTriggerState {
 export interface TooltipProps {
   arrowProps: ReactPopper.PopperArrowProps;
   closeOnOutOfBoundaries: boolean;
-  innerRef: ReactPopper.RefHandler;
+  innerRef: Ref;
   outOfBoundaries: boolean | null;
   placement: PopperJS.Placement;
   style: React.CSSProperties;
