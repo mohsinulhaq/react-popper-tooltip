@@ -6,7 +6,7 @@ export type TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
 export type Trigger = TriggerTypes | TriggerTypes[];
 export type Ref =
   | ((element: HTMLElement | null) => void)
-  | {current: HTMLElement | null}
+  | { current: HTMLElement | null }
   | null;
 
 export interface GetTriggerPropsArg {

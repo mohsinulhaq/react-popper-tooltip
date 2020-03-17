@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   GetArrowPropsArg,
   GetTooltipPropsArg,
   TooltipProps,
   TriggerTypes
 } from './types';
-import {callAll, TooltipContext, setRef} from './utils';
+import { callAll, TooltipContext, setRef } from './utils';
 
 const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
   childList: true,
@@ -79,7 +79,7 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   public render() {
-    const {arrowProps, placement, tooltip} = this.props;
+    const { arrowProps, placement, tooltip } = this.props;
 
     return (
       <TooltipContext.Provider value={this.contextValue}>
@@ -95,7 +95,7 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   private isTriggeredBy(event: TriggerTypes) {
-    const {trigger} = this.props;
+    const { trigger } = this.props;
     return (
       trigger === event || (Array.isArray(trigger) && trigger.includes(event))
     );
@@ -103,8 +103,8 @@ class Tooltip extends Component<TooltipProps> {
 
   private handleOutsideClick?: EventListener = event => {
     if (this.tooltipRef && !this.tooltipRef.contains(event.target as Node)) {
-      const {parentOutsideClickHandler} = this.context;
-      const {hideTooltip, clearScheduled} = this.props;
+      const { parentOutsideClickHandler } = this.context;
+      const { hideTooltip, clearScheduled } = this.props;
 
       clearScheduled();
       hideTooltip();
@@ -116,8 +116,8 @@ class Tooltip extends Component<TooltipProps> {
 
   private handleOutsideRightClick?: EventListener = event => {
     if (this.tooltipRef && !this.tooltipRef.contains(event.target as Node)) {
-      const {parentOutsideRightClickHandler} = this.context;
-      const {hideTooltip, clearScheduled} = this.props;
+      const { parentOutsideRightClickHandler } = this.context;
+      const { hideTooltip, clearScheduled } = this.props;
 
       clearScheduled();
       hideTooltip();
@@ -156,7 +156,7 @@ class Tooltip extends Component<TooltipProps> {
 
   private getArrowProps = (props: GetArrowPropsArg = {}) => ({
     ...props,
-    style: {...props.style, ...this.props.arrowProps.style}
+    style: { ...props.style, ...this.props.arrowProps.style }
   });
 
   private getTooltipProps = (props: GetTooltipPropsArg = {}) => ({
@@ -165,7 +165,7 @@ class Tooltip extends Component<TooltipProps> {
       onMouseEnter: callAll(this.props.clearScheduled, props.onMouseEnter),
       onMouseLeave: callAll(this.props.hideTooltip, props.onMouseLeave)
     }),
-    style: {...props.style, ...this.props.style}
+    style: { ...props.style, ...this.props.style }
   });
 
   private contextValue = {

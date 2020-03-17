@@ -2,9 +2,9 @@
  * @author Mohsin Ul Haq <mohsinulhaq01@gmail.com>
  */
 import PopperJS from 'popper.js';
-import React, {Component} from 'react';
-import {createPortal} from 'react-dom';
-import {Manager, Popper, Reference} from 'react-popper';
+import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
+import { Manager, Popper, Reference } from 'react-popper';
 import Tooltip from './Tooltip';
 import {
   GetTriggerPropsArg,
@@ -12,7 +12,7 @@ import {
   TooltipTriggerState,
   TriggerTypes
 } from './types';
-import {callAll, canUseDOM, noop} from './utils';
+import { callAll, canUseDOM, noop } from './utils';
 
 const DEFAULT_MODIFIERS: PopperJS.Modifiers = {
   preventOverflow: {
@@ -95,8 +95,8 @@ class TooltipTrigger extends Component<
           scheduleUpdate
         }) => {
           if (followCursor && this.popperOffset) {
-            const {pageX, pageY} = this.state;
-            const {width, height} = this.popperOffset;
+            const { pageX, pageY } = this.state;
+            const { width, height } = this.popperOffset;
             const x =
               pageX! + width > window.scrollX + document.body.offsetWidth
                 ? pageX! - width
@@ -132,8 +132,8 @@ class TooltipTrigger extends Component<
     return (
       <Manager>
         <Reference innerRef={getTriggerRef}>
-          {({ref}) =>
-            children({getTriggerProps: this.getTriggerProps, triggerRef: ref})
+          {({ ref }) =>
+            children({ getTriggerProps: this.getTriggerProps, triggerRef: ref })
           }
         </Reference>
         {this.getState() &&
@@ -162,7 +162,13 @@ class TooltipTrigger extends Component<
     clearTimeout(this.showTimeout);
   };
 
-  private showTooltip = ({pageX, pageY}: {pageX: number; pageY: number}) => {
+  private showTooltip = ({
+    pageX,
+    pageY
+  }: {
+    pageX: number;
+    pageY: number;
+  }) => {
     this.clearScheduled();
     let state: TooltipTriggerState = {
       tooltipShown: true
@@ -183,32 +189,38 @@ class TooltipTrigger extends Component<
   private hideTooltip = () => {
     this.clearScheduled();
     this.hideTimeout = window.setTimeout(
-      () => this.setTooltipState({tooltipShown: false}),
+      () => this.setTooltipState({ tooltipShown: false }),
       this.props.delayHide
     );
   };
 
-  private toggleTooltip = ({pageX, pageY}: {pageX: number; pageY: number}) => {
+  private toggleTooltip = ({
+    pageX,
+    pageY
+  }: {
+    pageX: number;
+    pageY: number;
+  }) => {
     const action = this.getState() ? 'hideTooltip' : 'showTooltip';
-    this[action]({pageX, pageY});
+    this[action]({ pageX, pageY });
   };
 
   private clickToggle: React.MouseEventHandler = (event: React.MouseEvent) => {
     event.preventDefault();
-    const {pageX, pageY} = event;
+    const { pageX, pageY } = event;
     const action = this.props.followCursor ? 'showTooltip' : 'toggleTooltip';
-    this[action]({pageX, pageY});
+    this[action]({ pageX, pageY });
   };
 
   private contextMenuToggle: React.MouseEventHandler = event => {
     event.preventDefault();
-    const {pageX, pageY} = event;
+    const { pageX, pageY } = event;
     const action = this.props.followCursor ? 'showTooltip' : 'toggleTooltip';
-    this[action]({pageX, pageY});
+    this[action]({ pageX, pageY });
   };
 
   private isTriggeredBy(event: TriggerTypes) {
-    const {trigger} = this.props;
+    const { trigger } = this.props;
     return (
       trigger === event || (Array.isArray(trigger) && trigger.includes(event))
     );
