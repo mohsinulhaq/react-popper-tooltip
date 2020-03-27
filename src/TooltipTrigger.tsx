@@ -20,6 +20,11 @@ const DEFAULT_MODIFIERS: PopperJS.Modifiers = {
   },
 };
 
+const DEFAULT_MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
+  childList: true,
+  subtree: true,
+};
+
 class TooltipTrigger extends Component<
   TooltipTriggerProps,
   TooltipTriggerState
@@ -35,6 +40,7 @@ class TooltipTrigger extends Component<
     portalContainer: canUseDOM() ? document.body : null,
     trigger: 'hover',
     usePortal: canUseDOM(),
+    mutationObserverOptions: DEFAULT_MUTATION_OBSERVER_CONFIG,
   };
 
   public state: TooltipTriggerState = {
@@ -62,6 +68,7 @@ class TooltipTrigger extends Component<
       portalContainer,
       followCursor,
       getTooltipRef,
+      mutationObserverOptions,
       ...restProps
     } = this.props;
 
@@ -119,6 +126,7 @@ class TooltipTrigger extends Component<
                 style,
                 tooltip,
                 trigger,
+                mutationObserverOptions,
               }}
               clearScheduled={this.clearScheduled}
               hideTooltip={this.hideTooltip}

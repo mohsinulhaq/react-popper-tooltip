@@ -7,11 +7,6 @@ import {
 } from './types';
 import { callAll, TooltipContext, setRef } from './utils';
 
-const MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
-  childList: true,
-  subtree: true,
-};
-
 class Tooltip extends Component<TooltipProps> {
   public static contextType = TooltipContext;
 
@@ -22,7 +17,7 @@ class Tooltip extends Component<TooltipProps> {
     const observer = (this.observer = new MutationObserver(() => {
       this.props.scheduleUpdate();
     }));
-    observer.observe(this.tooltipRef!, MUTATION_OBSERVER_CONFIG);
+    observer.observe(this.tooltipRef!, this.props.mutationObserverOptions);
 
     if (
       this.isTriggeredBy('hover') ||

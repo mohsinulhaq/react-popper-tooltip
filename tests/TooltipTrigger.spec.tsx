@@ -54,11 +54,6 @@ const Trigger = 'Trigger';
 const Trigger2 = 'Trigger2';
 const Outside = 'Outside';
 
-window.MutationObserver = class {
-  public disconnect() {}
-  public observe() {}
-};
-
 jest.useFakeTimers();
 
 it('matches snapshot', () => {

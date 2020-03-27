@@ -278,13 +278,29 @@ Modifiers passed directly to the underlying popper.js instance.
 For more information, refer to Popper.js’
 [modifier docs](https://popper.js.org/popper-documentation.html#modifiers)
 
-Modifiers, applied by default:
+Default modifiers:
 
 ```
 {
   preventOverflow: {
     boundariesElement: 'viewport'
   }
+}
+```
+
+### mutationObserverOptions
+
+> `object`
+
+Options to `MutationObserver`, used internally for updating tooltip position based on trigger DOM changes.
+For more information, refer to [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) docs.
+
+Default options:
+
+```
+{
+    childList: true,
+    subtree: true
 }
 ```
 

@@ -114,6 +114,12 @@ export interface TooltipTriggerProps {
    */
   usePortal: boolean;
   /**
+   * Options to MutationObserver, used internally for updating
+   * tooltip position based on trigger DOM changes
+   * @default  { childList: true, subtree: true }
+   */
+  mutationObserverOptions: MutationObserverInit;
+  /**
    * Trigger
    */
   children(arg: ChildrenArg): React.ReactNode;
@@ -142,6 +148,7 @@ export interface TooltipProps {
   placement: PopperJS.Placement;
   style: React.CSSProperties;
   trigger: Trigger;
+  mutationObserverOptions: MutationObserverInit;
   clearScheduled(): void;
   hideTooltip(): void;
   tooltip(arg: TooltipArg): React.ReactNode;
