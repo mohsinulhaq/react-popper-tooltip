@@ -1,14 +1,14 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import {sizeSnapshot} from 'rollup-plugin-size-snapshot';
+import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import pkg from './package.json';
 
 const input = 'src/index.ts';
-const external = id => !id.startsWith('.') && !id.startsWith('/');
+const external = (id) => !id.startsWith('.') && !id.startsWith('/');
 const getBabelOptions = (useESModules = true) => ({
   extensions: ['.ts', '.tsx'],
   runtimeHelpers: true,
-  plugins: [['@babel/plugin-transform-runtime', {useESModules}]]
+  plugins: [['@babel/plugin-transform-runtime', { useESModules }]],
 });
 
 export default [
@@ -18,27 +18,27 @@ export default [
       file: pkg.main,
       format: 'cjs',
       interop: false,
-      sourcemap: true
+      sourcemap: true,
     },
     external,
     plugins: [
-      resolve({extensions: ['.ts', '.tsx']}),
+      resolve({ extensions: ['.ts', '.tsx'] }),
       babel(getBabelOptions(false)),
-      sizeSnapshot()
-    ]
+      sizeSnapshot(),
+    ],
   },
   {
     input,
     output: {
       file: pkg.module,
       format: 'esm',
-      sourcemap: true
+      sourcemap: true,
     },
     external,
     plugins: [
-      resolve({extensions: ['.ts', '.tsx']}),
+      resolve({ extensions: ['.ts', '.tsx'] }),
       babel(getBabelOptions()),
-      sizeSnapshot()
-    ]
-  }
+      sizeSnapshot(),
+    ],
+  },
 ];

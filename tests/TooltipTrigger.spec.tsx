@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import TooltipTrigger from '../src';
 
 interface BasicTooltipTriggerProps {
@@ -22,17 +22,20 @@ const BasicTooltipTrigger = ({
       tooltipRef,
       getArrowProps,
       getTooltipProps,
-      placement
+      placement,
     }) => (
       <div
-        {...getTooltipProps({ref: tooltipRef, className: 'tooltip-container'})}
+        {...getTooltipProps({
+          ref: tooltipRef,
+          className: 'tooltip-container',
+        })}
       >
         {!hideArrow && (
           <div
             {...getArrowProps({
               className: 'tooltip-arrow',
               'data-placement': placement,
-              ref: arrowRef
+              ref: arrowRef,
             })}
           />
         )}
@@ -40,8 +43,8 @@ const BasicTooltipTrigger = ({
       </div>
     )}
   >
-    {({getTriggerProps, triggerRef}) => (
-      <span {...getTriggerProps({ref: triggerRef})}>{children}</span>
+    {({ getTriggerProps, triggerRef }) => (
+      <span {...getTriggerProps({ ref: triggerRef })}>{children}</span>
     )}
   </TooltipTrigger>
 );
@@ -72,7 +75,7 @@ describe('hover trigger', () => {
   let queryByText: any;
 
   beforeEach(() => {
-    ({container, queryByText} = render(
+    ({ container, queryByText } = render(
       <BasicTooltipTrigger tooltip={Tooltip}>{Trigger}</BasicTooltipTrigger>
     ));
     fireEvent.mouseEnter(container.firstChild as HTMLElement);
@@ -102,7 +105,7 @@ describe('click trigger', () => {
   let queryByText: any;
 
   beforeEach(() => {
-    ({container, queryByText} = render(
+    ({ container, queryByText } = render(
       <BasicTooltipTrigger trigger="click" tooltip={Tooltip}>
         {Trigger}
       </BasicTooltipTrigger>
@@ -127,7 +130,7 @@ describe('right-click trigger', () => {
   let queryByText: any;
 
   beforeEach(() => {
-    ({container, queryByText} = render(
+    ({ container, queryByText } = render(
       <BasicTooltipTrigger trigger="right-click" tooltip={Tooltip}>
         {Trigger}
       </BasicTooltipTrigger>
@@ -158,7 +161,7 @@ describe('follow cursor', () => {
   let queryByText: any;
 
   beforeEach(() => {
-    ({container, queryByText} = render(
+    ({ container, queryByText } = render(
       <BasicTooltipTrigger followCursor tooltip={Tooltip}>
         {Trigger}
       </BasicTooltipTrigger>
@@ -183,7 +186,7 @@ describe('focus trigger', () => {
   let queryByText: any;
 
   beforeEach(() => {
-    ({container, queryByText} = render(
+    ({ container, queryByText } = render(
       <BasicTooltipTrigger trigger="focus" tooltip={Tooltip}>
         {Trigger}
       </BasicTooltipTrigger>
@@ -208,7 +211,7 @@ describe('multi trigger', () => {
   let queryByText: any;
 
   beforeEach(() => {
-    ({container, queryByText} = render(
+    ({ container, queryByText } = render(
       <BasicTooltipTrigger trigger={['hover', 'focus']} tooltip={Tooltip}>
         {Trigger}
       </BasicTooltipTrigger>
@@ -241,7 +244,7 @@ describe('multi trigger', () => {
 });
 
 it('closes on outside click', () => {
-  const {container, queryByText} = render(
+  const { container, queryByText } = render(
     <>
       <BasicTooltipTrigger trigger="click" tooltip={Tooltip}>
         {Trigger}
@@ -262,7 +265,7 @@ it('closes on outside click', () => {
 describe('nested tooltips', () => {
   describe('correct opening', () => {
     it('works for click trigger', () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <BasicTooltipTrigger
           trigger="click"
           tooltip={
@@ -282,7 +285,7 @@ describe('nested tooltips', () => {
     });
 
     it('works for hover trigger', () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <BasicTooltipTrigger
           tooltip={
             <BasicTooltipTrigger tooltip={Tooltip}>
@@ -303,7 +306,7 @@ describe('nested tooltips', () => {
 
   describe('partial closure of nested tooltips', () => {
     it('works for click trigger', () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <BasicTooltipTrigger
           trigger="click"
           tooltip={
@@ -326,7 +329,7 @@ describe('nested tooltips', () => {
     });
 
     it('works for hover trigger', () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <BasicTooltipTrigger
           tooltip={
             <BasicTooltipTrigger tooltip={Tooltip}>
@@ -351,7 +354,7 @@ describe('nested tooltips', () => {
 
   describe('complete closure of nested tooltips', () => {
     it('works for click trigger', () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <>
           <BasicTooltipTrigger
             trigger="click"
@@ -377,7 +380,7 @@ describe('nested tooltips', () => {
     });
 
     it('works for hover trigger', () => {
-      const {queryByText} = render(
+      const { queryByText } = render(
         <>
           <BasicTooltipTrigger
             tooltip={

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class EscapeToClose extends React.Component<{closeTooltip: () => void}> {
+class EscapeToClose extends React.Component<{ closeTooltip: () => void }> {
   public componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
   }
@@ -10,7 +10,7 @@ class EscapeToClose extends React.Component<{closeTooltip: () => void}> {
   public render() {
     return this.props.children;
   }
-  private handleKeyDown = ({key}: {key: string}) => {
+  private handleKeyDown = ({ key }: { key: string }) => {
     if (key === 'Escape') {
       this.props.closeTooltip();
     }

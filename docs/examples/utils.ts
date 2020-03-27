@@ -1,24 +1,24 @@
 import React from 'react';
-import {StateContainerProps, StateContainerState} from './types';
+import { StateContainerProps, StateContainerState } from './types';
 
 class StateContainer extends React.Component<
   StateContainerProps,
   StateContainerState
 > {
   public state: StateContainerState = {
-    on: false
+    on: false,
   };
 
   public render() {
     return this.props.children({
       on: this.state.on,
       set: this.set,
-      toggle: this.toggle
+      toggle: this.toggle,
     });
   }
 
-  private set = (on: boolean) => this.setState({on});
-  private toggle = () => this.setState(prevState => ({on: !prevState.on}));
+  private set = (on: boolean) => this.setState({ on });
+  private toggle = () => this.setState((prevState) => ({ on: !prevState.on }));
 }
 
-export {StateContainer};
+export { StateContainer };

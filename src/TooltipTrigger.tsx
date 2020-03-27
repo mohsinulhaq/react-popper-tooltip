@@ -10,14 +10,14 @@ import {
   GetTriggerPropsArg,
   TooltipTriggerProps,
   TooltipTriggerState,
-  TriggerTypes
+  TriggerTypes,
 } from './types';
 import { callAll, canUseDOM, noop } from './utils';
 
 const DEFAULT_MODIFIERS: PopperJS.Modifiers = {
   preventOverflow: {
-    boundariesElement: 'viewport'
-  }
+    boundariesElement: 'viewport',
+  },
 };
 
 class TooltipTrigger extends Component<
@@ -34,11 +34,11 @@ class TooltipTrigger extends Component<
     placement: 'right',
     portalContainer: canUseDOM() ? document.body : null,
     trigger: 'hover',
-    usePortal: canUseDOM()
+    usePortal: canUseDOM(),
   };
 
   public state: TooltipTriggerState = {
-    tooltipShown: this.props.defaultTooltipShown
+    tooltipShown: this.props.defaultTooltipShown,
   };
 
   private hideTimeout?: number;
@@ -74,14 +74,14 @@ class TooltipTrigger extends Component<
           ...(followCursor && {
             followCursorModifier: {
               enabled: true,
-              fn: data => {
+              fn: (data) => {
                 this.popperOffset = data.offsets.popper;
                 return data;
               },
-              order: 1000
-            }
+              order: 1000,
+            },
           }),
-          ...modifiers
+          ...modifiers,
         }}
         {...restProps}
       >
@@ -92,7 +92,7 @@ class TooltipTrigger extends Component<
           placement,
           arrowProps,
           outOfBoundaries,
-          scheduleUpdate
+          scheduleUpdate,
         }) => {
           if (followCursor && this.popperOffset) {
             const { pageX, pageY } = this.state;
@@ -118,7 +118,7 @@ class TooltipTrigger extends Component<
                 scheduleUpdate,
                 style,
                 tooltip,
-                trigger
+                trigger,
               }}
               clearScheduled={this.clearScheduled}
               hideTooltip={this.hideTooltip}
@@ -164,20 +164,20 @@ class TooltipTrigger extends Component<
 
   private showTooltip = ({
     pageX,
-    pageY
+    pageY,
   }: {
     pageX: number;
     pageY: number;
   }) => {
     this.clearScheduled();
     let state: TooltipTriggerState = {
-      tooltipShown: true
+      tooltipShown: true,
     };
     if (this.props.followCursor) {
       state = {
         ...state,
         pageX,
-        pageY
+        pageY,
       };
     }
     this.showTimeout = window.setTimeout(
@@ -196,7 +196,7 @@ class TooltipTrigger extends Component<
 
   private toggleTooltip = ({
     pageX,
-    pageY
+    pageY,
   }: {
     pageX: number;
     pageY: number;
@@ -212,7 +212,7 @@ class TooltipTrigger extends Component<
     this[action]({ pageX, pageY });
   };
 
-  private contextMenuToggle: React.MouseEventHandler = event => {
+  private contextMenuToggle: React.MouseEventHandler = (event) => {
     event.preventDefault();
     const { pageX, pageY } = event;
     const action = this.props.followCursor ? 'showTooltip' : 'toggleTooltip';
@@ -231,22 +231,22 @@ class TooltipTrigger extends Component<
       ...props,
       ...(this.isTriggeredBy('click') && {
         onClick: callAll(this.clickToggle, props.onClick),
-        onTouchEnd: callAll(this.clickToggle, props.onTouchEnd)
+        onTouchEnd: callAll(this.clickToggle, props.onTouchEnd),
       }),
       ...(this.isTriggeredBy('right-click') && {
-        onContextMenu: callAll(this.contextMenuToggle, props.onContextMenu)
+        onContextMenu: callAll(this.contextMenuToggle, props.onContextMenu),
       }),
       ...(this.isTriggeredBy('hover') && {
         onMouseEnter: callAll(this.showTooltip, props.onMouseEnter),
         onMouseLeave: callAll(this.hideTooltip, props.onMouseLeave),
         ...(this.props.followCursor && {
-          onMouseMove: callAll(this.showTooltip, props.onMouseMove)
-        })
+          onMouseMove: callAll(this.showTooltip, props.onMouseMove),
+        }),
       }),
       ...(this.isTriggeredBy('focus') && {
         onFocus: callAll(this.showTooltip, props.onFocus),
-        onBlur: callAll(this.hideTooltip, props.onBlur)
-      })
+        onBlur: callAll(this.hideTooltip, props.onBlur),
+      }),
     };
   };
 }

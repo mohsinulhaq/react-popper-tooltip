@@ -11,7 +11,7 @@ export interface StateContainerProps {
   children: ({
     on,
     set,
-    toggle
+    toggle,
   }: {
     on: boolean;
     set: (on: boolean) => void;

@@ -1,4 +1,8 @@
 module.exports = {
-  presets: ['@babel/typescript', '@babel/react', ['@babel/env', {loose: true}]],
-  plugins: [['@babel/proposal-class-properties', {loose: true}]]
+  presets: [
+    '@babel/preset-typescript',
+    '@babel/preset-react',
+    ['@babel/preset-env', { bugfixes: true, loose: true }],
+  ],
+  plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
 };

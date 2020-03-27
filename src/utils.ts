@@ -8,7 +8,7 @@ type Fn = ((...args: any[]) => void) | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const callAll = (...fns: Fn[]) => (...args: any[]) =>
-  fns.forEach(fn => fn && fn(...args));
+  fns.forEach((fn) => fn && fn(...args));
 
 export const noop = () => {
   // do nothing
