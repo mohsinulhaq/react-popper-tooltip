@@ -105,11 +105,11 @@ class TooltipTrigger extends Component<
             const { pageX, pageY } = this.state;
             const { width, height } = this.popperOffset;
             const x =
-              pageX! + width > window.scrollX + document.body.offsetWidth
+              pageX! + width > window.pageXOffset + document.body.offsetWidth
                 ? pageX! - width
                 : pageX;
             const y =
-              pageY! + height > window.scrollY + document.body.offsetHeight
+              pageY! + height > window.pageYOffset + document.body.offsetHeight
                 ? pageY! - height
                 : pageY;
             style.transform = `translate3d(${x}px, ${y}px, 0`;
