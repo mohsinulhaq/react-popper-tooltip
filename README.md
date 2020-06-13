@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
 [![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
 
-React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org/) library.
+React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org) library.
 
 ## Homepage
 
