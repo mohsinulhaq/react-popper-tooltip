@@ -211,11 +211,11 @@ describe('multi trigger', () => {
         {Trigger}
       </BasicTooltipTrigger>
     ));
-    fireEvent.focus(container.firstChild as HTMLElement);
-    jest.runAllTimers();
   });
 
   it('opens tooltip on focus', () => {
+    fireEvent.focus(container.firstChild as HTMLElement);
+    jest.runAllTimers();
     expect(queryByText(Tooltip)).toBeTruthy();
   });
 

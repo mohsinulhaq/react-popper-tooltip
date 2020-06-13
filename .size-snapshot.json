@@ -1,20 +1,15 @@
 {
-  "dist/cjs/react-popper-tooltip.js": {
-    "bundled": 15639,
-    "minified": 8815,
-    "gzipped": 2508
-  },
-  "dist/esm/react-popper-tooltip.js": {
-    "bundled": 15605,
-    "minified": 8795,
-    "gzipped": 2499,
+  "react-popper-tooltip.js": {
+    "bundled": 15301,
+    "minified": 8563,
+    "gzipped": 2425,
     "treeshaked": {
       "rollup": {
-        "code": 347,
-        "import_statements": 327
+        "code": 236,
+        "import_statements": 216
       },
       "webpack": {
-        "code": 9510
+        "code": 9247
       }
     }
   }

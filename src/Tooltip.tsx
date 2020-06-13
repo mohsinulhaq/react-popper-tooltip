@@ -15,7 +15,7 @@ class Tooltip extends Component<TooltipProps> {
 
   public componentDidMount() {
     const observer = (this.observer = new MutationObserver(() => {
-      this.props.scheduleUpdate();
+      this.props.update();
     }));
     observer.observe(this.tooltipRef!, this.props.mutationObserverOptions);
 
@@ -40,7 +40,7 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   public componentDidUpdate() {
-    if (this.props.closeOnOutOfBoundaries && this.props.outOfBoundaries) {
+    if (this.props.closeOnOutOfBoundaries && this.props.isReferenceHidden) {
       this.props.hideTooltip();
     }
   }

@@ -1,8 +1,18 @@
 import React, { memo } from 'react';
 import TooltipTrigger from '../../src';
-import '../../src/styles.css';
 import { ChildrenArg, TooltipArg } from '../../src';
 import { BasicTooltipTriggerProps } from './types';
+import './styles.css';
+
+const modifiers = [
+  {
+    name: 'offset',
+    enabled: true,
+    options: {
+      offset: [0, 4],
+    },
+  },
+];
 
 const Trigger = (children: React.ReactNode) => ({
   triggerRef,
@@ -45,7 +55,11 @@ const Tooltip = (tooltip: React.ReactNode, hideArrow?: boolean) => ({
 
 const BasicTooltipTrigger = memo(
   ({ tooltip, children, hideArrow, ...props }: BasicTooltipTriggerProps) => (
-    <TooltipTrigger {...props} tooltip={Tooltip(tooltip, hideArrow)}>
+    <TooltipTrigger
+      {...props}
+      modifiers={modifiers}
+      tooltip={Tooltip(tooltip, hideArrow)}
+    >
       {Trigger(children)}
     </TooltipTrigger>
   )
