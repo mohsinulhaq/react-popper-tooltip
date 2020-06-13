@@ -51,10 +51,10 @@ export interface TooltipArg {
 
 export interface TooltipTriggerProps {
   /**
-   * Whether to close the tooltip when it's trigger is out of the boundary
+   * Whether to close the tooltip when its trigger is out of boundary
    * @default true
    */
-  closeOnOutOfBoundaries: boolean;
+  closeOnReferenceHidden: boolean;
   /**
    * Whether tooltip is shown by default
    * @default false
@@ -142,7 +142,7 @@ export interface TooltipTriggerState {
 
 export interface TooltipProps {
   arrowProps: PopperArrowProps;
-  closeOnOutOfBoundaries: boolean;
+  closeOnReferenceHidden: boolean;
   innerRef: Ref;
   isReferenceHidden?: boolean;
   placement: Placement;

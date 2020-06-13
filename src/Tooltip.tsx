@@ -40,7 +40,7 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   public componentDidUpdate() {
-    if (this.props.closeOnOutOfBoundaries && this.props.isReferenceHidden) {
+    if (this.props.closeOnReferenceHidden && this.props.isReferenceHidden) {
       this.props.hideTooltip();
     }
   }

@@ -24,7 +24,7 @@ class TooltipTrigger extends Component<
   TooltipTriggerState
 > {
   public static defaultProps = {
-    closeOnOutOfBoundaries: true,
+    closeOnReferenceHidden: true,
     defaultTooltipShown: false,
     delayHide: 0,
     delayShow: 0,
@@ -58,7 +58,7 @@ class TooltipTrigger extends Component<
       trigger,
       getTriggerRef,
       modifiers,
-      closeOnOutOfBoundaries,
+      closeOnReferenceHidden,
       usePortal,
       portalContainer,
       followCursor,
@@ -103,7 +103,7 @@ class TooltipTrigger extends Component<
             <Tooltip
               {...{
                 arrowProps,
-                closeOnOutOfBoundaries,
+                closeOnReferenceHidden,
                 isReferenceHidden,
                 placement,
                 update,
