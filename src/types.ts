@@ -87,6 +87,7 @@ export interface TooltipTriggerProps {
    * Modifiers passed directly to the underlying popper.js instance
    * For more information, refer to Popper.js’ modifier docs:
    * @link https://popper.js.org/docs/v2/modifiers
+   * @default []
    */
   modifiers: Modifier<any>[];
   /**
