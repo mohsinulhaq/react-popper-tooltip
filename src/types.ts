@@ -116,7 +116,7 @@ export interface TooltipTriggerProps {
   usePortal: boolean;
   /**
    * Options to MutationObserver, used internally for updating
-   * tooltip position based on trigger DOM changes
+   * tooltip position based on its DOM changes
    * @default  { childList: true, subtree: true }
    */
   mutationObserverOptions: MutationObserverInit;
