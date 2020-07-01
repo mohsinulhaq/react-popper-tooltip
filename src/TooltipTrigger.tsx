@@ -1,24 +1,18 @@
 /**
  * @author Mohsin Ul Haq <mohsinulhaq01@gmail.com>
  */
-import PopperJS from 'popper.js';
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
+import { Rect } from '@popperjs/core';
 import { Manager, Popper, Reference } from 'react-popper';
 import Tooltip from './Tooltip';
+import { callAll, canUseDOM, noop } from './utils';
 import {
   GetTriggerPropsArg,
   TooltipTriggerProps,
   TooltipTriggerState,
   TriggerTypes,
 } from './types';
-import { callAll, canUseDOM, noop } from './utils';
-
-const DEFAULT_MODIFIERS: PopperJS.Modifiers = {
-  preventOverflow: {
-    boundariesElement: 'viewport',
-  },
-};
 
 const DEFAULT_MUTATION_OBSERVER_CONFIG: MutationObserverInit = {
   childList: true,
@@ -30,7 +24,7 @@ class TooltipTrigger extends Component<
   TooltipTriggerState
 > {
   public static defaultProps = {
-    closeOnOutOfBoundaries: true,
+    closeOnReferenceHidden: true,
     defaultTooltipShown: false,
     delayHide: 0,
     delayShow: 0,
@@ -41,6 +35,7 @@ class TooltipTrigger extends Component<
     trigger: 'hover',
     usePortal: canUseDOM(),
     mutationObserverOptions: DEFAULT_MUTATION_OBSERVER_CONFIG,
+    modifiers: [],
   };
 
   public state: TooltipTriggerState = {
@@ -49,7 +44,7 @@ class TooltipTrigger extends Component<
 
   private hideTimeout?: number;
   private showTimeout?: number;
-  private popperOffset?: PopperJS.Offset;
+  private popperOffset?: Rect;
 
   public componentWillUnmount() {
     this.clearScheduled();
@@ -63,7 +58,7 @@ class TooltipTrigger extends Component<
       trigger,
       getTriggerRef,
       modifiers,
-      closeOnOutOfBoundaries,
+      closeOnReferenceHidden,
       usePortal,
       portalContainer,
       followCursor,
@@ -76,31 +71,20 @@ class TooltipTrigger extends Component<
       <Popper
         innerRef={getTooltipRef}
         placement={placement}
-        modifiers={{
-          ...DEFAULT_MODIFIERS,
-          ...(followCursor && {
-            followCursorModifier: {
-              enabled: true,
-              fn: (data) => {
-                this.popperOffset = data.offsets.popper;
-                return data;
-              },
-              order: 1000,
+        modifiers={[
+          {
+            name: 'followCursor',
+            enabled: followCursor,
+            phase: 'main',
+            fn: (data) => {
+              this.popperOffset = data.state.rects.popper;
             },
-          }),
+          },
           ...modifiers,
-        }}
+        ]}
         {...restProps}
       >
-        {({
-          ref,
-          style,
-          // tslint:disable-next-line
-          placement,
-          arrowProps,
-          outOfBoundaries,
-          scheduleUpdate,
-        }) => {
+        {({ ref, style, placement, arrowProps, isReferenceHidden, update }) => {
           if (followCursor && this.popperOffset) {
             const { pageX, pageY } = this.state;
             const { width, height } = this.popperOffset;
@@ -119,10 +103,10 @@ class TooltipTrigger extends Component<
             <Tooltip
               {...{
                 arrowProps,
-                closeOnOutOfBoundaries,
-                outOfBoundaries,
+                closeOnReferenceHidden,
+                isReferenceHidden,
                 placement,
-                scheduleUpdate,
+                update,
                 style,
                 tooltip,
                 trigger,

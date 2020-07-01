@@ -1,6 +1,6 @@
-import PopperJS from 'popper.js';
 import React from 'react';
-import ReactPopper from 'react-popper';
+import { Placement } from '@popperjs/core';
+import { Modifier, PopperArrowProps } from 'react-popper';
 
 export type TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
 export type Trigger = TriggerTypes | TriggerTypes[];
@@ -44,17 +44,17 @@ export interface ChildrenArg {
 export interface TooltipArg {
   arrowRef: Ref;
   tooltipRef: Ref;
-  placement: PopperJS.Placement;
+  placement: Placement;
   getArrowProps(arg?: GetArrowPropsArg): GetArrowPropsArg;
   getTooltipProps(arg?: GetTooltipPropsArg): GetTooltipPropsArg;
 }
 
 export interface TooltipTriggerProps {
   /**
-   * Whether to close the tooltip when it's trigger is out of the boundary
+   * Whether to close the tooltip when its trigger is out of boundary
    * @default true
    */
-  closeOnOutOfBoundaries: boolean;
+  closeOnReferenceHidden: boolean;
   /**
    * Whether tooltip is shown by default
    * @default false
@@ -86,14 +86,15 @@ export interface TooltipTriggerProps {
   /**
    * Modifiers passed directly to the underlying popper.js instance
    * For more information, refer to Popper.js’ modifier docs:
-   * @link https://popper.js.org/popper-documentation.html#modifiers
+   * @link https://popper.js.org/docs/v2/modifiers
+   * @default []
    */
-  modifiers?: PopperJS.Modifiers;
+  modifiers: Modifier<any>[];
   /**
    * Tooltip placement w.r.t. trigger
    *  @default right
    */
-  placement: PopperJS.Placement;
+  placement: Placement;
   /**
    * Element to be used as portal container
    * @default document.body
@@ -115,7 +116,7 @@ export interface TooltipTriggerProps {
   usePortal: boolean;
   /**
    * Options to MutationObserver, used internally for updating
-   * tooltip position based on trigger DOM changes
+   * tooltip position based on its DOM changes
    * @default  { childList: true, subtree: true }
    */
   mutationObserverOptions: MutationObserverInit;
@@ -141,16 +142,16 @@ export interface TooltipTriggerState {
 }
 
 export interface TooltipProps {
-  arrowProps: ReactPopper.PopperArrowProps;
-  closeOnOutOfBoundaries: boolean;
+  arrowProps: PopperArrowProps;
+  closeOnReferenceHidden: boolean;
   innerRef: Ref;
-  outOfBoundaries: boolean | null;
-  placement: PopperJS.Placement;
+  isReferenceHidden?: boolean;
+  placement: Placement;
   style: React.CSSProperties;
   trigger: Trigger;
   mutationObserverOptions: MutationObserverInit;
   clearScheduled(): void;
   hideTooltip(): void;
   tooltip(arg: TooltipArg): React.ReactNode;
-  scheduleUpdate(): void;
+  update(): void;
 }

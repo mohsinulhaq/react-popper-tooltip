@@ -9,10 +9,11 @@ exports[`matches snapshot 1`] = `
   </div>
   <div
     class="tooltip-container"
-    style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
+    style="position: absolute; left: 0px; top: 0px;"
   >
     <div
       class="tooltip-arrow"
+      data-placement="right"
     />
     Tooltip
   </div>
