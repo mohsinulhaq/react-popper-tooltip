@@ -180,11 +180,11 @@ The event(s) that trigger the tooltip. One of `click`, `right-click`, `hover`, `
 
 Function that can be used to obtain a trigger element reference.
 
-### closeOnOutOfBoundaries
+### closeOnReferenceHidden
 
 > `boolean` | defaults to `true`
 
-Whether to close the tooltip when it's trigger is out of the boundary.
+Whether to close the tooltip when its trigger is out of boundary.
 
 ### usePortal
 
@@ -208,10 +208,9 @@ Recommended usage with hover trigger and no arrow element
 
 ### modifiers
 
-> `object`
+> `array` | defaults to []
 
-Modifiers passed directly to the underlying popper.js instance.
-For more information, refer to Popper.js’ [modifier docs](https://popper.js.org/docs/v2/modifiers)
+Modifiers passed directly to the underlying popper.js instance. For more information, refer to Popper.js’ [modifier](https://popper.js.org/docs/v2/modifiers) docs.
 
 ### mutationObserverOptions
 
