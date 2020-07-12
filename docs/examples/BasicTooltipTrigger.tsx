@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import TooltipTrigger from '../../src';
 import { ChildrenArg, TooltipArg } from '../../src';
 import { BasicTooltipTriggerProps } from './types';
-import styles from './styles.module.css';
+import '../../src/styles.css';
 
 const modifiers = [
   {
@@ -36,14 +36,14 @@ const Tooltip = (tooltip: React.ReactNode, hideArrow?: boolean) => ({
 }: TooltipArg) => (
   <div
     {...getTooltipProps({
-      className: styles.tooltipContainer,
+      className: 'tooltip-container',
       ref: tooltipRef,
     })}
   >
     {!hideArrow && (
       <div
         {...getArrowProps({
-          className: styles.tooltipArrow,
+          className: 'tooltip-arrow',
           'data-placement': placement,
           ref: arrowRef,
         })}

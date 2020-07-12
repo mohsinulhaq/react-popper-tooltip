@@ -82,6 +82,70 @@ render(
 
 Read more about [render prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) pattern if you're not familiar with this approach.
 
+## Quick start
+
+If you would like our opinionated container and arrow styles for your tooltip for quick start, you may import `react-popper-tooltip/dist/styles.css`, and use the classes `tooltip-container` and `tooltip-arrow` as follows:
+
+### Tooltip.js
+
+```jsx
+import React from 'react';
+import TooltipTrigger from 'react-popper-tooltip';
+import 'react-popper-tooltip/dist/styles.css';
+
+const Tooltip = ({children, tooltip, hideArrow, ...props}) => (
+  <TooltipTrigger
+    {...props}
+    tooltip={({
+      arrowRef,
+      tooltipRef,
+      getArrowProps,
+      getTooltipProps,
+      placement
+    }) => (
+      <div
+        {...getTooltipProps({
+          ref: tooltipRef,
+          className: 'tooltip-container'
+        })}
+      >
+        {!hideArrow && (
+          <div
+            {...getArrowProps({
+              ref: arrowRef,
+              className: 'tooltip-arrow',
+              'data-placement': placement
+            })}
+          />
+        )}
+        {tooltip}
+      </div>
+    )}
+  >
+    {({getTriggerProps, triggerRef}) => (
+      <span
+        {...getTriggerProps({
+          ref: triggerRef,
+          className: 'trigger'
+        })}
+      >
+        {children}
+      </span>
+    )}
+  </TooltipTrigger>
+);
+
+export default Tooltip;
+```
+
+Then you can use it as shown in the example below.
+
+```jsx
+<Tooltip placement="top" trigger="click" tooltip="Hi there!">
+  Click me
+</Tooltip>
+```
+
 ## Examples
 
 To fiddle with our example recipes, run:
