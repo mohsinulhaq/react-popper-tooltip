@@ -16,6 +16,7 @@ export default [
     input,
     output: {
       file: pkg.main,
+      exports: 'auto',
       format: 'cjs',
       interop: false,
       sourcemap: true,
