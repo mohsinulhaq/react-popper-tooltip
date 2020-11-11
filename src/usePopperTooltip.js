@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { usePopper } from "react-popper";
 import { useControlledProp, useGetLatest } from "./utils";
 
@@ -6,6 +6,11 @@ const defaultConfig = {
   trigger: "click",
   delayHide: 0,
   delayShow: 0,
+  mutationObserverOptions: {
+    attributes: true,
+    childList: true,
+    subtree: true,
+  },
 };
 
 export function usePopperTooltip(config, popperOptions) {
@@ -143,6 +148,26 @@ export function usePopperTooltip(config, popperOptions) {
       tooltipRef.removeEventListener("mouseleave", hideTooltip);
     };
   }, [tooltipRef, isTriggeredBy, showTooltip, hideTooltip]);
+
+  // Handle closeOnReferenceHidden prop
+  const isReferenceHidden =
+    popperProps.state?.modifiersData?.hide?.isReferenceHidden;
+  React.useEffect(() => {
+    if (getLatest().config.closeOnReferenceHidden && isReferenceHidden)
+      hideTooltip();
+  }, [getLatest, hideTooltip, isReferenceHidden]);
+
+  // Handle tooltip DOM mutation changes (aka mutation observer)
+  const update = popperProps.update;
+  React.useEffect(() => {
+    const mutationObserverOptions = getLatest().config.mutationObserverOptions;
+    if (tooltipRef == null || update == null || mutationObserverOptions == null)
+      return;
+
+    const observer = new MutationObserver(update);
+    observer.observe(tooltipRef, mutationObserverOptions);
+    return () => observer.disconnect();
+  }, [getLatest, tooltipRef, update]);
 
   // Tooltip props getter
   const getTooltipProps = (args = {}) => {
