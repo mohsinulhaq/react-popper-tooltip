@@ -1,9 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { Placement } from '@popperjs/core';
 import { Modifier, PopperArrowProps } from 'react-popper';
 
 export type TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
 export type Trigger = TriggerTypes | TriggerTypes[];
+
 export type Ref =
   | ((element: HTMLElement | null) => void)
   | { current: HTMLElement | null }

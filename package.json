@@ -21,10 +21,9 @@
     "build": "rm -rf dist && rollup -c && cp src/styles.css dist && yarn tsc && rm -rf compiled",
     "prepublishOnly": "yarn typecheck && yarn lint && yarn build && yarn test",
     "prettier": "prettier --write src/**/*.{ts,tsx}",
-    "docs": "docz dev",
-    "docs:build": "docz build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/**/*.{ts,tsx}",
+    "start": "rollup -c -w",
     "test": "jest tests/"
   },
   "husky": {
@@ -71,7 +70,6 @@
     "@types/react-dom": "^16.9.9",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
-    "docz": "^2.3.1",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -86,6 +84,6 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-size-snapshot": "^0.12.0",
-    "typescript": "^4.0.5"
+    "typescript": "^3.9.6"
   }
 }
