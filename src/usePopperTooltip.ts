@@ -118,7 +118,7 @@ export function usePopperTooltip(
   });
 
   const isTriggeredBy = React.useCallback(
-    (trigger: TriggerTypes) => {
+    (trigger: TriggerType) => {
       const { config } = getLatest();
 
       return Array.isArray(config.trigger)
