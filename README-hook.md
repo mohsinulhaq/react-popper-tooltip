@@ -63,7 +63,7 @@ render(<App />, document.getElementById('root'));
 
 ### Render props
 
-This is a legacy API for compatibility with 3.x users moving to 4.x. We recommend using the usePopperTooltip hook.
+This is a legacy API for compatibility with 3.x users moving to 4.x. We recommend using the `usePopperTooltip` hook.
 
 There are some breaking changes, for more information see [Migrating from 3.x to 4.x]().
 
@@ -136,7 +136,7 @@ internal state.
 Called with the tooltip state, when the visibility of the tooltip changes.
 
 
-- `trigger: TriggerTypes | TriggerTypes[]`, where `TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus'`, defaults to `hover`
+- `trigger: TriggerType | TriggerType[]`, where `TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus'`, defaults to `hover`
 
 Event or events that trigger the tooltip. 
 
@@ -162,12 +162,12 @@ The preferred placement of the tooltip. This is an alias for `Popper.js` placeme
 `popperOptions` takes precedence over this option.
 
 
-- `popperOptions`
+- `popperOptions: { placement, modifiers, strategy, onFirstUpdate }`
 
 These options passed directly to the underlying `usePopper` hook. See [https://popper.js.org/docs/v2/constructors/#options](https://popper.js.org/docs/v2/constructors/#options).
 
-If you set `placement` or any modifier here, it replaces `offset` and `placement` options above. They won't be merged into
-the final options object.
+Keep in mind, if you set `placement` or any `modifiers` here, it replaces `offset` and `placement` options above. They won't be merged into
+the final object.
 
 #### Returns
 
@@ -188,17 +188,17 @@ A trigger DOM element.
 
 - `setArrowRef: HTMLElement | null`
 
-An arrow callback ref. Assign it to the arrow's `ref` prop.
+An arrow callback ref. Must be assigned to the arrow's `ref` prop.
 
 
 - `setTooltipRef: HTMLElement | null`
 
-A tooltop callback ref. Assign it to the tooltip's `ref` prop.
+A tooltop callback ref. Must be assigned to the tooltip's `ref` prop.
 
 
 - `setTriggerRef: HTMLElement | null`
 
-A trigger callback ref. Assign it to the trigger's `ref` prop.
+A trigger callback ref. Must be assigned to the trigger's `ref` prop.
 
 
 - `visible: Boolean`
@@ -225,6 +225,6 @@ It returns merged props you have to spread to the tooltip element.
 
 - `popperProps: { update, forceUpdate, state }`
 
-Some of the props returned by the `usePopper` hook. See [https://popper.js.org/react-popper/v2/hook/](https://popper.js.org/react-popper/v2/hook/).
+Some props returned by the `usePopper` hook. See [https://popper.js.org/react-popper/v2/hook/](https://popper.js.org/react-popper/v2/hook/).
 
 This doesn't include `styles` and `attributes` props. They are included into `getArrowProps` and `getTooltipProps` prop getters.

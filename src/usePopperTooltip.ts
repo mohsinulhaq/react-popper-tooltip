@@ -3,14 +3,14 @@ import { usePopper } from 'react-popper';
 import { useControlledProp, useGetLatest } from './utils';
 import * as PopperJS from '@popperjs/core';
 
-type TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
+type TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
 
 interface ConfigProps {
   /**
    * Event or events that trigger the tooltip
    * @default hover
    */
-  trigger?: TriggerTypes | TriggerTypes[];
+  trigger?: TriggerType | TriggerType[];
   /**
    * Delay in hiding the tooltip (ms)
    * @default 0
