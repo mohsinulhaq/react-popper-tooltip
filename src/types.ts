@@ -1,158 +1,96 @@
 import * as React from 'react';
-import { Placement } from '@popperjs/core';
-import { Modifier, PopperArrowProps } from 'react-popper';
+import { Modifier } from 'react-popper';
+import * as PopperJS from '@popperjs/core';
 
-export type TriggerTypes = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
-export type Trigger = TriggerTypes | TriggerTypes[];
+export type TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
 
-export type Ref =
-  | ((element: HTMLElement | null) => void)
-  | { current: HTMLElement | null }
-  | null;
-
-export interface GetTriggerPropsArg {
-  onTouchEnd?(event: React.SyntheticEvent): void;
-  onClick?(event: React.SyntheticEvent): void;
-  onContextMenu?(event: React.SyntheticEvent): void;
-  onMouseEnter?(event: React.SyntheticEvent): void;
-  onMouseLeave?(event: React.SyntheticEvent): void;
-  onMouseMove?(event: React.SyntheticEvent): void;
-  onFocus?(event: React.SyntheticEvent): void;
-  onBlur?(event: React.SyntheticEvent): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
-
-export interface GetTooltipPropsArg {
-  style?: React.CSSProperties;
-  onMouseEnter?: (event: React.SyntheticEvent) => void;
-  onMouseLeave?: (event: React.SyntheticEvent) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
-
-export interface GetArrowPropsArg {
-  style?: React.CSSProperties;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
-
-export interface ChildrenArg {
-  triggerRef: Ref;
-  getTriggerProps(arg?: GetTriggerPropsArg): GetTriggerPropsArg;
-}
-
-export interface TooltipArg {
-  arrowRef: Ref;
-  tooltipRef: Ref;
-  placement: Placement;
-  getArrowProps(arg?: GetArrowPropsArg): GetArrowPropsArg;
-  getTooltipProps(arg?: GetTooltipPropsArg): GetTooltipPropsArg;
-}
-
-export interface TooltipTriggerProps {
+export type ConfigProps = {
   /**
-   * Whether to close the tooltip when its trigger is out of boundary
-   * @default true
+   * Event or events that trigger the tooltip
+   * @default hover
    */
-  closeOnReferenceHidden: boolean;
+  trigger?: TriggerType | TriggerType[];
+  /**
+   * Delay in hiding the tooltip (ms)
+   * @default 0
+   */
+  delayHide?: number;
+  /**
+   * Delay in showing the tooltip (ms)
+   * @default 0
+   */
+  delayShow?: number;
+  /**
+   * Options to MutationObserver, used internally for updating
+   * tooltip position based on its DOM changes
+   * @default  { attributes: true, childList: true, subtree: true }
+   */
+  mutationObserverOptions?: MutationObserverInit;
   /**
    * Whether tooltip is shown by default
    * @default false
    */
-  defaultTooltipShown: boolean;
-  /**
-   * Delay in hiding the tooltip
-   * @default 0
-   */
-  delayHide: number;
-  /**
-   * Delay in showing the tooltip
-   * @default 0
-   */
-  delayShow: number;
-  /**
-   * Whether to make the tooltip spawn at cursor position
-   * @default false
-   */
-  followCursor: boolean;
-  /**
-   * Function that can be used to obtain a tooltip element reference
-   */
-  getTooltipRef?: Ref;
-  /**
-   * Function that can be used to obtain a trigger element reference
-   */
-  getTriggerRef?: Ref;
-  /**
-   * Modifiers passed directly to the underlying popper.js instance
-   * For more information, refer to Popper.js’ modifier docs:
-   * @link https://popper.js.org/docs/v2/modifiers
-   * @default []
-   */
-  modifiers: Modifier<any>[];
-  /**
-   * Tooltip placement w.r.t. trigger
-   *  @default right
-   */
-  placement: Placement;
-  /**
-   * Element to be used as portal container
-   * @default document.body
-   */
-  portalContainer: HTMLElement;
+  initialVisible?: boolean;
   /**
    * Used to create controlled tooltip
    */
-  tooltipShown?: boolean;
-  /**
-   * Event that triggers the tooltip
-   * @default hover
-   */
-  trigger: Trigger;
-  /**
-   * Whether to use React.createPortal for creating tooltip
-   * @default true // for browser environments
-   */
-  usePortal: boolean;
-  /**
-   * Options to MutationObserver, used internally for updating
-   * tooltip position based on its DOM changes
-   * @default  { childList: true, subtree: true }
-   */
-  mutationObserverOptions: MutationObserverInit;
-  /**
-   * Trigger
-   */
-  children(arg: ChildrenArg): React.ReactNode;
+  visible?: boolean;
   /**
    * Called when the visibility of the tooltip changes
-   * @default no-op
    */
-  onVisibilityChange(tooltipShown: boolean): void;
+  onVisibleChange?: (state: boolean) => void;
   /**
-   * Tooltip
+   * Whether to close the tooltip when its trigger is out of boundary
+   * @default true
    */
-  tooltip(arg: TooltipArg): React.ReactNode;
+  closeOnReferenceHidden?: boolean;
+  /**
+   * Alias for popper.js placement, see https://popper.js.org/docs/v2/constructors/#placement
+   */
+  placement?: PopperJS.Placement;
+  /**
+   * Shorthand for popper.js offset modifier, see https://popper.js.org/docs/v2/modifiers/offset/
+   * @default [0, 10]
+   */
+  offset?: [number, number];
+};
+
+export type PopperOptions = Partial<PopperJS.Options> & {
+  createPopper?: typeof PopperJS.createPopper;
+};
+
+type ChildrenArg = {
+  triggerRef: Ref;
+  getTriggerProps<T>(arg: T): T;
 }
 
-export interface TooltipTriggerState {
-  pageX?: number;
-  pageY?: number;
-  tooltipShown: boolean;
+type TooltipArg = {
+  arrowRef: Ref;
+  tooltipRef: Ref;
+  placement: ConfigProps['placement'];
+  getArrowProps<T>(arg: T): T;
+  getTooltipProps<T>(arg: T): T;
 }
 
-export interface TooltipProps {
-  arrowProps: PopperArrowProps;
-  closeOnReferenceHidden: boolean;
-  innerRef: Ref;
-  isReferenceHidden?: boolean;
-  placement: Placement;
-  style: React.CSSProperties;
-  trigger: Trigger;
-  mutationObserverOptions: MutationObserverInit;
-  clearScheduled(): void;
-  hideTooltip(): void;
+type Ref =
+  | ((element: HTMLElement | null) => void)
+  | { current: HTMLElement | null }
+  | null;
+
+export type TooltipTriggerProps = {
+  children(arg: ChildrenArg): React.ReactNode;
+  closeOnReferenceHidden: ConfigProps['closeOnReferenceHidden'];
+  defaultTooltipShown: ConfigProps['initialVisible'];
+  delayHide: ConfigProps['delayHide'];
+  delayShow: ConfigProps['delayShow'];
+  getTriggerRef?: Ref;
+  modifiers: Modifier<any>[];
+  mutationObserverOptions: ConfigProps['mutationObserverOptions'];
+  onVisibilityChange: ConfigProps['onVisibleChange'];
+  placement: ConfigProps['placement'];
+  portalContainer: HTMLElement;
   tooltip(arg: TooltipArg): React.ReactNode;
-  update(): void;
-}
+  tooltipShown: ConfigProps['visible'];
+  trigger: ConfigProps['trigger'];
+  usePortal: Boolean;
+};

@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
-import {
-  usePopperTooltip,
-} from './usePopperTooltip';
-
+import { usePopperTooltip } from './usePopperTooltip';
 import { TooltipTriggerProps } from './types';
 
 const canUseDOM = Boolean(
@@ -34,7 +31,7 @@ export function TooltipTrigger({
   portalContainer,
   modifiers,
   mutationObserverOptions,
-}) {
+}: TooltipTriggerProps) {
   const {
     triggerRef,
     getArrowProps,
@@ -61,7 +58,7 @@ export function TooltipTrigger({
   );
 
   const reference = children({
-    getTriggerProps: (v) => v,
+    getTriggerProps: (props) => props,
     triggerRef: setTriggerRef,
   });
 

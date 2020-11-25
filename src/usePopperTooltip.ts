@@ -1,68 +1,11 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
 import { useControlledProp, useGetLatest } from './utils';
-import * as PopperJS from '@popperjs/core';
-
-type TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
-
-type ConfigProps = {
-  /**
-   * Event or events that trigger the tooltip
-   * @default hover
-   */
-  trigger?: TriggerType | TriggerType[];
-  /**
-   * Delay in hiding the tooltip (ms)
-   * @default 0
-   */
-  delayHide?: number;
-  /**
-   * Delay in showing the tooltip (ms)
-   * @default 0
-   */
-  delayShow?: number;
-  /**
-   * Options to MutationObserver, used internally for updating
-   * tooltip position based on its DOM changes
-   * @default  { attributes: true, childList: true, subtree: true }
-   */
-  mutationObserverOptions?: MutationObserverInit;
-  /**
-   * Whether tooltip is shown by default
-   * @default false
-   */
-  initialVisible?: boolean;
-  /**
-   * Used to create controlled tooltip
-   */
-  visible?: boolean;
-  /**
-   * Called when the visibility of the tooltip changes
-   */
-  onVisibleChange?: (state: boolean) => void;
-  /**
-   * Whether to close the tooltip when its trigger is out of boundary
-   * @default true
-   */
-  closeOnReferenceHidden?: boolean;
-  /**
-   * Alias for popper.js placement, see https://popper.js.org/docs/v2/constructors/#placement
-   */
-  placement?: PopperJS.Placement;
-  /**
-   * Shorthand for popper.js offset modifier, see https://popper.js.org/docs/v2/modifiers/offset/
-   * @default [0, 10]
-   */
-  offset?: [number, number];
-};
-
-type PopperOptions = Partial<PopperJS.Options> & {
-  createPopper?: typeof PopperJS.createPopper;
-};
+import { ConfigProps, PopperOptions, TriggerType } from './types';
 
 export function usePopperTooltip(
   originalConfig: ConfigProps = {},
-  originalPopperOptions?: PopperOptions
+  originalPopperOptions: PopperOptions = {}
 ) {
   const config = {
     ...originalConfig,
@@ -81,7 +24,7 @@ export function usePopperTooltip(
 
   const popperOptions = {
     placement: config.placement,
-    modifiers: [{ options: { offset: config.offset } }],
+    modifiers: [{ name: 'offset', options: { offset: config.offset } }],
     ...originalPopperOptions,
   };
 

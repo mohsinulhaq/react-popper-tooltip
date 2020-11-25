@@ -11,12 +11,7 @@ export function BasicExample() {
     setTooltipRef,
     setTriggerRef,
     visible,
-  } = usePopperTooltip(
-    { delayHide: 1000, delayShow: 1000},
-    {
-      placement: "top",
-    }
-  );
+  } = usePopperTooltip();
 
   return (
     <div className="App">

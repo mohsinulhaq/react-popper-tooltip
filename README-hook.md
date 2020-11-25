@@ -1,14 +1,14 @@
 React-popper-tooltip is a React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org) library.
 
-### Docs
+## Docs
 
-[Migrating from 3.x to 4.x]()
+[Migrating from 3.x to 4.x](/migrating.md)
 
 [3.x docs]()
 
-### Examples
+## Examples
 
-### Installation
+## Installation
 
 You can install react-popper-tooltip with [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
 
@@ -18,7 +18,7 @@ $ npm i react-popper-tooltip
 $ yarn add react-popper-tooltip
 ```
 
-### Quick start
+## Quick start
 
 This example illustrates how to create a minimal tooltip with default settings and using a default css file.
 
@@ -61,13 +61,13 @@ function App() {
 render(<App />, document.getElementById('root'));
 ```
 
-### Render props
+## Render props
 
 This is a legacy API for compatibility with 3.x users moving to 4.x. We recommend using the `usePopperTooltip` hook.
 
 There are some breaking changes, for more information see [Migrating from 3.x to 4.x]().
 
-### API reference
+## API reference
 
 ```jsx
 const {
@@ -98,7 +98,7 @@ const {
 );
 ```
 
-#### Options
+### Options
 
 - `closeOnReferenceHidden: Boolean`, defaults to `true`
 
@@ -169,7 +169,7 @@ These options passed directly to the underlying `usePopper` hook. See [https://p
 Keep in mind, if you set `placement` or any `modifiers` here, it replaces `offset` and `placement` options above. They won't be merged into
 the final object.
 
-#### Returns
+### Returns
 
 - `arrowRef: HTMLElement | null`
 
