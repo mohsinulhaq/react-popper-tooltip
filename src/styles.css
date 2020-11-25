@@ -1,7 +1,10 @@
 .tooltip-container {
-  background-color: #fff;
+  --tooltipBackground: #fff;
+  --tooltipBorder: #c0c0c0;
+
+  background-color: var(--tooltipBackground);
   border-radius: 3px;
-  border: 1px solid silver;
+  border: 1px solid var(--tooltipBorder);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
   color: #000;
   display: flex;
@@ -45,14 +48,14 @@
 }
 
 .tooltip-container[data-popper-placement*='bottom'] .tooltip-arrow::before {
-  border-color: transparent transparent silver transparent;
+  border-color: transparent transparent var(--tooltipBorder) transparent;
   border-width: 0 0.5rem 0.4rem 0.5rem;
   position: absolute;
   top: -1px;
 }
 
 .tooltip-container[data-popper-placement*='bottom'] .tooltip-arrow::after {
-  border-color: transparent transparent white transparent;
+  border-color: transparent transparent var(--tooltipBackground) transparent;
   border-width: 0 0.5rem 0.4rem 0.5rem;
 }
 
@@ -65,14 +68,14 @@
 }
 
 .tooltip-container[data-popper-placement*='top'] .tooltip-arrow::before {
-  border-color: silver transparent transparent transparent;
+  border-color: var(--tooltipBorder) transparent transparent transparent;
   border-width: 0.4rem 0.5rem 0 0.5rem;
   position: absolute;
   top: 1px;
 }
 
 .tooltip-container[data-popper-placement*='top'] .tooltip-arrow::after {
-  border-color: white transparent transparent transparent;
+  border-color: var(--tooltipBackground) transparent transparent transparent;
   border-width: 0.4rem 0.5rem 0 0.5rem;
 }
 
@@ -84,12 +87,12 @@
 }
 
 .tooltip-container[data-popper-placement*='right'] .tooltip-arrow::before {
-  border-color: transparent silver transparent transparent;
+  border-color: transparent var(--tooltipBorder) transparent transparent;
   border-width: 0.5rem 0.4rem 0.5rem 0;
 }
 
 .tooltip-container[data-popper-placement*='right'] .tooltip-arrow::after {
-  border-color: transparent white transparent transparent;
+  border-color: transparent var(--tooltipBackground) transparent transparent;
   border-width: 0.5rem 0.4rem 0.5rem 0;
   left: 6px;
   top: 0;
@@ -103,12 +106,12 @@
 }
 
 .tooltip-container[data-popper-placement*='left'] .tooltip-arrow::before {
-  border-color: transparent transparent transparent silver;
+  border-color: transparent transparent transparent var(--tooltipBorder);
   border-width: 0.5rem 0 0.5rem 0.4em;
 }
 
 .tooltip-container[data-popper-placement*='left'] .tooltip-arrow::after {
-  border-color: transparent transparent transparent white;
+  border-color: transparent transparent transparent var(--tooltipBackground);
   border-width: 0.5rem 0 0.5rem 0.4em;
   left: 3px;
   top: 0;
