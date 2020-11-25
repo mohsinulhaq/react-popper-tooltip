@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import TooltipTrigger from '../src';
+import { TooltipTrigger } from '../src';
 
 interface BasicTooltipTriggerProps {
   tooltip: React.ReactNode;

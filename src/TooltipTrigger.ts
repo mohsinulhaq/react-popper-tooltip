@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import {
-  defaultConfig,
-  defaultPopperOptions,
   usePopperTooltip,
 } from './usePopperTooltip';
 
@@ -15,11 +13,6 @@ const canUseDOM = Boolean(
 );
 
 const defaultProps = {
-  ...defaultConfig,
-  ...defaultPopperOptions,
-  closeOnReferenceHidden: true,
-  defaultTooltipShown: false,
-  onVisibilityChange: () => {},
   placement: 'right',
   portalContainer: canUseDOM ? document.body : null,
   usePortal: canUseDOM,
@@ -81,7 +74,7 @@ export function TooltipTrigger({
   });
 
   React.useEffect(() => {
-    getTriggerRef(triggerRef);
+    if (typeof getTriggerRef === 'function') getTriggerRef(triggerRef);
   }, [triggerRef, getTriggerRef]);
 
   return [

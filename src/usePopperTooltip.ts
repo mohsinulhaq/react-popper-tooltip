@@ -5,7 +5,7 @@ import * as PopperJS from '@popperjs/core';
 
 type TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
 
-interface ConfigProps {
+type ConfigProps = {
   /**
    * Event or events that trigger the tooltip
    * @default hover
@@ -54,43 +54,35 @@ interface ConfigProps {
    * @default [0, 10]
    */
   offset?: [number, number];
-}
+};
 
 type PopperOptions = Partial<PopperJS.Options> & {
   createPopper?: typeof PopperJS.createPopper;
 };
 
-export const defaultConfig: ConfigProps = {
-  closeOnReferenceHidden: true,
-  delayHide: 0,
-  delayShow: 0,
-  initialVisible: false,
-  mutationObserverOptions: {
-    attributes: true,
-    childList: true,
-    subtree: true,
-  },
-  offset: [0, 10],
-  trigger: 'hover',
-};
-
-export const defaultPopperOptions: PopperOptions = {
-  modifiers: [{ options: { offset: defaultConfig.offset } }],
-};
-
 export function usePopperTooltip(
-  config: ConfigProps = {},
-  popperOptions?: PopperOptions
+  originalConfig: ConfigProps = {},
+  originalPopperOptions?: PopperOptions
 ) {
-  config = {
-    ...defaultConfig,
-    ...config,
+  const config = {
+    ...originalConfig,
+    closeOnReferenceHidden: originalConfig.closeOnReferenceHidden || true,
+    delayHide: originalConfig.delayHide || 0,
+    delayShow: originalConfig.delayShow || 0,
+    initialVisible: originalConfig.initialVisible || false,
+    mutationObserverOptions: originalConfig.mutationObserverOptions || {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    },
+    offset: originalConfig.offset || [0, 10],
+    trigger: originalConfig.trigger || 'hover',
   };
 
-  popperOptions = {
+  const popperOptions = {
     placement: config.placement,
-    ...defaultPopperOptions,
-    ...popperOptions,
+    modifiers: [{ options: { offset: config.offset } }],
+    ...originalPopperOptions,
   };
 
   const [triggerRef, setTriggerRef] = React.useState<HTMLElement | null>(null);
