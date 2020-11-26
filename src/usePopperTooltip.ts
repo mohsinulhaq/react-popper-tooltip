@@ -23,9 +23,11 @@ export function usePopperTooltip(
   };
 
   const popperOptions = {
-    placement: config.placement,
-    modifiers: [{ name: 'offset', options: { offset: config.offset } }],
     ...originalPopperOptions,
+    placement: originalPopperOptions.placement || config.placement,
+    modifiers: originalPopperOptions.modifiers || [
+      { name: 'offset', options: { offset: config.offset } },
+    ],
   };
 
   const [triggerRef, setTriggerRef] = React.useState<HTMLElement | null>(null);
