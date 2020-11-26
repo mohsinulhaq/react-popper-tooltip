@@ -3,10 +3,10 @@ name: TooltipTrigger
 route: /
 ---
 
-import {Playground} from 'docz';
+import { Playground } from 'docz';
 import BasicTooltipTrigger from './examples/BasicTooltipTrigger';
 import EscapeToClose from './examples/EscapeToClose';
-import {StateContainer} from './examples/utils';
+import { StateContainer } from './examples/utils';
 
 # TooltipTrigger
 
@@ -15,7 +15,11 @@ The example files are in `docs/examples` directory.
 ## `hover` trigger
 
 <Playground>
-  <BasicTooltipTrigger tooltip="Hello, World!">
+  <BasicTooltipTrigger
+    tooltip="Hello, World!"
+    delayHide={10000}
+    delayAnimationHide={2000}
+  >
     Hover over me!
   </BasicTooltipTrigger>
 </Playground>
@@ -50,7 +54,7 @@ _`followCursor` prop_
         padding: 10,
         width: 200,
         height: 100,
-        border: '1px solid silver'
+        border: '1px solid silver',
       }}
     >
       Hover over here
@@ -67,7 +71,7 @@ _`followCursor` prop_
       border: '1px solid silver',
       padding: 20,
       display: 'flex',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     }}
   >
     <div
@@ -76,7 +80,7 @@ _`followCursor` prop_
         flex: 2,
         flexDirection: 'column',
         justifyContent: 'space-around',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <BasicTooltipTrigger
@@ -84,13 +88,13 @@ _`followCursor` prop_
         tooltip="Hello, World!"
         placement="top"
       >
-        <input placeholder="Focus me!" style={{width: 70}} />
+        <input placeholder="Focus me!" style={{ width: 70 }} />
       </BasicTooltipTrigger>
       <BasicTooltipTrigger trigger="focus" tooltip="Hello, World!">
-        <input placeholder="Focus me too!" style={{width: 70}} />
+        <input placeholder="Focus me too!" style={{ width: 70 }} />
       </BasicTooltipTrigger>
     </div>
-    <div style={{flex: 3, fontSize: 12, textAlign: 'center', padding: 50}}>
+    <div style={{ flex: 3, fontSize: 12, textAlign: 'center', padding: 50 }}>
       Click inside this area and focus using the Tab key on desktop. On mobile,
       just click on the inputs.
     </div>
@@ -111,7 +115,7 @@ _`tooltipShown` prop_
 
 <Playground>
   <StateContainer>
-    {({on, set, toggle}) => (
+    {({ on, set, toggle }) => (
       <div>
         <button onClick={toggle}>Toggle tooltip</button>
         <br />
@@ -133,7 +137,7 @@ _`tooltipShown` prop_
 
 <Playground>
   <StateContainer>
-    {({on, set}) => (
+    {({ on, set }) => (
       <BasicTooltipTrigger
         trigger="click"
         tooltipShown={on}

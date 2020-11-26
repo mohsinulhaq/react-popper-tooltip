@@ -74,12 +74,13 @@ class Tooltip extends Component<TooltipProps> {
   }
 
   public render() {
-    const { arrowProps, placement, tooltip } = this.props;
+    const { arrowProps, placement, tooltip, tooltipDelayShown } = this.props;
 
     return (
       <TooltipContext.Provider value={this.contextValue}>
         {tooltip({
           arrowRef: arrowProps.ref,
+          tooltipDelayShown,
           getArrowProps: this.getArrowProps,
           getTooltipProps: this.getTooltipProps,
           placement,

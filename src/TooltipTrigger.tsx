@@ -30,6 +30,7 @@ class TooltipTrigger extends Component<
     delayShow: 0,
     followCursor: false,
     onVisibilityChange: noop,
+    onVisibilityDelayChange: noop,
     placement: 'right',
     portalContainer: canUseDOM() ? document.body : null,
     trigger: 'hover',
@@ -112,6 +113,7 @@ class TooltipTrigger extends Component<
                 trigger,
                 mutationObserverOptions,
               }}
+              tooltipDelayShown={this.state.tooltipDelayShown}
               clearScheduled={this.clearScheduled}
               hideTooltip={this.hideTooltip}
               innerRef={ref}
@@ -172,6 +174,7 @@ class TooltipTrigger extends Component<
         pageY,
       };
     }
+    this.setTooltipVisibilityDelayState({ tooltipDelayShown: true });
     this.showTimeout = window.setTimeout(
       () => this.setTooltipState(state),
       this.props.delayShow
@@ -180,6 +183,7 @@ class TooltipTrigger extends Component<
 
   private hideTooltip = () => {
     this.clearScheduled();
+    this.setTooltipState({ tooltipDelayShown: false });
     this.hideTimeout = window.setTimeout(
       () => this.setTooltipState({ tooltipShown: false }),
       this.props.delayHide
