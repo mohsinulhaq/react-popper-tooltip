@@ -139,6 +139,7 @@ export interface TooltipTriggerState {
   pageX?: number;
   pageY?: number;
   tooltipShown: boolean;
+  tooltipDelayShown: boolean;
 }
 
 export interface TooltipProps {
