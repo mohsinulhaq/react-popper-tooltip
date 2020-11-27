@@ -1,6 +1,11 @@
 # react-popper-tooltip 
 
-A React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org) library.
+[![npm version](https://img.shields.io/npm/v/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
+[![npm downloads](https://img.shields.io/npm/dm/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
+[![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
+[![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
+
+A React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), a React wrapper around [popper.js](https://popper.js.org) library.
 
 ## Docs
 
@@ -119,8 +124,7 @@ Delay in showing the tooltip (ms).
 
 - `initialVisible: Boolean`, defaults to `false`
 
-The initial visibility state of the tooltip. 
-
+The initial visibility state of the tooltip when the hook is initialized. 
 
 - `visible: Boolean`
 
