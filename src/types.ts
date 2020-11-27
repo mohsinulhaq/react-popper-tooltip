@@ -59,6 +59,8 @@ export type PopperOptions = Partial<PopperJS.Options> & {
   createPopper?: typeof PopperJS.createPopper;
 };
 
+export type PropsGetterArgs = { style?: React.CSSProperties };
+
 type ChildrenArg = {
   triggerRef: Ref;
   getTriggerProps<T>(arg: T): T;
@@ -68,8 +70,8 @@ type TooltipArg = {
   arrowRef: Ref;
   tooltipRef: Ref;
   placement: ConfigProps['placement'];
-  getArrowProps<T>(arg: T): T;
-  getTooltipProps<T>(arg: T): T;
+  getArrowProps(arg: PropsGetterArgs): PropsGetterArgs;
+  getTooltipProps(arg: PropsGetterArgs): PropsGetterArgs;
 }
 
 type Ref =

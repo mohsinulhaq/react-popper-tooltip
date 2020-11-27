@@ -7,8 +7,7 @@ function App() {
   return <Example />;
 }
 
-export function Example() {
-
+function Example() {
   const {
     getArrowProps,
     getTooltipProps,
@@ -20,24 +19,27 @@ export function Example() {
 
   return (
     <div className="App">
-      <h1>Basic example</h1>
+      <h1>react-popper-tooltip</h1>
+      <p>Using a react portal to render tooltip before closing body tag.</p>
 
       <button type="button" ref={setTriggerRef}>
         Reference element
       </button>
 
-      {visible && (
-        <div
-          ref={setTooltipRef}
-          {...getTooltipProps({ className: "tooltip-container" })}
-        >
-          Popper element
+      {visible &&
+        ReactDOM.createPortal(
           <div
-            ref={setArrowRef}
-            {...getArrowProps({ className: "tooltip-arrow" })}
-          />
-        </div>
-      )}
+            ref={setTooltipRef}
+            {...getTooltipProps({ className: 'tooltip-container' })}
+          >
+            Popper element
+            <div
+              ref={setArrowRef}
+              {...getArrowProps({ className: 'tooltip-arrow' })}
+            />
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

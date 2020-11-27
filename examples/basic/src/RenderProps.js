@@ -49,7 +49,6 @@ export function RenderPropsExample() {
         placement="right"
         trigger="click"
         tooltip={Tooltip}
-        getTriggerRef={(e) => console.log(e)}
       >
         {Trigger}
       </TooltipTrigger>

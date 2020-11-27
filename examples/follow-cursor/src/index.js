@@ -1,8 +1,13 @@
 import * as React from 'react';
+import ReactDOM from 'react-dom';
 import 'react-popper-tooltip/src/styles.css';
 import { usePopperTooltip } from 'react-popper-tooltip';
 
-export function FollowCursorExample() {
+function App() {
+  return <Example />;
+}
+
+function Example() {
   const store = React.useRef();
 
   const {
@@ -13,9 +18,7 @@ export function FollowCursorExample() {
     setTriggerRef,
     visible,
     update,
-  } = usePopperTooltip({
-    trigger: 'hover',
-  });
+  } = usePopperTooltip();
 
   React.useEffect(() => {
     if (triggerRef == null) return;
@@ -51,7 +54,8 @@ export function FollowCursorExample() {
 
   return (
     <div className="App">
-      <h1>Follow cursor example</h1>
+      <h1>react-popper-tooltip</h1>
+      <p>Tooltip follows a cursor</p>
 
       <button
         type="button"
@@ -75,3 +79,6 @@ export function FollowCursorExample() {
     </div>
   );
 }
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<App />, rootElement);

@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
 import { useControlledProp, useGetLatest } from './utils';
-import { ConfigProps, PopperOptions, TriggerType } from './types';
+import {
+  ConfigProps,
+  PopperOptions,
+  PropsGetterArgs,
+  TriggerType,
+} from './types';
 
 export function usePopperTooltip(
   originalConfig: ConfigProps = {},
@@ -182,7 +187,7 @@ export function usePopperTooltip(
   }, [getLatest, tooltipRef, update]);
 
   // Tooltip props getter
-  const getTooltipProps = (args: { style?: React.CSSProperties } = {}) => {
+  const getTooltipProps = (args: PropsGetterArgs = {}) => {
     return {
       ...args,
       style: { ...styles.popper, ...args.style },
@@ -191,7 +196,7 @@ export function usePopperTooltip(
   };
 
   // Arrow props getter
-  const getArrowProps = (args: { style?: React.CSSProperties } = {}) => {
+  const getArrowProps = (args: PropsGetterArgs = {}) => {
     return {
       ...args,
       style: { ...styles.arrow, ...args.style },
