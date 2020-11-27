@@ -18,7 +18,7 @@ export function usePopperTooltip(
     closeOnTriggerHidden: originalConfig.closeOnTriggerHidden || true,
     delayHide: originalConfig.delayHide || 0,
     delayShow: originalConfig.delayShow || 0,
-    initialVisible: originalConfig.initialIsVisible || false,
+    initialVisible: originalConfig.initialVisible || false,
     mutationObserverOptions: originalConfig.mutationObserverOptions || {
       attributes: true,
       childList: true,
@@ -41,7 +41,7 @@ export function usePopperTooltip(
   const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
   const [visible, setVisible] = useControlledProp({
     initial: config.initialVisible,
-    value: config.isVisible,
+    value: config.visible,
     onChange: config.onVisibleChange,
   });
 

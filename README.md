@@ -41,7 +41,7 @@ function App() {
     setArrowRef,
     setTooltipRef,
     setTriggerRef,
-    isVisible,
+    visible,
   } = usePopperTooltip();
 
   return (
@@ -49,7 +49,7 @@ function App() {
       <button type="button" ref={setTriggerRef}>
         Reference element
       </button>
-      {isVisible && (
+      {visible && (
         <div
           ref={setTooltipRef}
           {...getTooltipProps({ className: 'tooltip-container' })}
@@ -86,20 +86,20 @@ const {
   setTriggerRef,
   tooltipRef,
   triggerRef,
-  isVisible,
+  visible,
   ...popperProps
 } = usePopperTooltip(
   {
     closeOnTriggerHidden,
     delayHide,
     delayShow,
-    initialIsVisible,
+    initialVisible,
     mutationObserverOptions,
     offset,
     onVisibleChange,
     placement,
     trigger,
-    isVisible:visible,
+    visible:visible,
   },
   popperOptions
 );
@@ -126,11 +126,11 @@ Delay in hiding the tooltip (ms).
 Delay in showing the tooltip (ms).
 
 
-- `initialIsVisible: Boolean`, defaults to `false`
+- `initialVisible: Boolean`, defaults to `false`
 
 The initial visibility state of the tooltip when the hook is initialized. 
 
-- `isVisible: Boolean`
+- `visible: Boolean`
 
 The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip.
 
@@ -211,7 +211,7 @@ A tooltop callback ref. Must be assigned to the tooltip's `ref` prop.
 A trigger callback ref. Must be assigned to the trigger's `ref` prop.
 
 
-- `isVisible: Boolean`
+- `visible: Boolean`
 
 The current visibility state of the tooltip. Use it to hide or display the tooltip.
 

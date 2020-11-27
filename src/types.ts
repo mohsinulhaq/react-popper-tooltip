@@ -30,11 +30,11 @@ export type ConfigProps = {
    * Whether tooltip is shown by default
    * @default false
    */
-  initialIsVisible?: boolean;
+  initialVisible?: boolean;
   /**
    * Used to create controlled tooltip
    */
-  isVisible?: boolean;
+  visible?: boolean;
   /**
    * Called when the visibility of the tooltip changes
    */
@@ -87,7 +87,7 @@ type Ref =
 export type TooltipTriggerProps = {
   children(arg: ChildrenArg): React.ReactNode;
   closeOnReferenceHidden: ConfigProps['closeOnTriggerHidden'];
-  defaultTooltipShown: ConfigProps['initialIsVisible'];
+  defaultTooltipShown: ConfigProps['initialVisible'];
   delayHide: ConfigProps['delayHide'];
   delayShow: ConfigProps['delayShow'];
   getTriggerRef?: Ref;
@@ -97,7 +97,7 @@ export type TooltipTriggerProps = {
   placement: ConfigProps['placement'];
   portalContainer: HTMLElement;
   tooltip(arg: TooltipArg): React.ReactNode;
-  tooltipShown: ConfigProps['isVisible'];
+  tooltipShown: ConfigProps['visible'];
   trigger: ConfigProps['trigger'];
   usePortal: Boolean;
 };
