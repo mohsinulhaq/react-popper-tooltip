@@ -62,7 +62,7 @@ function Example() {
         ref={setTriggerRef}
         style={{ width: '200px', height: '200px' }}
       >
-        Reference element
+        Trigger element
       </button>
 
       {visible && (
@@ -73,7 +73,7 @@ function Example() {
             style: { transform: getTransform() },
           })}
         >
-          Popper element
+          Tooltip element
         </div>
       )}
     </div>

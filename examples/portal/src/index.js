@@ -23,7 +23,7 @@ function Example() {
       <p>Using a react portal to render tooltip before closing body tag.</p>
 
       <button type="button" ref={setTriggerRef}>
-        Reference element
+        Trigger element
       </button>
 
       {visible &&
@@ -32,7 +32,7 @@ function Example() {
             ref={setTooltipRef}
             {...getTooltipProps({ className: 'tooltip-container' })}
           >
-            Popper element
+            Tooltip element
             <div
               ref={setArrowRef}
               {...getArrowProps({ className: 'tooltip-arrow' })}

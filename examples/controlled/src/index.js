@@ -33,11 +33,11 @@ export function Example() {
       </p>
 
       <button type="button" ref={setTriggerRef}>
-        Reference element
+        Trigger element
       </button>
 
-      <p>External state control - click the button to show/hide</p>
-      <button onClick={() => setControlledVisible((v) => !v)}>
+      <p>External state control - click the button below to show/hide the tooltip.</p>
+      <button onClick={() => setControlledVisible(!controlledVisible)}>
         External control
       </button>
 
@@ -46,7 +46,7 @@ export function Example() {
           ref={setTooltipRef}
           {...getTooltipProps({ className: 'tooltip-container' })}
         >
-          Popper element
+          Tooltip element
           <div
             ref={setArrowRef}
             {...getArrowProps({ className: 'tooltip-arrow' })}

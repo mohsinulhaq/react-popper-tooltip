@@ -8,25 +8,35 @@ import {
   TriggerType,
 } from './types';
 
+const defaultConfig: ConfigProps = {
+  closeOnClickOutside: true,
+  closeOnTriggerHidden: true,
+  delayHide: 0,
+  delayShow: 0,
+  initialVisible: false,
+  mutationObserverOptions: {
+    attributes: true,
+    childList: true,
+    subtree: true,
+  },
+  offset: [0, 10],
+  trigger: 'hover',
+};
+
 export function usePopperTooltip(
   originalConfig: ConfigProps = {},
   originalPopperOptions: PopperOptions = {}
 ) {
-  const config = {
-    ...originalConfig,
-    closeOnClickOutside: originalConfig.closeOnClickOutside || true,
-    closeOnTriggerHidden: originalConfig.closeOnTriggerHidden || true,
-    delayHide: originalConfig.delayHide || 0,
-    delayShow: originalConfig.delayShow || 0,
-    initialVisible: originalConfig.initialVisible || false,
-    mutationObserverOptions: originalConfig.mutationObserverOptions || {
-      attributes: true,
-      childList: true,
-      subtree: true,
-    },
-    offset: originalConfig.offset || [0, 10],
-    trigger: originalConfig.trigger || 'hover',
-  };
+  const config = (Object.keys(defaultConfig) as Array<
+    keyof typeof defaultConfig
+  >).reduce(
+    (config, key) => ({
+      ...config,
+      [key]:
+        originalConfig[key] != null ? originalConfig[key] : defaultConfig[key],
+    }),
+    originalConfig
+  );
 
   const popperOptions = {
     ...originalPopperOptions,
@@ -181,8 +191,7 @@ export function usePopperTooltip(
   const update = popperProps.update;
   React.useEffect(() => {
     const mutationObserverOptions = getLatest().config.mutationObserverOptions;
-    if (tooltipRef == null || update == null)
-      return;
+    if (tooltipRef == null || update == null) return;
 
     const observer = new MutationObserver(update);
     observer.observe(tooltipRef, mutationObserverOptions);

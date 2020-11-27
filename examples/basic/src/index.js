@@ -23,7 +23,7 @@ export function Example() {
       <h1>Basic example</h1>
 
       <button type="button" ref={setTriggerRef}>
-        Reference element
+        Trigger element
       </button>
 
       {visible && (
@@ -31,7 +31,7 @@ export function Example() {
           ref={setTooltipRef}
           {...getTooltipProps({ className: "tooltip-container" })}
         >
-          Popper element
+          Tooltip element
           <div
             ref={setArrowRef}
             {...getArrowProps({ className: "tooltip-arrow" })}

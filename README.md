@@ -47,7 +47,7 @@ function App() {
   return (
     <div className="App">
       <button type="button" ref={setTriggerRef}>
-        Reference element
+        Trigger element
       </button>
       {visible && (
         <div
@@ -160,7 +160,7 @@ Options to MutationObserver, used internally for updating tooltip position based
 - `offset: [number, number]`, defaults to `[0, 10]`
 
 This is a shorthand for `Popper.js` offset modifier option. The default value means the tooltip will be placed a 10px 
-away from the reference element (to reserve enough space for the arrow element).
+away from the trigger element (to reserve enough space for the arrow element).
                                                           
 `popperOptions` takes precedence over this option. See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
 
