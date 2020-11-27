@@ -1,4 +1,4 @@
-# React-popper-tooltip 
+# react-popper-tooltip 
 
 A React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org) library.
 
