@@ -14,10 +14,10 @@ export function usePopperTooltip(
 ) {
   const config = {
     ...originalConfig,
-    closeOnReferenceHidden: originalConfig.closeOnReferenceHidden || true,
+    closeOnReferenceHidden: originalConfig.closeOnTriggerHidden || true,
     delayHide: originalConfig.delayHide || 0,
     delayShow: originalConfig.delayShow || 0,
-    initialVisible: originalConfig.initialVisible || false,
+    initialVisible: originalConfig.initialIsVisible || false,
     mutationObserverOptions: originalConfig.mutationObserverOptions || {
       attributes: true,
       childList: true,
@@ -40,7 +40,7 @@ export function usePopperTooltip(
   const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
   const [visible, setVisible] = useControlledProp({
     initial: config.initialVisible,
-    value: config.visible,
+    value: config.isVisible,
     onChange: config.onVisibleChange,
   });
 
@@ -166,7 +166,7 @@ export function usePopperTooltip(
     };
   }, [tooltipRef, isTriggeredBy, showTooltip, hideTooltip]);
 
-  // Handle closeOnReferenceHidden prop
+  // Handle closeOnTriggerHidden prop
   const isReferenceHidden =
     popperProps.state?.modifiersData?.hide?.isReferenceHidden;
   React.useEffect(() => {
@@ -178,7 +178,7 @@ export function usePopperTooltip(
   const update = popperProps.update;
   React.useEffect(() => {
     const mutationObserverOptions = getLatest().config.mutationObserverOptions;
-    if (tooltipRef == null || update == null || mutationObserverOptions == null)
+    if (tooltipRef == null || update == null)
       return;
 
     const observer = new MutationObserver(update);

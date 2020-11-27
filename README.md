@@ -41,7 +41,7 @@ function App() {
     setArrowRef,
     setTooltipRef,
     setTriggerRef,
-    visible,
+    isVisible,
   } = usePopperTooltip();
 
   return (
@@ -49,7 +49,7 @@ function App() {
       <button type="button" ref={setTriggerRef}>
         Reference element
       </button>
-      {visible && (
+      {isVisible && (
         <div
           ref={setTooltipRef}
           {...getTooltipProps({ className: 'tooltip-container' })}
@@ -86,20 +86,20 @@ const {
   setTriggerRef,
   tooltipRef,
   triggerRef,
-  visible,
+  isVisible,
   ...popperProps
 } = usePopperTooltip(
   {
-    closeOnReferenceHidden,
+    closeOnTriggerHidden,
     delayHide,
     delayShow,
-    initialVisible,
+    initialIsVisible,
     mutationObserverOptions,
     offset,
     onVisibleChange,
     placement,
     trigger,
-    visible,
+    isVisible:visible,
   },
   popperOptions
 );
@@ -107,9 +107,13 @@ const {
 
 ### Options
 
-- `closeOnReferenceHidden: Boolean`, defaults to `true`
+- `closeOnClickOutside: Boolean`, defaults to `true`
 
-Whether to close the tooltip when its trigger is out of boundary.
+If `true`, a click outside of the trigger element closes the tooltip.
+
+- `closeOnTriggerHidden: Boolean`, defaults to `true`
+
+If `true`, closes the tooltip when the trigger element goes out of viewport.
 
 
 - `delayHide: number`, defaults to `0`
@@ -122,11 +126,11 @@ Delay in hiding the tooltip (ms).
 Delay in showing the tooltip (ms).
 
 
-- `initialVisible: Boolean`, defaults to `false`
+- `initialIsVisible: Boolean`, defaults to `false`
 
 The initial visibility state of the tooltip when the hook is initialized. 
 
-- `visible: Boolean`
+- `isVisible: Boolean`
 
 The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip.
 
@@ -207,7 +211,7 @@ A tooltop callback ref. Must be assigned to the tooltip's `ref` prop.
 A trigger callback ref. Must be assigned to the trigger's `ref` prop.
 
 
-- `visible: Boolean`
+- `isVisible: Boolean`
 
 The current visibility state of the tooltip. Use it to hide or display the tooltip.
 

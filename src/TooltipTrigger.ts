@@ -45,10 +45,10 @@ export function TooltipTrigger({
       trigger,
       delayHide,
       delayShow,
-      initialVisible: defaultTooltipShown,
+      initialIsVisible: defaultTooltipShown,
       onVisibleChange: onVisibilityChange,
-      visible: tooltipShown,
-      closeOnReferenceHidden,
+      isVisible: tooltipShown,
+      closeOnTriggerHidden: closeOnReferenceHidden,
       mutationObserverOptions,
     },
     {

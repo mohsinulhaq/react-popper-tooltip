@@ -30,20 +30,20 @@ export type ConfigProps = {
    * Whether tooltip is shown by default
    * @default false
    */
-  initialVisible?: boolean;
+  initialIsVisible?: boolean;
   /**
    * Used to create controlled tooltip
    */
-  visible?: boolean;
+  isVisible?: boolean;
   /**
    * Called when the visibility of the tooltip changes
    */
   onVisibleChange?: (state: boolean) => void;
   /**
-   * Whether to close the tooltip when its trigger is out of boundary
+   * If `true`, closes the tooltip when the trigger element goes out of viewport
    * @default true
    */
-  closeOnReferenceHidden?: boolean;
+  closeOnTriggerHidden?: boolean;
   /**
    * Alias for popper.js placement, see https://popper.js.org/docs/v2/constructors/#placement
    */
@@ -81,8 +81,8 @@ type Ref =
 
 export type TooltipTriggerProps = {
   children(arg: ChildrenArg): React.ReactNode;
-  closeOnReferenceHidden: ConfigProps['closeOnReferenceHidden'];
-  defaultTooltipShown: ConfigProps['initialVisible'];
+  closeOnReferenceHidden: ConfigProps['closeOnTriggerHidden'];
+  defaultTooltipShown: ConfigProps['initialIsVisible'];
   delayHide: ConfigProps['delayHide'];
   delayShow: ConfigProps['delayShow'];
   getTriggerRef?: Ref;
@@ -92,7 +92,7 @@ export type TooltipTriggerProps = {
   placement: ConfigProps['placement'];
   portalContainer: HTMLElement;
   tooltip(arg: TooltipArg): React.ReactNode;
-  tooltipShown: ConfigProps['visible'];
+  tooltipShown: ConfigProps['isVisible'];
   trigger: ConfigProps['trigger'];
   usePortal: Boolean;
 };
