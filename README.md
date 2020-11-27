@@ -1,343 +1,230 @@
-# React Tooltip
+React-popper-tooltip is a React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org) library.
 
-[![npm version](https://img.shields.io/npm/v/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
-[![npm downloads](https://img.shields.io/npm/dm/react-popper-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-popper-tooltip)
-[![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
-[![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
+## Docs
 
-React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), the React wrapper around [popper.js](https://popper.js.org) library.
+[Migrating from 3.x to 4.x](/migrating.md)
 
-## Homepage
-
-https://react-popper-tooltip.netlify.app
-
-## Example
-
-https://codesandbox.io/s/pykkz77z5j
-
-### Usage
-
-```bash
-npm install react-popper-tooltip
-```
-
-or
-
-```bash
-yarn add react-popper-tooltip
-```
-
-```jsx
-import React from 'react';
-import {render} from 'react-dom';
-import TooltipTrigger from 'react-popper-tooltip';
-
-const Tooltip = ({
-  arrowRef,
-  tooltipRef,
-  getArrowProps,
-  getTooltipProps,
-  placement
-}) => (
-  <div
-    {...getTooltipProps({
-      ref: tooltipRef,
-      className: 'tooltip-container'
-      /* your props here */
-    })}
-  >
-    <div
-      {...getArrowProps({
-        ref: arrowRef,
-        className: 'tooltip-arrow',
-        'data-placement': placement
-        /* your props here */
-      })}
-    />
-    Hello, World!
-  </div>
-);
-
-const Trigger = ({getTriggerProps, triggerRef}) => (
-  <span
-    {...getTriggerProps({
-      ref: triggerRef,
-      className: 'trigger'
-      /* your props here */
-    })}
-  >
-    Click Me!
-  </span>
-);
-
-render(
-  <TooltipTrigger placement="right" trigger="click" tooltip={Tooltip}>
-    {Trigger}
-  </TooltipTrigger>,
-  document.getElementById('root')
-);
-```
-
-`TooltipTrigger` is the only component exposed by the package. It's just a positioning engine. What to render is left completely to the user, which can be provided using render props. Your props should be passed through `getTriggerProps`, `getTooltipProps` and `getArrowProps`.
-
-Read more about [render prop](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) pattern if you're not familiar with this approach.
-
-## Quick start
-
-If you would like our opinionated container and arrow styles for your tooltip for quick start, you may import `react-popper-tooltip/dist/styles.css`, and use the classes `tooltip-container` and `tooltip-arrow` as follows:
-
-### Tooltip.js
-
-```jsx
-import React from 'react';
-import TooltipTrigger from 'react-popper-tooltip';
-import 'react-popper-tooltip/dist/styles.css';
-
-const Tooltip = ({children, tooltip, hideArrow, ...props}) => (
-  <TooltipTrigger
-    {...props}
-    tooltip={({
-      arrowRef,
-      tooltipRef,
-      getArrowProps,
-      getTooltipProps,
-      placement
-    }) => (
-      <div
-        {...getTooltipProps({
-          ref: tooltipRef,
-          className: 'tooltip-container'
-        })}
-      >
-        {!hideArrow && (
-          <div
-            {...getArrowProps({
-              ref: arrowRef,
-              className: 'tooltip-arrow',
-              'data-placement': placement
-            })}
-          />
-        )}
-        {tooltip}
-      </div>
-    )}
-  >
-    {({getTriggerProps, triggerRef}) => (
-      <span
-        {...getTriggerProps({
-          ref: triggerRef,
-          className: 'trigger'
-        })}
-      >
-        {children}
-      </span>
-    )}
-  </TooltipTrigger>
-);
-
-export default Tooltip;
-```
-
-Then you can use it as shown in the example below.
-
-```jsx
-<Tooltip placement="top" trigger="click" tooltip="Hi there!">
-  Click me
-</Tooltip>
-```
+[3.x docs]()
 
 ## Examples
 
-To fiddle with our example recipes, run:
+## Installation
+
+You can install react-popper-tooltip with [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
 
 ```bash
-> npm install
-> npm run docs
+$ npm i react-popper-tooltip
+# or
+$ yarn add react-popper-tooltip
 ```
 
-or
+## Quick start
 
-```bash
-> yarn
-> yarn docs
-```
-
-and open up [localhost:3000](http://localhost:3000) in your browser.
-
-## Props
-
-### children
-
-> `function({})` | _required_
-
-This is called with an object. Read more about the properties of this object in
-the section "[Children and tooltip functions](#children-and-tooltip-functions)".
-
-### tooltip
-
-> `function({})` | _required_
-
-This is called with an object. Read more about the properties of this object in
-the section "[Children and tooltip functions](#children-and-tooltip-functions)".
-
-### defaultTooltipShown
-
-> `boolean` | defaults to `false`
-
-This is the initial visibility state of the tooltip.
-
-### onVisibilityChange
-
-> `function(tooltipShown: boolean)`
-
-Called with the tooltip state, when the visibility of the tooltip changes
-
-### tooltipShown
-
-> `boolean` | **control prop**
-
-Use this prop if you want to control the visibility state of the tooltip.
-
-`react-popper-tooltip` manages its own state internally. You can use this prop to pass the
-visibility state of the tooltip from the outside. You will be required to keep this state up to
-date (this is where `onVisibilityChange` becomes useful), but you can also control the state
-from anywhere, be that state from other components, `redux`, `react-router`, or anywhere else.
-
-### delayShow
-
-> `number` | defaults to `0`
-
-Delay in showing the tooltip (ms).
-
-### delayHide
-
-> `number` | defaults to `0`
-
-Delay in hiding the tooltip (ms).
-
-### placement
-
-> `string` | defaults to `right`
-
-The tooltip placement. Valid placements are:
-
-- `auto`
-- `top`
-- `right`
-- `bottom`
-- `left`
-
-Each placement can have a variation from this list:
-
-- `-start`
-- `-end`
-
-### trigger
-
-> `string` or `string[]` | defaults to `"hover"`
-
-The event(s) that trigger the tooltip. One of `click`, `right-click`, `hover`, `focus`, and `none`, or an array of them.
-
-### getTriggerRef
-
-> `function(HTMLElement) => void`
-
-Function that can be used to obtain a trigger element reference.
-
-### closeOnReferenceHidden
-
-> `boolean` | defaults to `true`
-
-Whether to close the tooltip when its trigger is out of boundary.
-
-### usePortal
-
-> `boolean` | defaults to `true`
-
-Whether to use `React.createPortal` for creating tooltip.
-
-### portalContainer
-
-> `HTMLElement` | defaults to `document.body`
-
-Element to be used as portal container
-
-### followCursor
-
-> `boolean` | defaults to `false`
-
-Whether to spawn the tooltip at the cursor position.
-
-Recommended usage with hover trigger and no arrow element
-
-### modifiers
-
-> `array` | defaults to []
-
-Modifiers passed directly to the underlying popper.js instance. For more information, refer to Popper.js’ [modifier](https://popper.js.org/docs/v2/modifiers) docs.
-
-### mutationObserverOptions
-
-> `object`
-
-Options to `MutationObserver`, used internally for updating tooltip position based on its DOM changes.
-For more information, refer to [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) docs.
-
-Default options:
-
-```
-{
-    childList: true,
-    subtree: true
-}
-```
-
-## Children and tooltip functions
-
-This is where you render whatever you want. `react-popper-tooltip` uses two render props `children`
-and `tooltip`. `Children` prop is used to trigger the appearance of the tooltip and `tooltip`
-displays the tooltip itself.
-
-You use it like so:
+This example illustrates how to create a minimal tooltip with default settings and using a default css file.
 
 ```jsx
-const tooltip = (
-  <TooltipTrigger tooltip={tooltip => <div>{/* more jsx here */}</div>}>
-    {trigger => <div>{/* more jsx here */}</div>}
-  </TooltipTrigger>
+import * as React from 'react';
+import { usePopperTooltip } from 'react-popper-tooltip';
+import 'react-popper-tooltip/dist/styles.css';
+
+function App() {
+  const {
+    getArrowProps,
+    getTooltipProps,
+    setArrowRef,
+    setTooltipRef,
+    setTriggerRef,
+    visible,
+  } = usePopperTooltip();
+
+  return (
+    <div className="App">
+      <button type="button" ref={setTriggerRef}>
+        Reference element
+      </button>
+      {visible && (
+        <div
+          ref={setTooltipRef}
+          {...getTooltipProps({ className: 'tooltip-container' })}
+        >
+          Tooltip text goes here.
+          <div
+            ref={setArrowRef}
+            {...getArrowProps({ className: 'tooltip-arrow' })}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+render(<App />, document.getElementById('root'));
+```
+
+## Render props
+
+This is a legacy API for compatibility with 3.x users moving to 4.x. We recommend using the `usePopperTooltip` hook.
+
+There are some breaking changes, for more information see [Migrating from 3.x to 4.x]().
+
+## API reference
+
+```jsx
+const {
+  arrowRef,
+  getArrowProps,
+  getTooltipProps,
+  setArrowRef,
+  setTooltipRef,
+  setTriggerRef,
+  tooltipRef,
+  triggerRef,
+  visible,
+  ...popperProps
+} = usePopperTooltip(
+  {
+    closeOnReferenceHidden,
+    delayHide,
+    delayShow,
+    initialVisible,
+    mutationObserverOptions,
+    offset,
+    onVisibleChange,
+    placement,
+    trigger,
+    visible,
+  },
+  popperOptions
 );
 ```
 
-### prop getters
+### Options
 
-> See [the blog post about prop getters](https://blog.kentcdodds.com/how-to-give-rendering-control-to-users-with-prop-getters-549eaef76acf)
+- `closeOnReferenceHidden: Boolean`, defaults to `true`
 
-These functions are used to apply props to the elements that you render.
-It's advisable to pass all your props to that function rather than applying them on the element
-yourself to avoid your props being overridden (or overriding the props returned). For example
-`<button {...getTriggerProps({onClick: event => console.log(event))}>Click me</button>`
+Whether to close the tooltip when its trigger is out of boundary.
 
-### children function
 
-| property        | type           | description                                                           |
-| --------------- | -------------- | --------------------------------------------------------------------- |
-| triggerRef      | `function ref` | returns the react ref you should apply to the trigger element.        |
-| getTriggerProps | `function({})` | returns the props you should apply to the trigger element you render. |
+- `delayHide: number`, defaults to `0`
 
-### tooltip function
+Delay in hiding the tooltip (ms).
 
-| property        | type           | description                                                           |
-| --------------- | -------------- | --------------------------------------------------------------------- |
-| arrowRef        | `function ref` | return the react ref you should apply to the tooltip arrow element.   |
-| tooltipRef      | `function ref` | return the react ref you should apply to the tooltip element.         |
-| getArrowProps   | `function({})` | return the props you should apply to the tooltip arrow element.       |
-| getTooltipProps | `function({})` | returns the props you should apply to the tooltip element you render. |
-| placement       | `string`       | return the dynamic placement of the tooltip.                          |
 
-## Inspiration and Thanks!
+- `delayShow: number`, defaults to `0`
 
-This library is based on [react-popper](https://github.com/FezVrasta/react-popper), the official
-react wrapper around [Popper.js](https://popper.js.org).
+Delay in showing the tooltip (ms).
 
-Using of render props, prop getters and doc style of this library are heavily inspired by
-[downshift](https://github.com/paypal/downshift).
+
+- `initialVisible: Boolean`, defaults to `false`
+
+The initial visibility state of the tooltip. 
+
+
+- `visible: Boolean`
+
+The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip.
+
+`react-popper-tooltip` manages its own state internally and calls `onVisibleChange` handler with any relevant changes.
+
+However, if more control is needed, you can pass this prop, and the state becomes controlled. As soon as it's not 
+undefined, internally, `react-popper-tooltip` will determine its state based on your prop's value rather than its own 
+internal state.
+
+
+- `onVisibleChange: Function(state: Boolean) => void`
+
+Called with the tooltip state, when the visibility of the tooltip changes.
+
+
+- `trigger: TriggerType | TriggerType[]`, where `TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus'`, defaults to `hover`
+
+Event or events that trigger the tooltip. 
+
+
+- `mutationObserverOptions: MutationObserverInit`, defaults to `{ attributes: true, childList: true, subtree: true }`
+
+Options to MutationObserver, used internally for updating tooltip position based on its DOM changes. See [MutationObserver
+](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
+
+
+- `offset: [number, number]`, defaults to `[0, 10]`
+
+This is a shorthand for `Popper.js` offset modifier option. The default value means the tooltip will be placed a 10px 
+away from the reference element (to reserve enough space for the arrow element).
+                                                          
+`popperOptions` takes precedence over this option. See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
+
+
+- `placement: 'auto' | 'auto-start' | 'auto-end' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end';`
+
+The preferred placement of the tooltip. This is an alias for `Popper.js` placement option. 
+
+`popperOptions` takes precedence over this option.
+
+
+- `popperOptions: { placement, modifiers, strategy, onFirstUpdate }`
+
+These options passed directly to the underlying `usePopper` hook. See [https://popper.js.org/docs/v2/constructors/#options](https://popper.js.org/docs/v2/constructors/#options).
+
+Keep in mind, if you set `placement` or any `modifiers` here, it replaces `offset` and `placement` options above. They won't be merged into
+the final object.
+
+### Returns
+
+- `arrowRef: HTMLElement | null`
+
+An arrow DOM element.
+
+
+- `tooltipRef: HTMLElement | null`
+
+A tooltip DOM element.
+
+
+- `triggerRef: HTMLElement | null`
+
+A trigger DOM element.
+
+
+- `setArrowRef: HTMLElement | null`
+
+An arrow callback ref. Must be assigned to the arrow's `ref` prop.
+
+
+- `setTooltipRef: HTMLElement | null`
+
+A tooltop callback ref. Must be assigned to the tooltip's `ref` prop.
+
+
+- `setTriggerRef: HTMLElement | null`
+
+A trigger callback ref. Must be assigned to the trigger's `ref` prop.
+
+
+- `visible: Boolean`
+
+The current visibility state of the tooltip. Use it to hide or display the tooltip.
+
+
+- `getArrowProps: Function(props) => mergedProps`
+
+This function merges your props and the internal props of the arrow element.
+We recommend passing all your props to that function rather than applying them on the element directly
+to avoid your props being overridden or overriding the internal props. 
+
+It returns merged props you have to spread to the arrow element.
+
+
+- `getTooltipProps: Function(props) => mergedProps`
+
+This function merges your props and the internal props of the tooltip element.
+We recommend passing all your props to that function rather than applying them on the element directly
+to avoid your props being overridden or overriding the internal props. 
+
+It returns merged props you have to spread to the tooltip element.
+
+- `popperProps: { update, forceUpdate, state }`
+
+Some props returned by the `usePopper` hook. See [https://popper.js.org/react-popper/v2/hook/](https://popper.js.org/react-popper/v2/hook/).
+
+This doesn't include `styles` and `attributes` props. They are included into `getArrowProps` and `getTooltipProps` prop getters.
