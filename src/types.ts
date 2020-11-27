@@ -40,6 +40,11 @@ export type ConfigProps = {
    */
   onVisibleChange?: (state: boolean) => void;
   /**
+   * If `true`, a click outside of the trigger element closes the tooltip
+   * @default true
+   */
+  closeOnClickOutside?: boolean;
+  /**
    * If `true`, closes the tooltip when the trigger element goes out of viewport
    * @default true
    */

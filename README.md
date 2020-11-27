@@ -109,11 +109,11 @@ const {
 
 - `closeOnClickOutside: Boolean`, defaults to `true`
 
-If `true`, a click outside of the trigger element closes the tooltip.
+If `true`, closes the tooltip when user clicks outside of the trigger element.
 
 - `closeOnTriggerHidden: Boolean`, defaults to `true`
 
-If `true`, closes the tooltip when the trigger element goes out of viewport.
+If `true`, closes the tooltip when the trigger element goes out of the viewport.
 
 
 - `delayHide: number`, defaults to `0`

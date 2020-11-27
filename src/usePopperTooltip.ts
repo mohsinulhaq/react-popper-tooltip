@@ -14,7 +14,8 @@ export function usePopperTooltip(
 ) {
   const config = {
     ...originalConfig,
-    closeOnReferenceHidden: originalConfig.closeOnTriggerHidden || true,
+    closeOnClickOutside: originalConfig.closeOnClickOutside || true,
+    closeOnTriggerHidden: originalConfig.closeOnTriggerHidden || true,
     delayHide: originalConfig.delayHide || 0,
     delayShow: originalConfig.delayShow || 0,
     initialVisible: originalConfig.initialIsVisible || false,
@@ -98,6 +99,8 @@ export function usePopperTooltip(
 
   // Handle click outside
   React.useEffect(() => {
+    if (!getLatest().config.closeOnClickOutside) return;
+
     const handleStart: EventListener = (event) => {
       const { tooltipRef, triggerRef } = getLatest();
       const target = event.target;
@@ -170,7 +173,7 @@ export function usePopperTooltip(
   const isReferenceHidden =
     popperProps.state?.modifiersData?.hide?.isReferenceHidden;
   React.useEffect(() => {
-    if (getLatest().config.closeOnReferenceHidden && isReferenceHidden)
+    if (getLatest().config.closeOnTriggerHidden && isReferenceHidden)
       hideTooltip();
   }, [getLatest, hideTooltip, isReferenceHidden]);
 
