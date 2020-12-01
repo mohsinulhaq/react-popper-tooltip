@@ -25,7 +25,7 @@ export type ConfigProps = {
    * tooltip position based on its DOM changes
    * @default  { attributes: true, childList: true, subtree: true }
    */
-  mutationObserverOptions?: MutationObserverInit;
+  mutationObserverOptions?: MutationObserverInit | null;
   /**
    * Whether tooltip is shown by default
    * @default false
@@ -40,7 +40,7 @@ export type ConfigProps = {
    */
   onVisibleChange?: (state: boolean) => void;
   /**
-   * If `true`, a click outside of the trigger element closes the tooltip
+   * If `true`, a click outside the trigger element closes the tooltip
    * @default true
    */
   closeOnClickOutside?: boolean;
@@ -49,6 +49,12 @@ export type ConfigProps = {
    * @default true
    */
   closeOnTriggerHidden?: boolean;
+  /**
+   * If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of
+   * the trigger element. If it moves to the tooltip element, the tooltip stays open.
+   * @default true
+   */
+  persistTooltipOnHover?: boolean;
   /**
    * Alias for popper.js placement, see https://popper.js.org/docs/v2/constructors/#placement
    */

@@ -11,6 +11,7 @@ import {
 const defaultConfig: ConfigProps = {
   closeOnClickOutside: true,
   closeOnTriggerHidden: true,
+  persistTooltipOnHover: true,
   delayHide: 0,
   delayShow: 0,
   initialVisible: false,
@@ -33,7 +34,7 @@ export function usePopperTooltip(
     (config, key) => ({
       ...config,
       [key]:
-        originalConfig[key] != null ? originalConfig[key] : defaultConfig[key],
+        originalConfig[key] !== undefined ? originalConfig[key] : defaultConfig[key],
     }),
     originalConfig
   );
@@ -169,7 +170,7 @@ export function usePopperTooltip(
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
-    if (tooltipRef == null || !isTriggeredBy('hover')) return;
+    if (tooltipRef == null || !isTriggeredBy('hover') || !getLatest().config.persistTooltipOnHover) return;
 
     tooltipRef.addEventListener('mouseenter', showTooltip);
     tooltipRef.addEventListener('mouseleave', hideTooltip);
@@ -191,7 +192,7 @@ export function usePopperTooltip(
   const update = popperProps.update;
   React.useEffect(() => {
     const mutationObserverOptions = getLatest().config.mutationObserverOptions;
-    if (tooltipRef == null || update == null) return;
+    if (tooltipRef == null || update == null || mutationObserverOptions == null) return;
 
     const observer = new MutationObserver(update);
     observer.observe(tooltipRef, mutationObserverOptions);
