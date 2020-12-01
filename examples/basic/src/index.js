@@ -7,7 +7,7 @@ function App() {
   return <Example />;
 }
 
-export function Example() {
+function Example() {
 
   const {
     getArrowProps,

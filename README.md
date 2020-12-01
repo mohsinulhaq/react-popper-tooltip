@@ -23,7 +23,6 @@ around [popper.js](https://popper.js.org) library.
 - Tooltip follows a cursor
 - Usign with react portal
 
-
 ## Installation
 
 You can install react-popper-tooltip with [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).

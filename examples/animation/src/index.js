@@ -8,7 +8,7 @@ function App() {
   return <Example />;
 }
 
-export function Example() {
+function Example() {
   const [controlledVisible, setControlledVisible] = React.useState(false);
 
   const {
@@ -31,7 +31,10 @@ export function Example() {
   return (
     <div className="App">
       <h1>react-popper-tooltip</h1>
-      <p>A show/hide animation example using <a href="https://www.react-spring.io/" >react-spring</a> library.</p>
+      <p>
+        A show/hide animation example using{' '}
+        <a href="https://www.react-spring.io/">react-spring</a> library.
+      </p>
 
       <button type="button" ref={setTriggerRef}>
         Trigger element
