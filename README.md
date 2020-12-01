@@ -16,6 +16,14 @@ around [popper.js](https://popper.js.org) library.
 
 ## Examples
 
+- Basic usage
+- Animating appearance with react-spring
+- Closing with Esc button
+- Using as a controlled component
+- Tooltip follows a cursor
+- Usign with react portal
+
+
 ## Installation
 
 You can install react-popper-tooltip with [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
@@ -89,9 +97,10 @@ decision we made. You can turn parts of the functionality on and off based on yo
 
 - If you use `hover` to trigger the tooltip, the tooltip closes when you move the cursor out of the trigger element. But
   if the cursor moves to the tooltip element, the tooltip stays open. It's useful if you want to allow your users to
-  interact with the tooltip's content (select and copy text, click a link, etc.)
+  interact with the tooltip's content (select and copy text, click a link, etc.). You'll probably need to slightly
+  increase the delay before tooltip hides to give users more time to move the cursor from the trigger to the tooltip.
 
-> To change this functionality, use the option `persistTooltipOnHover`.
+> To change this functionality, use the options `persistTooltipOnHover`, `delayHide`.
 
 - When the tooltip is visible and its content changes, it automatically repositions itself. Internally we
   use [MutationObserver
@@ -133,7 +142,7 @@ const {
     persistTooltipOnHover,
     placement,
     trigger,
-    visible: visible,
+    visible,
   },
   popperOptions
 );

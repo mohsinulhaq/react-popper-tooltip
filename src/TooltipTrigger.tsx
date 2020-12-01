@@ -74,14 +74,14 @@ export function TooltipTrigger({
     if (typeof getTriggerRef === 'function') getTriggerRef(triggerRef);
   }, [triggerRef, getTriggerRef]);
 
-  return [
-    reference,
-    visible
+  return <>
+    {reference}
+    {visible
       ? usePortal
         ? createPortal(popper, portalContainer)
         : popper
-      : null,
-  ];
+      : null}
+  </>;
 }
 
 TooltipTrigger.defaultProps = defaultProps;

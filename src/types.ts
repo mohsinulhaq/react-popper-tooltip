@@ -70,7 +70,12 @@ export type PopperOptions = Partial<PopperJS.Options> & {
   createPopper?: typeof PopperJS.createPopper;
 };
 
-export type PropsGetterArgs = { style?: React.CSSProperties };
+// export type PropsGetterArgs = { style?: React.CSSProperties };
+
+export type PropsGetterArgs = {
+  style?: React.CSSProperties,
+  [key: string]: any
+}
 
 type ChildrenArg = {
   triggerRef: Ref;
@@ -92,18 +97,18 @@ type Ref =
 
 export type TooltipTriggerProps = {
   children(arg: ChildrenArg): React.ReactNode;
-  closeOnReferenceHidden: ConfigProps['closeOnTriggerHidden'];
-  defaultTooltipShown: ConfigProps['initialVisible'];
-  delayHide: ConfigProps['delayHide'];
-  delayShow: ConfigProps['delayShow'];
+  closeOnReferenceHidden?: ConfigProps['closeOnTriggerHidden'];
+  defaultTooltipShown?: ConfigProps['initialVisible'];
+  delayHide?: ConfigProps['delayHide'];
+  delayShow?: ConfigProps['delayShow'];
   getTriggerRef?: Ref;
-  modifiers: Modifier<any>[];
-  mutationObserverOptions: ConfigProps['mutationObserverOptions'];
-  onVisibilityChange: ConfigProps['onVisibleChange'];
-  placement: ConfigProps['placement'];
+  modifiers?: Modifier<any>[];
+  mutationObserverOptions?: ConfigProps['mutationObserverOptions'];
+  onVisibilityChange?: ConfigProps['onVisibleChange'];
+  placement?: ConfigProps['placement'];
   portalContainer: HTMLElement;
   tooltip(arg: TooltipArg): React.ReactNode;
-  tooltipShown: ConfigProps['visible'];
-  trigger: ConfigProps['trigger'];
-  usePortal: Boolean;
+  tooltipShown?: ConfigProps['visible'];
+  trigger?: ConfigProps['trigger'];
+  usePortal?: Boolean;
 };

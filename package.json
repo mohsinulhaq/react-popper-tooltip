@@ -26,6 +26,11 @@
     "start": "rollup -c -w",
     "test": "jest tests/"
   },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/examples/"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn typecheck && yarn build && yarn test && lint-staged"
