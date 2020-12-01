@@ -72,9 +72,10 @@ render(<App/>, document.getElementById('root'));
 ## Important Defaults
 
 Out of the box, react-popper-tooltip is configured with default options that work for most of the use-cases, and
-usually, you won't need to change anything. We worked with react-popper-tooltip with flexibility in mind, providing a
-configurable parameter to every internal decision we made. You can turn parts of the functionality on and off based on
-your requirements.
+usually, you won't need to change anything.
+
+But we worked with react-popper-tooltip with flexibility in mind and provide a configurable parameter to every internal
+decision we made. You can turn parts of the functionality on and off based on your requirements.
 
 - If you use `click` to trigger the tooltip, it seems reasonable to close the tooltip when you click anywhere outside
   the tooltip.
@@ -87,7 +88,7 @@ your requirements.
 > To change this functionality, use the option `closeOnTriggerHidden`.
 
 - If you use `hover` to trigger the tooltip, the tooltip closes when you move the cursor out of the trigger element. But
-  if the cursor moves to the tooltip element, the tooltip stays open. It may be useful if you want to allow the user to
+  if the cursor moves to the tooltip element, the tooltip stays open. It's useful if you want to allow your users to
   interact with the tooltip's content (select and copy text, click a link, etc.)
 
 > To change this functionality, use the option `persistTooltipOnHover`.
@@ -95,7 +96,7 @@ your requirements.
 - When the tooltip is visible and its content changes, it automatically repositions itself. Internally we
   use [MutationObserver
   ](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to track tooltip's content changes. In some cases
-  you might want to change this behaviour or opt-out of tracking changes at all.
+  you might want to change which parameters to observe or opt-out of tracking the changes at all.
 
 > To change this functionality, use the option `mutationObserverOptions`.
 
