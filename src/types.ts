@@ -52,9 +52,9 @@ export type ConfigProps = {
   /**
    * If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of
    * the trigger element. If it moves to the tooltip element, the tooltip stays open.
-   * @default true
+   * @default false
    */
-  persistTooltipOnHover?: boolean;
+  interactive?: boolean;
   /**
    * Alias for popper.js placement, see https://popper.js.org/docs/v2/constructors/#placement
    */

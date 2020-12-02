@@ -11,7 +11,7 @@ import {
 const defaultConfig: ConfigProps = {
   closeOnClickOutside: true,
   closeOnTriggerHidden: true,
-  persistTooltipOnHover: true,
+  interactive: false,
   delayHide: 0,
   delayShow: 0,
   initialVisible: false,
@@ -170,7 +170,7 @@ export function usePopperTooltip(
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
-    if (tooltipRef == null || !isTriggeredBy('hover') || !getLatest().config.persistTooltipOnHover) return;
+    if (tooltipRef == null || !isTriggeredBy('hover') || !getLatest().config.interactive) return;
 
     tooltipRef.addEventListener('mouseenter', showTooltip);
     tooltipRef.addEventListener('mouseleave', hideTooltip);

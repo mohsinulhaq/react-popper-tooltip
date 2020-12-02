@@ -5,8 +5,8 @@
 [![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
 [![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
 
-A React tooltip component based on [react-popper](https://github.com/FezVrasta/react-popper), a React wrapper
-around [popper.js](https://popper.js.org) library.
+A primitive to build a React tooltip component. Based
+on [react-popper](https://github.com/FezVrasta/react-popper) and [popper.js](https://popper.js.org) libraries.
 
 ## Docs
 
@@ -99,7 +99,7 @@ decision we made. You can turn parts of the functionality on and off based on yo
   interact with the tooltip's content (select and copy text, click a link, etc.). You'll probably need to slightly
   increase the delay before tooltip hides to give users more time to move the cursor from the trigger to the tooltip.
 
-> To change this functionality, use the options `persistTooltipOnHover`, `delayHide`.
+> To change this functionality, use the options `interactive`, `delayHide`.
 
 - When the tooltip is visible and its content changes, it automatically repositions itself. Internally we
   use [MutationObserver
@@ -135,10 +135,10 @@ const {
     delayHide,
     delayShow,
     initialVisible,
+    interactive,
     mutationObserverOptions,
     offset,
     onVisibleChange,
-    persistTooltipOnHover,
     placement,
     trigger,
     visible,
@@ -202,7 +202,7 @@ If `true`, closes the tooltip when user clicks outside the trigger element.
 
 If `true`, closes the tooltip when the trigger element goes out of the viewport.
 
-- `persistTooltipOnHover: Boolean`, defaults to `true`
+- `interactive: Boolean`, defaults to `false`
 
 If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of the
 trigger element. If it moves to the tooltip element, the tooltip stays open.
