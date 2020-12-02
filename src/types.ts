@@ -97,18 +97,25 @@ type Ref =
 
 export type TooltipTriggerProps = {
   children(arg: ChildrenArg): React.ReactNode;
-  closeOnReferenceHidden?: ConfigProps['closeOnTriggerHidden'];
-  defaultTooltipShown?: ConfigProps['initialVisible'];
+  closeOnTriggerHidden?: ConfigProps['closeOnTriggerHidden'];
   delayHide?: ConfigProps['delayHide'];
   delayShow?: ConfigProps['delayShow'];
   getTriggerRef?: Ref;
+  initialVisible?: ConfigProps['initialVisible'];
   modifiers?: Modifier<any>[];
   mutationObserverOptions?: ConfigProps['mutationObserverOptions'];
-  onVisibilityChange?: ConfigProps['onVisibleChange'];
+  onVisibleChange?: ConfigProps['onVisibleChange'];
   placement?: ConfigProps['placement'];
   portalContainer: HTMLElement;
   tooltip(arg: TooltipArg): React.ReactNode;
-  tooltipShown?: ConfigProps['visible'];
   trigger?: ConfigProps['trigger'];
   usePortal?: Boolean;
+  visible?: ConfigProps['visible'];
+
+  /* DEPRICATED */
+  closeOnReferenceHidden?: ConfigProps['closeOnTriggerHidden'];
+  defaultTooltipShown?: ConfigProps['initialVisible'];
+  onVisibilityChange?: ConfigProps['onVisibleChange'];
+  tooltipShown?: ConfigProps['visible'];
+  followCursor?: any
 };

@@ -2,13 +2,13 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import 'react-popper-tooltip/src/styles.css';
 import { usePopperTooltip } from 'react-popper-tooltip';
+import { RenderPropsExample } from './RenderProps';
 
 function App() {
   return <Example />;
 }
 
 function Example() {
-
   const {
     getArrowProps,
     getTooltipProps,
@@ -19,26 +19,29 @@ function Example() {
   } = usePopperTooltip();
 
   return (
-    <div className="App">
-      <h1>Basic example</h1>
+    <>
+      <div className="App">
+        <h1>Basic example</h1>
 
-      <button type="button" ref={setTriggerRef}>
-        Trigger element
-      </button>
+        <button type="button" ref={setTriggerRef}>
+          Trigger element
+        </button>
 
-      {visible && (
-        <div
-          ref={setTooltipRef}
-          {...getTooltipProps({ className: "tooltip-container" })}
-        >
-          Tooltip element
+        {visible && (
           <div
-            ref={setArrowRef}
-            {...getArrowProps({ className: "tooltip-arrow" })}
-          />
-        </div>
-      )}
-    </div>
+            ref={setTooltipRef}
+            {...getTooltipProps({ className: 'tooltip-container' })}
+          >
+            Tooltip element
+            <div
+              ref={setArrowRef}
+              {...getArrowProps({ className: 'tooltip-arrow' })}
+            />
+          </div>
+        )}
+      </div>
+      <RenderPropsExample />
+    </>
   );
 }
 

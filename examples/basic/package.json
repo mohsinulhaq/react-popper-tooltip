@@ -8,10 +8,10 @@
   ],
   "main": "src/index.js",
   "dependencies": {
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-scripts": "3.4.3",
-    "react-popper-tooltip": "^3.1.0"
+    "react-popper-tooltip": "^3.1.1"
   },
   "devDependencies": {},
   "scripts": {

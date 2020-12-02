@@ -1,6 +1,6 @@
 import * as React from "react";
 import "react-popper-tooltip/src/styles.css";
-import { TooltipTrigger } from "react-popper-tooltip";
+import TooltipTrigger from "react-popper-tooltip";
 
 const Tooltip = ({
   arrowRef,

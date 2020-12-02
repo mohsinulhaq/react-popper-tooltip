@@ -5,8 +5,14 @@
 [![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
 [![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
 
-A primitive to build a React tooltip component. Based
-on [react-popper](https://github.com/FezVrasta/react-popper) and [popper.js](https://popper.js.org) libraries.
+A primitive to build a React tooltip component. Based on [react-popper](https://github.com/FezVrasta/react-popper)
+and [popper.js](https://popper.js.org) libraries.
+
+The library offers two solutions. The first solution, which is we recommend you to use, is a React hooks. The hook
+provides the stateful logic needed to make the tooltip component functional.
+
+The second solution is the TooltipTrigger component, which can also be used to create a tooltip, providing the logic in
+the form of a render prop. This is a legacy API for compatibility with 3.x users moving to 4.x.
 
 ## Docs
 

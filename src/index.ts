@@ -1,2 +1,2 @@
 export { usePopperTooltip } from './usePopperTooltip';
-export { TooltipTrigger } from './TooltipTrigger';
+export { TooltipTrigger, TooltipTrigger as default } from './TooltipTrigger';

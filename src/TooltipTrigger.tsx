@@ -15,23 +15,64 @@ const defaultProps = {
   usePortal: canUseDOM,
 };
 
+let getTriggerPropsWarningShown = false;
+
 export function TooltipTrigger({
   children,
-  tooltip,
-  defaultTooltipShown,
-  onVisibilityChange,
-  tooltipShown,
-  delayShow,
+  closeOnTriggerHidden,
   delayHide,
-  placement,
-  trigger,
+  delayShow,
+  followCursor,
   getTriggerRef,
-  closeOnReferenceHidden,
-  usePortal,
-  portalContainer,
+  initialVisible,
   modifiers,
   mutationObserverOptions,
+  onVisibleChange,
+  placement,
+  portalContainer,
+  tooltip,
+  trigger,
+  usePortal,
+  visible: controlledVisible,
+
+  /* DEPRICATED */
+  closeOnReferenceHidden: DEPRECATED_closeOnReferenceHidden,
+  defaultTooltipShown: DEPRECATED_defaultTooltipShown,
+  onVisibilityChange: DEPRECATED_onVisibilityChange,
+  tooltipShown: DEPRECATED_tooltipShown,
 }: TooltipTriggerProps) {
+  if (process.env.NODE_ENV !== 'production') {
+    if (followCursor !== undefined) {
+      console.error(
+        'react-popper-tooltip: "followCursor" prop is no longer supported. See the migration guide on https://github.com/mohsinulhaq/react-popper-tooltip'
+      );
+    }
+
+    if (DEPRECATED_closeOnReferenceHidden !== undefined) {
+      console.warn(
+        'react-popper-tooltip: "closeOnReferenceHidden" prop was renamed and will be removed in the next major version. Use "closeOnTriggerHidden" instead.'
+      );
+    }
+
+    if (DEPRECATED_defaultTooltipShown !== undefined) {
+      console.warn(
+        'react-popper-tooltip: "defaultTooltipShown" prop was renamed and will be removed in the next major version. Use "initialVisible" instead.'
+      );
+    }
+
+    if (DEPRECATED_onVisibilityChange !== undefined) {
+      console.warn(
+        'react-popper-tooltip: "onVisibilityChange" prop was renamed and will be removed in the next major version. Use "onVisibleChange" instead.'
+      );
+    }
+
+    if (DEPRECATED_tooltipShown !== undefined) {
+      console.warn(
+        'react-popper-tooltip: "tooltipShown" prop was renamed and will be removed in the next major version. Use "visible" instead.'
+      );
+    }
+  }
+
   const {
     triggerRef,
     getArrowProps,
@@ -45,10 +86,11 @@ export function TooltipTrigger({
       trigger,
       delayHide,
       delayShow,
-      initialVisible: defaultTooltipShown,
-      onVisibleChange: onVisibilityChange,
-      visible: tooltipShown,
-      closeOnTriggerHidden: closeOnReferenceHidden,
+      initialVisible: initialVisible || DEPRECATED_defaultTooltipShown,
+      onVisibleChange: onVisibleChange || DEPRECATED_onVisibilityChange,
+      visible: controlledVisible || DEPRECATED_tooltipShown,
+      closeOnTriggerHidden:
+        closeOnTriggerHidden || DEPRECATED_closeOnReferenceHidden,
       mutationObserverOptions,
     },
     {
@@ -57,8 +99,18 @@ export function TooltipTrigger({
     }
   );
 
+  function getTriggerPropsWithWarning<T>(props: T): T {
+    if (process.env.NODE_ENV !== 'production' && !getTriggerPropsWarningShown) {
+      console.warn(
+        'react-popper-tooltip: Using "getTriggerProps" is no longer required and will be removed in the next major version. Apply your props directly to the trigger element.'
+      );
+      getTriggerPropsWarningShown = true;
+    }
+    return props;
+  }
+
   const reference = children({
-    getTriggerProps: (props) => props,
+    getTriggerProps: getTriggerPropsWithWarning,
     triggerRef: setTriggerRef,
   });
 
@@ -74,14 +126,16 @@ export function TooltipTrigger({
     if (typeof getTriggerRef === 'function') getTriggerRef(triggerRef);
   }, [triggerRef, getTriggerRef]);
 
-  return <>
-    {reference}
-    {visible
-      ? usePortal
-        ? createPortal(popper, portalContainer)
-        : popper
-      : null}
-  </>;
+  return (
+    <>
+      {reference}
+      {visible
+        ? usePortal
+          ? createPortal(popper, portalContainer)
+          : popper
+        : null}
+    </>
+  );
 }
 
 TooltipTrigger.defaultProps = defaultProps;
