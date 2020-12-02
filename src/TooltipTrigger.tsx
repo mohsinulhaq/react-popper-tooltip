@@ -81,6 +81,7 @@ export function TooltipTrigger({
     setTooltipRef,
     setTriggerRef,
     visible,
+    state,
   } = usePopperTooltip(
     {
       trigger,
@@ -119,7 +120,7 @@ export function TooltipTrigger({
     tooltipRef: setTooltipRef,
     getArrowProps,
     getTooltipProps,
-    placement,
+    placement: state ? state.placement : undefined,
   });
 
   React.useEffect(() => {
