@@ -15,7 +15,6 @@ function Example() {
 
       <TooltipTrigger
         trigger="click"
-        placement="bottom"
         tooltip={({ arrowRef, tooltipRef, getArrowProps, getTooltipProps }) => (
           <div
             {...getTooltipProps({
@@ -29,14 +28,14 @@ function Example() {
                 className: 'tooltip-arrow',
               })}
             />
-            Hello, World!
+            Tooltip element
           </div>
         )}
       >
         {({ triggerRef }) => (
-          <span ref={triggerRef} className="trigger">
-            Click Me!
-          </span>
+          <button ref={triggerRef} type="button">
+            Trigger element
+          </button>
         )}
       </TooltipTrigger>
     </div>
