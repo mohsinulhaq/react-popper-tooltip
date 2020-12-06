@@ -19,10 +19,10 @@ function Example() {
     visible,
   } = usePopperTooltip({
     trigger: 'click',
-    onVisibleChange: setMountedOnceAndForever,
+    onVisibleChange: setMountedOnceVisible,
   });
 
-  function setMountedOnceAndForever(visible) {
+  function setMountedOnceVisible(visible) {
     if (!mounted && visible) {
       setMounted(true);
     }
@@ -35,6 +35,9 @@ function Example() {
         In this example, the tooltip stays in the DOM once mounted. It can be
         helpful for heavy components to avoid unnecessary mounting/dismounting
         whenever tooltip is hidden or shown.
+      </p>
+      <p>
+        Mounted: {mounted ? 'yes' : 'no'}, visible: {visible ? 'yes' : 'no'}
       </p>
 
       <button type="button" ref={setTriggerRef}>

@@ -1,7 +1,7 @@
 # Migrating from 3.x to 4.x
 
-Since react-popper, which is used under the hood of react-popper-tooltip, introduced the `usePopper` hook in the last
-major update, we also releasing the hook version of the library - `usePopperTooltip`.
+After react-popper, which is used under the hood of react-popper-tooltip, introduced the `usePopper` hook in the last
+major update, we're also releasing the hook version of the library - `usePopperTooltip`.
 
 It's going to be the primary tool for creating tooltip components. This version still supports the `TooltipTrigger`
 component utilizing render prop with some breaking changes (see below). This is a legacy API for compatibility with 3.x
@@ -12,10 +12,9 @@ the hook.
 
 - `closeOnReferenceHidden` has been removed.
 
-We've decided it's a bad user experience when the user scrolls the page, and the tooltip unexpectedly disappears.
 Instead, additional attributes `data-popper-reference-hidden` and `data-popper-escaped` were added to the tooltip
-container. They set to true if the trigger element or the tooltip element gets out of boundaries. You can use them in
-your CSS to hide the tooltip or the triigger.
+container. They set to true if the trigger element, or the tooltip element gets out of boundaries. You can use them in
+your CSS to hide the tooltip, or the trigger when necessary.
 
 More information and usage examples [here](https://popper.js.org/docs/v2/modifiers/hide/).
 
@@ -26,7 +25,7 @@ using the hook.
 
 ## Changes
 
-Some properties were renamed. You can still you the old names, but you'll get a warning message. These props will be
+Some properties were renamed. You can still use the old names, but you'll get a warning message. These props will be
 removed in the next major version.
 
 - `defaultTooltipShown` was renamed to `initialVisible`

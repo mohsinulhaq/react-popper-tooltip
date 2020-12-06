@@ -122,7 +122,7 @@ TooltipTrigger.defaultProps = defaultProps;
 
 function renameWarning<T>(prop: T, oldName: string, newName: string): void {
   if (process.env.NODE_ENV !== 'production' && prop !== undefined) {
-    console.error(
+    console.warn(
       `react-popper-tooltip: "${oldName}" prop was renamed and will be removed in the next major version. Use "${newName}" instead.`
     );
   }
