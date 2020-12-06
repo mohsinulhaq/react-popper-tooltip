@@ -29,6 +29,9 @@
   "jest": {
     "modulePathIgnorePatterns": [
       "<rootDir>/examples/"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
     ]
   },
   "husky": {

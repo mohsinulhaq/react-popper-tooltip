@@ -45,11 +45,6 @@ export type ConfigProps = {
    */
   closeOnClickOutside?: boolean;
   /**
-   * If `true`, closes the tooltip when the trigger element goes out of viewport
-   * @default true
-   */
-  closeOnTriggerHidden?: boolean;
-  /**
    * If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of
    * the trigger element. If it moves to the tooltip element, the tooltip stays open.
    * @default false
@@ -97,7 +92,6 @@ type Ref =
 
 export type TooltipTriggerProps = {
   children(arg: ChildrenArg): React.ReactNode;
-  closeOnTriggerHidden?: ConfigProps['closeOnTriggerHidden'];
   delayHide?: ConfigProps['delayHide'];
   delayShow?: ConfigProps['delayShow'];
   getTriggerRef?: Ref;
@@ -113,7 +107,7 @@ export type TooltipTriggerProps = {
   visible?: ConfigProps['visible'];
 
   /* DEPRICATED */
-  closeOnReferenceHidden?: ConfigProps['closeOnTriggerHidden'];
+  closeOnReferenceHidden?: any;
   defaultTooltipShown?: ConfigProps['initialVisible'];
   onVisibilityChange?: ConfigProps['onVisibleChange'];
   tooltipShown?: ConfigProps['visible'];

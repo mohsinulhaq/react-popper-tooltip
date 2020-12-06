@@ -10,7 +10,6 @@ import {
 
 const defaultConfig: ConfigProps = {
   closeOnClickOutside: true,
-  closeOnTriggerHidden: true,
   interactive: false,
   delayHide: 0,
   delayShow: 0,
@@ -179,14 +178,6 @@ export function usePopperTooltip(
       tooltipRef.removeEventListener('mouseleave', hideTooltip);
     };
   }, [tooltipRef, isTriggeredBy, showTooltip, hideTooltip]);
-
-  // Handle closeOnTriggerHidden prop
-  const isReferenceHidden =
-    popperProps.state?.modifiersData?.hide?.isReferenceHidden;
-  React.useEffect(() => {
-    if (getLatest().config.closeOnTriggerHidden && isReferenceHidden)
-      hideTooltip();
-  }, [getLatest, hideTooltip, isReferenceHidden]);
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
   const update = popperProps.update;

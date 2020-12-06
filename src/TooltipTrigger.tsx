@@ -19,10 +19,8 @@ let getTriggerPropsWarningShown = false;
 
 export function TooltipTrigger({
   children,
-  closeOnTriggerHidden,
   delayHide,
   delayShow,
-  followCursor,
   getTriggerRef,
   initialVisible,
   modifiers,
@@ -36,42 +34,25 @@ export function TooltipTrigger({
   visible: controlledVisible,
 
   /* DEPRICATED */
+  followCursor: DEPRECATED_followCursor,
   closeOnReferenceHidden: DEPRECATED_closeOnReferenceHidden,
   defaultTooltipShown: DEPRECATED_defaultTooltipShown,
   onVisibilityChange: DEPRECATED_onVisibilityChange,
   tooltipShown: DEPRECATED_tooltipShown,
 }: TooltipTriggerProps) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (followCursor !== undefined) {
-      console.error(
-        'react-popper-tooltip: "followCursor" prop is no longer supported. See the migration guide on https://github.com/mohsinulhaq/react-popper-tooltip'
-      );
-    }
-
-    if (DEPRECATED_closeOnReferenceHidden !== undefined) {
-      console.warn(
-        'react-popper-tooltip: "closeOnReferenceHidden" prop was renamed and will be removed in the next major version. Use "closeOnTriggerHidden" instead.'
-      );
-    }
-
-    if (DEPRECATED_defaultTooltipShown !== undefined) {
-      console.warn(
-        'react-popper-tooltip: "defaultTooltipShown" prop was renamed and will be removed in the next major version. Use "initialVisible" instead.'
-      );
-    }
-
-    if (DEPRECATED_onVisibilityChange !== undefined) {
-      console.warn(
-        'react-popper-tooltip: "onVisibilityChange" prop was renamed and will be removed in the next major version. Use "onVisibleChange" instead.'
-      );
-    }
-
-    if (DEPRECATED_tooltipShown !== undefined) {
-      console.warn(
-        'react-popper-tooltip: "tooltipShown" prop was renamed and will be removed in the next major version. Use "visible" instead.'
-      );
-    }
-  }
+  removeWarning(DEPRECATED_followCursor, 'followCursor');
+  removeWarning(DEPRECATED_closeOnReferenceHidden, 'closeOnReferenceHidden');
+  renameWarning(
+    DEPRECATED_defaultTooltipShown,
+    'defaultTooltipShown',
+    'initialVisible'
+  );
+  renameWarning(
+    DEPRECATED_onVisibilityChange,
+    'onVisibilityChange',
+    'onVisibleChange'
+  );
+  renameWarning(DEPRECATED_tooltipShown, 'tooltipShown', 'visible');
 
   const {
     triggerRef,
@@ -90,8 +71,6 @@ export function TooltipTrigger({
       initialVisible: initialVisible || DEPRECATED_defaultTooltipShown,
       onVisibleChange: onVisibleChange || DEPRECATED_onVisibilityChange,
       visible: controlledVisible || DEPRECATED_tooltipShown,
-      closeOnTriggerHidden:
-        closeOnTriggerHidden || DEPRECATED_closeOnReferenceHidden,
       mutationObserverOptions,
     },
     {
@@ -140,3 +119,19 @@ export function TooltipTrigger({
 }
 
 TooltipTrigger.defaultProps = defaultProps;
+
+function renameWarning<T>(prop: T, oldName: string, newName: string): void {
+  if (process.env.NODE_ENV !== 'production' && prop !== undefined) {
+    console.error(
+      `react-popper-tooltip: "${oldName}" prop was renamed and will be removed in the next major version. Use "${newName}" instead.`
+    );
+  }
+}
+
+function removeWarning<T>(prop: T, name: string): void {
+  if (process.env.NODE_ENV !== 'production' && prop !== undefined) {
+    console.error(
+      `react-popper-tooltip: "${name}" prop is no longer supported. See the migration guide on https://github.com/mohsinulhaq/react-popper-tooltip`
+    );
+  }
+}
