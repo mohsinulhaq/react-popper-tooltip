@@ -96,8 +96,7 @@ usually, you won't need to change anything.
 We worked with react-popper-tooltip with flexibility in mind and tried to provide a configurable parameter to every
 internal decision we made. You can turn parts of the functionality on and off based on your requirements.
 
-- If you use `click` to trigger the tooltip, it seems reasonable to close the tooltip when you click anywhere outside
-  the tooltip.
+- If the tooltip opened, it seems reasonable to close it when you click anywhere outside.
 
 > To change this functionality, use the option `closeOnClickOutside`.
 
@@ -106,7 +105,7 @@ internal decision we made. You can turn parts of the functionality on and off ba
   interact with the tooltip's content (select and copy text, click a link, etc.). You'll probably need to slightly
   increase the delay before tooltip hides to give users more time to move the cursor from the trigger to the tooltip.
 
-> To change this functionality, use the options `interactive`, `delayHide`.
+> To change this functionality, use options `interactive`, `delayHide`.
 
 - When the tooltip is visible and its content changes, it automatically repositions itself. Internally we
   use [MutationObserver
@@ -118,10 +117,10 @@ internal decision we made. You can turn parts of the functionality on and off ba
 ## Styling
 
 With react-popper-tooltip, you can use CSS, LESS, SASS, or any CSS-in-JS library you're already using in your project.
-However, we supply a minimal CSS-file file you can use for a quick start or as a reference to create your own styles.
+However, we supply a minimal CSS-file file you can use for a quick start or as a reference to create your styles.
 
 Use `import 'react-popper-tooltip/src/styles.css';` to import it into your project. Add classes
-`tooltip-container` and `tooltip-arrow` to the tooltip container and arrow accordingly.
+`tooltip-container` and `tooltip-arrow` to the tooltip container and arrow element accordingly.
 
 When the tooltip is displayed, react-popper-tooltip adds some attributes to the tooltip container. You can use them in
 your CSS in specific scenatios.
@@ -288,7 +287,7 @@ It returns merged props you have to spread to the tooltip element.
 
 - `popperProps: { update, forceUpdate, state }`
 
-Some props returned by the `usePopper` of react-popper's hook.
+Some props returned by the underlying `usePopper` hook.
 See [https://popper.js.org/react-popper/v2/hook/](https://popper.js.org/react-popper/v2/hook/).
 
 This doesn't include `styles` and `attributes` props. They are included into `getArrowProps` and `getTooltipProps` prop

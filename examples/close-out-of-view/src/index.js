@@ -34,8 +34,14 @@ function Example() {
     <div className="App" style={{ height: '150vh' }}>
       <h1>react-popper-tooltip</h1>
       <p>
-        Open the tooltip, then scroll the page down. The tooltip is closed and dismounted from the DOM when the
-        trigger element gets out of the viewport.
+        By default, if the trigger element gets out of the viewport, the tooltip
+        is hidden using CSS. If, for some reason, you need to close and
+        dismount the tooltip, use this example.
+      </p>
+      <p>
+        Open the tooltip, then scroll the page down. The tooltip is closed and
+        dismounted from the DOM when the trigger element gets out of the
+        viewport.
       </p>
 
       <button type="button" ref={setTriggerRef}>

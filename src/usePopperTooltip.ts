@@ -27,6 +27,10 @@ export function usePopperTooltip(
   originalConfig: ConfigProps = {},
   originalPopperOptions: PopperOptions = {}
 ) {
+
+  // Meerging options with default options.
+  // Keys with undefind values are replaced with the default ones if any.
+  // Keys with null values pass through.
   const config = (Object.keys(defaultConfig) as Array<
     keyof typeof defaultConfig
   >).reduce(

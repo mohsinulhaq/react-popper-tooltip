@@ -12,10 +12,10 @@ the hook.
 
 - `closeOnReferenceHidden` has been removed.
 
-We've decided it's a bad user experience when the user scrolls the page and the tooltip unexpectedly disappears.
-Instead, additional attributes `data-popper-reference-hidden`
-and `data-popper-escaped` were added to the tooltip container . They set to true if the trigger element or the tooltip
-element gets out of boundaries. You can use them in your CSS to hide the tooltip or the triigger.
+We've decided it's a bad user experience when the user scrolls the page, and the tooltip unexpectedly disappears.
+Instead, additional attributes `data-popper-reference-hidden` and `data-popper-escaped` were added to the tooltip
+container. They set to true if the trigger element or the tooltip element gets out of boundaries. You can use them in
+your CSS to hide the tooltip or the triigger.
 
 More information and usage examples [here](https://popper.js.org/docs/v2/modifiers/hide/).
 
