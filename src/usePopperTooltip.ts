@@ -27,7 +27,6 @@ export function usePopperTooltip(
   originalConfig: ConfigProps = {},
   originalPopperOptions: PopperOptions = {}
 ) {
-
   // Meerging options with default options.
   // Keys with undefind values are replaced with the default ones if any.
   // Keys with null values pass through.
@@ -37,7 +36,9 @@ export function usePopperTooltip(
     (config, key) => ({
       ...config,
       [key]:
-        originalConfig[key] !== undefined ? originalConfig[key] : defaultConfig[key],
+        originalConfig[key] !== undefined
+          ? originalConfig[key]
+          : defaultConfig[key],
     }),
     originalConfig
   );
@@ -147,6 +148,20 @@ export function usePopperTooltip(
     return () => triggerRef.removeEventListener('click', toggleTooltip);
   }, [triggerRef, isTriggeredBy, toggleTooltip]);
 
+  // Trigger: right-click
+  React.useEffect(() => {
+    if (triggerRef == null || !isTriggeredBy('right-click')) return;
+
+    const preventDefaultAndToggle: EventListener = (event) => {
+      event.preventDefault();
+      toggleTooltip();
+    };
+
+    triggerRef.addEventListener('contextmenu', preventDefaultAndToggle);
+    return () =>
+      triggerRef.removeEventListener('contextmenu', preventDefaultAndToggle);
+  }, [triggerRef, isTriggeredBy, toggleTooltip]);
+
   // Trigger: focus
   React.useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('focus')) return;
@@ -173,7 +188,12 @@ export function usePopperTooltip(
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
-    if (tooltipRef == null || !isTriggeredBy('hover') || !getLatest().config.interactive) return;
+    if (
+      tooltipRef == null ||
+      !isTriggeredBy('hover') ||
+      !getLatest().config.interactive
+    )
+      return;
 
     tooltipRef.addEventListener('mouseenter', showTooltip);
     tooltipRef.addEventListener('mouseleave', hideTooltip);
@@ -187,7 +207,8 @@ export function usePopperTooltip(
   const update = popperProps.update;
   React.useEffect(() => {
     const mutationObserverOptions = getLatest().config.mutationObserverOptions;
-    if (tooltipRef == null || update == null || mutationObserverOptions == null) return;
+    if (tooltipRef == null || update == null || mutationObserverOptions == null)
+      return;
 
     const observer = new MutationObserver(update);
     observer.observe(tooltipRef, mutationObserverOptions);

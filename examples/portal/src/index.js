@@ -20,7 +20,7 @@ function Example() {
   return (
     <div className="App">
       <h1>react-popper-tooltip</h1>
-      <p>Using a react portal to render tooltip before closing body tag.</p>
+      <p>Using a react portal to render a tooltip.</p>
 
       <button type="button" ref={setTriggerRef}>
         Trigger element

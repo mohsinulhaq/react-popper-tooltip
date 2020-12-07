@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { usePopperTooltip } from '../src';
 
 const TriggerText = 'Trigger element';
 const TooltipText = 'Tooltip element';
 
-function Tooltip() {
+function Tooltip({ options }) {
   const {
     getArrowProps,
     getTooltipProps,
@@ -14,7 +14,7 @@ function Tooltip() {
     setTooltipRef,
     setTriggerRef,
     visible,
-  } = usePopperTooltip();
+  } = usePopperTooltip(options);
 
   return (
     <>
@@ -37,6 +37,7 @@ function Tooltip() {
     </>
   );
 }
+
 //
 // beforeEach(() => {
 //   jest.useFakeTimers()
@@ -47,15 +48,104 @@ function Tooltip() {
 //   jest.useRealTimers()
 // })
 
-test('Renders tooltip', async () => {
-  render(<Tooltip />);
+describe('trigger option', () => {
+  test('hover works', async () => {
+    render(<Tooltip options={{ trigger: 'hover' }} />);
 
-  //const submitButton = screen.queryByText(TooltipText)
-  //expect(submitButton).not.toBeInTheDocument()
-  expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
-  userEvent.hover(screen.getByText(TriggerText));
+    // Initially there's no tooltip
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
-  expect(await screen.findByText(TooltipText)).toBeInTheDocument();
-  //userEvent.unhover(screen.getByText(TriggerText));
-  //expect(await screen.findByText(TooltipText)).not.toBeInTheDocument();
+    // Show on hover
+    userEvent.hover(screen.getByText(TriggerText));
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    // Hide on unhover
+    userEvent.unhover(screen.getByText(TriggerText));
+    await waitFor(() => {
+      expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+    });
+  });
+
+  test('click works', async () => {
+    render(<Tooltip options={{ trigger: 'click' }} />);
+
+    // Initially there's no tooltip
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // Show on click
+    userEvent.click(screen.getByText(TriggerText));
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    // Hide on click
+    userEvent.click(screen.getByText(TriggerText));
+    await waitFor(() => {
+      expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+    });
+  });
+
+  test('right-click works', async () => {
+    render(<Tooltip options={{ trigger: 'right-click' }} />);
+
+    // Initially there's no tooltip
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // Show on right-click
+    fireEvent.contextMenu(screen.getByText(TriggerText));
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    // Hide on right-click
+    fireEvent.contextMenu(screen.getByText(TriggerText));
+    await waitFor(() => {
+      expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+    });
+  });
+
+  test('focus works', async () => {
+    render(<Tooltip options={{ trigger: 'focus' }} />);
+
+    // Initially there's no tooltip
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // Show on focus
+    fireEvent.focus(screen.getByText(TriggerText));
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    // Hide on blur
+    fireEvent.blur(screen.getByText(TriggerText));
+    await waitFor(() => {
+      expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+    });
+  });
+
+  test('none works', async () => {
+    jest.useFakeTimers();
+
+    render(<Tooltip options={{ trigger: 'none' }} />);
+
+    // Initially there's no tooltip
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // Nothing after hover
+    userEvent.hover(screen.getByText(TriggerText));
+    jest.runAllTimers();
+    expect(await screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // Nothing after click
+    userEvent.click(screen.getByText(TriggerText));
+    jest.runAllTimers();
+    expect(await screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // Nothing after right-click
+    fireEvent.contextMenu(screen.getByText(TriggerText));
+    jest.runAllTimers();
+    expect(await screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // Nothing after focus
+    fireEvent.focus(screen.getByText(TriggerText));
+    jest.runAllTimers();
+    expect(await screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
 });
