@@ -10,8 +10,8 @@
   "dependencies": {
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "3.4.3",
-    "react-popper-tooltip": "^3.1.0"
+    "react-popper-tooltip": "^3.1.0",
+    "react-scripts": "3.4.3"
   },
   "devDependencies": {},
   "scripts": {
