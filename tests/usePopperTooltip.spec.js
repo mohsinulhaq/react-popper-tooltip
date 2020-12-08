@@ -190,7 +190,7 @@ test('delayShow option works', async () => {
   // It shows up somewhen after. Here RTL uses fake timers to await as well, so
   // it awaits for the element infinitely, advancing jest fake timer by 50ms
   // in an endless loop. And this is why the test passes even if delayShow set
-  // a way bigger than default timeout of 1000ms would allow.
+  // a way bigger than a default timeout of 1000ms would allow.
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
   jest.runOnlyPendingTimers();

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
-import { debounce } from "debounce";
 import { useControlledProp, useGetLatest } from './utils';
 import {
   ConfigProps,
@@ -131,17 +130,12 @@ export function usePopperTooltip(
         }
       }
     };
-
-    // Touch devices fire MouseEvent and TouchEvent for the same click and call the event listener twice.
-    // That's why we have to debounce the call.
-    const debouncedHandleClickOutside = debounce(handleClickOutside, 250, true);
-
-    document.addEventListener('touchstart', debouncedHandleClickOutside);
-    document.addEventListener('mousedown', debouncedHandleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
-      document.removeEventListener('touchstart', debouncedHandleClickOutside);
-      document.removeEventListener('mousedown', debouncedHandleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [getLatest, hideTooltip]);
 
@@ -149,15 +143,11 @@ export function usePopperTooltip(
   React.useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('click')) return;
 
-    const debouncedToggleTooltip = debounce(toggleTooltip, 250, true);
-
-    triggerRef.addEventListener('click', debouncedToggleTooltip);
-    triggerRef.addEventListener('touchstart', debouncedToggleTooltip);
+    triggerRef.addEventListener('click', toggleTooltip);
 
     return () => {
-      triggerRef.removeEventListener('click', debouncedToggleTooltip);
-      triggerRef.removeEventListener('touchstart', debouncedToggleTooltip);
-    }
+      triggerRef.removeEventListener('click', toggleTooltip);
+    };
   }, [triggerRef, isTriggeredBy, toggleTooltip]);
 
   // Trigger: right-click

@@ -62,7 +62,6 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@popperjs/core": "^2.5.4",
-    "debounce": "^1.2.0",
     "react-popper": "^2.2.4"
   },
   "devDependencies": {
