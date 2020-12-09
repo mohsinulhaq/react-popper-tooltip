@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  act,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { usePopperTooltip } from '../src';
 
@@ -156,7 +162,7 @@ describe('trigger option', () => {
   });
 });
 
-test('closeOnClickOutside option works', async () => {
+test('closeOnClickOutside removes tooltip on document.body click', async () => {
   render(<Tooltip options={{ closeOnClickOutside: true, trigger: 'click' }} />);
 
   // Show on click
@@ -170,15 +176,7 @@ test('closeOnClickOutside option works', async () => {
   });
 });
 
-test('initialVisible option works', async () => {
-  render(<Tooltip options={{ initialVisible: false }} />);
-  expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
-
-  render(<Tooltip options={{ initialVisible: true }} />);
-  expect(await screen.findByText(TooltipText)).toBeInTheDocument();
-});
-
-test('delayShow option works', async () => {
+test('delayShow option renders tooltip after specified delay', async () => {
   jest.useFakeTimers();
   render(<Tooltip options={{ delayShow: 5000 }} />);
 
@@ -195,4 +193,56 @@ test('delayShow option works', async () => {
 
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
+});
+
+test('delayHide option removes tooltip after specified delay', async () => {
+  jest.useFakeTimers();
+  render(<Tooltip options={{ delayHide: 5000 }} />);
+
+  userEvent.hover(screen.getByText(TriggerText));
+  act(() => jest.runAllTimers());
+  expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+  userEvent.unhover(screen.getByText(TriggerText));
+  // Still present after 2000ms
+  act(() => jest.advanceTimersByTime(2000));
+  expect(screen.getByText(TooltipText)).toBeInTheDocument();
+
+  // Removed somewhen after
+  await waitFor(() => {
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+  });
+
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
+describe('initialVisible option', () => {
+  test('with false value renders nothing', async () => {
+    render(<Tooltip options={{ initialVisible: false }} />);
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+  });
+
+  test('with true value renders tooltip', async () => {
+    render(<Tooltip options={{ initialVisible: true }} />);
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+  });
+});
+
+test('onVisibleChange option called when state changes', async () => {
+  const onVisibleChange = jest.fn();
+  render(<Tooltip options={{ onVisibleChange }} />);
+
+  // By default not visible, change visible to true when first time hover
+  userEvent.hover(screen.getByText(TriggerText));
+  expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+  expect(onVisibleChange).toHaveBeenLastCalledWith(true);
+
+  // Now visible, change visible to false when unhover
+  userEvent.unhover(screen.getByText(TriggerText));
+  await waitFor(() => {
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+  });
+  expect(onVisibleChange).toHaveBeenLastCalledWith(false);
+  expect(onVisibleChange).toHaveBeenCalledTimes(2);
 });
