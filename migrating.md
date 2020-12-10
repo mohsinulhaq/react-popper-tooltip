@@ -8,15 +8,16 @@ component utilizing render prop with some breaking changes (see below). This is 
 users moving to 4.x, and it doesn't support all the features that the hook does. We recommend you to switch your code to
 the hook.
 
+This version was rewritten from the scratch. It was fully tested but can possibly contain some regression bugs. Please,
+report any problems using the [issues link](https://github.com/mohsinulhaq/react-popper-tooltip/issues).
+
 ## BREAKING CHANGES
 
 - `closeOnReferenceHidden` has been removed.
 
 Instead, additional attributes `data-popper-reference-hidden` and `data-popper-escaped` were added to the tooltip
 container. They set to true if the trigger element, or the tooltip element gets out of boundaries. You can use them in
-your CSS to hide the tooltip, or the trigger when necessary.
-
-More information and usage examples [here](https://popper.js.org/docs/v2/modifiers/hide/).
+your CSS to hide the tooltip or trigger when necessary.
 
 - `followCursor` has been removed.
 
@@ -44,3 +45,4 @@ Previously, when the user hovered the tooltip, it stayed open to allow the user 
 Now the tooltip closes as soon as the cursor leaves the trigger element. The new option `interactive` was added to
 configure this behavior.
 
+A string value `"none"` of the prop `trigger` replace with `null`. Both values work but using `null` is recommended.

@@ -2,14 +2,14 @@ import * as React from 'react';
 import { Modifier } from 'react-popper';
 import * as PopperJS from '@popperjs/core';
 
-export type TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus';
+export type TriggerType = 'click' | 'right-click' | 'hover' | 'focus';
 
 export type ConfigProps = {
   /**
    * Event or events that trigger the tooltip
    * @default hover
    */
-  trigger?: TriggerType | TriggerType[];
+  trigger?: TriggerType | TriggerType[] | null;
   /**
    * Delay in hiding the tooltip (ms)
    * @default 0

@@ -130,11 +130,9 @@ export function usePopperTooltip(
         }
       }
     };
-    document.addEventListener('touchstart', handleClickOutside);
     document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
-      document.removeEventListener('touchstart', handleClickOutside);
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [getLatest, hideTooltip]);

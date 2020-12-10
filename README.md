@@ -88,32 +88,6 @@ function App() {
 render(<App/>, document.getElementById('root'));
 ```
 
-## Important Defaults
-
-Out of the box, react-popper-tooltip is configured with default options that work for most of the use-cases, and
-usually, you won't need to change anything.
-
-We worked with react-popper-tooltip with flexibility in mind and tried to provide a configurable parameter to every
-internal decision we made. You can turn parts of the functionality on and off based on your requirements.
-
-- If the tooltip opened, it seems reasonable to close it when you click anywhere outside.
-
-> To change this functionality, use the option `closeOnClickOutside`.
-
-- If you use `hover` to trigger the tooltip, the tooltip closes when you move the cursor out of the trigger element. But
-  if the cursor moves to the tooltip element, the tooltip stays open. It's useful if you want to allow your users to
-  interact with the tooltip's content (select and copy text, click a link, etc.). You'll probably need to slightly
-  increase the delay before tooltip hides to give users more time to move the cursor from the trigger to the tooltip.
-
-> To change this functionality, use options `interactive`, `delayHide`.
-
-- When the tooltip is visible and its content changes, it automatically repositions itself. Internally we
-  use [MutationObserver
-  ](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to track tooltip's content changes. In some cases
-  you might want to change which parameters to observe or opt-out of tracking the changes at all.
-
-> To change this functionality, use the option `mutationObserverOptions`.
-
 ## Styling
 
 With react-popper-tooltip, you can use CSS, LESS, SASS, or any CSS-in-JS library you're already using in your project.
@@ -131,8 +105,8 @@ your CSS in specific scenatios.
 - `data-popper-reference-hidden`: set to true when the trigger element is fully clipped and hidden from view, which
   causes the tooltip to appear to be attached to nothing. Set to false otherwise.
 
-- `data-popper-escaped`: set to true when the tooltip escapes the trigger element's boundary (and so it
-  appears detached). Set to false otherwise.
+- `data-popper-escaped`: set to true when the tooltip escapes the trigger element's boundary (and so it appears
+  detached). Set to false otherwise.
 
 ## API reference
 
@@ -196,10 +170,11 @@ internal state.
 
 Called with the tooltip state, when the visibility of the tooltip changes.
 
-- `trigger: TriggerType | TriggerType[]`, where `TriggerType = 'none' | 'click' | 'right-click' | 'hover' | 'focus'`,
+- `trigger: TriggerType | TriggerType[] | null`, where `TriggerType = 'click' | 'right-click' | 'hover' | 'focus'`,
   defaults to `hover`
 
-Event or events that trigger the tooltip.
+Event or events that trigger the tooltip. Use `null` if you want to disable all events. It's usefull in some cases
+when you controll the state of the tooltip from the outside of the component.
 
 - `offset: [number, number]`, defaults to `[0, 10]`
 
@@ -222,14 +197,16 @@ If `true`, closes the tooltip when user clicks outside the trigger element.
 - `interactive: Boolean`, defaults to `false`
 
 If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of the
-trigger element. If it moves to the tooltip element, the tooltip stays open.
+trigger element. If it moves to the tooltip element, the tooltip stays open. It's useful if you want to allow your users
+to interact with the tooltip's content (select and copy text, click a link, etc.).
 
 - `mutationObserverOptions: MutationObserverInit | null`, defaults
   to `{ attributes: true, childList: true, subtree: true }`
 
-Options to MutationObserver, used internally for updating tooltip position based on its DOM changes.
-See [MutationObserver
-](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
+Options to MutationObserver, used internally for updating tooltip position based on its DOM changes. When the tooltip is
+visible and its content changes, it automatically repositions itself. Internally we use [MutationObserver
+](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to track tooltip's content changes. In some cases
+you might want to change which parameters to observe or opt-out of tracking the changes at all.
 
 - `popperOptions: { placement, modifiers, strategy, onFirstUpdate }`
 

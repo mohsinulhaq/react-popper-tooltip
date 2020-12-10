@@ -116,7 +116,7 @@ describe('trigger option', () => {
   test('none works', async () => {
     jest.useFakeTimers();
 
-    render(<Tooltip options={{ trigger: 'none' }} />);
+    render(<Tooltip options={{ trigger: null }} />);
 
     // Initially there's no tooltip
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
