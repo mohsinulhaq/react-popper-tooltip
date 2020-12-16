@@ -21,7 +21,7 @@ the new users, and it doesn't support all the features that the hook does.
 
 This is the documentation for the version 4.x which introduced the `usePopperTooltip` hook.
 
-Docs for the version 3.x are here [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md)
+[3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md)
 
 ## Examples
 
@@ -272,7 +272,7 @@ getters.
 
 ### TooltipTrigger
 
-See [3.x docs](https://github.com//mohsinulhaq/react-popper-tooltip/v3/README.md)
+See [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md)
 
 
 
