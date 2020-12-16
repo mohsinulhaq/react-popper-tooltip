@@ -246,3 +246,34 @@ test('onVisibleChange option called when state changes', async () => {
   expect(onVisibleChange).toHaveBeenLastCalledWith(false);
   expect(onVisibleChange).toHaveBeenCalledTimes(2);
 });
+
+describe('visible option controls the state and', () => {
+  test('with false value renders nothing', async () => {
+    jest.useFakeTimers();
+    render(<Tooltip options={{ visible: false, trigger: 'click' }} />);
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // The state is controlled, click doesn't change it
+    userEvent.click(screen.getByText(TriggerText));
+    act(() => jest.runAllTimers());
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  test('with true value renders tooltip', async () => {
+    jest.useFakeTimers();
+
+    render(<Tooltip options={{ visible: true, trigger: 'click' }} />);
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    // The state is controlled, click doesn't change it
+    userEvent.click(screen.getByText(TriggerText));
+    act(() => jest.runAllTimers());
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+});
