@@ -37,7 +37,7 @@ This is the documentation for the version 4.x which introduced the `usePopperToo
 
 ## Installation
 
-You can install react-popper-tooltip with [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
+You can install **react-popper-tooltip** with [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
 
 ```bash
 $ npm i react-popper-tooltip
@@ -90,13 +90,13 @@ render(<App/>, document.getElementById('root'));
 
 ## Styling
 
-With react-popper-tooltip, you can use CSS, LESS, SASS, or any CSS-in-JS library you're already using in your project.
+With **react-popper-tooltip**, you can use CSS, LESS, SASS, or any CSS-in-JS library you're already using in your project.
 However, we supply a minimal CSS-file file you can use for a quick start or as a reference to create your styles.
 
 Use `import 'react-popper-tooltip/src/styles.css';` to import it into your project. Add classes
 `tooltip-container` and `tooltip-arrow` to the tooltip container and arrow element accordingly.
 
-When the tooltip is displayed, react-popper-tooltip adds some attributes to the tooltip container. You can use them in
+When the tooltip is displayed, **react-popper-tooltip** adds some attributes to the tooltip container. You can use them in
 your CSS in specific scenatios.
 
 - `data-popper-placement`: contains the current tooltip placement. You can use it to properly offset and display the
@@ -160,10 +160,10 @@ The initial visibility state of the tooltip when the hook is initialized.
 
 The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip.
 
-`react-popper-tooltip` manages its own state internally and calls `onVisibleChange` handler with any relevant changes.
+**react-popper-tooltip** manages its own state internally and calls `onVisibleChange` handler with any relevant changes.
 
 However, if more control is needed, you can pass this prop, and the state becomes controlled. As soon as it's not
-undefined, internally, `react-popper-tooltip` will determine its state based on your prop's value rather than its own
+undefined, internally, **react-popper-tooltip** will determine its state based on your prop's value rather than its own
 internal state.
 
 - `onVisibleChange: Function(state: Boolean) => void`
