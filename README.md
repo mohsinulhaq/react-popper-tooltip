@@ -272,7 +272,7 @@ getters.
 
 ### TooltipTrigger
 
-See [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md)
+See [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md) and our [migrating guide](/migrating.md).
 
 
 
