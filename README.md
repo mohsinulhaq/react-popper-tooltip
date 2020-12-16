@@ -90,14 +90,15 @@ render(<App/>, document.getElementById('root'));
 
 ## Styling
 
-With **react-popper-tooltip**, you can use CSS, LESS, SASS, or any CSS-in-JS library you're already using in your project.
-However, we supply a minimal CSS-file file you can use for a quick start or as a reference to create your styles.
+With **react-popper-tooltip**, you can use CSS, LESS, SASS, or any CSS-in-JS library you're already using in your
+project. However, we supply a minimal CSS-file file you can use for a quick start or as a reference to create your
+styles.
 
 Use `import 'react-popper-tooltip/src/styles.css';` to import it into your project. Add classes
 `tooltip-container` and `tooltip-arrow` to the tooltip container and arrow element accordingly.
 
-When the tooltip is displayed, **react-popper-tooltip** adds some attributes to the tooltip container. You can use them in
-your CSS in specific scenatios.
+When the tooltip is displayed, **react-popper-tooltip** adds some attributes to the tooltip container. You can use them
+in your CSS in specific scenatios.
 
 - `data-popper-placement`: contains the current tooltip placement. You can use it to properly offset and display the
   arrow element (i.e., if the tooltip is displayed on the right, the arrow should point to the left and vice versa).
@@ -173,16 +174,16 @@ Called with the tooltip state, when the visibility of the tooltip changes.
 - `trigger: TriggerType | TriggerType[] | null`, where `TriggerType = 'click' | 'right-click' | 'hover' | 'focus'`,
   defaults to `hover`
 
-Event or events that trigger the tooltip. Use `null` if you want to disable all events. It's usefull in some cases
-when you controll the state of the tooltip from the outside of the component.
+Event or events that trigger the tooltip. Use `null` if you want to disable all events. It's usefull in some cases when
+you controll the state of the tooltip.
 
 - `offset: [number, number]`, defaults to `[0, 10]`
 
 This is a shorthand for `popperOptions.modifiers` offset modifier option. The default value means the tooltip will be
 placed a 10px away from the trigger element (to reserve enough space for the arrow element).
+See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
 
 `popperOptions` takes precedence over this option.
-See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
 
 - `placement: 'auto' | 'auto-start' | 'auto-end' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end';`
 
@@ -196,9 +197,11 @@ If `true`, closes the tooltip when user clicks outside the trigger element.
 
 - `interactive: Boolean`, defaults to `false`
 
-If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of the
-trigger element. If it moves to the tooltip element, the tooltip stays open. It's useful if you want to allow your users
-to interact with the tooltip's content (select and copy text, click a link, etc.).
+If `true`, hovering the tooltip will keep it open. Normally, if you trigger the tooltip on hover event, the tooltip
+closes when the mouse cursor moves out of the trigger element. If it moves to the tooltip element, the tooltip stays
+open. It's useful if you want to allow your users to interact with the tooltip's content (select and copy text, click a
+link, etc.). In this case you will probably need to increase `delayHide` value to give the user more time to react.
+.
 
 - `mutationObserverOptions: MutationObserverInit | null`, defaults
   to `{ attributes: true, childList: true, subtree: true }`
@@ -206,15 +209,15 @@ to interact with the tooltip's content (select and copy text, click a link, etc.
 Options to MutationObserver, used internally for updating tooltip position based on its DOM changes. When the tooltip is
 visible and its content changes, it automatically repositions itself. Internally we use [MutationObserver
 ](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to track tooltip's content changes. In some cases
-you might want to change which parameters to observe or opt-out of tracking the changes at all.
+you may need to change which parameters to observe or opt-out of tracking the changes at all.
 
 - `popperOptions: { placement, modifiers, strategy, onFirstUpdate }`
 
 These options passed directly to the underlying `usePopper` hook.
 See [https://popper.js.org/docs/v2/constructors/#options](https://popper.js.org/docs/v2/constructors/#options).
 
-Keep in mind, if you set `placement` or any `modifiers` here, it replaces `offset` and `placement` options above. They
-won't be merged into the final object.
+Keep in mind, if you set `placement` or _any_ `modifiers` here, it replaces `offset` and `placement` options above. They
+won't be merged into the final object. You have to add `offset` modifier along with others here to make it work.
 
 #### Returns
 
@@ -272,7 +275,8 @@ getters.
 
 ### TooltipTrigger
 
-See [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md) and our [migrating guide](/migrating.md).
+See [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md) and
+our [migrating guide](/migrating.md).
 
 
 
