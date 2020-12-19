@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Modifier } from 'react-popper';
 import * as PopperJS from '@popperjs/core';
 
@@ -30,7 +30,7 @@ export type ConfigProps = {
    * Whether tooltip is shown by default
    * @default false
    */
-  initialVisible?: boolean;
+  defaultVisible?: boolean;
   /**
    * Used to create controlled tooltip
    */
@@ -68,14 +68,14 @@ export type PopperOptions = Partial<PopperJS.Options> & {
 // export type PropsGetterArgs = { style?: React.CSSProperties };
 
 export type PropsGetterArgs = {
-  style?: React.CSSProperties,
-  [key: string]: any
-}
+  style?: React.CSSProperties;
+  [key: string]: any;
+};
 
 type ChildrenArg = {
   triggerRef: Ref;
   getTriggerProps<T>(arg: T): T;
-}
+};
 
 type TooltipArg = {
   arrowRef: Ref;
@@ -83,7 +83,7 @@ type TooltipArg = {
   placement: ConfigProps['placement'];
   getArrowProps(arg: PropsGetterArgs): PropsGetterArgs;
   getTooltipProps(arg: PropsGetterArgs): PropsGetterArgs;
-}
+};
 
 type Ref =
   | ((element: HTMLElement | null) => void)
@@ -95,21 +95,19 @@ export type TooltipTriggerProps = {
   delayHide?: ConfigProps['delayHide'];
   delayShow?: ConfigProps['delayShow'];
   getTriggerRef?: Ref;
-  initialVisible?: ConfigProps['initialVisible'];
+  defaultVisible?: ConfigProps['defaultVisible'];
   modifiers?: Modifier<any>[];
   mutationObserverOptions?: ConfigProps['mutationObserverOptions'];
   onVisibleChange?: ConfigProps['onVisibleChange'];
   placement?: ConfigProps['placement'];
-  portalContainer: HTMLElement;
+  portalContainer: HTMLElement | null;
   tooltip(arg: TooltipArg): React.ReactNode;
   trigger?: ConfigProps['trigger'];
-  usePortal?: Boolean;
+  usePortal?: boolean;
   visible?: ConfigProps['visible'];
-
-  /* DEPRICATED */
   closeOnReferenceHidden?: any;
-  defaultTooltipShown?: ConfigProps['initialVisible'];
+  defaultTooltipShown?: ConfigProps['defaultVisible'];
   onVisibilityChange?: ConfigProps['onVisibleChange'];
   tooltipShown?: ConfigProps['visible'];
-  followCursor?: any
+  followCursor?: any;
 };

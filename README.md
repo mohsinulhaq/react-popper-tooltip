@@ -32,7 +32,7 @@ This is the documentation for the version 4.x which introduced the `usePopperToo
 - Using as a controlled component [Demo]() [Source](/examples/controlled)
 - Tooltip follows a cursor  [Demo]() [Source](/examples/follow-cursor)
 - Persist the tooltip in the DOM once it's shown [Demo]() [Source](/examples/persist-once-mounted)
-- Usign with react portal [Demo]() [Source](/examples/portal)
+- Using with react portal [Demo]() [Source](/examples/portal)
 - Using legacy render prop API [Demo]() [Source](/examples/basic-render-props)
 
 ## Installation
@@ -50,7 +50,7 @@ $ yarn add react-popper-tooltip
 This example illustrates how to create a minimal tooltip with default settings and using a default CSS file.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { usePopperTooltip } from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 
@@ -130,7 +130,7 @@ const {
     closeOnClickOutside,
     delayHide,
     delayShow,
-    initialVisible,
+    defaultVisible,
     interactive,
     mutationObserverOptions,
     offset,
@@ -153,7 +153,7 @@ Delay in hiding the tooltip (ms).
 
 Delay in showing the tooltip (ms).
 
-- `initialVisible: Boolean`, defaults to `false`
+- `defaultVisible: Boolean`, defaults to `false`
 
 The initial visibility state of the tooltip when the hook is initialized.
 

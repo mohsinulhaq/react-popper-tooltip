@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import 'react-popper-tooltip/src/styles.css';
 import { usePopperTooltip } from 'react-popper-tooltip';

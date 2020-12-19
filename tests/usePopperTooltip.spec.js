@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   render,
   screen,
@@ -9,8 +9,8 @@ import {
 import userEvent from '@testing-library/user-event';
 import { usePopperTooltip } from '../src';
 
-const TriggerText = 'Trigger element';
-const TooltipText = 'Tooltip element';
+const TriggerText = 'Trigger';
+const TooltipText = 'Tooltip';
 
 function Tooltip({ options }) {
   const {
@@ -33,11 +33,11 @@ function Tooltip({ options }) {
           ref={setTooltipRef}
           {...getTooltipProps({ className: 'tooltip-container' })}
         >
-          {TooltipText}
           <div
             ref={setArrowRef}
             {...getArrowProps({ className: 'tooltip-arrow' })}
           />
+          {TooltipText}
         </div>
       )}
     </>
@@ -217,14 +217,14 @@ test('delayHide option removes tooltip after specified delay', async () => {
   jest.useRealTimers();
 });
 
-describe('initialVisible option', () => {
+describe('defaultVisible option', () => {
   test('with false value renders nothing', async () => {
-    render(<Tooltip options={{ initialVisible: false }} />);
+    render(<Tooltip options={{ defaultVisible: false }} />);
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
   });
 
   test('with true value renders tooltip', async () => {
-    render(<Tooltip options={{ initialVisible: true }} />);
+    render(<Tooltip options={{ defaultVisible: true }} />);
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
   });
 });

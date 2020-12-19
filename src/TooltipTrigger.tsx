@@ -1,19 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import { usePopperTooltip } from './usePopperTooltip';
 import { TooltipTriggerProps } from './types';
-
-const canUseDOM = Boolean(
-  typeof window !== 'undefined' &&
-    window.document &&
-    window.document.createElement
-);
-
-const defaultProps = {
-  placement: 'right',
-  portalContainer: canUseDOM ? document.body : null,
-  usePortal: canUseDOM,
-};
+import { canUseDOM, removeWarning, renameWarning } from './utils';
 
 let getTriggerPropsWarningShown = false;
 
@@ -22,18 +11,16 @@ export function TooltipTrigger({
   delayHide,
   delayShow,
   getTriggerRef,
-  initialVisible,
+  defaultVisible,
   modifiers,
   mutationObserverOptions,
   onVisibleChange,
-  placement,
-  portalContainer,
+  placement = 'right',
+  portalContainer = canUseDOM ? document.body : null,
   tooltip,
   trigger,
-  usePortal,
+  usePortal = canUseDOM,
   visible: controlledVisible,
-
-  /* DEPRICATED */
   followCursor: DEPRECATED_followCursor,
   closeOnReferenceHidden: DEPRECATED_closeOnReferenceHidden,
   defaultTooltipShown: DEPRECATED_defaultTooltipShown,
@@ -45,7 +32,7 @@ export function TooltipTrigger({
   renameWarning(
     DEPRECATED_defaultTooltipShown,
     'defaultTooltipShown',
-    'initialVisible'
+    'defaultVisible'
   );
   renameWarning(
     DEPRECATED_onVisibilityChange,
@@ -68,7 +55,7 @@ export function TooltipTrigger({
       trigger,
       delayHide,
       delayShow,
-      initialVisible: initialVisible || DEPRECATED_defaultTooltipShown,
+      defaultVisible: defaultVisible || DEPRECATED_defaultTooltipShown,
       onVisibleChange: onVisibleChange || DEPRECATED_onVisibilityChange,
       visible: controlledVisible || DEPRECATED_tooltipShown,
       mutationObserverOptions,
@@ -111,27 +98,9 @@ export function TooltipTrigger({
       {reference}
       {visible
         ? usePortal
-          ? createPortal(popper, portalContainer)
+          ? createPortal(popper, portalContainer!)
           : popper
         : null}
     </>
   );
-}
-
-TooltipTrigger.defaultProps = defaultProps;
-
-function renameWarning<T>(prop: T, oldName: string, newName: string): void {
-  if (process.env.NODE_ENV !== 'production' && prop !== undefined) {
-    console.warn(
-      `react-popper-tooltip: "${oldName}" prop was renamed and will be removed in the next major version. Use "${newName}" instead.`
-    );
-  }
-}
-
-function removeWarning<T>(prop: T, name: string): void {
-  if (process.env.NODE_ENV !== 'production' && prop !== undefined) {
-    console.error(
-      `react-popper-tooltip: "${name}" prop is no longer supported. See the migration guide on https://github.com/mohsinulhaq/react-popper-tooltip`
-    );
-  }
 }

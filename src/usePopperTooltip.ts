@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { usePopper } from 'react-popper';
 import { useControlledProp, useGetLatest } from './utils';
 import {
@@ -13,13 +13,12 @@ const defaultConfig: ConfigProps = {
   interactive: false,
   delayHide: 0,
   delayShow: 0,
-  initialVisible: false,
+  defaultVisible: false,
   mutationObserverOptions: {
     attributes: true,
     childList: true,
     subtree: true,
   },
-  offset: [0, 10],
   trigger: 'hover',
 };
 
@@ -27,8 +26,8 @@ export function usePopperTooltip(
   originalConfig: ConfigProps = {},
   originalPopperOptions: PopperOptions = {}
 ) {
-  // Meerging options with default options.
-  // Keys with undefind values are replaced with the default ones if any.
+  // Merging options with default options.
+  // Keys with undefined values are replaced with the default ones if any.
   // Keys with null values pass through.
   const config = (Object.keys(defaultConfig) as Array<
     keyof typeof defaultConfig
@@ -55,7 +54,7 @@ export function usePopperTooltip(
   const [tooltipRef, setTooltipRef] = React.useState<HTMLElement | null>(null);
   const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
   const [visible, setVisible] = useControlledProp({
-    initial: config.initialVisible,
+    initial: config.defaultVisible,
     value: config.visible,
     onChange: config.onVisibleChange,
   });
