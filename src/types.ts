@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Modifier } from 'react-popper';
 import * as PopperJS from '@popperjs/core';
 

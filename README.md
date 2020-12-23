@@ -50,7 +50,7 @@ $ yarn add react-popper-tooltip
 This example illustrates how to create a minimal tooltip with default settings and using a default CSS file.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { usePopperTooltip } from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 

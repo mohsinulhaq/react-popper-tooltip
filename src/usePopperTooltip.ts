@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { usePopper } from 'react-popper';
 import { useControlledProp, useGetLatest } from './utils';
 import {
