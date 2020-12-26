@@ -3,6 +3,7 @@ import { usePopper } from 'react-popper';
 import { useControlledProp, useGetLatest } from './utils';
 import {
   ConfigProps,
+  FollowCursorStore,
   PopperOptions,
   PropsGetterArgs,
   TriggerType,
@@ -10,10 +11,12 @@ import {
 
 const defaultConfig: ConfigProps = {
   closeOnClickOutside: true,
-  interactive: false,
+  closeOnTriggerHidden: false,
+  defaultVisible: false,
   delayHide: 0,
   delayShow: 0,
-  defaultVisible: false,
+  followCursor: false,
+  interactive: false,
   mutationObserverOptions: {
     attributes: true,
     childList: true,
@@ -72,34 +75,30 @@ export function usePopperTooltip(
     triggerRef,
     tooltipRef,
     config,
+    update: popperProps.update,
   });
 
   const isTriggeredBy = React.useCallback(
     (trigger: TriggerType) => {
-      const { config } = getLatest();
-
       return Array.isArray(config.trigger)
         ? config.trigger.includes(trigger)
         : config.trigger === trigger;
     },
-    [getLatest]
+    [config.trigger]
   );
 
   const hideTooltip = React.useCallback(() => {
     clearTimeout(timer.current);
     timer.current = window.setTimeout(
       () => setVisible(false),
-      getLatest().config.delayHide
+      config.delayHide
     );
-  }, [getLatest, setVisible]);
+  }, [config.delayHide, setVisible]);
 
   const showTooltip = React.useCallback(() => {
     clearTimeout(timer.current);
-    timer.current = window.setTimeout(
-      () => setVisible(true),
-      getLatest().config.delayShow
-    );
-  }, [getLatest, setVisible]);
+    timer.current = window.setTimeout(() => setVisible(true), config.delayShow);
+  }, [config.delayShow, setVisible]);
 
   const toggleTooltip = React.useCallback(() => {
     if (getLatest().visible) {
@@ -201,25 +200,84 @@ export function usePopperTooltip(
       tooltipRef.removeEventListener('mouseenter', showTooltip);
       tooltipRef.removeEventListener('mouseleave', hideTooltip);
     };
-  }, [tooltipRef, isTriggeredBy, showTooltip, hideTooltip]);
+  }, [tooltipRef, isTriggeredBy, showTooltip, hideTooltip, getLatest]);
+
+  // Handle closing tooltip if trigger hidden
+  const isReferenceHidden =
+    popperProps?.state?.modifiersData?.hide?.isReferenceHidden;
+  React.useEffect(() => {
+    if (config.closeOnTriggerHidden && isReferenceHidden) hideTooltip();
+  }, [config.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
+
+  // Handle follow cursor
+  const store = React.useRef<FollowCursorStore>();
+
+  React.useEffect(() => {
+    if (!config.followCursor || triggerRef == null || tooltipRef == null)
+      return;
+
+    const tooltipRect = tooltipRef.getBoundingClientRect();
+
+    function storeMousePosition({
+      pageX,
+      pageY,
+    }: {
+      pageX: number;
+      pageY: number;
+    }) {
+      store.current = { pageX, pageY, ...tooltipRect };
+      if (popperProps.update !== null) popperProps.update();
+    }
+
+    triggerRef.addEventListener('mousemove', storeMousePosition);
+    return () =>
+      triggerRef.removeEventListener('mousemove', storeMousePosition);
+    // eslint-disable-next-line
+  }, [
+    triggerRef,
+    tooltipRef,
+    getLatest,
+    config.followCursor,
+    popperProps.update,
+  ]);
+
+  function getFollowCursorTransform() {
+    if (tooltipRef == null || store.current == null) return;
+
+    const { pageX, pageY, width, height } = store.current;
+
+    const x =
+      pageX + width > window.pageXOffset + document.body.offsetWidth
+        ? pageX - width
+        : pageX;
+    const y =
+      pageY + height > window.pageYOffset + document.body.offsetHeight
+        ? pageY - height
+        : pageY;
+    return { transform: `translate3d(${x}px, ${y}px, 0` };
+  }
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
   const update = popperProps.update;
   React.useEffect(() => {
-    const mutationObserverOptions = getLatest().config.mutationObserverOptions;
+    const mutationObserverOptions = config.mutationObserverOptions;
     if (tooltipRef == null || update == null || mutationObserverOptions == null)
       return;
 
     const observer = new MutationObserver(update);
     observer.observe(tooltipRef, mutationObserverOptions);
     return () => observer.disconnect();
-  }, [getLatest, tooltipRef, update]);
+  }, [config.mutationObserverOptions, tooltipRef, update]);
 
   // Tooltip props getter
   const getTooltipProps = (args: PropsGetterArgs = {}) => {
     return {
       ...args,
-      style: { ...styles.popper, ...args.style },
+      style: {
+        ...args.style,
+        ...styles.popper,
+        ...(config.followCursor ? getFollowCursorTransform() : {}),
+      },
       ...attributes.popper,
     };
   };
@@ -228,7 +286,7 @@ export function usePopperTooltip(
   const getArrowProps = (args: PropsGetterArgs = {}) => {
     return {
       ...args,
-      style: { ...styles.arrow, ...args.style },
+      style: { ...args.style, ...styles.arrow },
       ...attributes.arrow,
       'data-popper-arrow': true,
     };

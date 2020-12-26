@@ -6,6 +6,11 @@ export type TriggerType = 'click' | 'right-click' | 'hover' | 'focus';
 
 export type ConfigProps = {
   /**
+   * Whether to close the tooltip when its trigger is out of boundary
+   * @default false
+   */
+  closeOnTriggerHidden?: boolean;
+  /**
    * Event or events that trigger the tooltip
    * @default hover
    */
@@ -20,6 +25,11 @@ export type ConfigProps = {
    * @default 0
    */
   delayShow?: number;
+  /**
+   * Whether to make the tooltip spawn at cursor position
+   * @default false
+   */
+  followCursor?: boolean;
   /**
    * Options to MutationObserver, used internally for updating
    * tooltip position based on its DOM changes
@@ -65,7 +75,12 @@ export type PopperOptions = Partial<PopperJS.Options> & {
   createPopper?: typeof PopperJS.createPopper;
 };
 
-// export type PropsGetterArgs = { style?: React.CSSProperties };
+export type FollowCursorStore = {
+  pageX: number;
+  pageY: number;
+  width: number;
+  height: number;
+};
 
 export type PropsGetterArgs = {
   style?: React.CSSProperties;
