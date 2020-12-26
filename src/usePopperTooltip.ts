@@ -70,12 +70,13 @@ export function usePopperTooltip(
     popperOptions
   );
 
+  const update = popperProps.update;
+
   const getLatest = useGetLatest({
     visible,
     triggerRef,
     tooltipRef,
     config,
-    update: popperProps.update,
   });
 
   const isTriggeredBy = React.useCallback(
@@ -226,20 +227,13 @@ export function usePopperTooltip(
       pageY: number;
     }) {
       store.current = { pageX, pageY, ...tooltipRect };
-      if (popperProps.update !== null) popperProps.update();
+      if (update !== null) update();
     }
 
     triggerRef.addEventListener('mousemove', storeMousePosition);
     return () =>
       triggerRef.removeEventListener('mousemove', storeMousePosition);
-    // eslint-disable-next-line
-  }, [
-    triggerRef,
-    tooltipRef,
-    getLatest,
-    config.followCursor,
-    popperProps.update,
-  ]);
+  }, [triggerRef, tooltipRef, getLatest, config.followCursor, update]);
 
   function getFollowCursorTransform() {
     if (tooltipRef == null || store.current == null) return;
@@ -258,14 +252,12 @@ export function usePopperTooltip(
   }
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
-  const update = popperProps.update;
   React.useEffect(() => {
-    const mutationObserverOptions = config.mutationObserverOptions;
-    if (tooltipRef == null || update == null || mutationObserverOptions == null)
+    if (tooltipRef == null || update == null || config.mutationObserverOptions == null)
       return;
 
     const observer = new MutationObserver(update);
-    observer.observe(tooltipRef, mutationObserverOptions);
+    observer.observe(tooltipRef, config.mutationObserverOptions);
     return () => observer.disconnect();
   }, [config.mutationObserverOptions, tooltipRef, update]);
 
