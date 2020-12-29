@@ -201,7 +201,6 @@ export function usePopperTooltip(
   React.useEffect(() => {
     if (
       tooltipRef == null ||
-      !isTriggeredBy('hover') ||
       !getLatest().config.interactive
     )
       return;
