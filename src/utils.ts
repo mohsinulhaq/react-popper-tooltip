@@ -7,15 +7,9 @@ export function useGetLatest<T>(val: T) {
   return React.useCallback(() => ref.current, []);
 }
 
-export const noop = () => {
+const noop = () => {
   // do nothing
 };
-
-export const canUseDOM = Boolean(
-  typeof window !== 'undefined' &&
-    window.document &&
-    window.document.createElement
-);
 
 export function useControlledProp<T>({
   initial,
@@ -54,23 +48,4 @@ export function useControlledProp<T>({
   const isControlled = value !== undefined;
 
   return [isControlled ? value! : state!, isControlled ? onChange : set];
-}
-export function renameWarning<T>(
-  prop: T,
-  oldName: string,
-  newName: string
-): void {
-  if (process.env.NODE_ENV !== 'production' && prop !== undefined) {
-    console.warn(
-      `react-popper-tooltip: "${oldName}" prop was renamed and will be removed in the next major version. Use "${newName}" instead.`
-    );
-  }
-}
-
-export function removeWarning<T>(prop: T, name: string): void {
-  if (process.env.NODE_ENV !== 'production' && prop !== undefined) {
-    console.error(
-      `react-popper-tooltip: "${name}" prop is no longer supported. See the migration guide on https://github.com/mohsinulhaq/react-popper-tooltip`
-    );
-  }
 }

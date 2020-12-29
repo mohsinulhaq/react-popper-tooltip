@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Modifier } from 'react-popper';
 import * as PopperJS from '@popperjs/core';
 
 export type TriggerType = 'click' | 'right-click' | 'hover' | 'focus';
@@ -66,7 +65,7 @@ export type ConfigProps = {
   placement?: PopperJS.Placement;
   /**
    * Shorthand for popper.js offset modifier, see https://popper.js.org/docs/v2/modifiers/offset/
-   * @default [0, 10]
+   * @default [0, 6]
    */
   offset?: [number, number];
 };
@@ -75,54 +74,14 @@ export type PopperOptions = Partial<PopperJS.Options> & {
   createPopper?: typeof PopperJS.createPopper;
 };
 
-export type FollowCursorStore = {
-  pageX: number;
-  pageY: number;
-  width: number;
-  height: number;
-};
-
 export type PropsGetterArgs = {
   style?: React.CSSProperties;
   [key: string]: any;
 };
 
-type ChildrenArg = {
-  triggerRef: Ref;
-  getTriggerProps<T>(arg: T): T;
-};
-
-type TooltipArg = {
-  arrowRef: Ref;
-  tooltipRef: Ref;
-  placement: ConfigProps['placement'];
-  getArrowProps(arg: PropsGetterArgs): PropsGetterArgs;
-  getTooltipProps(arg: PropsGetterArgs): PropsGetterArgs;
-};
-
-type Ref =
-  | ((element: HTMLElement | null) => void)
-  | { current: HTMLElement | null }
-  | null;
-
-export type TooltipTriggerProps = {
-  children(arg: ChildrenArg): React.ReactNode;
-  delayHide?: ConfigProps['delayHide'];
-  delayShow?: ConfigProps['delayShow'];
-  getTriggerRef?: Ref;
-  defaultVisible?: ConfigProps['defaultVisible'];
-  modifiers?: Modifier<any>[];
-  mutationObserverOptions?: ConfigProps['mutationObserverOptions'];
-  onVisibleChange?: ConfigProps['onVisibleChange'];
-  placement?: ConfigProps['placement'];
-  portalContainer: HTMLElement | null;
-  tooltip(arg: TooltipArg): React.ReactNode;
-  trigger?: ConfigProps['trigger'];
-  usePortal?: boolean;
-  visible?: ConfigProps['visible'];
-  closeOnReferenceHidden?: any;
-  defaultTooltipShown?: ConfigProps['defaultVisible'];
-  onVisibilityChange?: ConfigProps['onVisibleChange'];
-  tooltipShown?: ConfigProps['visible'];
-  followCursor?: any;
+export type FollowCursorStore = {
+  pageX: number;
+  pageY: number;
+  width: number;
+  height: number;
 };
