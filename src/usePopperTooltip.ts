@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
-import { useControlledProp, useGetLatest } from './utils';
+import {
+  useControlledProp,
+  useGetLatest,
+  generateGetBoundingClientRect,
+} from './utils';
 import {
   ConfigProps,
-  FollowCursorStore,
   PopperOptions,
   PropsGetterArgs,
   TriggerType,
 } from './types';
+
+const virtualElement = {
+  getBoundingClientRect: generateGetBoundingClientRect(),
+};
 
 const defaultConfig: ConfigProps = {
   closeOnClickOutside: true,
@@ -22,6 +29,7 @@ const defaultConfig: ConfigProps = {
     childList: true,
     subtree: true,
   },
+  offset: [0, 6],
   trigger: 'hover',
 };
 
@@ -31,7 +39,7 @@ export function usePopperTooltip(
 ) {
   // Merging options with default options.
   // Keys with undefined values are replaced with the default ones if any.
-  // Keys with null values pass through.
+  // Keys with other values pass through.
   const config = (Object.keys(defaultConfig) as Array<
     keyof typeof defaultConfig
   >).reduce(
@@ -45,12 +53,15 @@ export function usePopperTooltip(
     originalConfig
   );
 
+  const defaultModifiers = React.useMemo(
+    () => [{ name: 'offset', options: { offset: config.offset } }],
+    [config.offset]
+  );
+
   const popperOptions = {
     ...originalPopperOptions,
     placement: originalPopperOptions.placement || config.placement,
-    modifiers: originalPopperOptions.modifiers || [
-      { name: 'offset', options: { offset: config.offset } },
-    ],
+    modifiers: originalPopperOptions.modifiers || defaultModifiers,
   };
 
   const [triggerRef, setTriggerRef] = React.useState<HTMLElement | null>(null);
@@ -65,7 +76,7 @@ export function usePopperTooltip(
   const timer = React.useRef<number>();
 
   const { styles, attributes, ...popperProps } = usePopper(
-    triggerRef,
+    config.followCursor ? virtualElement : triggerRef,
     tooltipRef,
     popperOptions
   );
@@ -211,49 +222,35 @@ export function usePopperTooltip(
   }, [config.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
 
   // Handle follow cursor
-  const store = React.useRef<FollowCursorStore>();
 
   React.useEffect(() => {
-    if (!config.followCursor || triggerRef == null || tooltipRef == null)
-      return;
+    if (!config.followCursor || triggerRef == null) return;
 
-    const tooltipRect = tooltipRef.getBoundingClientRect();
-
-    function storeMousePosition({
-      pageX,
-      pageY,
+    function setMousePosition({
+      clientX,
+      clientY,
     }: {
-      pageX: number;
-      pageY: number;
+      clientX: number;
+      clientY: number;
     }) {
-      store.current = { pageX, pageY, ...tooltipRect };
-      if (update !== null) update();
+      virtualElement.getBoundingClientRect = generateGetBoundingClientRect(
+        clientX,
+        clientY
+      );
+      if (update) update();
     }
 
-    triggerRef.addEventListener('mousemove', storeMousePosition);
-    return () =>
-      triggerRef.removeEventListener('mousemove', storeMousePosition);
-  }, [triggerRef, tooltipRef, getLatest, config.followCursor, update]);
-
-  function getFollowCursorTransform() {
-    if (tooltipRef == null || store.current == null) return;
-
-    const { pageX, pageY, width, height } = store.current;
-
-    const x =
-      pageX + width > window.pageXOffset + document.body.offsetWidth
-        ? pageX - width
-        : pageX;
-    const y =
-      pageY + height > window.pageYOffset + document.body.offsetHeight
-        ? pageY - height
-        : pageY;
-    return { transform: `translate3d(${x}px, ${y}px, 0` };
-  }
+    triggerRef.addEventListener('mousemove', setMousePosition);
+    return () => triggerRef.removeEventListener('mousemove', setMousePosition);
+  }, [config.followCursor, triggerRef, update]);
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
   React.useEffect(() => {
-    if (tooltipRef == null || update == null || config.mutationObserverOptions == null)
+    if (
+      tooltipRef == null ||
+      update == null ||
+      config.mutationObserverOptions == null
+    )
       return;
 
     const observer = new MutationObserver(update);
@@ -268,7 +265,6 @@ export function usePopperTooltip(
       style: {
         ...args.style,
         ...styles.popper,
-        ...(config.followCursor ? getFollowCursorTransform() : {}),
       },
       ...attributes.popper,
     };

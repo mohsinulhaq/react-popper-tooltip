@@ -78,10 +78,3 @@ export type PropsGetterArgs = {
   style?: React.CSSProperties;
   [key: string]: any;
 };
-
-export type FollowCursorStore = {
-  pageX: number;
-  pageY: number;
-  width: number;
-  height: number;
-};

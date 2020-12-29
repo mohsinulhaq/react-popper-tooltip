@@ -40,11 +40,9 @@
 }
 
 .tooltip-container[data-popper-placement*='bottom'] .tooltip-arrow {
-  height: 1rem;
   left: 0;
   margin-top: -0.4rem;
   top: 0;
-  width: 1rem;
 }
 
 .tooltip-container[data-popper-placement*='bottom'] .tooltip-arrow::before {
@@ -61,10 +59,8 @@
 
 .tooltip-container[data-popper-placement*='top'] .tooltip-arrow {
   bottom: 0;
-  height: 1rem;
   left: 0;
   margin-bottom: -1rem;
-  width: 1rem;
 }
 
 .tooltip-container[data-popper-placement*='top'] .tooltip-arrow::before {
@@ -80,10 +76,8 @@
 }
 
 .tooltip-container[data-popper-placement*='right'] .tooltip-arrow {
-  height: 1rem;
   left: 0;
   margin-left: -0.7rem;
-  width: 1rem;
 }
 
 .tooltip-container[data-popper-placement*='right'] .tooltip-arrow::before {
@@ -99,10 +93,8 @@
 }
 
 .tooltip-container[data-popper-placement*='left'] .tooltip-arrow {
-  height: 1rem;
   margin-right: -0.7rem;
   right: 0;
-  width: 1rem;
 }
 
 .tooltip-container[data-popper-placement*='left'] .tooltip-arrow::before {
