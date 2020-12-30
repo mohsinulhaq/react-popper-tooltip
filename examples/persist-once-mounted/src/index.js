@@ -7,6 +7,22 @@ function App() {
   return <Example />;
 }
 
+function HeavyCalculations() {
+  const [counter, setCounter] = React.useState(0);
+  return (
+    <div>
+      <p>
+        Some heavy calculatins happens here when mounted. The component state
+        preserved when tooltip shows/hides.
+      </p>
+      <p>
+        <button onClick={() => setCounter((s) => s + 1)}>+</button>
+        {counter}
+      </p>
+    </div>
+  );
+}
+
 function Example() {
   const [mounted, setMounted] = React.useState(false);
 
@@ -34,7 +50,8 @@ function Example() {
       <p>
         In this example, the tooltip stays in the DOM once mounted. It can be
         helpful for heavy components to avoid unnecessary mounting/dismounting
-        whenever tooltip is hidden or shown.
+        whenever tooltip is hidden or shown or when you want to preserve the
+        tooltip content's state.
       </p>
       <p>
         Mounted: {mounted ? 'yes' : 'no'}, visible: {visible ? 'yes' : 'no'}
@@ -54,11 +71,11 @@ function Example() {
               : { visibility: 'hidden', pointerEvents: 'none' },
           })}
         >
-          Tooltip element, heavy calculatins happens here when mounted.
           <div
             ref={setArrowRef}
             {...getArrowProps({ className: 'tooltip-arrow' })}
           />
+          <HeavyCalculations />
         </div>
       )}
     </div>

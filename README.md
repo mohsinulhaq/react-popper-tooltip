@@ -5,35 +5,27 @@
 [![codecov](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip/branch/master/graph/badge.svg)](https://codecov.io/gh/mohsinulhaq/react-popper-tooltip)
 [![Dependency Status](https://img.shields.io/david/mohsinulhaq/react-popper-tooltip.svg?style=flat-square)](https://david-dm.org/mohsinulhaq/react-popper-tooltip)
 
-A primitive to build a React tooltip component. Based on [react-popper](https://github.com/FezVrasta/react-popper)
+A React hook to build a tooltip component. Based on [react-popper](https://github.com/FezVrasta/react-popper)
 and [popper.js](https://popper.js.org) libraries.
-
-## Solution
-
-The library offers two solutions. The first solution, which is we recommend you to use, is a React hooks. The hook
-provides the stateful logic needed to make the tooltip component functional.
-
-The second solution is the TooltipTrigger component, which can also be used to create a tooltip, providing the logic in
-the form of a render prop. This is a legacy API for compatibility with 3.x users moving to 4.x. It's not recommended for
-the new users, and it doesn't support all the features that the hook does.
 
 ## Docs
 
 This is the documentation for the version 4.x which introduced the `usePopperTooltip` hook.
 
-[3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md)
+If you're looking for the render prop version,
+see [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md).
+
+If you're moving from 3.x render prop to 4.x hook, read our [migration guide](migrating.md).
 
 ## Examples
 
 - Basic usage [Demo]() [Source](/examples/basic)
 - Animating appearance with react-spring  [Demo]() [Source](/examples/animation)
 - Closing tooltip with Esc button  [Demo]() [Source](/examples/close-on-esc)
-- Close tooltip when trigger element is out of view  [Demo]() [Source](/examples/close-out-of-view)
 - Using as a controlled component [Demo]() [Source](/examples/controlled)
-- Tooltip follows a cursor  [Demo]() [Source](/examples/follow-cursor)
-- Persist the tooltip in the DOM once it's shown [Demo]() [Source](/examples/persist-once-mounted)
+- Persist the tooltip in the DOM once it's mounted [Demo]() [Source](/examples/persist-once-mounted)
 - Using with react portal [Demo]() [Source](/examples/portal)
-- Using legacy render prop API [Demo]() [Source](/examples/basic-render-props)
+- Implementing render prop API [Demo]() [Source](/examples/render-prop)
 
 ## Installation
 
@@ -145,6 +137,14 @@ const {
 
 #### Options
 
+- `closeOnClickOutside: Boolean`, defaults to `true`
+
+If `true`, closes the tooltip when user clicks outside the trigger element.
+
+- `closeOnTriggerHidden: Boolean`, defaults to `false`
+
+Whether to close the tooltip when its trigger is out of boundary.
+
 - `delayHide: number`, defaults to `0`
 
 Delay in hiding the tooltip (ms).
@@ -157,15 +157,22 @@ Delay in showing the tooltip (ms).
 
 The initial visibility state of the tooltip when the hook is initialized.
 
-- `visible: Boolean`
+- `followCursor: Boolean`, defaults to `false`
 
-The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip.
+If `true`, the tooltip will stick to the cursor position. We recommended using this option with hover trigger and no
+arrow element.
 
-**react-popper-tooltip** manages its own state internally and calls `onVisibleChange` handler with any relevant changes.
+- `offset: [number, number]`, defaults to `[0, 6]`
 
-However, if more control is needed, you can pass this prop, and the state becomes controlled. As soon as it's not
-undefined, internally, **react-popper-tooltip** will determine its state based on your prop's value rather than its own
-internal state.
+This is a shorthand for `popperOptions.modifiers` offset modifier option. The default value means the tooltip will be
+placed 6px away from the trigger element (to reserve enough space for the arrow element).
+
+We use this default value to match the size of the arrow element from our default CSS file. Change it if you use your
+own styles.
+
+See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
+
+`popperOptions` takes precedence over this option.
 
 - `onVisibleChange: Function(state: Boolean) => void`
 
@@ -177,27 +184,21 @@ Called with the tooltip state, when the visibility of the tooltip changes.
 Event or events that trigger the tooltip. Use `null` if you want to disable all events. It's usefull in some cases when
 you controll the state of the tooltip.
 
-- `offset: [number, number]`, defaults to `[0, 6]`
+- `visible: Boolean`
 
-This is a shorthand for `popperOptions.modifiers` offset modifier option. The default value means the tooltip will be
-placed a 6px away from the trigger element (to reserve enough space for the arrow element).
+The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip.
 
-We use this default value to match the size of the arrow element from our default CSS file. Change it if you use your
-own styles.
+**react-popper-tooltip** manages its own state internally and calls `onVisibleChange` handler with any relevant changes.
 
-See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
-
-`popperOptions` takes precedence over this option.
+However, if more control is needed, you can pass this prop, and the state becomes controlled. As soon as it's not
+undefined, internally, **react-popper-tooltip** will determine its state based on your prop's value rather than its own
+internal state.
 
 - `placement: 'auto' | 'auto-start' | 'auto-end' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end';`
 
 The preferred placement of the tooltip. This is an alias for `popperOptions.placement` option.
 
 `popperOptions` takes precedence over this option.
-
-- `closeOnClickOutside: Boolean`, defaults to `true`
-
-If `true`, closes the tooltip when user clicks outside the trigger element.
 
 - `interactive: Boolean`, defaults to `false`
 
@@ -236,15 +237,15 @@ A tooltip DOM element.
 
 A trigger DOM element.
 
-- `setArrowRef: HTMLElement | null`
+- `setArrowRef:  (HTMLElement | null) => void | null`
 
 An arrow callback ref. Must be assigned to the arrow's `ref` prop.
 
-- `setTooltipRef: HTMLElement | null`
+- `setTooltipRef: (HTMLElement | null) => void | null`
 
 A tooltop callback ref. Must be assigned to the tooltip's `ref` prop.
 
-- `setTriggerRef: HTMLElement | null`
+- `setTriggerRef: (HTMLElement | null) => void | null`
 
 A trigger callback ref. Must be assigned to the trigger's `ref` prop.
 
@@ -276,10 +277,6 @@ See [https://popper.js.org/react-popper/v2/hook/](https://popper.js.org/react-po
 This doesn't include `styles` and `attributes` props. They are included into `getArrowProps` and `getTooltipProps` prop
 getters.
 
-### TooltipTrigger
-
-See [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md) and
-our [migrating guide](/migrating.md).
 
 
 
