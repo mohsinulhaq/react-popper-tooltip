@@ -85,7 +85,7 @@ function App() {
   );
 }
 
-render(<App/>, document.getElementById('root'));
+render(<App />, document.getElementById('root'));
 ```
 
 ## Styling
@@ -177,10 +177,14 @@ Called with the tooltip state, when the visibility of the tooltip changes.
 Event or events that trigger the tooltip. Use `null` if you want to disable all events. It's usefull in some cases when
 you controll the state of the tooltip.
 
-- `offset: [number, number]`, defaults to `[0, 10]`
+- `offset: [number, number]`, defaults to `[0, 6]`
 
 This is a shorthand for `popperOptions.modifiers` offset modifier option. The default value means the tooltip will be
-placed a 10px away from the trigger element (to reserve enough space for the arrow element).
+placed a 6px away from the trigger element (to reserve enough space for the arrow element).
+
+We use this default value to match the size of the arrow element from our default CSS file. Change it if you use your
+own styles.
+
 See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
 
 `popperOptions` takes precedence over this option.
@@ -200,8 +204,7 @@ If `true`, closes the tooltip when user clicks outside the trigger element.
 If `true`, hovering the tooltip will keep it open. Normally, if you trigger the tooltip on hover event, the tooltip
 closes when the mouse cursor moves out of the trigger element. If it moves to the tooltip element, the tooltip stays
 open. It's useful if you want to allow your users to interact with the tooltip's content (select and copy text, click a
-link, etc.). In this case you will probably need to increase `delayHide` value to give the user more time to react.
-.
+link, etc.). In this case you will probably need to increase `delayHide` value to give the user more time to react. .
 
 - `mutationObserverOptions: MutationObserverInit | null`, defaults
   to `{ attributes: true, childList: true, subtree: true }`
