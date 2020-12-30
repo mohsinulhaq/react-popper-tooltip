@@ -199,11 +199,7 @@ export function usePopperTooltip(
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
-    if (
-      tooltipRef == null ||
-      !getLatest().config.interactive
-    )
-      return;
+    if (tooltipRef == null || !getLatest().config.interactive) return;
 
     tooltipRef.addEventListener('mouseenter', showTooltip);
     tooltipRef.addEventListener('mouseleave', hideTooltip);
@@ -211,7 +207,7 @@ export function usePopperTooltip(
       tooltipRef.removeEventListener('mouseenter', showTooltip);
       tooltipRef.removeEventListener('mouseleave', hideTooltip);
     };
-  }, [tooltipRef, isTriggeredBy, showTooltip, hideTooltip, getLatest]);
+  }, [tooltipRef, showTooltip, hideTooltip, getLatest]);
 
   // Handle closing tooltip if trigger hidden
   const isReferenceHidden =
@@ -221,7 +217,6 @@ export function usePopperTooltip(
   }, [config.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
 
   // Handle follow cursor
-
   React.useEffect(() => {
     if (!config.followCursor || triggerRef == null) return;
 

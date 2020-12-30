@@ -8,17 +8,13 @@ function App() {
 }
 
 function Example() {
-  const store = React.useRef();
 
   const {
-    triggerRef,
-    tooltipRef,
     getTooltipProps,
     setTooltipRef,
     setTriggerRef,
     visible,
-    update,
-  } = usePopperTooltip({ followCursor: true, trigger: 'click'});
+  } = usePopperTooltip({ followCursor: true });
 
   return (
     <div className="App">

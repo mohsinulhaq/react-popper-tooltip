@@ -1,8 +1,7 @@
 {
   "name": "react-popper-tooltip",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "React tooltip library built around react-popper",
-  "homepage": "https://react-popper-tooltip.netlify.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
