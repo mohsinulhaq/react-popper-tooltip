@@ -268,8 +268,8 @@ export function usePopperTooltip(
   const getArrowProps = (args: PropsGetterArgs = {}) => {
     return {
       ...args,
-      style: { ...args.style, ...styles.arrow },
       ...attributes.arrow,
+      style: { ...args.style, ...styles.arrow },
       'data-popper-arrow': true,
     };
   };
