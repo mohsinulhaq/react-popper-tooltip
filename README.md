@@ -120,9 +120,11 @@ const {
 } = usePopperTooltip(
   {
     closeOnClickOutside,
+    closeOnTriggerHidden,
     delayHide,
     delayShow,
     defaultVisible,
+    followCursor,
     interactive,
     mutationObserverOptions,
     offset,
@@ -161,6 +163,14 @@ The initial visibility state of the tooltip when the hook is initialized.
 
 If `true`, the tooltip will stick to the cursor position. We recommended using this option with hover trigger and no
 arrow element.
+
+- `mutationObserverOptions: MutationObserverInit | null`, defaults
+  to `{ attributes: true, childList: true, subtree: true }`
+
+Options to MutationObserver, used internally for updating tooltip position based on its DOM changes. When the tooltip is
+visible and its content changes, it automatically repositions itself. Internally we use [MutationObserver
+](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to track tooltip's content changes. In some cases
+you may need to change which parameters to observe or opt-out of tracking the changes at all.
 
 - `offset: [number, number]`, defaults to `[0, 6]`
 
@@ -205,15 +215,7 @@ The preferred placement of the tooltip. This is an alias for `popperOptions.plac
 If `true`, hovering the tooltip will keep it open. Normally, if you trigger the tooltip on hover event, the tooltip
 closes when the mouse cursor moves out of the trigger element. If it moves to the tooltip element, the tooltip stays
 open. It's useful if you want to allow your users to interact with the tooltip's content (select and copy text, click a
-link, etc.). In this case you will probably need to increase `delayHide` value to give the user more time to react. .
-
-- `mutationObserverOptions: MutationObserverInit | null`, defaults
-  to `{ attributes: true, childList: true, subtree: true }`
-
-Options to MutationObserver, used internally for updating tooltip position based on its DOM changes. When the tooltip is
-visible and its content changes, it automatically repositions itself. Internally we use [MutationObserver
-](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to track tooltip's content changes. In some cases
-you may need to change which parameters to observe or opt-out of tracking the changes at all.
+link, etc.). In this case you will probably need to increase `delayHide` value to give the user more time to react.
 
 - `popperOptions: { placement, modifiers, strategy, onFirstUpdate }`
 
