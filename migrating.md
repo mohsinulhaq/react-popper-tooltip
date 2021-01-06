@@ -1,48 +1,93 @@
-# Migrating from 3.x to 4.x
+# Migrating from `TooltipTrigger` to `usePopperTooltip`
 
-After react-popper, which is used under the hood of react-popper-tooltip, introduced the `usePopper` hook in the last
-major update, we're also releasing the hook version of the library - `usePopperTooltip`.
+Version 4.x introduced the `usePopperTooltip` hook and dropped the support of the `TooltipTrigger` component utilizing
+render prop pattern.
 
-It's going to be the primary tool for creating tooltip components. This version still supports the `TooltipTrigger`
-component utilizing render prop with some breaking changes (see below). This is a legacy API for compatibility with 3.x
-users moving to 4.x, and it doesn't support all the features that the hook does. We recommend you to switch your code to
-the hook.
+This guide will provide you with the infromation to help you understand how to upgrade your code.
 
-This version was rewritten from the scratch. Although fully tested, it can still possibly contain some regressions. Please,
-report any problems using the [issues link](https://github.com/mohsinulhaq/react-popper-tooltip/issues).
+Here's an example of using the `TooltipTrigger` component. We added some additional props rather than using all
+defaults.
 
-## BREAKING CHANGES
-
-- `closeOnReferenceHidden` has been removed.
-
-Instead, additional attributes `data-popper-reference-hidden` and `data-popper-escaped` were added to the tooltip
-container. They set to true if the trigger element, or the tooltip element gets out of boundaries. You can use them in
-your CSS to hide the tooltip or trigger when necessary.
-
-- `followCursor` has been removed.
-
-If you still need the removed functionality, check out our examples section on how you can implement it on your own
-using the hook.
-
-## Changes
-
-Some properties were renamed. You can still use the old names, but you'll get a warning message. These props will be
-removed in the next major version.
-
-- `defaultTooltipShown` was renamed to `defaultVisible`
-- `tooltipShown` was renamed to `visible`
-- `onVisibilityChange` was renamed to `onVisibleChange`
-
-If you imported `TooltipTrigger` component as a default import, use named import insted. Default import still works but
-will be removed in the next major version.
-
-```diff
--import TooltipTrigger from 'react-popper-tooltip';
-+import { TooltipTrigger } from 'react-popper-tooltip';
+```jsx
+<TooltipTrigger
+  trigger="click"
+  delayShow={1000}
+  tooltip={({ arrowRef, tooltipRef, getArrowProps, getTooltipProps }) => (
+    <div
+      {...getTooltipProps({
+        ref: tooltipRef,
+        className: 'tooltip-container',
+      })}
+    >
+      <div
+        {...getArrowProps({
+          ref: arrowRef,
+          className: 'tooltip-arrow',
+        })}
+      />
+      Tooltip element
+    </div>
+  )}
+>
+  {({ triggerRef }) => (
+    <button ref={triggerRef} type="button">
+      Trigger element
+    </button>
+  )}
+</TooltipTrigger>
 ```
 
-Previously, when the user hovered the tooltip, it stayed open to allow the user to interact with the tooltip's content.
-Now the tooltip closes as soon as the cursor leaves the trigger element. The new option `interactive` was added to
-configure this behavior.
+Here's the same component rewritten using the hook:
 
-A string value `"none"` of the prop `trigger` replace with `null`. Both values work but using `null` is recommended.
+```js
+ const {
+  getArrowProps,
+  getTooltipProps,
+  setArrowRef,
+  setTooltipRef,
+  setTriggerRef,
+  visible,
+} = usePopperTooltip({ trigger: "click", delayHide: 1000 });
+
+return (
+  <>
+    <button type="button" ref={setTriggerRef}>
+      Trigger element
+    </button>
+
+    {visible && (
+      <div
+        ref={setTooltipRef}
+        {...getTooltipProps({ className: 'tooltip-container' })}
+      >
+        Tooltip element
+        <div
+          ref={setArrowRef}
+          {...getArrowProps({ className: 'tooltip-arrow' })}
+        />
+      </div>
+    )}
+  </>
+);
+
+```
+
+When you use the hook, all props that you previously passed to the `TooltipTrigger` component now are arguments of the
+hook itself. The hook returns an object containing set of properties. Please note, that some props have changed their
+names, so in some cases you can't just copy-paste them from your render prop component to the hook. See
+the [release notes to 4.x](release-notes.md).
+
+Some of the return properties are mandatory and have to be applied to your tooltip elements. Such as `setArrowRef`,
+`setTooltipRef`, `setTriggerRef` are ref callbacks and have to be assigned to the arrow, tooltip, and referense elements
+accordingly in order to let the hook have access to the underlying DOM elements.
+
+Previously, they called `arrowRef`, `triggerRef`, `triggerRef` and had the same meaning of the ref callbacks. Now the
+hook returns properties with these names as well but in the hook version they actually contain the corresponding DOM
+elements. You don't need to use `getTriggerRef` to get a ref of the trigger element anymore.
+
+The `tooltip` and `children` props are gone. Now you completely responsible for the composition of your tooltip. If you,
+for example, want to have your tooltip rendered through React portal, you have to import react-dom and
+call `createPortal` in your code.
+
+One of the return properties is `visible`. It contains the current visibility status of the tooltip. Use its value to
+show or hide the tooltip.
