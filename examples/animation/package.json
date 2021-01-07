@@ -1,25 +1,19 @@
 {
-  "name": "react",
-  "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
-  "main": "src/index.js",
   "dependencies": {
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "react-popper-tooltip": "^3.1.0",
-    "react-scripts": "3.4.3",
-    "react-spring": "^8.0.27"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-popper-tooltip": "^4.0.0",
+    "react-spring": "^8.0.27",
+    "react-scripts": "3.4.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.15"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test --env=jsdom",
+    "eject": "rescripts eject"
   },
   "browserslist": [
     ">0.2%",
