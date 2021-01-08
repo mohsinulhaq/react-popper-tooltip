@@ -88,5 +88,6 @@ The `tooltip` and `children` props are gone. Now you completely responsible for 
 for example, want to have your tooltip rendered through React portal, you have to import react-dom and
 use `createPortal` in your code.
 
-One of the return properties is `visible`. It contains the current visibility status of the tooltip. Use its value to
-show or hide the tooltip.
+Use `visible` property to  show or hide the tooltip.
+
+If you still have questions, see [examples section](README.md) for more code examples using the hook.
