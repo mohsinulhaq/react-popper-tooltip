@@ -6,7 +6,7 @@ and allows implementing scenarios not possible before.
 
 ## Breaking changes
 
-Since this release, the hook is the only tool for creating tooltip components. This version drops support of
+Since this release, the hook is the only tool for creating tooltip components. This version drops the support of
 the `TooltipTrigger` component utilizing render prop pattern. If you want to upgrade and keep using render prop API,
 reference our example section to implement legacy API with the hook.
 
