@@ -3,7 +3,7 @@ import * as PopperJS from '@popperjs/core';
 
 export type TriggerType = 'click' | 'right-click' | 'hover' | 'focus';
 
-export type ConfigProps = {
+export type Config = {
   /**
    * Whether to close the tooltip when its trigger is out of boundary
    * @default false
@@ -76,5 +76,5 @@ export type PopperOptions = Partial<PopperJS.Options> & {
 
 export type PropsGetterArgs = {
   style?: React.CSSProperties;
-  [key: string]: any;
+  [key: string]: unknown;
 };

@@ -20,8 +20,8 @@ If you're moving from 3.x render prop to 4.x hook, read our [migration guide](mi
 ## Examples
 
 - Basic usage [Demo]() [Source](/examples/basic)
-- Animating appearance with react-spring  [Demo]() [Source](/examples/animation)
-- Closing tooltip with Esc button  [Demo]() [Source](/examples/close-on-esc)
+- Animating appearance with react-spring [Demo]() [Source](/examples/animation)
+- Closing tooltip with Esc button [Demo]() [Source](/examples/close-on-esc)
 - Using as a controlled component [Demo]() [Source](/examples/controlled)
 - Persist the tooltip in the DOM once it's mounted [Demo]() [Source](/examples/persist-once-mounted)
 - Using with react portal [Demo]() [Source](/examples/portal)
@@ -239,7 +239,7 @@ A tooltip DOM element.
 
 A trigger DOM element.
 
-- `setArrowRef:  (HTMLElement | null) => void | null`
+- `setArrowRef: (HTMLElement | null) => void | null`
 
 An arrow callback ref. Must be assigned to the arrow's `ref` prop.
 
@@ -278,7 +278,3 @@ See [https://popper.js.org/react-popper/v2/hook/](https://popper.js.org/react-po
 
 This doesn't include `styles` and `attributes` props. They are included into `getArrowProps` and `getTooltipProps` prop
 getters.
-
-
-
-

@@ -50,7 +50,7 @@ export function useControlledProp<T>({
   return [isControlled ? value! : state!, isControlled ? onChange : set];
 }
 
-export function generateGetBoundingClientRect(x = 0, y = 0) {
+export function generateBoundingClientRect(x = 0, y = 0) {
   return () => ({
     width: 0,
     height: 0,

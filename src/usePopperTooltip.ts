@@ -3,20 +3,15 @@ import { usePopper } from 'react-popper';
 import {
   useControlledProp,
   useGetLatest,
-  generateGetBoundingClientRect,
+  generateBoundingClientRect,
 } from './utils';
-import {
-  ConfigProps,
-  PopperOptions,
-  PropsGetterArgs,
-  TriggerType,
-} from './types';
+import { Config, PopperOptions, PropsGetterArgs, TriggerType } from './types';
 
 const virtualElement = {
-  getBoundingClientRect: generateGetBoundingClientRect(),
+  getBoundingClientRect: generateBoundingClientRect(),
 };
 
-const defaultConfig: ConfigProps = {
+const defaultConfig: Config = {
   closeOnClickOutside: true,
   closeOnTriggerHidden: false,
   defaultVisible: false,
@@ -34,51 +29,48 @@ const defaultConfig: ConfigProps = {
 };
 
 export function usePopperTooltip(
-  originalConfig: ConfigProps = {},
-  originalPopperOptions: PopperOptions = {}
+  config: Config = {},
+  popperOptions: PopperOptions = {}
 ) {
   // Merging options with default options.
   // Keys with undefined values are replaced with the default ones if any.
   // Keys with other values pass through.
-  const config = (Object.keys(defaultConfig) as Array<
+  const finalConfig = (Object.keys(defaultConfig) as Array<
     keyof typeof defaultConfig
   >).reduce(
     (config, key) => ({
       ...config,
-      [key]:
-        originalConfig[key] !== undefined
-          ? originalConfig[key]
-          : defaultConfig[key],
+      [key]: config[key] !== undefined ? config[key] : defaultConfig[key],
     }),
-    originalConfig
+    config
   );
 
   const defaultModifiers = React.useMemo(
-    () => [{ name: 'offset', options: { offset: config.offset } }],
-    [config.offset]
+    () => [{ name: 'offset', options: { offset: finalConfig.offset } }],
+    [finalConfig.offset]
   );
 
-  const popperOptions = {
-    ...originalPopperOptions,
-    placement: originalPopperOptions.placement || config.placement,
-    modifiers: originalPopperOptions.modifiers || defaultModifiers,
+  const finalPopperOptions = {
+    ...popperOptions,
+    placement: popperOptions.placement || finalConfig.placement,
+    modifiers: popperOptions.modifiers || defaultModifiers,
   };
 
   const [triggerRef, setTriggerRef] = React.useState<HTMLElement | null>(null);
   const [tooltipRef, setTooltipRef] = React.useState<HTMLElement | null>(null);
   const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
   const [visible, setVisible] = useControlledProp({
-    initial: config.defaultVisible,
-    value: config.visible,
-    onChange: config.onVisibleChange,
+    initial: finalConfig.defaultVisible,
+    value: finalConfig.visible,
+    onChange: finalConfig.onVisibleChange,
   });
 
   const timer = React.useRef<number>();
 
   const { styles, attributes, ...popperProps } = usePopper(
-    config.followCursor ? virtualElement : triggerRef,
+    finalConfig.followCursor ? virtualElement : triggerRef,
     tooltipRef,
-    popperOptions
+    finalPopperOptions
   );
 
   const update = popperProps.update;
@@ -87,30 +79,33 @@ export function usePopperTooltip(
     visible,
     triggerRef,
     tooltipRef,
-    config,
+    config: finalConfig,
   });
 
   const isTriggeredBy = React.useCallback(
     (trigger: TriggerType) => {
-      return Array.isArray(config.trigger)
-        ? config.trigger.includes(trigger)
-        : config.trigger === trigger;
+      return Array.isArray(finalConfig.trigger)
+        ? finalConfig.trigger.includes(trigger)
+        : finalConfig.trigger === trigger;
     },
-    [config.trigger]
+    [finalConfig.trigger]
   );
 
   const hideTooltip = React.useCallback(() => {
     clearTimeout(timer.current);
     timer.current = window.setTimeout(
       () => setVisible(false),
-      config.delayHide
+      finalConfig.delayHide
     );
-  }, [config.delayHide, setVisible]);
+  }, [finalConfig.delayHide, setVisible]);
 
   const showTooltip = React.useCallback(() => {
     clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setVisible(true), config.delayShow);
-  }, [config.delayShow, setVisible]);
+    timer.current = window.setTimeout(
+      () => setVisible(true),
+      finalConfig.delayShow
+    );
+  }, [finalConfig.delayShow, setVisible]);
 
   const toggleTooltip = React.useCallback(() => {
     if (getLatest().visible) {
@@ -142,9 +137,7 @@ export function usePopperTooltip(
     };
     document.addEventListener('mousedown', handleClickOutside);
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [getLatest, hideTooltip]);
 
   // Trigger: click
@@ -153,9 +146,7 @@ export function usePopperTooltip(
 
     triggerRef.addEventListener('click', toggleTooltip);
 
-    return () => {
-      triggerRef.removeEventListener('click', toggleTooltip);
-    };
+    return () => triggerRef.removeEventListener('click', toggleTooltip);
   }, [triggerRef, isTriggeredBy, toggleTooltip]);
 
   // Trigger: right-click
@@ -213,12 +204,12 @@ export function usePopperTooltip(
   const isReferenceHidden =
     popperProps?.state?.modifiersData?.hide?.isReferenceHidden;
   React.useEffect(() => {
-    if (config.closeOnTriggerHidden && isReferenceHidden) hideTooltip();
-  }, [config.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
+    if (finalConfig.closeOnTriggerHidden && isReferenceHidden) hideTooltip();
+  }, [finalConfig.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
 
   // Handle follow cursor
   React.useEffect(() => {
-    if (!config.followCursor || triggerRef == null) return;
+    if (!finalConfig.followCursor || triggerRef == null) return;
 
     function setMousePosition({
       clientX,
@@ -227,7 +218,7 @@ export function usePopperTooltip(
       clientX: number;
       clientY: number;
     }) {
-      virtualElement.getBoundingClientRect = generateGetBoundingClientRect(
+      virtualElement.getBoundingClientRect = generateBoundingClientRect(
         clientX,
         clientY
       );
@@ -236,21 +227,21 @@ export function usePopperTooltip(
 
     triggerRef.addEventListener('mousemove', setMousePosition);
     return () => triggerRef.removeEventListener('mousemove', setMousePosition);
-  }, [config.followCursor, triggerRef, update]);
+  }, [finalConfig.followCursor, triggerRef, update]);
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
   React.useEffect(() => {
     if (
       tooltipRef == null ||
       update == null ||
-      config.mutationObserverOptions == null
+      finalConfig.mutationObserverOptions == null
     )
       return;
 
     const observer = new MutationObserver(update);
-    observer.observe(tooltipRef, config.mutationObserverOptions);
+    observer.observe(tooltipRef, finalConfig.mutationObserverOptions);
     return () => observer.disconnect();
-  }, [config.mutationObserverOptions, tooltipRef, update]);
+  }, [finalConfig.mutationObserverOptions, tooltipRef, update]);
 
   // Tooltip props getter
   const getTooltipProps = (args: PropsGetterArgs = {}) => {
@@ -275,15 +266,15 @@ export function usePopperTooltip(
   };
 
   return {
+    visible,
+    triggerRef,
     arrowRef,
     tooltipRef,
-    triggerRef,
-    getArrowProps,
-    getTooltipProps,
+    setTriggerRef,
     setArrowRef,
     setTooltipRef,
-    setTriggerRef,
-    visible,
+    getArrowProps,
+    getTooltipProps,
     ...popperProps,
   };
 }

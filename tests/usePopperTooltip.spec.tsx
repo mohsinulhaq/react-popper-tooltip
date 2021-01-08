@@ -8,35 +8,28 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { usePopperTooltip } from '../src';
+import { Config } from '../src/types';
 
 const TriggerText = 'Trigger';
 const TooltipText = 'Tooltip';
 
-function Tooltip({ options }) {
+function Tooltip({ options }: { options: Config }) {
   const {
-    getArrowProps,
-    getTooltipProps,
+    setTriggerRef,
     setArrowRef,
     setTooltipRef,
-    setTriggerRef,
+    getArrowProps,
+    getTooltipProps,
     visible,
   } = usePopperTooltip(options);
 
   return (
     <>
-      <button type="button" ref={setTriggerRef}>
-        {TriggerText}
-      </button>
+      <button ref={setTriggerRef}>{TriggerText}</button>
 
       {visible && (
-        <div
-          ref={setTooltipRef}
-          {...getTooltipProps({ className: 'tooltip-container' })}
-        >
-          <div
-            ref={setArrowRef}
-            {...getArrowProps({ className: 'tooltip-arrow' })}
-          />
+        <div ref={setTooltipRef} {...getTooltipProps()}>
+          <div ref={setArrowRef} {...getArrowProps()} />
           {TooltipText}
         </div>
       )}
@@ -45,80 +38,97 @@ function Tooltip({ options }) {
 }
 
 describe('trigger option', () => {
-  test('hover works', async () => {
+  test('hover trigger', async () => {
     render(<Tooltip options={{ trigger: 'hover' }} />);
 
-    // Initially there's no tooltip
+    // tooltip not visible initially
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
-    // Show on hover
+    // tooltip shown on hover in
     userEvent.hover(screen.getByText(TriggerText));
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
-    // Hide on unhover
+    // tooltip hidden on hover out
     userEvent.unhover(screen.getByText(TriggerText));
     await waitFor(() => {
       expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
     });
   });
 
-  test('click works', async () => {
+  test('click trigger', async () => {
     render(<Tooltip options={{ trigger: 'click' }} />);
 
-    // Initially there's no tooltip
+    // tooltip not visible initially
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
-    // Show on click
+    // tooltip shown on click
     userEvent.click(screen.getByText(TriggerText));
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
-    // Hide on click
+    // tooltip hidden on click
     userEvent.click(screen.getByText(TriggerText));
     await waitFor(() => {
       expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
     });
   });
 
-  test('right-click works', async () => {
+  test('right-click trigger', async () => {
     render(<Tooltip options={{ trigger: 'right-click' }} />);
 
-    // Initially there's no tooltip
+    // tooltip not visible initially
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
-    // Show on right-click
+    // tooltip shown on right-click
     fireEvent.contextMenu(screen.getByText(TriggerText));
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
-    // Hide on right-click
+    // tooltip hidden on right-click
     fireEvent.contextMenu(screen.getByText(TriggerText));
     await waitFor(() => {
       expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
     });
   });
 
-  test('focus works', async () => {
+  test('focus trigger', async () => {
     render(<Tooltip options={{ trigger: 'focus' }} />);
 
-    // Initially there's no tooltip
+    // tooltip not visible initially
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
-    // Show on focus
+    // tooltip shown on focus
     fireEvent.focus(screen.getByText(TriggerText));
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
-    // Hide on blur
+    // tooltip hidden on blur
     fireEvent.blur(screen.getByText(TriggerText));
     await waitFor(() => {
       expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
     });
   });
 
-  test('none works', async () => {
+  test('trigger array', async () => {
+    render(<Tooltip options={{ trigger: ['click', 'hover'] }} />);
+
+    // tooltip not visible initially
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // tooltip shown on hover
+    userEvent.hover(screen.getByText(TriggerText));
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    // tooltip hidden on click
+    userEvent.click(screen.getByText(TriggerText));
+    await waitFor(() => {
+      expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+    });
+  });
+
+  test('null trigger', async () => {
     jest.useFakeTimers();
 
     render(<Tooltip options={{ trigger: null }} />);
 
-    // Initially there's no tooltip
+    // tooltip not visible initially
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
     // Nothing after hover
@@ -143,22 +153,6 @@ describe('trigger option', () => {
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-  });
-
-  test('array of triggers works', async () => {
-    render(<Tooltip options={{ trigger: ['click', 'hover'] }} />);
-    // Initially there's no tooltip
-    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
-
-    // Show on hover
-    userEvent.hover(screen.getByText(TriggerText));
-    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
-
-    // Hide on click
-    userEvent.click(screen.getByText(TriggerText));
-    await waitFor(() => {
-      expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
-    });
   });
 });
 
@@ -185,7 +179,7 @@ test('delayShow option renders tooltip after specified delay', async () => {
   jest.advanceTimersByTime(2000);
   expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
-  // It shows up somewhen after. Here RTL uses fake timers to await as well, so
+  // It shows up sometime later. Here RTL uses fake timers to await as well, so
   // it awaits for the element infinitely, advancing jest fake timer by 50ms
   // in an endless loop. And this is why the test passes even if delayShow set
   // a way bigger than a default timeout of 1000ms would allow.
@@ -200,15 +194,19 @@ test('delayHide option removes tooltip after specified delay', async () => {
   render(<Tooltip options={{ delayHide: 5000 }} />);
 
   userEvent.hover(screen.getByText(TriggerText));
-  act(() => jest.runAllTimers());
+  act(() => {
+    jest.runAllTimers();
+  });
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
   userEvent.unhover(screen.getByText(TriggerText));
   // Still present after 2000ms
-  act(() => jest.advanceTimersByTime(2000));
+  act(() => {
+    jest.advanceTimersByTime(2000);
+  });
   expect(screen.getByText(TooltipText)).toBeInTheDocument();
 
-  // Removed somewhen after
+  // Removed some time later
   await waitFor(() => {
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
   });
@@ -255,7 +253,9 @@ describe('visible option controls the state and', () => {
 
     // The state is controlled, click doesn't change it
     userEvent.click(screen.getByText(TriggerText));
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
     jest.runOnlyPendingTimers();
@@ -270,7 +270,9 @@ describe('visible option controls the state and', () => {
 
     // The state is controlled, click doesn't change it
     userEvent.click(screen.getByText(TriggerText));
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
     jest.runOnlyPendingTimers();
