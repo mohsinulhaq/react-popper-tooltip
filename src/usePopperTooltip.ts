@@ -79,7 +79,7 @@ export function usePopperTooltip(
     visible,
     triggerRef,
     tooltipRef,
-    config: finalConfig,
+    finalConfig,
   });
 
   const isTriggeredBy = React.useCallback(
@@ -119,7 +119,7 @@ export function usePopperTooltip(
 
   // Handle click outside
   React.useEffect(() => {
-    if (!getLatest().config.closeOnClickOutside) return;
+    if (!getLatest().finalConfig.closeOnClickOutside) return;
 
     const handleClickOutside: EventListener = (event) => {
       const { tooltipRef, triggerRef } = getLatest();
@@ -190,7 +190,7 @@ export function usePopperTooltip(
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
-    if (tooltipRef == null || !getLatest().config.interactive) return;
+    if (tooltipRef == null || !getLatest().finalConfig.interactive) return;
 
     tooltipRef.addEventListener('mouseenter', showTooltip);
     tooltipRef.addEventListener('mouseleave', hideTooltip);
@@ -222,7 +222,7 @@ export function usePopperTooltip(
         clientX,
         clientY
       );
-      if (update) update();
+      update?.();
     }
 
     triggerRef.addEventListener('mousemove', setMousePosition);
