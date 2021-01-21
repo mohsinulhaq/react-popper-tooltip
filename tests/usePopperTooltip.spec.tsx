@@ -7,8 +7,7 @@ import {
   act,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { usePopperTooltip } from '../src';
-import { Config } from '../src/types';
+import { usePopperTooltip, Config } from '../src';
 
 const TriggerText = 'Trigger';
 const TooltipText = 'Tooltip';
@@ -16,7 +15,6 @@ const TooltipText = 'Tooltip';
 function Tooltip({ options }: { options: Config }) {
   const {
     setTriggerRef,
-    setArrowRef,
     setTooltipRef,
     getArrowProps,
     getTooltipProps,
@@ -29,7 +27,7 @@ function Tooltip({ options }: { options: Config }) {
 
       {visible && (
         <div ref={setTooltipRef} {...getTooltipProps()}>
-          <div ref={setArrowRef} {...getArrowProps()} />
+          <div {...getArrowProps()} />
           {TooltipText}
         </div>
       )}
@@ -156,8 +154,8 @@ describe('trigger option', () => {
   });
 });
 
-test('closeOnClickOutside removes tooltip on document.body click', async () => {
-  render(<Tooltip options={{ closeOnClickOutside: true, trigger: 'click' }} />);
+test('closeOnOutsideClick removes tooltip on document.body click', async () => {
+  render(<Tooltip options={{ closeOnOutsideClick: true, trigger: 'click' }} />);
 
   // Show on click
   userEvent.click(screen.getByText(TriggerText));
@@ -227,22 +225,22 @@ describe('defaultVisible option', () => {
   });
 });
 
-test('onVisibleChange option called when state changes', async () => {
-  const onVisibleChange = jest.fn();
-  render(<Tooltip options={{ onVisibleChange }} />);
+test('onVisibilityChange option called when state changes', async () => {
+  const onVisibilityChange = jest.fn();
+  render(<Tooltip options={{ onVisibilityChange }} />);
 
   // By default not visible, change visible to true when first time hover
   userEvent.hover(screen.getByText(TriggerText));
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
-  expect(onVisibleChange).toHaveBeenLastCalledWith(true);
+  expect(onVisibilityChange).toHaveBeenLastCalledWith(true);
 
   // Now visible, change visible to false when unhover
   userEvent.unhover(screen.getByText(TriggerText));
   await waitFor(() => {
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
   });
-  expect(onVisibleChange).toHaveBeenLastCalledWith(false);
-  expect(onVisibleChange).toHaveBeenCalledTimes(2);
+  expect(onVisibilityChange).toHaveBeenLastCalledWith(false);
+  expect(onVisibilityChange).toHaveBeenCalledTimes(2);
 });
 
 describe('visible option controls the state and', () => {

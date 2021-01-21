@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import 'react-popper-tooltip/src/styles.css';
 import { usePopperTooltip } from 'react-popper-tooltip';
+import 'react-popper-tooltip/dist/styles.css';
 
 function App() {
   return <Example />;
@@ -13,15 +13,14 @@ function Example() {
   const {
     getArrowProps,
     getTooltipProps,
-    setArrowRef,
     setTooltipRef,
     setTriggerRef,
     visible,
   } = usePopperTooltip({
     trigger: 'click',
-    closeOnClickOutside: false,
+    closeOnOutsideClick: false,
     visible: controlledVisible,
-    onVisibleChange: setControlledVisible,
+    onVisibilityChange: setControlledVisible,
   });
 
   return (
@@ -36,7 +35,10 @@ function Example() {
         Trigger element
       </button>
 
-      <p>External state control - click the button below to show/hide the tooltip.</p>
+      <p>
+        External state control - click the button below to show/hide the
+        tooltip.
+      </p>
       <button onClick={() => setControlledVisible(!controlledVisible)}>
         External control
       </button>
@@ -47,10 +49,7 @@ function Example() {
           {...getTooltipProps({ className: 'tooltip-container' })}
         >
           Tooltip element
-          <div
-            ref={setArrowRef}
-            {...getArrowProps({ className: 'tooltip-arrow' })}
-          />
+          <div {...getArrowProps({ className: 'tooltip-arrow' })} />
         </div>
       )}
     </div>

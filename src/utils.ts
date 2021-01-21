@@ -11,7 +11,7 @@ const noop = () => {
   // do nothing
 };
 
-export function useControlledProp<T>({
+export function useControlledState<T>({
   initial,
   value,
   onChange = noop,

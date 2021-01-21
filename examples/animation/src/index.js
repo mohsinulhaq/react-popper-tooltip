@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import 'react-popper-tooltip/src/styles.css';
 import { usePopperTooltip } from 'react-popper-tooltip';
 import { animated, useTransition } from 'react-spring';
+import 'react-popper-tooltip/dist/styles.css';
 
 function App() {
   return <Example />;
@@ -14,12 +14,11 @@ function Example() {
   const {
     getArrowProps,
     getTooltipProps,
-    setArrowRef,
     setTooltipRef,
     setTriggerRef,
   } = usePopperTooltip({
     visible: controlledVisible,
-    onVisibleChange: setControlledVisible,
+    onVisibilityChange: setControlledVisible,
   });
 
   const transitions = useTransition(controlledVisible, null, {
@@ -52,10 +51,7 @@ function Example() {
               })}
             >
               Tooltip element
-              <div
-                ref={setArrowRef}
-                {...getArrowProps({ className: 'tooltip-arrow' })}
-              />
+              <div {...getArrowProps({ className: 'tooltip-arrow' })} />
             </animated.div>
           )
       )}

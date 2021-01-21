@@ -47,12 +47,12 @@ export type Config = {
   /**
    * Called when the visibility of the tooltip changes
    */
-  onVisibleChange?: (state: boolean) => void;
+  onVisibilityChange?: (state: boolean) => void;
   /**
    * If `true`, a click outside the trigger element closes the tooltip
    * @default true
    */
-  closeOnClickOutside?: boolean;
+  closeOnOutsideClick?: boolean;
   /**
    * If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of
    * the trigger element. If it moves to the tooltip element, the tooltip stays open.
