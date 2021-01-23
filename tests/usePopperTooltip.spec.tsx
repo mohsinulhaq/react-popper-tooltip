@@ -225,22 +225,22 @@ describe('defaultVisible option', () => {
   });
 });
 
-test('onVisibilityChange option called when state changes', async () => {
-  const onVisibilityChange = jest.fn();
-  render(<Tooltip options={{ onVisibilityChange }} />);
+test('onVisibleChange option called when state changes', async () => {
+  const onVisibleChange = jest.fn();
+  render(<Tooltip options={{ onVisibleChange }} />);
 
   // By default not visible, change visible to true when first time hover
   userEvent.hover(screen.getByText(TriggerText));
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
-  expect(onVisibilityChange).toHaveBeenLastCalledWith(true);
+  expect(onVisibleChange).toHaveBeenLastCalledWith(true);
 
   // Now visible, change visible to false when unhover
   userEvent.unhover(screen.getByText(TriggerText));
   await waitFor(() => {
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
   });
-  expect(onVisibilityChange).toHaveBeenLastCalledWith(false);
-  expect(onVisibilityChange).toHaveBeenCalledTimes(2);
+  expect(onVisibleChange).toHaveBeenLastCalledWith(false);
+  expect(onVisibleChange).toHaveBeenCalledTimes(2);
 });
 
 describe('visible option controls the state and', () => {

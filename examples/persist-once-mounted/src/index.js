@@ -34,7 +34,7 @@ function Example() {
     visible,
   } = usePopperTooltip({
     trigger: 'click',
-    onVisibilityChange: setMountedOnceVisible,
+    onVisibleChange: setMountedOnceVisible,
   });
 
   function setMountedOnceVisible(visible) {

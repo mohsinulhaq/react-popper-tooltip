@@ -18,7 +18,7 @@ function Example() {
     setTriggerRef,
   } = usePopperTooltip({
     visible: controlledVisible,
-    onVisibilityChange: setControlledVisible,
+    onVisibleChange: setControlledVisible,
   });
 
   const transitions = useTransition(controlledVisible, null, {

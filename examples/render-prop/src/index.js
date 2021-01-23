@@ -47,7 +47,7 @@ function TooltipTrigger({
     {
       // Some props renamed in the hook implementation.
       defaultVisible: defaultTooltipShown,
-      onVisibilityChange: onVisibilityChange,
+      onVisibleChange: onVisibilityChange,
       visible: tooltipShown,
       closeOnTriggerHidden: closeOnReferenceHidden,
       ...restProps,

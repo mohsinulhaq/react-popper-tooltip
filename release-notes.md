@@ -19,6 +19,7 @@ For the sake of consistency, we made some changes to the props names.
 
 - `defaultTooltipShown` is renamed to `defaultVisible`
 - `tooltipShown` is renamed to `visible`
+- `onVisibilityChange` is renamed to `onVisibleChange`
 - `closeOnReferenceHidden` is renamed to `closeOnTriggerHidden` and the default value changed from `true` to `false`
 
 The string value `"none"` for the prop `trigger` is replaced with `null`.

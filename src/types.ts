@@ -47,7 +47,7 @@ export type Config = {
   /**
    * Called when the visibility of the tooltip changes
    */
-  onVisibilityChange?: (state: boolean) => void;
+  onVisibleChange?: (state: boolean) => void;
   /**
    * If `true`, a click outside the trigger element closes the tooltip
    * @default true

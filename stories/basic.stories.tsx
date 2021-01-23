@@ -14,7 +14,7 @@ export const Example: Story<Config> = (props) => {
   } = usePopperTooltip({
     ...props,
     visible: shown,
-    onVisibilityChange: setShown,
+    onVisibleChange: setShown,
   });
 
   return (

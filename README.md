@@ -122,7 +122,7 @@ const {
     interactive,
     mutationObserverOptions,
     offset,
-    onVisibilityChange,
+    onVisibleChange,
     placement,
     trigger,
     visible,
@@ -178,7 +178,7 @@ See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
 
 `popperOptions` takes precedence over this option.
 
-- `onVisibilityChange: (state: boolean) => void`
+- `onVisibleChange: (state: boolean) => void`
 
 Called with the tooltip state, when the visibility of the tooltip changes.
 
@@ -192,7 +192,7 @@ you control the state of the tooltip.
 
 The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip.
 
-**react-popper-tooltip** manages its own state internally and calls `onVisibilityChange` handler with any relevant changes.
+**react-popper-tooltip** manages its own state internally and calls `onVisibleChange` handler with any relevant changes.
 
 However, if more control is needed, you can pass this prop, and the state becomes controlled. As soon as it's not
 undefined, internally, **react-popper-tooltip** will determine its state based on your prop's value rather than its own

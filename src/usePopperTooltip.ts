@@ -61,7 +61,7 @@ export function usePopperTooltip(
   const [visible, setVisible] = useControlledState({
     initial: finalConfig.defaultVisible,
     value: finalConfig.visible,
-    onChange: finalConfig.onVisibilityChange,
+    onChange: finalConfig.onVisibleChange,
   });
 
   const timer = React.useRef<number>();

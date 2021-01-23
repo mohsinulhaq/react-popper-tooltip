@@ -20,7 +20,7 @@ function Example() {
     trigger: 'click',
     closeOnOutsideClick: false,
     visible: controlledVisible,
-    onVisibilityChange: setControlledVisible,
+    onVisibleChange: setControlledVisible,
   });
 
   return (

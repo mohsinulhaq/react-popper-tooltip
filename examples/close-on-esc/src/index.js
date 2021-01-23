@@ -19,7 +19,7 @@ function Example() {
   } = usePopperTooltip({
     trigger: 'click',
     visible: controlledVisible,
-    onVisibilityChange: setControlledVisible,
+    onVisibleChange: setControlledVisible,
   });
 
   React.useEffect(() => {
