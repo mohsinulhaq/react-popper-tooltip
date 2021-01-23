@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import 'react-popper-tooltip/src/styles.css';
 import { usePopperTooltip } from 'react-popper-tooltip';
+import 'react-popper-tooltip/dist/styles.css';
 
 function App() {
   return <Example />;
@@ -29,7 +29,6 @@ function Example() {
   const {
     getArrowProps,
     getTooltipProps,
-    setArrowRef,
     setTooltipRef,
     setTriggerRef,
     visible,
@@ -72,7 +71,6 @@ function Example() {
           })}
         >
           <div
-            ref={setArrowRef}
             {...getArrowProps({ className: 'tooltip-arrow' })}
           />
           <HeavyCalculations />

@@ -7,8 +7,7 @@ import {
   act,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { usePopperTooltip } from '../src';
-import { Config } from '../src/types';
+import { usePopperTooltip, Config } from '../src';
 
 const TriggerText = 'Trigger';
 const TooltipText = 'Tooltip';
@@ -16,7 +15,6 @@ const TooltipText = 'Tooltip';
 function Tooltip({ options }: { options: Config }) {
   const {
     setTriggerRef,
-    setArrowRef,
     setTooltipRef,
     getArrowProps,
     getTooltipProps,
@@ -29,7 +27,7 @@ function Tooltip({ options }: { options: Config }) {
 
       {visible && (
         <div ref={setTooltipRef} {...getTooltipProps()}>
-          <div ref={setArrowRef} {...getArrowProps()} />
+          <div {...getArrowProps()} />
           {TooltipText}
         </div>
       )}
@@ -156,8 +154,8 @@ describe('trigger option', () => {
   });
 });
 
-test('closeOnClickOutside removes tooltip on document.body click', async () => {
-  render(<Tooltip options={{ closeOnClickOutside: true, trigger: 'click' }} />);
+test('closeOnOutsideClick removes tooltip on document.body click', async () => {
+  render(<Tooltip options={{ closeOnOutsideClick: true, trigger: 'click' }} />);
 
   // Show on click
   userEvent.click(screen.getByText(TriggerText));

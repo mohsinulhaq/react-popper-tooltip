@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM, { createPortal } from 'react-dom';
-import 'react-popper-tooltip/src/styles.css';
 import { usePopperTooltip } from 'react-popper-tooltip';
+import 'react-popper-tooltip/dist/styles.css';
 
 function App() {
   return <Example />;
@@ -39,7 +39,6 @@ function TooltipTrigger({
     triggerRef,
     getArrowProps,
     getTooltipProps,
-    setArrowRef,
     setTooltipRef,
     setTriggerRef,
     visible,
@@ -66,7 +65,6 @@ function TooltipTrigger({
   });
 
   const popper = tooltip({
-    arrowRef: setArrowRef,
     tooltipRef: setTooltipRef,
     getArrowProps,
     getTooltipProps,
@@ -97,7 +95,7 @@ function Example() {
 
       <TooltipTrigger
         trigger="click"
-        tooltip={({ arrowRef, tooltipRef, getArrowProps, getTooltipProps }) => (
+        tooltip={({ tooltipRef, getArrowProps, getTooltipProps }) => (
           <div
             {...getTooltipProps({
               ref: tooltipRef,
@@ -106,7 +104,6 @@ function Example() {
           >
             <div
               {...getArrowProps({
-                ref: arrowRef,
                 className: 'tooltip-arrow',
               })}
             />

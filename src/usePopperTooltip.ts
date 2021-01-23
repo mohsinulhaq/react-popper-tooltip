@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
 import {
-  useControlledProp,
+  useControlledState,
   useGetLatest,
   generateBoundingClientRect,
 } from './utils';
@@ -12,7 +12,7 @@ const virtualElement = {
 };
 
 const defaultConfig: Config = {
-  closeOnClickOutside: true,
+  closeOnOutsideClick: true,
   closeOnTriggerHidden: false,
   defaultVisible: false,
   delayHide: 0,
@@ -24,7 +24,7 @@ const defaultConfig: Config = {
     childList: true,
     subtree: true,
   },
-  offset: [0, 6],
+  offset: [0, 4],
   trigger: 'hover',
 };
 
@@ -58,8 +58,7 @@ export function usePopperTooltip(
 
   const [triggerRef, setTriggerRef] = React.useState<HTMLElement | null>(null);
   const [tooltipRef, setTooltipRef] = React.useState<HTMLElement | null>(null);
-  const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
-  const [visible, setVisible] = useControlledProp({
+  const [visible, setVisible] = useControlledState({
     initial: finalConfig.defaultVisible,
     value: finalConfig.visible,
     onChange: finalConfig.onVisibleChange,
@@ -119,7 +118,7 @@ export function usePopperTooltip(
 
   // Handle click outside
   React.useEffect(() => {
-    if (!getLatest().finalConfig.closeOnClickOutside) return;
+    if (!getLatest().finalConfig.closeOnOutsideClick) return;
 
     const handleClickOutside: EventListener = (event) => {
       const { tooltipRef, triggerRef } = getLatest();
@@ -250,6 +249,9 @@ export function usePopperTooltip(
       style: {
         ...args.style,
         ...styles.popper,
+        ...(finalConfig.followCursor && {
+          pointerEvents: 'none' as React.CSSProperties['pointerEvents'],
+        }),
       },
       ...attributes.popper,
     };
@@ -260,21 +262,22 @@ export function usePopperTooltip(
     return {
       ...args,
       ...attributes.arrow,
-      style: { ...args.style, ...styles.arrow },
+      style: {
+        ...args.style,
+        ...styles.arrow,
+      },
       'data-popper-arrow': true,
     };
   };
 
   return {
-    visible,
-    triggerRef,
-    arrowRef,
-    tooltipRef,
-    setTriggerRef,
-    setArrowRef,
-    setTooltipRef,
     getArrowProps,
     getTooltipProps,
+    setTooltipRef,
+    setTriggerRef,
+    tooltipRef,
+    triggerRef,
+    visible,
     ...popperProps,
   };
 }

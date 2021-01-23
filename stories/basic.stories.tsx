@@ -4,14 +4,18 @@ import { usePopperTooltip, Config } from '../src';
 import '../src/styles.css';
 
 export const Example: Story<Config> = (props) => {
+  const [shown, setShown] = React.useState(false);
   const {
     visible,
     setTriggerRef,
-    setArrowRef,
     setTooltipRef,
     getArrowProps,
     getTooltipProps,
-  } = usePopperTooltip(props);
+  } = usePopperTooltip({
+    ...props,
+    visible: shown,
+    onVisibleChange: setShown,
+  });
 
   return (
     <>
@@ -24,11 +28,8 @@ export const Example: Story<Config> = (props) => {
           ref={setTooltipRef}
           {...getTooltipProps({ className: 'tooltip-container' })}
         >
+          <div {...getArrowProps({ className: 'tooltip-arrow' })} />
           Tooltip element
-          <div
-            ref={setArrowRef}
-            {...getArrowProps({ className: 'tooltip-arrow' })}
-          />
         </div>
       )}
     </>
