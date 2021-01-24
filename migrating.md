@@ -69,16 +69,16 @@ When you use the hook, all props that you previously passed to the `TooltipTrigg
 hook itself. Please note, that some props have been renamed, so in some cases you can't just copy-paste them from your
 render prop component to the hook. See the [release notes to 4.x](release-notes.md).
 
-The hook returns an object containing set of properties. `setTooltipRef` and `setTriggerRef` are ref
-callbacks and have to be assigned to the arrow, tooltip, and trigger elements accordingly in order to let the hook have
-access to the underlying DOM elements.
+The hook returns an object containing set of properties. `setTooltipRef` and `setTriggerRef` are ref callbacks and have
+to be assigned to the tooltip and trigger elements accordingly in order to let the hook have access to the underlying
+DOM elements.
 
-Previously, they called `arrowRef`, `triggerRef`, `triggerRef` and had the same meaning of the ref callbacks. Now the
-hook returns properties with these names as well but in the hook version they actually contain the corresponding DOM
-elements. You don't need to use `getTriggerRef` or `arrowRef` to get a ref of the trigger element anymore.
+Previously, they called `triggerRef`, `triggerRef` and had the same meaning of the ref callbacks. Now the hook returns
+properties with these names as well but in the hook version they actually contain the corresponding DOM elements. You
+don't need to use `getTriggerRef` to get a ref of the trigger element anymore.
 
-The `tooltip` and `children` props have now been removed. Now you completely responsible for the composition of your tooltip. If you,
-for example, want to have your tooltip rendered through React portal, you have to import react-dom and
+The `tooltip` and `children` props have now been removed. Now you completely responsible for the composition of your
+tooltip. If you, for example, want to have your tooltip rendered through React portal, you have to import react-dom and
 use `createPortal` in your code.
 
 Use `visible` property to show or hide the tooltip.
