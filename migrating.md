@@ -83,4 +83,4 @@ use `createPortal` in your code.
 
 Use `visible` property to show or hide the tooltip.
 
-If you still have questions, see [examples section](README.md) for more code examples using the hook.
+If you still have questions, see [examples section](README.md#examples) for more code examples using the hook.
