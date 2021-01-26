@@ -73,9 +73,9 @@ The hook returns an object containing set of properties. `setTooltipRef` and `se
 to be assigned to the tooltip and trigger elements accordingly in order to let the hook have access to the underlying
 DOM elements.
 
-Previously, they called `triggerRef`, `triggerRef` and had the same meaning of the ref callbacks. Now the hook returns
-properties with these names as well but in the hook version they actually contain the corresponding DOM elements. You
-don't need to use `getTriggerRef` to get a ref of the trigger element anymore.
+Previously, they called `triggerRef` and `tooltipRef`, and had the same meaning of the ref callbacks. Now the hook
+returns properties with these names as well but in the hook version they actually contain the corresponding DOM
+elements. You don't need to use `getTriggerRef` to get a ref of the trigger element anymore.
 
 The `tooltip` and `children` props have now been removed. Now you completely responsible for the composition of your
 tooltip. If you, for example, want to have your tooltip rendered through React portal, you have to import react-dom and
