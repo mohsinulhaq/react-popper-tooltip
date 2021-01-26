@@ -155,8 +155,7 @@ The initial visibility state of the tooltip when the hook is initialized.
 
 - `followCursor: boolean`, defaults to `false`
 
-If `true`, the tooltip will stick to the cursor position. We recommended using this option with hover trigger and no
-arrow element.
+If `true`, the tooltip will stick to the cursor position. You would probably want to use this option with hover trigger.
 
 - `mutationObserverOptions: MutationObserverInit | null`, defaults
   to `{ attributes: true, childList: true, subtree: true }`
