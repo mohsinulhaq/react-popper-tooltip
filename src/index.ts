@@ -1,4 +1,2 @@
-import TooltipTrigger from './TooltipTrigger';
-
+export { usePopperTooltip } from './usePopperTooltip';
 export * from './types';
-export default TooltipTrigger;

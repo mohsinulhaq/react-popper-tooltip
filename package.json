@@ -1,42 +1,12 @@
 {
   "name": "react-popper-tooltip",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "React tooltip library built around react-popper",
-  "homepage": "https://react-popper-tooltip.netlify.app",
+  "author": "Mohsin Ul Haq <mohsinulhaq01@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
-  },
-  "main": "dist/cjs/react-popper-tooltip.js",
-  "module": "dist/esm/react-popper-tooltip.js",
-  "style": "dist/styles.css",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "sideEffects": [
-    "dist/styles.css"
-  ],
-  "scripts": {
-    "build": "rm -rf dist && rollup -c && cp src/styles.css dist && yarn tsc && rm -rf compiled",
-    "prepublishOnly": "yarn typecheck && yarn lint && yarn build && yarn test",
-    "prettier": "prettier --write src/**/*.{ts,tsx}",
-    "docs": "docz dev",
-    "docs:build": "docz build",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "test": "jest tests/"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn typecheck && yarn build && yarn test && lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.(ts|tsx)": [
-      "prettier --write",
-      "yarn lint --fix"
-    ]
   },
   "keywords": [
     "react",
@@ -46,46 +16,89 @@
     "react-tooltip",
     "react-popper"
   ],
-  "author": "Mohsin Ul Haq <mohsinulhaq01@gmail.com>",
-  "license": "MIT",
+  "main": "dist/cjs/react-popper-tooltip.js",
+  "module": "dist/esm/react-popper-tooltip.js",
+  "typings": "dist/index.d.ts",
+  "style": "dist/styles.css",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "dist/styles.css"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && rollup -c && cp src/styles.css dist && yarn tsc && rm -rf compiled",
+    "prepare": "yarn typecheck && yarn lint && yarn build && yarn test",
+    "prettier": "prettier --write src/**/*.{ts,tsx}",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"{src,tests,examples}**/*.{ts,tsx}\"",
+    "start": "rollup -c -w",
+    "test": "jest tests/",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/examples/"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn typecheck && yarn build && yarn test && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.(ts|tsx)": [
+      "prettier --write",
+      "yarn lint --fix"
+    ]
+  },
   "peerDependencies": {
-    "react": "^16.6.0 || ^17.0.0",
-    "react-dom": "^16.6.0 || ^17.0.0"
+    "react": ">=16.6.0",
+    "react-dom": ">=16.6.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
-    "@popperjs/core": "^2.5.4",
+    "@popperjs/core": "^2.6.0",
     "react-popper": "^2.2.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.5",
-    "@babel/preset-typescript": "^7.12.1",
-    "@testing-library/react": "^11.1.1",
-    "@types/jest": "^26.0.15",
-    "@types/react": "^16.9.55",
-    "@types/react-dom": "^16.9.9",
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.6.1",
-    "docz": "^2.3.1",
-    "eslint": "^7.12.1",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.21.5",
-    "husky": "^4.3.0",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "@storybook/addon-actions": "^6.1.15",
+    "@storybook/addon-essentials": "^6.1.15",
+    "@storybook/addon-links": "^6.1.15",
+    "@storybook/react": "^6.1.15",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.2",
+    "@types/jest": "^26.0.20",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.8",
     "jest": "^26.6.3",
-    "lint-staged": "^10.5.1",
-    "prettier": "^2.1.2",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "rollup": "^2.33.1",
+    "rollup": "^2.38.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-size-snapshot": "^0.12.0",
-    "typescript": "^4.0.5"
+    "typescript": "^4.1.3"
   }
 }
