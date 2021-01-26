@@ -8,29 +8,27 @@
 A React hook to effortlessly build smart tooltips. Based on [react-popper](https://github.com/FezVrasta/react-popper)
 and [popper.js](https://popper.js.org).
 
-## Docs
+## NOTE
 
-NOTE: This is the documentation for v4.x which introduced the `usePopperTooltip` hook.
-
-If you're looking for the render prop version,
+> - This is the documentation for 4.x which introduced the `usePopperTooltip` hook.
+> - If you're looking for the render prop version,
 see [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/README.md).
-
-If you're moving from 3.x render prop to 4.x hook, read our [migration guide](migrating.md).
+> - If you're looking to upgrade from 3.x render prop to 4.x hook, please refer to our [migration guide](migrating.md).
 
 ## Examples
 
-- Basic usage [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/basic) [Source](/examples/basic)
-- Animating appearance with react-spring [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/animation) [Source](/examples/animation)
-- Closing tooltip with Esc button [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/close-on-esc) [Source](/examples/close-on-esc)
-- Using as a controlled component [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/) [Source](/examples/controlled)
-- Persist the tooltip in the DOM once it's mounted [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/persist-once-mounted) [Source](/examples/persist-once-mounted)
-- Using with react portal [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/portal) [Source](/examples/portal)
-- Implementing render prop API [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/render-prop) [Source](/examples/render-prop)
+- Basic usage [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/basic) ([Source](/examples/basic))
+- Animating appearance with react-spring [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/animation) ([Source](/examples/animation))
+- Closing tooltip with Esc button [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/close-on-esc) ([Source](/examples/close-on-esc))
+- Using as a controlled component [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/) ([Source](/examples/controlled))
+- Persist the tooltip in the DOM once it's mounted [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/persist-once-mounted) ([Source](/examples/persist-once-mounted))
+- Using with react portal [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/portal) ([Source](/examples/portal))
+- Implementing render prop (v3) API [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/render-prop) ([Source](/examples/render-prop))
 
 
 ## Installation
 
-You can install **react-popper-tooltip** with [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
+You can install **react-popper-tooltip** with [npm](https://www.npmjs.com) or [yarn](https://yarnpkg.com).
 
 ```bash
 npm i react-popper-tooltip
@@ -174,7 +172,7 @@ placed 4px away from the trigger element (to reserve enough space for the arrow 
 We use this default value to match the size of the arrow element from our default CSS file. Feel free to change it if you are using your
 own styles.
 
-See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset/).
+See [offset modifier docs](https://popper.js.org/docs/v2/modifiers/offset).
 
 `popperOptions` takes precedence over this option.
 
@@ -260,7 +258,7 @@ It returns the merged props that you need to pass to tooltip element.
 - `popperProps: { update, forceUpdate, state }`
 
 Some props returned by the underlying `usePopper` hook.
-See [https://popper.js.org/react-popper/v2/hook/](https://popper.js.org/react-popper/v2/hook/).
+See [https://popper.js.org/react-popper/v2/hook](https://popper.js.org/react-popper/v2/hook).
 
 This doesn't include `styles` and `attributes` props. They are included into `getArrowProps` and `getTooltipProps` prop
 getters.
