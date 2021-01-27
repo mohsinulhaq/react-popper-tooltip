@@ -65,7 +65,5 @@
   },
   "include": [
     "src",
-    "tests",
-    "examples"
   ]
 }
