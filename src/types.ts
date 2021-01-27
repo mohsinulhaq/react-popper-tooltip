@@ -65,7 +65,7 @@ export type Config = {
   placement?: PopperJS.Placement;
   /**
    * Shorthand for popper.js offset modifier, see https://popper.js.org/docs/v2/modifiers/offset/
-   * @default [0, 6]
+   * @default [0, 7]
    */
   offset?: [number, number];
 };

@@ -164,10 +164,10 @@ Options to [MutationObserver
 visible and its content changes, it automatically repositions itself. In some cases
 you may need to change which parameters to observe or opt-out of tracking the changes at all.
 
-- `offset: [number, number]`, defaults to `[0, 6]`
+- `offset: [number, number]`, defaults to `[0, 7]`
 
 This is a shorthand for `popperOptions.modifiers` offset modifier option. The default value means the tooltip will be
-placed 6px away from the trigger element (to reserve enough space for the arrow element).
+placed 7px away from the trigger element (to reserve enough space for the arrow element).
 
 We use this default value to match the size of the arrow element from our default CSS file. Feel free to change it if you are using your
 own styles.
