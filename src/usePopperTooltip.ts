@@ -4,6 +4,7 @@ import {
   useControlledState,
   useGetLatest,
   generateBoundingClientRect,
+  isMouseOutside,
 } from './utils';
 import { Config, PopperOptions, PropsGetterArgs, TriggerType } from './types';
 
@@ -182,12 +183,29 @@ export function usePopperTooltip(
     if (triggerRef == null || !isTriggeredBy('hover')) return;
 
     triggerRef.addEventListener('mouseenter', showTooltip);
-    triggerRef.addEventListener('mouseleave', hideTooltip);
     return () => {
       triggerRef.removeEventListener('mouseenter', showTooltip);
-      triggerRef.removeEventListener('mouseleave', hideTooltip);
     };
   }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
+  React.useEffect(() => {
+    if (!visible || triggerRef == null || !isTriggeredBy('hover')) return;
+
+    const handleMouseMove = (event: MouseEvent) => {
+      if (
+        isMouseOutside(
+          event,
+          triggerRef,
+          getLatest().finalConfig.interactive && tooltipRef
+        )
+      ) {
+        hideTooltip();
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [getLatest, hideTooltip, isTriggeredBy, tooltipRef, triggerRef, visible]);
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
