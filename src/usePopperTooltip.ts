@@ -7,6 +7,8 @@ import {
 } from './utils';
 import { Config, PopperOptions, PropsGetterArgs, TriggerType } from './types';
 
+const { isArray } = Array;
+
 const virtualElement = {
   getBoundingClientRect: generateBoundingClientRect(),
 };
@@ -47,7 +49,7 @@ export function usePopperTooltip(
 
   const defaultModifiers = React.useMemo(
     () => [{ name: 'offset', options: { offset: finalConfig.offset } }],
-    [finalConfig.offset]
+    isArray(finalConfig.offset) ? finalConfig.offset : []
   );
 
   const finalPopperOptions = {
@@ -83,11 +85,11 @@ export function usePopperTooltip(
 
   const isTriggeredBy = React.useCallback(
     (trigger: TriggerType) => {
-      return Array.isArray(finalConfig.trigger)
+      return isArray(finalConfig.trigger)
         ? finalConfig.trigger.includes(trigger)
         : finalConfig.trigger === trigger;
     },
-    [finalConfig.trigger]
+    isArray(finalConfig.trigger) ? finalConfig.trigger : [finalConfig.trigger]
   );
 
   const hideTooltip = React.useCallback(() => {
