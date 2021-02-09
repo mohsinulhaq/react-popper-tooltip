@@ -187,25 +187,50 @@ export function usePopperTooltip(
       triggerRef.removeEventListener('mouseenter', showTooltip);
     };
   }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
+  // Listen for mouse exiting the hover area &&
+  // handle the followCursor
   React.useEffect(() => {
-    if (!visible || triggerRef == null || !isTriggeredBy('hover')) return;
+    if (
+      !visible ||
+      triggerRef == null ||
+      (!isTriggeredBy('hover') && !finalConfig.followCursor)
+    ) {
+      return;
+    }
 
     const handleMouseMove = (event: MouseEvent) => {
       if (
         isMouseOutside(
           event,
           triggerRef,
-          getLatest().finalConfig.interactive && tooltipRef
+          !finalConfig.followCursor &&
+            getLatest().finalConfig.interactive &&
+            tooltipRef
         )
       ) {
         hideTooltip();
+      } else if (finalConfig.followCursor) {
+        virtualElement.getBoundingClientRect = generateBoundingClientRect(
+          event.clientX,
+          event.clientY
+        );
+        update?.();
       }
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [getLatest, hideTooltip, isTriggeredBy, tooltipRef, triggerRef, visible]);
+  }, [
+    finalConfig.followCursor,
+    getLatest,
+    hideTooltip,
+    isTriggeredBy,
+    tooltipRef,
+    triggerRef,
+    update,
+    visible,
+  ]);
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
@@ -225,28 +250,6 @@ export function usePopperTooltip(
   React.useEffect(() => {
     if (finalConfig.closeOnTriggerHidden && isReferenceHidden) hideTooltip();
   }, [finalConfig.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
-
-  // Handle follow cursor
-  React.useEffect(() => {
-    if (!finalConfig.followCursor || triggerRef == null) return;
-
-    function setMousePosition({
-      clientX,
-      clientY,
-    }: {
-      clientX: number;
-      clientY: number;
-    }) {
-      virtualElement.getBoundingClientRect = generateBoundingClientRect(
-        clientX,
-        clientY
-      );
-      update?.();
-    }
-
-    triggerRef.addEventListener('mousemove', setMousePosition);
-    return () => triggerRef.removeEventListener('mousemove', setMousePosition);
-  }, [finalConfig.followCursor, triggerRef, update]);
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
   React.useEffect(() => {

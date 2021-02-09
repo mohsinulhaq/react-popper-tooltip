@@ -54,6 +54,11 @@ Example.argTypes = {
       type: 'boolean',
     },
   },
+  interactive: {
+    control: {
+      type: 'boolean',
+    },
+  },
 };
 
 export default {
