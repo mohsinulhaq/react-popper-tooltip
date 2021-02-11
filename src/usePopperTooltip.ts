@@ -198,24 +198,26 @@ export function usePopperTooltip(
       return;
     }
 
+    let lastMouseOutside = false;
     const handleMouseMove = (event: MouseEvent) => {
-      if (
-        isMouseOutside(
-          event,
-          triggerRef,
-          !finalConfig.followCursor &&
-            getLatest().finalConfig.interactive &&
-            tooltipRef
-        )
-      ) {
+      const mouseOutside = isMouseOutside(
+        event,
+        triggerRef,
+        !finalConfig.followCursor &&
+          getLatest().finalConfig.interactive &&
+          tooltipRef
+      );
+      if (mouseOutside && lastMouseOutside !== mouseOutside) {
         hideTooltip();
-      } else if (finalConfig.followCursor) {
+      }
+      if (!mouseOutside && finalConfig.followCursor) {
         virtualElement.getBoundingClientRect = generateBoundingClientRect(
           event.clientX,
           event.clientY
         );
         update?.();
       }
+      lastMouseOutside = mouseOutside;
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => {

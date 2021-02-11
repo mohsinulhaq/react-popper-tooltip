@@ -37,16 +37,16 @@ export const Example: Story<Config> = (props) => {
 };
 
 Example.argTypes = {
-  trigger: {
+  delayHide: {
     control: {
-      type: 'select',
-      options: ['hover', 'click', 'right-click', 'focus', null],
+      type: 'number',
+      options: { min: 0, step: 1 },
     },
   },
-  placement: {
+  delayShow: {
     control: {
-      type: 'select',
-      options: ['top', 'right', 'bottom', 'left'],
+      type: 'number',
+      options: { min: 0, step: 1 },
     },
   },
   followCursor: {
@@ -57,6 +57,18 @@ Example.argTypes = {
   interactive: {
     control: {
       type: 'boolean',
+    },
+  },
+  placement: {
+    control: {
+      type: 'select',
+      options: ['top', 'right', 'bottom', 'left'],
+    },
+  },
+  trigger: {
+    control: {
+      type: 'select',
+      options: ['hover', 'click', 'right-click', 'focus', null],
     },
   },
 };
