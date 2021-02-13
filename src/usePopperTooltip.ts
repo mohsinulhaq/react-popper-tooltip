@@ -274,9 +274,6 @@ export function usePopperTooltip(
       style: {
         ...args.style,
         ...styles.popper,
-        ...(finalConfig.followCursor && {
-          pointerEvents: 'none' as React.CSSProperties['pointerEvents'],
-        }),
       },
       ...attributes.popper,
     };
