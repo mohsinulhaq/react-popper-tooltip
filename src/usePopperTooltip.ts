@@ -27,7 +27,7 @@ const defaultConfig: Config = {
     childList: true,
     subtree: true,
   },
-  offset: [0, 7],
+  offset: [0, 6],
   trigger: 'hover',
 };
 
