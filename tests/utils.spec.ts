@@ -78,5 +78,17 @@ describe('isMouseOutside', () => {
     expect(isMouseOutside(mouseEvent(120, 95), trigger, tooltipAbove)).toBe(
       false
     );
+    const tooltipRight = element(150, 110, 40, 20);
+    expect(isMouseOutside(mouseEvent(145, 120), trigger, tooltipRight)).toBe(
+      false
+    );
+    const tooltipBottom = element(100, 150, 40, 20);
+    expect(isMouseOutside(mouseEvent(120, 145), trigger, tooltipBottom)).toBe(
+      false
+    );
+    const tooltipLeft = element(50, 110, 40, 20);
+    expect(isMouseOutside(mouseEvent(95, 120), trigger, tooltipLeft)).toBe(
+      false
+    );
   });
 });
