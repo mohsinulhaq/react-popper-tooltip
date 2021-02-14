@@ -50,6 +50,7 @@ export function usePopperTooltip(
 
   const defaultModifiers = React.useMemo(
     () => [{ name: 'offset', options: { offset: finalConfig.offset } }],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isArray(finalConfig.offset) ? finalConfig.offset : []
   );
 
@@ -90,6 +91,7 @@ export function usePopperTooltip(
         ? finalConfig.trigger.includes(trigger)
         : finalConfig.trigger === trigger;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isArray(finalConfig.trigger) ? finalConfig.trigger : [finalConfig.trigger]
   );
 
