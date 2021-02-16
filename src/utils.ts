@@ -60,3 +60,45 @@ export function generateBoundingClientRect(x = 0, y = 0) {
     left: x,
   });
 }
+
+// pageX cannot be supplied in the tests, so we fallback to clientX
+// @see https://github.com/testing-library/dom-testing-library/issues/144
+const mouseOutsideRect = (
+  { clientX, clientY, pageX, pageY }: MouseEvent,
+  { bottom, left, right, top }: DOMRect
+) =>
+  // DOMRect contains fractional pixel values but MouseEvent reports integers,
+  // so we round DOMRect boundaries to make DOMRect slightly bigger
+  (pageX || clientX) < Math.floor(left) ||
+  (pageX || clientX) > Math.ceil(right) ||
+  (pageY || clientY) < Math.floor(top) ||
+  (pageY || clientY) > Math.ceil(bottom);
+
+/**
+ * Checks if mouseevent is triggered outside triggerRef and tooltipRef.
+ * Counts with potential offset between them.
+ * @param {MouseEvent} mouseEvent
+ * @param {HTMLElement} triggerRef
+ * @param {HTMLElement} tooltipRef - provide only when prop `interactive` is on
+ */
+export function isMouseOutside(
+  mouseEvent: MouseEvent,
+  triggerRef: HTMLElement,
+  tooltipRef?: HTMLElement | false | null
+): boolean {
+  const triggerRect = triggerRef.getBoundingClientRect();
+  if (!tooltipRef) return mouseOutsideRect(mouseEvent, triggerRect);
+  const tooltipRect = tooltipRef.getBoundingClientRect();
+  // triggerRect extended to the tooltipRect boundary, thus will contain cursor
+  // moving from triggerRect to tooltipRect over some non zero offset.
+  const triggerRectExtendedToTooltip = {
+    bottom: Math.max(triggerRect.bottom, tooltipRect.top),
+    left: Math.min(triggerRect.left, tooltipRect.right),
+    right: Math.max(triggerRect.right, tooltipRect.left),
+    top: Math.min(triggerRect.top, tooltipRect.bottom),
+  };
+  return (
+    mouseOutsideRect(mouseEvent, triggerRectExtendedToTooltip as DOMRect) &&
+    mouseOutsideRect(mouseEvent, tooltipRect)
+  );
+}

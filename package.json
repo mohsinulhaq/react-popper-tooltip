@@ -1,6 +1,6 @@
 {
   "name": "react-popper-tooltip",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "React tooltip library built around react-popper",
   "author": "Mohsin Ul Haq <mohsinulhaq01@gmail.com>",
   "license": "MIT",
@@ -47,7 +47,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn typecheck && yarn build && yarn test && lint-staged"
+      "pre-commit": "yarn typecheck && yarn build && yarn test && lint-staged && git add .size-snapshot.json"
     }
   },
   "lint-staged": {

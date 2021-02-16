@@ -47,7 +47,10 @@ describe('trigger option', () => {
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
     // tooltip hidden on hover out
-    userEvent.unhover(screen.getByText(TriggerText));
+    userEvent.unhover(screen.getByText(TriggerText), {
+      clientX: 1,
+      clientY: 1,
+    });
     await waitFor(() => {
       expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
     });
@@ -197,7 +200,10 @@ test('delayHide option removes tooltip after specified delay', async () => {
   });
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
-  userEvent.unhover(screen.getByText(TriggerText));
+  userEvent.unhover(screen.getByText(TriggerText), {
+    clientX: 1,
+    clientY: 1,
+  });
   // Still present after 2000ms
   act(() => {
     jest.advanceTimersByTime(2000);
@@ -235,7 +241,10 @@ test('onVisibleChange option called when state changes', async () => {
   expect(onVisibleChange).toHaveBeenLastCalledWith(true);
 
   // Now visible, change visible to false when unhover
-  userEvent.unhover(screen.getByText(TriggerText));
+  userEvent.unhover(screen.getByText(TriggerText), {
+    clientX: 1,
+    clientY: 1,
+  });
   await waitFor(() => {
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
   });
