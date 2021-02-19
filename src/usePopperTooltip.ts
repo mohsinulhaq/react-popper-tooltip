@@ -69,6 +69,8 @@ export function usePopperTooltip(
   });
 
   const timer = React.useRef<number>();
+  const stopTimer = React.useCallback(() => clearTimeout(timer.current), []);
+  React.useEffect(() => stopTimer, [stopTimer]);
 
   const { styles, attributes, ...popperProps } = usePopper(
     finalConfig.followCursor ? virtualElement : triggerRef,
@@ -96,20 +98,20 @@ export function usePopperTooltip(
   );
 
   const hideTooltip = React.useCallback(() => {
-    clearTimeout(timer.current);
+    stopTimer();
     timer.current = window.setTimeout(
       () => setVisible(false),
       finalConfig.delayHide
     );
-  }, [finalConfig.delayHide, setVisible]);
+  }, [finalConfig.delayHide, setVisible, stopTimer]);
 
   const showTooltip = React.useCallback(() => {
-    clearTimeout(timer.current);
+    stopTimer();
     timer.current = window.setTimeout(
       () => setVisible(true),
       finalConfig.delayShow
     );
-  }, [finalConfig.delayShow, setVisible]);
+  }, [finalConfig.delayShow, setVisible, stopTimer]);
 
   const toggleTooltip = React.useCallback(() => {
     if (getLatest().visible) {
@@ -118,8 +120,6 @@ export function usePopperTooltip(
       showTooltip();
     }
   }, [getLatest, hideTooltip, showTooltip]);
-
-  React.useEffect(() => clearTimeout(timer.current), []);
 
   // Handle click outside
   React.useEffect(() => {
@@ -185,10 +185,16 @@ export function usePopperTooltip(
     if (triggerRef == null || !isTriggeredBy('hover')) return;
 
     triggerRef.addEventListener('mouseenter', showTooltip);
+    if (!visible) {
+      triggerRef.addEventListener('mouseleave', stopTimer);
+    }
     return () => {
       triggerRef.removeEventListener('mouseenter', showTooltip);
+      if (!visible) {
+        triggerRef.removeEventListener('mouseleave', stopTimer);
+      }
     };
-  }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
+  }, [isTriggeredBy, hideTooltip, showTooltip, stopTimer, triggerRef, visible]);
   // Listen for mouse exiting the hover area &&
   // handle the followCursor
   React.useEffect(() => {

@@ -3,7 +3,11 @@ import { Story, Meta } from '@storybook/react';
 import { usePopperTooltip, Config } from '../src';
 import '../src/styles.css';
 
-export const Example: Story<Config> = (props) => {
+export const Example: Story<Config & { offsetDistance?: number }> = ({
+  // eslint-disable-next-line react/prop-types
+  offsetDistance = 6,
+  ...props
+}) => {
   const [shown, setShown] = React.useState(false);
   const {
     visible,
@@ -13,8 +17,9 @@ export const Example: Story<Config> = (props) => {
     getTooltipProps,
   } = usePopperTooltip({
     ...props,
-    visible: shown,
+    offset: [0, offsetDistance],
     onVisibleChange: setShown,
+    visible: shown,
   });
 
   return (
@@ -57,6 +62,12 @@ Example.argTypes = {
   interactive: {
     control: {
       type: 'boolean',
+    },
+  },
+  offsetDistance: {
+    control: {
+      type: 'number',
+      options: { min: 0, step: 1 },
     },
   },
   placement: {
