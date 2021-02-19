@@ -64,15 +64,15 @@ export function generateBoundingClientRect(x = 0, y = 0) {
 // pageX cannot be supplied in the tests, so we fallback to clientX
 // @see https://github.com/testing-library/dom-testing-library/issues/144
 const mouseOutsideRect = (
-  { clientX, clientY, pageX, pageY }: MouseEvent,
+  { clientX, clientY }: MouseEvent,
   { bottom, left, right, top }: DOMRect
 ) =>
   // DOMRect contains fractional pixel values but MouseEvent reports integers,
   // so we round DOMRect boundaries to make DOMRect slightly bigger
-  (pageX || clientX) < Math.floor(left) ||
-  (pageX || clientX) > Math.ceil(right) ||
-  (pageY || clientY) < Math.floor(top) ||
-  (pageY || clientY) > Math.ceil(bottom);
+  clientX < Math.floor(left) ||
+  clientX > Math.ceil(right) ||
+  clientY < Math.floor(top) ||
+  clientY > Math.ceil(bottom);
 
 /**
  * Checks if mouseevent is triggered outside triggerRef and tooltipRef.
