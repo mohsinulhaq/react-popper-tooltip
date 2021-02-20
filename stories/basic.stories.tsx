@@ -5,7 +5,7 @@ import '../src/styles.css';
 
 export const Example: Story<Config & { offsetDistance?: number }> = ({
   // eslint-disable-next-line react/prop-types
-  offsetDistance = 6,
+  offsetDistance,
   ...props
 }) => {
   const [shown, setShown] = React.useState(false);
@@ -69,6 +69,7 @@ Example.argTypes = {
       type: 'number',
       options: { min: 0, step: 1 },
     },
+    defaultValue: 6,
   },
   placement: {
     control: {
