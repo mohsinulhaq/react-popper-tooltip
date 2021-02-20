@@ -3,11 +3,12 @@ import { Story, Meta } from '@storybook/react';
 import { usePopperTooltip, Config } from '../src';
 import '../src/styles.css';
 
-export const Example: Story<Config & { offsetDistance?: number }> = ({
-  // eslint-disable-next-line react/prop-types
+type ExampleProps = Config & { offsetDistance?: number };
+
+export const Example: Story<ExampleProps> = ({
   offsetDistance,
   ...props
-}) => {
+}: ExampleProps) => {
   const [shown, setShown] = React.useState(false);
   const {
     visible,
