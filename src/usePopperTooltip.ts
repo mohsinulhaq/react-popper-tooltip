@@ -184,11 +184,16 @@ export function usePopperTooltip(
     if (triggerRef == null || !isTriggeredBy('hover')) return;
 
     triggerRef.addEventListener('mouseenter', showTooltip);
-    const stopTimer = !visible && (() => clearTimeout(timer.current));
-    stopTimer && triggerRef.addEventListener('mouseleave', stopTimer);
+    let stopTimer: undefined | (() => void);
+    if (!visible) {
+      stopTimer = () => clearTimeout(timer.current);
+      triggerRef.addEventListener('mouseleave', stopTimer);
+    }
     return () => {
       triggerRef.removeEventListener('mouseenter', showTooltip);
-      stopTimer && triggerRef.removeEventListener('mouseleave', stopTimer);
+      if (stopTimer) {
+        triggerRef.removeEventListener('mouseleave', stopTimer);
+      }
     };
   }, [isTriggeredBy, hideTooltip, showTooltip, triggerRef, visible]);
   // Listen for mouse exiting the hover area &&
