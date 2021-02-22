@@ -65,10 +65,10 @@ describe('isMouseOutside', () => {
     const trigger = element(100, 100, 40, 40);
     const tooltipAbove = element(100, 50, 40, 40);
     expect(isMouseOutside(mouseEvent(0, 0), trigger, tooltipAbove)).toBe(true);
-    expect(isMouseOutside(mouseEvent(99, 70), trigger, tooltipAbove)).toBe(
+    expect(isMouseOutside(mouseEvent(98, 70), trigger, tooltipAbove)).toBe(
       true
     );
-    expect(isMouseOutside(mouseEvent(120, 49), trigger, tooltipAbove)).toBe(
+    expect(isMouseOutside(mouseEvent(120, 48), trigger, tooltipAbove)).toBe(
       true
     );
   });
