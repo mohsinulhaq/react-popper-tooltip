@@ -64,15 +64,21 @@ export function generateBoundingClientRect(x = 0, y = 0) {
 // pageX cannot be supplied in the tests, so we fallback to clientX
 // @see https://github.com/testing-library/dom-testing-library/issues/144
 const mouseOutsideRect = (
-  { clientX, clientY, pageX, pageY }: MouseEvent,
+  { clientX, clientY }: MouseEvent,
   { bottom, left, right, top }: DOMRect
-) =>
+) => {
   // DOMRect contains fractional pixel values but MouseEvent reports integers,
-  // so we round DOMRect boundaries to make DOMRect slightly bigger
-  (pageX || clientX) < Math.floor(left) ||
-  (pageX || clientX) > Math.ceil(right) ||
-  (pageY || clientY) < Math.floor(top) ||
-  (pageY || clientY) > Math.ceil(bottom);
+  // so we round DOMRect boundaries to make DOMRect slightly bigger.
+  // Also exceed the DOMRect by 1 pixel to fix Chromium reporting MouseEvent's
+  // `clientX` and `clientY` by the whole integer away from the DOMRect.
+  // see https://github.com/mohsinulhaq/react-popper-tooltip/issues/118#issuecomment-782698921
+  return (
+    clientX < Math.floor(left) - 1 ||
+    clientX > Math.ceil(right) + 1 ||
+    clientY < Math.floor(top) - 1 ||
+    clientY > Math.ceil(bottom) + 1
+  );
+};
 
 /**
  * Checks if mouseevent is triggered outside triggerRef and tooltipRef.
