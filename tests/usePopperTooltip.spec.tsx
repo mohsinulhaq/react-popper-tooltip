@@ -48,8 +48,8 @@ describe('trigger option', () => {
 
     // tooltip hidden on hover out
     userEvent.unhover(screen.getByText(TriggerText), {
-      clientX: 1,
-      clientY: 1,
+      clientX: 100,
+      clientY: 100,
     });
     await waitFor(() => {
       expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
@@ -201,8 +201,8 @@ test('delayHide option removes tooltip after specified delay', async () => {
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
   userEvent.unhover(screen.getByText(TriggerText), {
-    clientX: 1,
-    clientY: 1,
+    clientX: 100,
+    clientY: 100,
   });
   // Still present after 2000ms
   act(() => {
@@ -242,8 +242,8 @@ test('onVisibleChange option called when state changes', async () => {
 
   // Now visible, change visible to false when unhover
   userEvent.unhover(screen.getByText(TriggerText), {
-    clientX: 1,
-    clientY: 1,
+    clientX: 100,
+    clientY: 100,
   });
   await waitFor(() => {
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
