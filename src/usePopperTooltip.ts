@@ -69,6 +69,7 @@ export function usePopperTooltip(
   });
 
   const timer = React.useRef<number>();
+  React.useEffect(() => () => clearTimeout(timer.current));
 
   const { styles, attributes, ...popperProps } = usePopper(
     finalConfig.followCursor ? virtualElement : triggerRef,
@@ -118,8 +119,6 @@ export function usePopperTooltip(
       showTooltip();
     }
   }, [getLatest, hideTooltip, showTooltip]);
-
-  React.useEffect(() => clearTimeout(timer.current), []);
 
   // Handle click outside
   React.useEffect(() => {
@@ -185,10 +184,18 @@ export function usePopperTooltip(
     if (triggerRef == null || !isTriggeredBy('hover')) return;
 
     triggerRef.addEventListener('mouseenter', showTooltip);
+    let stopTimer: undefined | (() => void);
+    if (!visible) {
+      stopTimer = () => clearTimeout(timer.current);
+      triggerRef.addEventListener('mouseleave', stopTimer);
+    }
     return () => {
       triggerRef.removeEventListener('mouseenter', showTooltip);
+      if (stopTimer) {
+        triggerRef.removeEventListener('mouseleave', stopTimer);
+      }
     };
-  }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
+  }, [isTriggeredBy, hideTooltip, showTooltip, triggerRef, visible]);
   // Listen for mouse exiting the hover area &&
   // handle the followCursor
   React.useEffect(() => {
