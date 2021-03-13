@@ -14,10 +14,15 @@
   z-index: 9999;
 }
 
+.tooltip-container[data-popper-interactive="false"] {
+  pointer-events: none;
+}
+
 .tooltip-arrow {
   height: 1rem;
   position: absolute;
   width: 1rem;
+  pointer-events: none;
 }
 
 .tooltip-arrow::before {

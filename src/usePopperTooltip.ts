@@ -4,11 +4,8 @@ import {
   useControlledState,
   useGetLatest,
   generateBoundingClientRect,
-  isMouseOutside,
 } from './utils';
 import { Config, PopperOptions, PropsGetterArgs, TriggerType } from './types';
-
-const { isArray } = Array;
 
 const virtualElement = {
   getBoundingClientRect: generateBoundingClientRect(),
@@ -51,7 +48,7 @@ export function usePopperTooltip(
   const defaultModifiers = React.useMemo(
     () => [{ name: 'offset', options: { offset: finalConfig.offset } }],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    isArray(finalConfig.offset) ? finalConfig.offset : []
+    Array.isArray(finalConfig.offset) ? finalConfig.offset : []
   );
 
   const finalPopperOptions = {
@@ -88,12 +85,14 @@ export function usePopperTooltip(
 
   const isTriggeredBy = React.useCallback(
     (trigger: TriggerType) => {
-      return isArray(finalConfig.trigger)
+      return Array.isArray(finalConfig.trigger)
         ? finalConfig.trigger.includes(trigger)
         : finalConfig.trigger === trigger;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    isArray(finalConfig.trigger) ? finalConfig.trigger : [finalConfig.trigger]
+    Array.isArray(finalConfig.trigger)
+      ? finalConfig.trigger
+      : [finalConfig.trigger]
   );
 
   const hideTooltip = React.useCallback(() => {
@@ -184,64 +183,12 @@ export function usePopperTooltip(
     if (triggerRef == null || !isTriggeredBy('hover')) return;
 
     triggerRef.addEventListener('mouseenter', showTooltip);
-    let stopTimer: undefined | (() => void);
-    if (!visible) {
-      stopTimer = () => clearTimeout(timer.current);
-      triggerRef.addEventListener('mouseleave', stopTimer);
-    }
+    triggerRef.addEventListener('mouseleave', hideTooltip);
     return () => {
       triggerRef.removeEventListener('mouseenter', showTooltip);
-      if (stopTimer) {
-        triggerRef.removeEventListener('mouseleave', stopTimer);
-      }
+      triggerRef.removeEventListener('mouseleave', hideTooltip);
     };
-  }, [isTriggeredBy, hideTooltip, showTooltip, triggerRef, visible]);
-  // Listen for mouse exiting the hover area &&
-  // handle the followCursor
-  React.useEffect(() => {
-    if (
-      !visible ||
-      triggerRef == null ||
-      (!isTriggeredBy('hover') && !finalConfig.followCursor)
-    ) {
-      return;
-    }
-
-    let lastMouseOutside = false;
-    const handleMouseMove = (event: MouseEvent) => {
-      const mouseOutside = isMouseOutside(
-        event,
-        triggerRef,
-        !finalConfig.followCursor &&
-          getLatest().finalConfig.interactive &&
-          tooltipRef
-      );
-      if (mouseOutside && lastMouseOutside !== mouseOutside) {
-        hideTooltip();
-      }
-      if (!mouseOutside && finalConfig.followCursor) {
-        virtualElement.getBoundingClientRect = generateBoundingClientRect(
-          event.clientX,
-          event.clientY
-        );
-        update?.();
-      }
-      lastMouseOutside = mouseOutside;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [
-    finalConfig.followCursor,
-    getLatest,
-    hideTooltip,
-    isTriggeredBy,
-    tooltipRef,
-    triggerRef,
-    update,
-    visible,
-  ]);
+  }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
 
   // Trigger: hover on tooltip, keep it open if hovered
   React.useEffect(() => {
@@ -261,6 +208,28 @@ export function usePopperTooltip(
   React.useEffect(() => {
     if (finalConfig.closeOnTriggerHidden && isReferenceHidden) hideTooltip();
   }, [finalConfig.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
+
+  // Handle follow cursor
+  React.useEffect(() => {
+    if (!finalConfig.followCursor || triggerRef == null) return;
+
+    function setMousePosition({
+      clientX,
+      clientY,
+    }: {
+      clientX: number;
+      clientY: number;
+    }) {
+      virtualElement.getBoundingClientRect = generateBoundingClientRect(
+        clientX,
+        clientY
+      );
+      update?.();
+    }
+
+    triggerRef.addEventListener('mousemove', setMousePosition);
+    return () => triggerRef.removeEventListener('mousemove', setMousePosition);
+  }, [finalConfig.followCursor, triggerRef, update]);
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
   React.useEffect(() => {
@@ -285,6 +254,7 @@ export function usePopperTooltip(
         ...styles.popper,
       },
       ...attributes.popper,
+      'data-popper-interactive': finalConfig.interactive,
     };
   };
 
