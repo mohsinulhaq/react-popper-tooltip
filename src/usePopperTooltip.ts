@@ -66,7 +66,7 @@ export function usePopperTooltip(
   });
 
   const timer = React.useRef<number>();
-  React.useEffect(() => () => clearTimeout(timer.current));
+  React.useEffect(() => () => clearTimeout(timer.current), []);
 
   const { styles, attributes, ...popperProps } = usePopper(
     finalConfig.followCursor ? virtualElement : triggerRef,
