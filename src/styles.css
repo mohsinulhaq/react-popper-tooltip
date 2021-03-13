@@ -14,7 +14,7 @@
   z-index: 9999;
 }
 
-.tooltip-container[data-popper-interactive="false"] {
+.tooltip-container[data-popper-interactive='false'] {
   pointer-events: none;
 }
 
