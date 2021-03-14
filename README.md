@@ -87,7 +87,7 @@ Import `react-popper-tooltip/dist/styles.css` to import it into your project. Ad
 While the tooltip is being displayed, you have access to some attributes on the tooltip container. You can use them
 in your CSS in specific scenarios.
 
-- `data-popper-placement`: contains the current tooltip placement. You can use it to properly offset and display the
+- `data-popper-placement`: contains the current tooltip `placement`. You can use it to properly offset and display the
   arrow element (e.g., if the tooltip is displayed on the right, the arrow should point to the left and vice versa).
 
 - `data-popper-reference-hidden`: set to true when the trigger element is fully clipped and hidden from view, which
@@ -96,7 +96,7 @@ in your CSS in specific scenarios.
 - `data-popper-escaped`: set to true when the tooltip escapes the trigger element's boundary (and so it appears
   detached). Set to false otherwise.
   
-- `data-popper-interactive`: represents the current `interactive` option value. 
+- `data-popper-interactive`: contains the current `interactive` option value. 
 
 ## API reference
 
