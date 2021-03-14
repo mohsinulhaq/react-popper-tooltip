@@ -86,6 +86,22 @@ Example.argTypes = {
   },
 };
 
+export const ScrollParent: Story<ExampleProps> = (props: ExampleProps) => {
+  return (
+    <div style={{ maxHeight: '200px', overflowY: 'scroll' }}>
+      {Array(100)
+        .fill(null)
+        .map((_, i) => (
+          <div key={i}>
+            <Example {...props} />
+          </div>
+        ))}
+    </div>
+  );
+};
+
+ScrollParent.argTypes = Example.argTypes;
+
 export default {
   title: 'usePopperTooltip',
 } as Meta;

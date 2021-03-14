@@ -1,8 +1,8 @@
 {
   "react-popper-tooltip.js": {
-    "bundled": 13457,
-    "minified": 5832,
-    "gzipped": 2006,
+    "bundled": 13561,
+    "minified": 5865,
+    "gzipped": 2012,
     "treeshaked": {
       "rollup": {
         "code": 142,

@@ -229,14 +229,18 @@ export function usePopperTooltip(
       lastMouseOutside = mouseOutside;
     };
     window.addEventListener('mousemove', handleMouseMove);
+    const handleScroll = () => setVisible(false);
+    window.addEventListener('scroll', handleScroll, true);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [
     finalConfig.followCursor,
     getLatest,
     hideTooltip,
     isTriggeredBy,
+    setVisible,
     tooltipRef,
     triggerRef,
     update,
