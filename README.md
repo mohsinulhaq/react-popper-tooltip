@@ -95,6 +95,8 @@ in your CSS in specific scenarios.
 
 - `data-popper-escaped`: set to true when the tooltip escapes the trigger element's boundary (and so it appears
   detached). Set to false otherwise.
+  
+- `data-popper-interactive`: represents the current `interactive` option value. 
 
 ## API reference
 
