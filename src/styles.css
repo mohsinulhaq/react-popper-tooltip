@@ -18,6 +18,11 @@
   pointer-events: none;
 }
 
+.tooltip-container[data-popper-escaped='true'],
+.tooltip-container[data-popper-reference-hidden='true'] {
+  visibility: hidden;
+}
+
 .tooltip-arrow {
   height: 1rem;
   position: absolute;
