@@ -1,1 +1,1 @@
-yarn typecheck && yarn build && yarn test && lint-staged && git add .size-snapshot.json
+yarn typecheck && yarn build && yarn test && yarn lint-staged && git add .size-snapshot.json
