@@ -20,7 +20,7 @@ see [3.x docs](https://github.com/mohsinulhaq/react-popper-tooltip/blob/v3/READM
 - Basic usage [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/basic) ([Source](/examples/basic))
 - Animating appearance with react-spring [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/animation) ([Source](/examples/animation))
 - Closing tooltip with Esc button [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/close-on-esc) ([Source](/examples/close-on-esc))
-- Using as a controlled component [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/) ([Source](/examples/controlled))
+- Using as a controlled component [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/controlled) ([Source](/examples/controlled))
 - Persist the tooltip in the DOM once it's mounted [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/persist-once-mounted) ([Source](/examples/persist-once-mounted))
 - Using with react portal [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/portal) ([Source](/examples/portal))
 - Implementing render prop (v3) API [Demo](https://codesandbox.io/s/github/mohsinulhaq/react-popper-tooltip/tree/master/examples/render-prop) ([Source](/examples/render-prop))
