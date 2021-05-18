@@ -277,3 +277,19 @@ describe('visible option controls the state and', () => {
     jest.useRealTimers();
   });
 });
+
+test('closeOnTriggerMouseDown removes tooltip on trigger mousedown', async () => {
+  render(
+    <Tooltip options={{ closeOnTriggerMouseDown: true, trigger: 'hover' }} />
+  );
+
+  // Show on hover
+  userEvent.hover(screen.getByText(TriggerText));
+  expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+  // Hide on trigger mousedown
+  fireEvent.mouseDown(screen.getByText(TriggerText));
+  await waitFor(() => {
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+  });
+});

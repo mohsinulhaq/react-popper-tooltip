@@ -54,6 +54,12 @@ export type Config = {
    */
   closeOnOutsideClick?: boolean;
   /**
+   * If `true`, a mousedown event on the trigger element closes the tooltip.
+   * Does not apply when the tooltip is triggered by click or right-click.
+   * @default false
+   */
+  closeOnTriggerMouseDown?: boolean;
+  /**
    * If `true`, hovering the tooltip will keep it open. Normally tooltip closes when the mouse cursor moves out of
    * the trigger element. If it moves to the tooltip element, the tooltip stays open.
    * @default false

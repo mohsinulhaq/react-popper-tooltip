@@ -116,6 +116,7 @@ const {
   {
     closeOnOutsideClick,
     closeOnTriggerHidden,
+    closeOnTriggerMouseDown,
     defaultVisible,
     delayHide,
     delayShow,
@@ -141,6 +142,10 @@ If `true`, closes the tooltip when user clicks outside the trigger element.
 - `closeOnTriggerHidden: boolean`, defaults to `false`
 
 Whether to close the tooltip when its trigger is out of boundary.
+
+- `closeOnTriggerMouseDown: boolean`, defaults to `false`
+  
+If `true`, a mousedown event on the trigger element closes the tooltip. Does not apply when the tooltip is triggered by click or right-click.
 
 - `delayHide: number`, defaults to `0`
 

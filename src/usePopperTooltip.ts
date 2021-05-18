@@ -14,6 +14,7 @@ const virtualElement = {
 const defaultConfig: Config = {
   closeOnOutsideClick: true,
   closeOnTriggerHidden: false,
+  closeOnTriggerMouseDown: false,
   defaultVisible: false,
   delayHide: 0,
   delayShow: 0,
@@ -201,6 +202,21 @@ export function usePopperTooltip(
       tooltipRef.removeEventListener('mouseleave', hideTooltip);
     };
   }, [tooltipRef, showTooltip, hideTooltip, getLatest]);
+
+  // Trigger: mousedown
+  React.useEffect(() => {
+    if (
+      triggerRef == null ||
+      !getLatest().finalConfig.closeOnTriggerMouseDown ||
+      isTriggeredBy('click') ||
+      isTriggeredBy('right-click')
+    )
+      return;
+
+    triggerRef.addEventListener('mousedown', hideTooltip);
+
+    return () => triggerRef.removeEventListener('mousedown', hideTooltip);
+  }, [getLatest, hideTooltip, isTriggeredBy, triggerRef]);
 
   // Handle closing tooltip if trigger hidden
   const isReferenceHidden =

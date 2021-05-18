@@ -60,6 +60,11 @@ Example.argTypes = {
       type: 'boolean',
     },
   },
+  closeOnTriggerMouseDown: {
+    control: {
+      type: 'boolean',
+    },
+  },
   interactive: {
     control: {
       type: 'boolean',
