@@ -35,9 +35,9 @@ export function usePopperTooltip(
   // Merging options with default options.
   // Keys with undefined values are replaced with the default ones if any.
   // Keys with other values pass through.
-  const finalConfig = (Object.keys(defaultConfig) as Array<
-    keyof typeof defaultConfig
-  >).reduce(
+  const finalConfig = (
+    Object.keys(defaultConfig) as Array<keyof typeof defaultConfig>
+  ).reduce(
     (config, key) => ({
       ...config,
       [key]: config[key] !== undefined ? config[key] : defaultConfig[key],
@@ -125,7 +125,7 @@ export function usePopperTooltip(
 
     const handleClickOutside: EventListener = (event) => {
       const { tooltipRef, triggerRef } = getLatest();
-      const target = event.target;
+      const target = event.composedPath?.()?.[0] || event.target;
       if (target instanceof Node) {
         if (
           tooltipRef != null &&

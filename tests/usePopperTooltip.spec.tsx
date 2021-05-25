@@ -155,7 +155,7 @@ describe('trigger option', () => {
 });
 
 test('closeOnOutsideClick removes tooltip on document.body click', async () => {
-  render(<Tooltip options={{ closeOnOutsideClick: true, trigger: 'click' }} />);
+  render(<Tooltip options={{ trigger: 'click' }} />);
 
   // Show on click
   userEvent.click(screen.getByText(TriggerText));
@@ -165,6 +165,19 @@ test('closeOnOutsideClick removes tooltip on document.body click', async () => {
   userEvent.click(document.body);
   await waitFor(() => {
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+  });
+});
+
+test("closeOnOutsideClick doesn't remove tooltip on tooltip click", async () => {
+  render(<Tooltip options={{ trigger: 'click' }} />);
+
+  // Show on click
+  userEvent.click(screen.getByText(TriggerText));
+  expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+  userEvent.click(screen.getByText(TooltipText));
+  await waitFor(() => {
+    expect(screen.queryByText(TooltipText)).toBeInTheDocument();
   });
 });
 
