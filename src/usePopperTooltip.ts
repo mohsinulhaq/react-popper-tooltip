@@ -178,6 +178,20 @@ export function usePopperTooltip(
     };
   }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
 
+  // Trigger: enter
+  React.useEffect(() => {
+    if (triggerRef == null || !isTriggeredBy('enter')) return;
+
+    triggerRef.addEventListener('keydown', (e) => {
+      if (e.code === 'Enter') toggleTooltip();
+    });
+    return () => {
+      triggerRef.addEventListener('keydown', (e) => {
+        if (e.code === 'Enter') toggleTooltip();
+      });
+    };
+  }, [triggerRef, isTriggeredBy, toggleTooltip]);
+
   // Trigger: hover on trigger
   React.useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('hover')) return;

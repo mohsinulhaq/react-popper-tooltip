@@ -81,7 +81,7 @@ Example.argTypes = {
   trigger: {
     control: {
       type: 'select',
-      options: ['hover', 'click', 'right-click', 'focus', null],
+      options: ['hover', 'click', 'right-click', 'focus', 'enter', null],
     },
   },
 };

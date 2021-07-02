@@ -104,6 +104,29 @@ describe('trigger option', () => {
     });
   });
 
+  test('enter trigger', async () => {
+    render(<Tooltip options={{ trigger: 'enter' }} />);
+
+    // tooltip not visible initially
+    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+
+    // tooltip shown on enter
+    fireEvent.keyDown(screen.getByText(TriggerText), {
+      key: 'Enter',
+      code: 'Enter',
+    });
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
+
+    // tooltip hidden on enter again
+    fireEvent.keyDown(screen.getByText(TriggerText), {
+      key: 'Enter',
+      code: 'Enter',
+    });
+    await waitFor(() => {
+      expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+    });
+  });
+
   test('trigger array', async () => {
     render(<Tooltip options={{ trigger: ['click', 'hover'] }} />);
 
