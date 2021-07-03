@@ -128,7 +128,7 @@ describe('trigger option', () => {
   });
 
   test('trigger array', async () => {
-    render(<Tooltip options={{ trigger: ['click', 'hover'] }} />);
+    render(<Tooltip options={{ trigger: ['click', 'hover', 'enter'] }} />);
 
     // tooltip not visible initially
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
@@ -142,6 +142,13 @@ describe('trigger option', () => {
     await waitFor(() => {
       expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
     });
+
+    //tooltip shown on enter
+    fireEvent.keyDown(screen.getByText(TriggerText), {
+      key: 'Enter',
+      code: 'Enter',
+    });
+    expect(await screen.findByText(TooltipText)).toBeInTheDocument();
   });
 
   test('null trigger', async () => {
