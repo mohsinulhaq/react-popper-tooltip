@@ -12,23 +12,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x]
-
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: yarn install, build, and test
         run: |
           yarn --frozen-lockfile
           yarn typecheck
-          yarn lint
-          yarn test --ci --coverage
           yarn build
+          yarn test --ci --coverage
+          yarn lint
           bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
         env:
           CI: true

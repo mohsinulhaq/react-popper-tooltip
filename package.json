@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist && rollup -c && cp src/styles.css dist && yarn tsc && rm -rf compiled",
-    "prepare": "husky install && yarn typecheck && yarn build && yarn test && yarn lint-staged && git add .size-snapshot.json",
+    "prepare": "husky install && yarn typecheck && yarn build && yarn test && yarn lint-staged",
     "prettier": "prettier --write src/**/*.{ts,tsx}",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"{src,tests,examples}**/*.{ts,tsx}\"",
