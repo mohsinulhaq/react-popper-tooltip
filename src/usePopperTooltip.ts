@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type { VirtualElement } from '@popperjs/core';
 import { usePopper } from 'react-popper';
 import {
   useControlledState,
@@ -7,7 +8,7 @@ import {
 } from './utils';
 import { Config, PopperOptions, PropsGetterArgs, TriggerType } from './types';
 
-const virtualElement = {
+const virtualElement: VirtualElement = {
   getBoundingClientRect: generateBoundingClientRect(),
 };
 

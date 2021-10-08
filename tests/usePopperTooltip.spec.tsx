@@ -35,6 +35,15 @@ function Tooltip({ options }: { options: Config }) {
   );
 }
 
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
 describe('trigger option', () => {
   test('hover trigger', async () => {
     render(<Tooltip options={{ trigger: 'hover' }} />);
@@ -122,8 +131,6 @@ describe('trigger option', () => {
   });
 
   test('null trigger', async () => {
-    jest.useFakeTimers();
-
     render(<Tooltip options={{ trigger: null }} />);
 
     // tooltip not visible initially
@@ -148,9 +155,6 @@ describe('trigger option', () => {
     fireEvent.focus(screen.getByText(TriggerText));
     jest.runAllTimers();
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 });
 
@@ -182,7 +186,6 @@ test("closeOnOutsideClick doesn't remove tooltip on tooltip click", async () => 
 });
 
 test('delayShow option renders tooltip after specified delay', async () => {
-  jest.useFakeTimers();
   render(<Tooltip options={{ delayShow: 5000 }} />);
 
   userEvent.hover(screen.getByText(TriggerText));
@@ -190,18 +193,17 @@ test('delayShow option renders tooltip after specified delay', async () => {
   jest.advanceTimersByTime(2000);
   expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
+  act(() => {
+    jest.runAllTimers();
+  });
   // It shows up sometime later. Here RTL uses fake timers to await as well, so
   // it awaits for the element infinitely, advancing jest fake timer by 50ms
   // in an endless loop. And this is why the test passes even if delayShow set
   // a way bigger than a default timeout of 1000ms would allow.
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
-
-  jest.runOnlyPendingTimers();
-  jest.useRealTimers();
 });
 
 test('delayHide option removes tooltip after specified delay', async () => {
-  jest.useFakeTimers();
   render(<Tooltip options={{ delayHide: 5000 }} />);
 
   userEvent.hover(screen.getByText(TriggerText));
@@ -216,14 +218,11 @@ test('delayHide option removes tooltip after specified delay', async () => {
     jest.advanceTimersByTime(2000);
   });
   expect(screen.getByText(TooltipText)).toBeInTheDocument();
-
-  // Removed some time later
-  await waitFor(() => {
-    expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
+  act(() => {
+    jest.runAllTimers();
   });
-
-  jest.runOnlyPendingTimers();
-  jest.useRealTimers();
+  // Removed some time later
+  expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 });
 
 describe('defaultVisible option', () => {
@@ -258,7 +257,6 @@ test('onVisibleChange option called when state changes', async () => {
 
 describe('visible option controls the state and', () => {
   test('with false value renders nothing', async () => {
-    jest.useFakeTimers();
     render(<Tooltip options={{ visible: false, trigger: 'click' }} />);
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
@@ -268,14 +266,9 @@ describe('visible option controls the state and', () => {
       jest.runAllTimers();
     });
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   test('with true value renders tooltip', async () => {
-    jest.useFakeTimers();
-
     render(<Tooltip options={{ visible: true, trigger: 'click' }} />);
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
@@ -285,8 +278,5 @@ describe('visible option controls the state and', () => {
       jest.runAllTimers();
     });
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 });
