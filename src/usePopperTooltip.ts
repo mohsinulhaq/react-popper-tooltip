@@ -280,6 +280,11 @@ export function usePopperTooltip(
     tooltipRef,
     triggerRef,
     visible,
+    controls: {
+      hideTooltip,
+      showTooltip,
+      toggleTooltip
+    }
     ...popperProps,
   };
 }
