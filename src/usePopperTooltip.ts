@@ -284,7 +284,7 @@ export function usePopperTooltip(
       hideTooltip,
       showTooltip,
       toggleTooltip
-    }
+    },
     ...popperProps,
   };
 }
