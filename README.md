@@ -189,7 +189,7 @@ you control the state of the tooltip.
 
 - `visible: boolean`
 
-The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip. Note, that `delayShow` and `delayHide` won't be take into considiration if the tooltip is controlled. You have to apply delay on your external state.
+The visibility state of the tooltip. Use this prop if you want to control the state of the tooltip. Note that `delayShow` and `delayHide` are not used if the tooltip is controlled. You have to apply delay on your external state.
 
 **react-popper-tooltip** manages its own state internally and calls `onVisibleChange` handler with any relevant changes.
 
