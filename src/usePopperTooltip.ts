@@ -152,6 +152,15 @@ export function usePopperTooltip(
     return () => triggerRef.removeEventListener('click', toggleTooltip);
   }, [triggerRef, isTriggeredBy, toggleTooltip]);
 
+  // Trigger: double-click
+  React.useEffect(() => {
+    if (triggerRef == null || !isTriggeredBy('double-click')) return;
+
+    triggerRef.addEventListener('dblclick', toggleTooltip);
+
+    return () => triggerRef.removeEventListener('dblclick', toggleTooltip);
+  }, [triggerRef, isTriggeredBy, toggleTooltip]);
+
   // Trigger: right-click
   React.useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('right-click')) return;
