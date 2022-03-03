@@ -1,12 +1,13 @@
 .tooltip-container {
   --tooltipBackground: #fff;
   --tooltipBorder: #c0c0c0;
+  --tooltipColor: #000;
 
   background-color: var(--tooltipBackground);
   border-radius: 3px;
   border: 1px solid var(--tooltipBorder);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-  color: #000;
+  color: var(--tooltipColor);
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
