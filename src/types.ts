@@ -1,7 +1,12 @@
 import * as React from 'react';
 import * as PopperJS from '@popperjs/core';
 
-export type TriggerType = 'click' | 'right-click' | 'hover' | 'focus';
+export type TriggerType =
+  | 'click'
+  | 'double-click'
+  | 'right-click'
+  | 'hover'
+  | 'focus';
 
 export type Config = {
   /**
