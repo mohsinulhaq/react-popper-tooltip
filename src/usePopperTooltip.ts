@@ -253,7 +253,7 @@ export function usePopperTooltip(
       style: {
         ...args.style,
         ...styles.popper,
-      },
+      } as React.CSSProperties,
       ...attributes.popper,
       'data-popper-interactive': finalConfig.interactive,
     };
@@ -267,7 +267,7 @@ export function usePopperTooltip(
       style: {
         ...args.style,
         ...styles.arrow,
-      },
+      } as React.CSSProperties,
       'data-popper-arrow': true,
     };
   };
