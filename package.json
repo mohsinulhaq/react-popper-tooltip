@@ -58,8 +58,6 @@
   "dependencies": {
     "@babel/runtime": "^7.18.3",
     "@popperjs/core": "^2.11.5",
-    "@types/react": "^18.0.11",
-    "@types/react-dom": "^18.0.5",
     "react-popper": "^2.3.0"
   },
   "devDependencies": {
@@ -76,6 +74,8 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.0",
     "@types/jest": "^28.1.1",
+    "@types/react": "^18.0.11",
+    "@types/react-dom": "^18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "babel-loader": "^8.2.5",
