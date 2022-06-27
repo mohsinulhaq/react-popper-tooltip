@@ -18,6 +18,7 @@
   ],
   "main": "dist/cjs/react-popper-tooltip.js",
   "module": "dist/esm/react-popper-tooltip.js",
+  "browser": "dist/esm/react-popper-tooltip.js",
   "typings": "dist/index.d.ts",
   "style": "dist/styles.css",
   "files": [
