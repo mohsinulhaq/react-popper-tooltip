@@ -48,7 +48,6 @@
   },
   "lint-staged": {
     "**/*.(ts|tsx)": [
-      "prettier --write",
       "yarn lint --fix"
     ]
   },
