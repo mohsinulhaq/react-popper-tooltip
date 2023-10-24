@@ -105,12 +105,12 @@
 
 .tooltip-container[data-popper-placement*='left'] .tooltip-arrow::before {
   border-color: transparent transparent transparent var(--tooltipBorder);
-  border-width: 0.5rem 0 0.5rem 0.4em;
+  border-width: 0.5rem 0 0.5rem 0.4rem;
 }
 
 .tooltip-container[data-popper-placement*='left'] .tooltip-arrow::after {
   border-color: transparent transparent transparent var(--tooltipBackground);
-  border-width: 0.5rem 0 0.5rem 0.4em;
+  border-width: 0.5rem 0 0.5rem 0.4rem;
   left: 3px;
   top: 0;
 }
