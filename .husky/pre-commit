@@ -1,4 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-yarn typecheck && yarn build && yarn test && yarn lint-staged && git add .size-snapshot.json

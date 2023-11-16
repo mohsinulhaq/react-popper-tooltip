@@ -1,12 +1,18 @@
-import * as React from 'react';
-import type { VirtualElement } from '@popperjs/core';
-import { usePopper } from 'react-popper';
+import type {CSSProperties} from 'react';
+import {useMemo, useState, useRef, useEffect, useCallback} from 'react';
+import type {VirtualElement} from '@popperjs/core';
+import {usePopper} from 'react-popper';
 import {
   useControlledState,
   useGetLatest,
   generateBoundingClientRect,
-} from './utils';
-import { Config, PopperOptions, PropsGetterArgs, TriggerType } from './types';
+} from './utils.js';
+import type {
+  Config,
+  PopperOptions,
+  PropsGetterArgs,
+  TriggerType,
+} from './types.js';
 
 const virtualElement: VirtualElement = {
   getBoundingClientRect: generateBoundingClientRect(),
@@ -31,7 +37,7 @@ const defaultConfig: Config = {
 
 export function usePopperTooltip(
   config: Config = {},
-  popperOptions: PopperOptions = {}
+  popperOptions: PopperOptions = {},
 ) {
   // Merging options with default options.
   // Keys with undefined values are replaced with the default ones if any.
@@ -43,13 +49,13 @@ export function usePopperTooltip(
       ...config,
       [key]: config[key] !== undefined ? config[key] : defaultConfig[key],
     }),
-    config
+    config,
   );
 
-  const defaultModifiers = React.useMemo(
-    () => [{ name: 'offset', options: { offset: finalConfig.offset } }],
+  const defaultModifiers = useMemo(
+    () => [{name: 'offset', options: {offset: finalConfig.offset}}],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    Array.isArray(finalConfig.offset) ? finalConfig.offset : []
+    Array.isArray(finalConfig.offset) ? finalConfig.offset : [],
   );
 
   const finalPopperOptions = {
@@ -58,21 +64,21 @@ export function usePopperTooltip(
     modifiers: popperOptions.modifiers || defaultModifiers,
   };
 
-  const [triggerRef, setTriggerRef] = React.useState<HTMLElement | null>(null);
-  const [tooltipRef, setTooltipRef] = React.useState<HTMLElement | null>(null);
+  const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
+  const [tooltipRef, setTooltipRef] = useState<HTMLElement | null>(null);
   const [visible, setVisible] = useControlledState({
     initial: finalConfig.defaultVisible,
     value: finalConfig.visible,
     onChange: finalConfig.onVisibleChange,
   });
 
-  const timer = React.useRef<number>();
-  React.useEffect(() => () => clearTimeout(timer.current), []);
+  const timer = useRef<number>();
+  useEffect(() => () => clearTimeout(timer.current), []);
 
-  const { styles, attributes, ...popperProps } = usePopper(
+  const {styles, attributes, ...popperProps} = usePopper(
     finalConfig.followCursor ? virtualElement : triggerRef,
     tooltipRef,
-    finalPopperOptions
+    finalPopperOptions,
   );
 
   const update = popperProps.update;
@@ -84,7 +90,7 @@ export function usePopperTooltip(
     finalConfig,
   });
 
-  const isTriggeredBy = React.useCallback(
+  const isTriggeredBy = useCallback(
     (trigger: TriggerType) => {
       return Array.isArray(finalConfig.trigger)
         ? finalConfig.trigger.includes(trigger)
@@ -93,26 +99,26 @@ export function usePopperTooltip(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     Array.isArray(finalConfig.trigger)
       ? finalConfig.trigger
-      : [finalConfig.trigger]
+      : [finalConfig.trigger],
   );
 
-  const hideTooltip = React.useCallback(() => {
+  const hideTooltip = useCallback(() => {
     clearTimeout(timer.current);
     timer.current = window.setTimeout(
       () => setVisible(false),
-      finalConfig.delayHide
+      finalConfig.delayHide,
     );
   }, [finalConfig.delayHide, setVisible]);
 
-  const showTooltip = React.useCallback(() => {
+  const showTooltip = useCallback(() => {
     clearTimeout(timer.current);
     timer.current = window.setTimeout(
       () => setVisible(true),
-      finalConfig.delayShow
+      finalConfig.delayShow,
     );
   }, [finalConfig.delayShow, setVisible]);
 
-  const toggleTooltip = React.useCallback(() => {
+  const toggleTooltip = useCallback(() => {
     if (getLatest().visible) {
       hideTooltip();
     } else {
@@ -121,11 +127,11 @@ export function usePopperTooltip(
   }, [getLatest, hideTooltip, showTooltip]);
 
   // Handle click outside
-  React.useEffect(() => {
+  useEffect(() => {
     if (!getLatest().finalConfig.closeOnOutsideClick) return;
 
     const handleClickOutside: EventListener = (event) => {
-      const { tooltipRef, triggerRef } = getLatest();
+      const {tooltipRef, triggerRef} = getLatest();
       const target = event.composedPath?.()?.[0] || event.target;
       if (target instanceof Node) {
         if (
@@ -144,7 +150,7 @@ export function usePopperTooltip(
   }, [getLatest, hideTooltip]);
 
   // Trigger: click
-  React.useEffect(() => {
+  useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('click')) return;
 
     triggerRef.addEventListener('click', toggleTooltip);
@@ -153,7 +159,7 @@ export function usePopperTooltip(
   }, [triggerRef, isTriggeredBy, toggleTooltip]);
 
   // Trigger: double-click
-  React.useEffect(() => {
+  useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('double-click')) return;
 
     triggerRef.addEventListener('dblclick', toggleTooltip);
@@ -162,7 +168,7 @@ export function usePopperTooltip(
   }, [triggerRef, isTriggeredBy, toggleTooltip]);
 
   // Trigger: right-click
-  React.useEffect(() => {
+  useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('right-click')) return;
 
     const preventDefaultAndToggle: EventListener = (event) => {
@@ -177,7 +183,7 @@ export function usePopperTooltip(
   }, [triggerRef, isTriggeredBy, toggleTooltip]);
 
   // Trigger: focus
-  React.useEffect(() => {
+  useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('focus')) return;
 
     triggerRef.addEventListener('focus', showTooltip);
@@ -189,7 +195,7 @@ export function usePopperTooltip(
   }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
 
   // Trigger: hover on trigger
-  React.useEffect(() => {
+  useEffect(() => {
     if (triggerRef == null || !isTriggeredBy('hover')) return;
 
     triggerRef.addEventListener('mouseenter', showTooltip);
@@ -201,7 +207,7 @@ export function usePopperTooltip(
   }, [triggerRef, isTriggeredBy, showTooltip, hideTooltip]);
 
   // Trigger: hover on tooltip, keep it open if hovered
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       tooltipRef == null ||
       !isTriggeredBy('hover') ||
@@ -220,12 +226,12 @@ export function usePopperTooltip(
   // Handle closing tooltip if trigger hidden
   const isReferenceHidden =
     popperProps?.state?.modifiersData?.hide?.isReferenceHidden;
-  React.useEffect(() => {
+  useEffect(() => {
     if (finalConfig.closeOnTriggerHidden && isReferenceHidden) hideTooltip();
   }, [finalConfig.closeOnTriggerHidden, hideTooltip, isReferenceHidden]);
 
   // Handle follow cursor
-  React.useEffect(() => {
+  useEffect(() => {
     if (!finalConfig.followCursor || triggerRef == null) return;
 
     function setMousePosition({
@@ -237,7 +243,7 @@ export function usePopperTooltip(
     }) {
       virtualElement.getBoundingClientRect = generateBoundingClientRect(
         clientX,
-        clientY
+        clientY,
       );
       update?.();
     }
@@ -247,7 +253,7 @@ export function usePopperTooltip(
   }, [finalConfig.followCursor, triggerRef, update]);
 
   // Handle tooltip DOM mutation changes (aka mutation observer)
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       tooltipRef == null ||
       update == null ||
@@ -266,9 +272,9 @@ export function usePopperTooltip(
       ...args,
       style: {
         ...args.style,
-        ...styles.popper,
-      } as React.CSSProperties,
-      ...attributes.popper,
+        ...styles['popper'],
+      } as CSSProperties,
+      ...attributes['popper'],
       'data-popper-interactive': finalConfig.interactive,
     };
   };
@@ -277,11 +283,11 @@ export function usePopperTooltip(
   const getArrowProps = (args: PropsGetterArgs = {}) => {
     return {
       ...args,
-      ...attributes.arrow,
+      ...attributes['arrow'],
       style: {
         ...args.style,
-        ...styles.arrow,
-      } as React.CSSProperties,
+        ...styles['arrow'],
+      } as CSSProperties,
       'data-popper-arrow': true,
     };
   };

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as PopperJS from '@popperjs/core';
+import {CSSProperties} from 'react';
+import {Placement, Options, createPopper} from '@popperjs/core';
 
 export type TriggerType =
   | 'click'
@@ -67,7 +67,7 @@ export type Config = {
   /**
    * Alias for popper.js placement, see https://popper.js.org/docs/v2/constructors/#placement
    */
-  placement?: PopperJS.Placement;
+  placement?: Placement;
   /**
    * Shorthand for popper.js offset modifier, see https://popper.js.org/docs/v2/modifiers/offset/
    * @default [0, 6]
@@ -75,11 +75,11 @@ export type Config = {
   offset?: [number, number];
 };
 
-export type PopperOptions = Partial<PopperJS.Options> & {
-  createPopper?: typeof PopperJS.createPopper;
+export type PopperOptions = Partial<Options> & {
+  createPopper?: typeof createPopper;
 };
 
 export type PropsGetterArgs = {
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   [key: string]: unknown;
 };

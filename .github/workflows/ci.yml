@@ -14,17 +14,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js v16
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 16
-      - name: yarn install, build, and test
+          node-version: latest
+      - name: pnpm install, build, and test
         run: |
-          yarn --frozen-lockfile
-          yarn typecheck
-          yarn build
-          yarn test --ci --coverage
-          yarn lint
+          pnpm --frozen-lockfile install
+          pnpm build
+          pnpm test -w false --coverage
+          pnpm lint
           bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
         env:
           CI: true

@@ -1,3 +1,5 @@
 {
+  "bracketSpacing": false,
+  "singleAttributePerLine": true,
   "singleQuote": true
 }
