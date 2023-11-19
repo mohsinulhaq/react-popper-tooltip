@@ -1,10 +1,10 @@
-import * as React from 'react';
+import {useRef, useCallback, useState} from 'react';
 
 // kudos to @tannerlinsley https://twitter.com/tannerlinsley
 export function useGetLatest<T>(val: T) {
-  const ref = React.useRef<T>(val);
+  const ref = useRef<T>(val);
   ref.current = val;
-  return React.useCallback(() => ref.current, []);
+  return useCallback(() => ref.current, []);
 }
 
 const noop = () => {
@@ -22,15 +22,15 @@ export function useControlledState<T>({
 }): [T, (state: T) => void] {
   if (initial === undefined && value === undefined) {
     throw new TypeError(
-      'Either "value" or "initial" variable must be set. Now both are undefined'
+      'Either "value" or "initial" variable must be set. Now both are undefined',
     );
   }
 
-  const [state, setState] = React.useState(initial);
+  const [state, setState] = useState(initial);
 
   const getLatest = useGetLatest(state);
 
-  const set = React.useCallback(
+  const set = useCallback(
     (updater: T) => {
       const state = getLatest();
 
@@ -42,7 +42,7 @@ export function useControlledState<T>({
       setState(updatedState);
       if (typeof onChange === 'function') onChange(updatedState);
     },
-    [getLatest, onChange]
+    [getLatest, onChange],
   );
 
   const isControlled = value !== undefined;
