@@ -43,5 +43,5 @@ jobs:
           pnpm lint
         env:
           CI: true
-      - uses: codecov/codecov-action@v4:
+      - uses: codecov/codecov-action@v4
           token: ${{ secrets.CODECOV_TOKEN }}
