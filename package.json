@@ -32,7 +32,7 @@
   "scripts": {
     "build": "rm -rf dist && tsup src/main.ts --format esm --dts --sourcemap",
     "prepare": "husky install",
-    "prettier": "prettier --write src/**/*.{ts,tsx}",
+    "prettier": "prettier --write \"{src,tests,examples}**/*.{ts,tsx}\"",
     "lint": "eslint \"{src,tests,examples}**/*.{ts,tsx}\"",
     "test": "vitest --globals --dom -w false --coverage",
     "storybook": "storybook dev -p 6006",
