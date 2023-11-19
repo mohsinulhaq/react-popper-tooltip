@@ -34,7 +34,7 @@
     "prepare": "husky install",
     "prettier": "prettier --write src/**/*.{ts,tsx}",
     "lint": "eslint \"{src,tests,examples}**/*.{ts,tsx}\"",
-    "test": "vitest --globals --environment happy-dom -w false --coverage",
+    "test": "vitest --globals --dom -w false --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

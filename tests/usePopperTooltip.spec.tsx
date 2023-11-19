@@ -146,22 +146,18 @@ describe('trigger option', () => {
 
     // Nothing after hover
     user.hover(screen.getByText(TriggerText));
-    vi.runAllTimers();
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
     // Nothing after click
     user.click(screen.getByText(TriggerText));
-    vi.runAllTimers();
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
     // Nothing after right-click
     fireEvent.contextMenu(screen.getByText(TriggerText));
-    vi.runAllTimers();
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
     // Nothing after focus
     fireEvent.focus(screen.getByText(TriggerText));
-    vi.runAllTimers();
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
   });
 });
@@ -262,7 +258,6 @@ describe('visible option controls the state and', () => {
 
     // The state is controlled, click doesn't change it
     user.click(screen.getByText(TriggerText));
-    vi.runAllTimers();
     expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
   });
 
@@ -272,7 +267,6 @@ describe('visible option controls the state and', () => {
 
     // The state is controlled, click doesn't change it
     user.click(screen.getByText(TriggerText));
-    vi.runAllTimers();
     expect(await screen.findByText(TooltipText)).toBeInTheDocument();
   });
 });
