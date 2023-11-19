@@ -37,8 +37,8 @@ beforeEach(() => {
   vi.useFakeTimers();
 });
 
-afterEach(() => {
-  vi.runOnlyPendingTimers();
+afterEach(async () => {
+  await vi.runOnlyPendingTimersAsync();
   vi.useRealTimers();
 });
 
@@ -198,10 +198,11 @@ test('delayShow option renders tooltip after specified delay', async () => {
 
   user.hover(screen.getByText(TriggerText));
   // Nothing after a 2000ms
-  vi.advanceTimersByTime(2000);
+  await vi.advanceTimersByTimeAsync(2000);
   expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
-  vi.runAllTimers();
+  await vi.runAllTimersAsync();
+  screen.debug();
   // It shows up sometime later. Here RTL uses fake timers to await as well, so
   // it awaits for the element infinitely, advancing jest fake timer by 50ms
   // in an endless loop. And this is why the test passes even if delayShow set
@@ -213,14 +214,14 @@ test('delayHide option removes tooltip after specified delay', async () => {
   render(<Tooltip options={{delayHide: 5000}} />);
 
   user.hover(screen.getByText(TriggerText));
-  vi.runAllTimers();
+  await vi.runAllTimersAsync();
   expect(await screen.findByText(TooltipText)).toBeInTheDocument();
 
   user.unhover(screen.getByText(TriggerText));
   // Still present after 2000ms
-  vi.advanceTimersByTime(2000);
+  await vi.advanceTimersByTimeAsync(2000);
   expect(screen.getByText(TooltipText)).toBeInTheDocument();
-  vi.runAllTimers();
+  await vi.runAllTimersAsync();
   // Removed some time later
   expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 });

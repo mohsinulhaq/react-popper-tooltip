@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +41,7 @@ jobs:
           pnpm build
           pnpm test
           pnpm lint
-          bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
         env:
           CI: true
+      - uses: codecov/codecov-action@v4:
+          token: ${{ secrets.CODECOV_TOKEN }}
