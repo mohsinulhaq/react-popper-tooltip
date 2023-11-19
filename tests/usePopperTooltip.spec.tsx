@@ -202,7 +202,6 @@ test('delayShow option renders tooltip after specified delay', async () => {
   expect(screen.queryByText(TooltipText)).not.toBeInTheDocument();
 
   await vi.runAllTimersAsync();
-  screen.debug();
   // It shows up sometime later. Here RTL uses fake timers to await as well, so
   // it awaits for the element infinitely, advancing jest fake timer by 50ms
   // in an endless loop. And this is why the test passes even if delayShow set
