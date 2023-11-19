@@ -63,8 +63,8 @@
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^12",
     "@testing-library/user-event": "^14.5.1",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@vitest/coverage-v8": "^1.0.0-beta.4",
     "eslint-config-prettier": "^9.0.0",
@@ -75,11 +75,11 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
     "prettier": "^3.1.0",
-    "react": "^17",
-    "react-dom": "^17",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "storybook": "^7.5.3",
-    "tsup": "^7.2.0",
+    "tsup": "^8.0.0",
     "typescript": "^5.2.2",
-    "vitest": "^1.0.0-beta.4"
+    "vitest": "^1.0.0-beta.5"
   }
 }
