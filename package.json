@@ -8,6 +8,10 @@
     "type": "git",
     "url": "https://github.com/mohsinulhaq/react-popper-tooltip"
   },
+  "homepage": "https://github.com/mohsinulhaq/react-popper-tooltip#readme",
+  "bugs": {
+    "url": "https://github.com/mohsinulhaq/react-popper-tooltip/issues"
+  },
   "keywords": [
     "react",
     "tooltip",
